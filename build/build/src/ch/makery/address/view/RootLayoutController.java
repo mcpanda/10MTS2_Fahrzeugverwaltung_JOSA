@@ -1,17 +1,10 @@
 package ch.makery.address.view;
 
 import java.io.File;
-import java.io.IOException;
-import java.net.URL;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.control.MenuItem;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
 import javafx.stage.FileChooser;
 import ch.makery.address.MainApp;
 
@@ -35,39 +28,6 @@ public class RootLayoutController {
     public void setMainApp(MainApp mainApp) {
         this.mainApp = mainApp;
     }
-
-    @FXML
-    private MenuItem personOverview;
-
-    @FXML
-    private MenuItem fahrzeugOverview;
-
-    @FXML
-    void switchToOne(ActionEvent event) {
-    	try {
-    		URL personOverviewUrl = getClass().getResource("PersonOverview.fxml");
-    		AnchorPane personOverview = FXMLLoader.load(personOverviewUrl);
-
-    		BorderPane border = MainApp.getRootLayout();
-    		border.setCenter(personOverview);
-    	} catch (IOException e) {
-    		e.printStackTrace();
-    	}
-    }
-
-    @FXML
-    void switchToTwo(ActionEvent event) {
-    	try {
-    		URL fahrzeugOverviewUrl = getClass().getResource("FahrzeugOverview.fxml");
-    		AnchorPane fahrzeugOverview = FXMLLoader.load(fahrzeugOverviewUrl);
-
-    		BorderPane border = MainApp.getRootLayout();
-    		border.setCenter(fahrzeugOverview);
-    	} catch (IOException e) {
-    		e.printStackTrace();
-    	}
-    }
-
 
     /**
      * Creates an empty address book.
@@ -97,7 +57,6 @@ public class RootLayoutController {
             mainApp.loadPersonDataFromFile(file);
         }
     }
-
 
     /**
      * Saves the file to the person file that is currently open. If there is no

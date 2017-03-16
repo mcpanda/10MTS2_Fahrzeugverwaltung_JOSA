@@ -28,16 +28,15 @@ public class Fahrzeug {
     private final IntegerProperty Leistung;
     private final StringProperty Fahrzeugidentifikationsnummer;
     private final ObjectProperty<LocalDate> Aenderungsdatum;
-    private final BooleanProperty Ausleihzustand;
-    private final BooleanProperty Automatik;
+    private final StringProperty Ausleihzustand;
+    private final StringProperty Automatik;
     private final IntegerProperty Kilometerstand;
-    private final IntegerProperty Sitzplaetze;
 
     /**
      * Default constructor.
      */
     public Fahrzeug() {
-        this(null, null);
+        this(null, null, null, 0, null, null, null, 0);
     }
 
     /**
@@ -46,57 +45,44 @@ public class Fahrzeug {
      * @param Hersteller
      * @param Marke
      */
-    public Fahrzeug(String Hersteller, String Marke) {
+    public Fahrzeug(String Hersteller, String Marke, String kraftstoff, int leistung, String fahrzeugidentifikationsnummer, String ausleihzustand, String automatik, int kilometerstand) {
         this.Hersteller = new SimpleStringProperty(Hersteller);
         this.Marke = new SimpleStringProperty(Marke);
+        this.Kraftstoff = new SimpleStringProperty(kraftstoff);
+        this.Leistung = new SimpleIntegerProperty(leistung);
+        this.Fahrzeugidentifikationsnummer = new SimpleStringProperty(fahrzeugidentifikationsnummer);
+        this.Ausleihzustand= new SimpleStringProperty(ausleihzustand);
+        this.Automatik= new SimpleStringProperty(automatik);
+        this.Kilometerstand = new SimpleIntegerProperty(kilometerstand);
 
         // Some initial dummy data, just for convenient testing.
-        this.Kraftstoff = new SimpleStringProperty("some Kraftstoff");
-        this.Leistung = new SimpleIntegerProperty(1234);
-        this.Fahrzeugidentifikationsnummer = new SimpleStringProperty("some Fahrzeugidentifikationsnummer");
         this.Aenderungsdatum = new SimpleObjectProperty<LocalDate>(LocalDate.of(1999, 2, 21));
-        this.Ausleihzustand= new SimpleBooleanProperty(true);
-        this.Automatik= new SimpleBooleanProperty(true);
-        this.Kilometerstand = new SimpleIntegerProperty(110);
-        this.Sitzplaetze = new SimpleIntegerProperty(4);
-        
+
     }
 
- 
-   public boolean getAusleihzustand() {
+
+   public String getAusleihzustand() {
 		return Ausleihzustand.get();
 	}
-	
-	public void setAusleihzustand(boolean Ausleihzustand) {
+
+	public void setAusleihzustand(String Ausleihzustand) {
 		this.Ausleihzustand.set(Ausleihzustand);
 	}
-	
-	public BooleanProperty AusleihzustandProperty() {
+
+	public StringProperty ausleihzustandProperty() {
 		return Ausleihzustand;
 	}
-	
- 	public boolean getAutomatik() {
+
+ 	public String getAutomatik() {
 		return Automatik.get();
 	}
-	
-	public void setAutomatik(boolean Automatik) {
+
+	public void setAutomatik(String Automatik) {
 		this.Automatik.set(Automatik);
 	}
-	
-	public BooleanProperty AutomatikProperty() {
-		return Automatik;
-	} 
 
-	public int getSitzplaetze() {
-		return Sitzplaetze.get();
-	}
-	
-	public void setSitzplaetze(int Sitzplaetze) {
-		this.Sitzplaetze.set(Sitzplaetze);
-	}
-	
-	public IntegerProperty SitzplaetzeProperty() {
-		return Sitzplaetze;
+	public StringProperty automatikProperty() {
+		return Automatik;
 	}
 
 	public int getKilometerstand() {
@@ -107,7 +93,7 @@ public class Fahrzeug {
 		this.Kilometerstand.set(Kilometerstand);
 	}
 
-	public IntegerProperty KilometerstandProperty() {
+	public IntegerProperty kilometerstandProperty() {
 		return Kilometerstand;
 	}
 
@@ -119,7 +105,7 @@ public class Fahrzeug {
         this.Hersteller.set(Hersteller);
     }
 
-    public StringProperty HerstellerProperty() {
+    public StringProperty herstellerProperty() {
         return Hersteller;
     }
 
@@ -131,7 +117,7 @@ public class Fahrzeug {
         this.Marke.set(Marke);
     }
 
-    public StringProperty MarkeProperty() {
+    public StringProperty markeProperty() {
         return Marke;
     }
 
@@ -143,7 +129,7 @@ public class Fahrzeug {
         this.Kraftstoff.set(Kraftstoff);
     }
 
-    public StringProperty KraftstoffProperty() {
+    public StringProperty kraftstoffProperty() {
         return Kraftstoff;
     }
 
@@ -155,7 +141,7 @@ public class Fahrzeug {
         this.Leistung.set(Leistung);
     }
 
-    public IntegerProperty LeistungProperty() {
+    public IntegerProperty leistungProperty() {
         return Leistung;
     }
 
@@ -167,11 +153,11 @@ public class Fahrzeug {
         this.Fahrzeugidentifikationsnummer.set(Fahrzeugidentifikationsnummer);
     }
 
-    public StringProperty FahrzeugidentifikationsnummerProperty() {
+    public StringProperty fahrzeugidentifikationsnummerProperty() {
         return Fahrzeugidentifikationsnummer;
     }
-    
-    
+
+
 
     @XmlJavaTypeAdapter(LocalDateAdapter.class)
     public LocalDate getAenderungsdatum() {

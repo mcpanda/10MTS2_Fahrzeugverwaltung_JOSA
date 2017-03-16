@@ -19,18 +19,16 @@
                   <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
             </items>
           </Menu>
-          <Menu mnemonicParsing="false" text="Verwaltung">
-            <items>
-                  <MenuItem mnemonicParsing="false" onAction="#switchToOne" text="Personen Verwaltung" />
-                  <MenuItem mnemonicParsing="false" onAction="#switchToTwo" text="Fahrzeug Verwaltung" />
-              <MenuItem mnemonicParsing="false" text="Ausleihen / Zurückgeben" />
-            </items>
-          </Menu>
             <Menu mnemonicParsing="false" text="Statistics">
               <items>
-                <MenuItem mnemonicParsing="false" onAction="#handleShowBirthdayStatistics" text="Show Birth Month Distribution" />
+                <MenuItem mnemonicParsing="false" onAction="#handleShowBirthdayStatistics" text="Show Statistics" />
               </items>
             </Menu>
+          <Menu mnemonicParsing="false" text="Edit">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Delete" />
+            </items>
+          </Menu>
           <Menu mnemonicParsing="false" text="Help">
             <items>
               <MenuItem mnemonicParsing="false" text="About" />

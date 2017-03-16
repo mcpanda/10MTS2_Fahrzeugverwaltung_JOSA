@@ -31,7 +31,7 @@ public class Person {
      * Default constructor.
      */
     public Person() {
-        this(null, null, null, 0, null);
+        this(null, null);
     }
 
     /**
@@ -40,14 +40,14 @@ public class Person {
      * @param firstName
      * @param lastName
      */
-    public Person(String firstName, String lastName, String street, int postal, String city) {
+    public Person(String firstName, String lastName) {
         this.firstName = new SimpleStringProperty(firstName);
         this.lastName = new SimpleStringProperty(lastName);
-        this.street = new SimpleStringProperty(street);
-        this.postalCode = new SimpleIntegerProperty(postal);
-        this.city = new SimpleStringProperty(city);
-        
+
         // Some initial dummy data, just for convenient testing.
+        this.street = new SimpleStringProperty("some street");
+        this.postalCode = new SimpleIntegerProperty(1234);
+        this.city = new SimpleStringProperty("some city");
         this.birthday = new SimpleObjectProperty<LocalDate>(LocalDate.of(1999, 2, 21));
     }
 

@@ -12,16 +12,12 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import ch.makery.address.model.Person;
-import ch.makery.address.model.Fahrzeug;
 import ch.makery.address.view.PersonEditDialogController;
-import ch.makery.address.view.FahrzeugEditDialogController;
 import ch.makery.address.view.PersonOverviewController;
-import ch.makery.address.view.FahrzeugOverviewController;
 import java.io.File;
 import java.util.prefs.Preferences;
 import javax.xml.bind.JAXBContext;
 import ch.makery.address.model.PersonListWrapper;
-import ch.makery.address.model.FahrzeugListWrapper;
 import javax.xml.bind.Unmarshaller;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -33,42 +29,27 @@ import ch.makery.address.view.BirthdayStatisticsController;
 public class MainApp extends Application {
 
     private Stage primaryStage;
-    private static BorderPane rootLayout;
-
-    public static BorderPane getRootLayout() {
-    	return rootLayout;
-    }
+    private BorderPane rootLayout;
 
     /**
      * The data as an observable list of Persons.
      */
     private ObservableList<Person> personData = FXCollections.observableArrayList();
-    private ObservableList<Fahrzeug> fahrzeugData = FXCollections.observableArrayList();
 
     /**
      * Constructor
      */
     public MainApp() {
         // Add some sample data
-        personData.add(new Person("Olga", "Neuer", "Siemensstrasse 12", 93055, "Regensburg"));
-        personData.add(new Person("Mohammad", "Hummels", "Siemensstrasse 12", 93055, "Regensburg"));
-        personData.add(new Person("Martin", "Boateng", "Siemensstrasse 12", 93055, "Regensburg"));
-        personData.add(new Person("Korbinian", "Lahm", "Siemensstrasse 12", 93055, "Regensburg"));
-        personData.add(new Person("Nichlas", "Hoewedes", "Siemensstrasse 12", 93055, "Regensburg"));
-        personData.add(new Person("Aileen", "Khedira", "Siemensstrasse 12", 93055, "Regensburg"));
-        personData.add(new Person("Murat", "Schweinsteiger", "Siemensstrasse 12", 93055, "Regensburg"));
-        personData.add(new Person("hmm", "Mueller", "Siemensstrasse 12", 93055, "Regensburg"));
-        personData.add(new Person("Irena", "Oezil", "Alfred-Teves-Strass 11", 38518, "Gifhorn"));
-        personData.add(new Person("Janes", "Klose", "Alfred-Teves-Strass 11", 38518, "Gifhorn"));
-        personData.add(new Person("Michelle", "Goetze", "Alfred-Teves-Strass 11", 38518, "Gifhorn"));
-        personData.add(new Person("Erik", "Schuerle", "Alfred-Teves-Strass 11", 38518, "Gifhorn"));
-        personData.add(new Person("Felix", "Krammer", "Alfred-Teves-Strass 11", 38518, "Gifhorn"));
-        personData.add(new Person("Micky", "Mustafi", "Vahrenwalder Str. 9", 30165, "Hannover"));
-        personData.add(new Person("Fabian", "Weidenfeller", "Vahrenwalder Str. 9", 30165, "Hannover"));
-        personData.add(new Person("Bilal", "Durm", "Heinrich-Hertz-Strasse 45", 78052, "Villingen"));
-        personData.add(new Person("Julia", "Mertesacker", "Sieboldstrasse 19", 90411, "Nuernberg"));
-        personData.add(new Person("Simon", "Ginter", "Sieboldstrasse 19", 90411, "Nuernberg"));
-        personData.add(new Person("Alexander", "Kroos", "Sieboldstrasse 19", 90411, "Nuernberg"));
+        personData.add(new Person("Hans", "Muster"));
+        personData.add(new Person("Ruth", "Mueller"));
+        personData.add(new Person("Heinz", "Kurz"));
+        personData.add(new Person("Cornelia", "Meier"));
+        personData.add(new Person("Werner", "Meyer"));
+        personData.add(new Person("Lydia", "Kunz"));
+        personData.add(new Person("Anna", "Best"));
+        personData.add(new Person("Stefan", "Meier"));
+        personData.add(new Person("Martin", "Mueller"));
     }
 
     /**
@@ -77,10 +58,6 @@ public class MainApp extends Application {
      */
     public ObservableList<Person> getPersonData() {
         return personData;
-    }
-
-    public ObservableList<Fahrzeug> getFahrzeugData() {
-        return fahrzeugData;
     }
 
     /**
@@ -121,40 +98,10 @@ public class MainApp extends Application {
         }
     }
 
-    public boolean showFahrzeugEditDialog(Fahrzeug fahrzeug) {
-        try {
-            // Load the fxml file and create a new stage for the popup dialog.
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("view/FahrzeugEditDialog.fxml"));
-            AnchorPane page = (AnchorPane) loader.load();
-
-            // Create the dialog Stage.
-            Stage dialogStage = new Stage();
-            dialogStage.setTitle("Fahrzeug Person");
-            dialogStage.initModality(Modality.WINDOW_MODAL);
-            dialogStage.initOwner(primaryStage);
-            Scene scene = new Scene(page);
-            dialogStage.setScene(scene);
-
-            // Set the person into the controller.
-            FahrzeugEditDialogController controller = loader.getController();
-            controller.setDialogStage(dialogStage);
-            controller.setFahrzeug(fahrzeug);
-
-            // Show the dialog and wait until the user closes it
-            dialogStage.showAndWait();
-
-            return controller.isOkClicked();
-        } catch (IOException e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
-
     @Override
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
-        this.primaryStage.setTitle("Fuhrparkverwaltung");
+        this.primaryStage.setTitle("AddressApp");
 
         initRootLayout();
 
@@ -256,12 +203,12 @@ public class MainApp extends Application {
             prefs.put("filePath", file.getPath());
 
             // Update the stage title.
-            primaryStage.setTitle("Fuhrparkverwaltung - " + file.getName());
+            primaryStage.setTitle("AddressApp - " + file.getName());
         } else {
             prefs.remove("filePath");
 
             // Update the stage title.
-            primaryStage.setTitle("Fuhrparkverwaltung");
+            primaryStage.setTitle("AddressApp");
         }
     }
 
