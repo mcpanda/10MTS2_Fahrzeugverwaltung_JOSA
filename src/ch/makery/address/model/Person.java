@@ -1,7 +1,12 @@
 package ch.makery.address.model;
 
-import java.time.LocalDate;
+/**************************************************************************/
+/*                                                                        */
+/* Import Section                                                         */
+/*                                                                        */
+/**************************************************************************/
 
+import java.time.LocalDate;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -13,13 +18,15 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import ch.makery.address.util.LocalDateAdapter;
 
-/**
- * Model class for a Person.
- *
- * @author Marco Jakob
- */
+/**************************************************************************/
+/*                                                                        */
+/* Class Person                                                           */
+/*                                                                        */
+/**************************************************************************/
+
 public class Person {
 
+	private final IntegerProperty personID;
     private final StringProperty firstName;
     private final StringProperty lastName;
     private final StringProperty street;
@@ -27,28 +34,45 @@ public class Person {
     private final StringProperty city;
     private final ObjectProperty<LocalDate> birthday;
 
-    /**
-     * Default constructor.
-     */
+	/**************************************************************************/
+	/*                                                                        */
+	/* Constructurs                                                           */
+	/*                                                                        */
+	/**************************************************************************/
+    
     public Person() {
-        this(null, null, null, 0, null);
+        this(0, null, null, null, 0, null);
     }
 
-    /**
-     * Constructor with some initial data.
-     *
-     * @param firstName
-     * @param lastName
-     */
-    public Person(String firstName, String lastName, String street, int postal, String city) {
+    public Person(int personID, String firstName, String lastName, String street, int postal, String city) {
+    	this.personID = new SimpleIntegerProperty(personID);
         this.firstName = new SimpleStringProperty(firstName);
         this.lastName = new SimpleStringProperty(lastName);
         this.street = new SimpleStringProperty(street);
         this.postalCode = new SimpleIntegerProperty(postal);
         this.city = new SimpleStringProperty(city);
-        
-        // Some initial dummy data, just for convenient testing.
+
         this.birthday = new SimpleObjectProperty<LocalDate>(LocalDate.of(1999, 2, 21));
+    }
+
+	/**************************************************************************/
+	/*                                                                        */
+	/* Getters and Setters													  */
+	/* 																		  */
+	/* Wir nutzen Properties um Änderungen unverzüglich anzeigen zu lassen    */
+	/*                                                                        */
+	/**************************************************************************/
+    
+    public int getPersonID() {
+        return personID.get();
+    }
+
+    public void setPersonID(int personID) {
+        this.personID.set(personID);
+    }
+
+    public IntegerProperty personIDProperty() {
+        return personID;
     }
 
     public String getFirstName() {

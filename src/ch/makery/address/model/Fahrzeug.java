@@ -1,174 +1,149 @@
 package ch.makery.address.model;
 
-import java.time.LocalDate;
+/**************************************************************************/
+/*                                                                        */
+/* Import Section                                                         */
+/*                                                                        */
+/**************************************************************************/
 
+import java.time.LocalDate;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.SimpleBooleanProperty;
-
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-
 import ch.makery.address.util.LocalDateAdapter;
 
-/**
- * Model class for a Fahrzeug.
- *
- * @author Marco Jakob
- */
+/**************************************************************************/
+/*                                                                        */
+/* Class Fahrzeug                                                         */
+/*                                                                        */
+/**************************************************************************/
+
 public class Fahrzeug {
 
-    private final StringProperty Hersteller;
-    private final StringProperty Marke;
-    private final StringProperty Kraftstoff;
-    private final IntegerProperty Leistung;
-    private final StringProperty Fahrzeugidentifikationsnummer;
-    private final ObjectProperty<LocalDate> Aenderungsdatum;
-    private final StringProperty Ausleihzustand;
-    private final StringProperty Automatik;
-    private final IntegerProperty Kilometerstand;
+	private final IntegerProperty fahrzeugID;
+    private final StringProperty hersteller;
+    private final StringProperty marke;
+    private final StringProperty kraftstoff;
+    private final IntegerProperty leistung;
+    private final IntegerProperty kilometerstand;
+    private final ObjectProperty<LocalDate> aenderungsdatum;
 
-    /**
-     * Default constructor.
-     */
+	/**************************************************************************/
+	/*                                                                        */
+	/* Constructurs                                                           */
+	/*                                                                        */
+	/**************************************************************************/
+    
     public Fahrzeug() {
-        this(null, null, null, 0, null, null, null, 0);
+        this(0, null, null, null, 0, 0);
     }
 
-    /**
-     * Constructor with some initial data.
-     *
-     * @param Hersteller
-     * @param Marke
-     */
-    public Fahrzeug(String Hersteller, String Marke, String kraftstoff, int leistung, String fahrzeugidentifikationsnummer, String ausleihzustand, String automatik, int kilometerstand) {
-        this.Hersteller = new SimpleStringProperty(Hersteller);
-        this.Marke = new SimpleStringProperty(Marke);
-        this.Kraftstoff = new SimpleStringProperty(kraftstoff);
-        this.Leistung = new SimpleIntegerProperty(leistung);
-        this.Fahrzeugidentifikationsnummer = new SimpleStringProperty(fahrzeugidentifikationsnummer);
-        this.Ausleihzustand= new SimpleStringProperty(ausleihzustand);
-        this.Automatik= new SimpleStringProperty(automatik);
-        this.Kilometerstand = new SimpleIntegerProperty(kilometerstand);
+    public Fahrzeug(int fahrzeugID, String hersteller, String marke, String kraftstoff, int leistung, int kilometerstand) {
+        this.fahrzeugID = new SimpleIntegerProperty(fahrzeugID);
+    	this.hersteller = new SimpleStringProperty(hersteller);
+        this.marke = new SimpleStringProperty(marke);
+        this.kraftstoff = new SimpleStringProperty(kraftstoff);
+        this.leistung = new SimpleIntegerProperty(leistung);
+        this.kilometerstand = new SimpleIntegerProperty(kilometerstand);
 
-        // Some initial dummy data, just for convenient testing.
-        this.Aenderungsdatum = new SimpleObjectProperty<LocalDate>(LocalDate.of(1999, 2, 21));
+        this.aenderungsdatum = new SimpleObjectProperty<LocalDate>(LocalDate.of(2017, 2, 21));
+    }
+    
+	/**************************************************************************/
+	/*                                                                        */
+	/* Getters and Setters													  */
+	/* 																		  */
+	/* Wir nutzen Properties um Änderungen unverzüglich anzeigen zu lassen    */
+	/*                                                                        */
+	/**************************************************************************/
 
+    public int getFahrzeugID() {
+        return fahrzeugID.get();
     }
 
+    public void setFahrzeugID(int fahrzeugID) {
+        this.fahrzeugID.set(fahrzeugID);
+    }
 
-   public String getAusleihzustand() {
-		return Ausleihzustand.get();
-	}
-
-	public void setAusleihzustand(String Ausleihzustand) {
-		this.Ausleihzustand.set(Ausleihzustand);
-	}
-
-	public StringProperty ausleihzustandProperty() {
-		return Ausleihzustand;
-	}
-
- 	public String getAutomatik() {
-		return Automatik.get();
-	}
-
-	public void setAutomatik(String Automatik) {
-		this.Automatik.set(Automatik);
-	}
-
-	public StringProperty automatikProperty() {
-		return Automatik;
-	}
+    public IntegerProperty fahrzeugIDProperty() {
+        return fahrzeugID;
+    }
 
 	public int getKilometerstand() {
-		return Kilometerstand.get();
+		return kilometerstand.get();
 	}
 
-	public void setKilometerstand(int Kilometerstand) {
-		this.Kilometerstand.set(Kilometerstand);
+	public void setKilometerstand(int kilometerstand) {
+		this.kilometerstand.set(kilometerstand);
 	}
 
 	public IntegerProperty kilometerstandProperty() {
-		return Kilometerstand;
+		return kilometerstand;
 	}
 
     public String getHersteller() {
-        return Hersteller.get();
+        return hersteller.get();
     }
 
-    public void setHersteller(String Hersteller) {
-        this.Hersteller.set(Hersteller);
+    public void setHersteller(String hersteller) {
+        this.hersteller.set(hersteller);
     }
 
     public StringProperty herstellerProperty() {
-        return Hersteller;
+        return hersteller;
     }
 
     public String getMarke() {
-        return Marke.get();
+        return marke.get();
     }
 
-    public void setMarke(String Marke) {
-        this.Marke.set(Marke);
+    public void setMarke(String marke) {
+        this.marke.set(marke);
     }
 
     public StringProperty markeProperty() {
-        return Marke;
+        return marke;
     }
 
     public String getKraftstoff() {
-        return Kraftstoff.get();
+        return kraftstoff.get();
     }
 
-    public void setKraftstoff(String Kraftstoff) {
-        this.Kraftstoff.set(Kraftstoff);
+    public void setKraftstoff(String kraftstoff) {
+        this.kraftstoff.set(kraftstoff);
     }
 
     public StringProperty kraftstoffProperty() {
-        return Kraftstoff;
+        return kraftstoff;
     }
 
     public int getLeistung() {
-        return Leistung.get();
+        return leistung.get();
     }
 
-    public void setLeistung(int Leistung) {
-        this.Leistung.set(Leistung);
+    public void setLeistung(int leistung) {
+        this.leistung.set(leistung);
     }
 
     public IntegerProperty leistungProperty() {
-        return Leistung;
+        return leistung;
     }
-
-    public String getFahrzeugidentifikationsnummer() {
-        return Fahrzeugidentifikationsnummer.get();
-    }
-
-    public void setFahrzeugidentifikationsnummer(String Fahrzeugidentifikationsnummer) {
-        this.Fahrzeugidentifikationsnummer.set(Fahrzeugidentifikationsnummer);
-    }
-
-    public StringProperty fahrzeugidentifikationsnummerProperty() {
-        return Fahrzeugidentifikationsnummer;
-    }
-
 
 
     @XmlJavaTypeAdapter(LocalDateAdapter.class)
     public LocalDate getAenderungsdatum() {
-        return Aenderungsdatum.get();
+        return aenderungsdatum.get();
     }
 
-    public void setAenderungsdatum(LocalDate Aenderungsdatum) {
-        this.Aenderungsdatum.set(Aenderungsdatum);
+    public void setAenderungsdatum(LocalDate aenderungsdatum) {
+        this.aenderungsdatum.set(aenderungsdatum);
     }
 
-    public ObjectProperty<LocalDate> AenderungsdatumProperty() {
-        return Aenderungsdatum;
+    public ObjectProperty<LocalDate> aenderungsdatumProperty() {
+        return aenderungsdatum;
     }
 }

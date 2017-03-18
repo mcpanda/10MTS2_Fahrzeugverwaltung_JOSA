@@ -1,31 +1,49 @@
 package ch.makery.address.view;
 
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.StringProperty;
+/**************************************************************************/
+/*                                                                        */
+/* Import Section                                                         */
+/*                                                                        */
+/**************************************************************************/
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-
-import java.time.LocalDate;
-
 import ch.makery.address.MainApp;
 import ch.makery.address.model.Fahrzeug;
 import ch.makery.address.util.DateUtil;
 
+/**************************************************************************/
+/*                                                                        */
+/* Class FahrzeugOverviewController                                       */
+/*                                                                        */
+/**************************************************************************/
 
 public class FahrzeugOverviewController {
+
+    // Reference to the main application.
+    private MainApp mainApp;
+
+	/**************************************************************************/
+	/*                                                                        */
+	/* FXML Column/Labeln Section                                             */
+	/*                                                                        */
+	/**************************************************************************/
+
     @FXML
     private TableView<Fahrzeug> fahrzeugTable;
+    @FXML
+    private TableColumn<Fahrzeug, Integer> fahrzeugIDColumn;
     @FXML
     private TableColumn<Fahrzeug, String> herstellerColumn;
     @FXML
     private TableColumn<Fahrzeug, String> markeColumn;
 
+    @FXML
+    private Label fahrzeugIDLabel;
     @FXML
     private Label herstellerLabel;
     @FXML
@@ -35,33 +53,45 @@ public class FahrzeugOverviewController {
     @FXML
     private Label leistungLabel;
     @FXML
-    private Label fahrzeugidentifikationsnummerLabel;
-    @FXML
     private Label aenderungsdatumLabel;
-    @FXML
-    private Label ausleihzustandLabel;
-    @FXML
-    private Label automatikLabel;
     @FXML
     private Label kilometerstandLabel;
 
-    // Reference to the main application.
-    private MainApp mainApp;
+	/**************************************************************************/
+	/*                                                                        */
+	/* Constructur                                                            */
+	/*                                                                        */
+	/**************************************************************************/
 
-    /**
-     * The constructor.
-     * The constructor is called before the initialize() method.
-     */
+    /* Standard Konstruktur. Muss vor dem Initializieren aufgerufen werden.   */
+
     public FahrzeugOverviewController() {
     }
 
-    /**
-     * Initializes the controller class. This method is automatically called
-     * after the fxml file has been loaded.
-     */
+	/**************************************************************************/
+	/*                                                                        */
+	/* Local Operation Section                                                */
+	/*                                                                        */
+	/**************************************************************************/
+
+	/***************************************************************************
+
+	METHODENNAME:	initialize
+
+	BESCHREIBUNG:   Initialisiert die Controller Klasse. Diese Methode wird
+					automatisch aufgerufen, nachdem die fxml Datei
+					geladen wurde
+
+	PARAMETER: 		void
+
+	RETURN:			void
+
+	***************************************************************************/
+
     @FXML
     private void initialize() {
         // Initialize the Fahrzeug table with the two columns.
+    	fahrzeugIDColumn.setCellValueFactory(cellData -> cellData.getValue().fahrzeugIDProperty().asObject());
         herstellerColumn.setCellValueFactory(cellData -> cellData.getValue().herstellerProperty());
         markeColumn.setCellValueFactory(cellData -> cellData.getValue().markeProperty());
 
@@ -73,11 +103,19 @@ public class FahrzeugOverviewController {
                 (observable, oldValue, newValue) -> showFahrzeugDetails(newValue));
     }
 
-    /**
-     * Is called by the main application to give a reference back to itself.
-     *
-     * @param mainApp
-     */
+	/***************************************************************************
+
+	METHODENNAME:	setMainApp
+
+	BESCHREIBUNG:   Is called by the main application to give a reference back
+					to itself.
+
+	PARAMETER: 		mainApp
+
+	RETURN:			void
+
+	***************************************************************************/
+
     public void setMainApp(MainApp mainApp) {
         this.mainApp = mainApp;
 
@@ -85,42 +123,57 @@ public class FahrzeugOverviewController {
         fahrzeugTable.setItems(mainApp.getFahrzeugData());
     }
 
-    /**
-     * Fills all text fields to show details about the Fahrzeug.
-     * If the specified Fahrzeug is null, all text fields are cleared.
-     *
-     * @param Fahrzeug the Fahrzeug or null
-     */
+	/***************************************************************************
+
+	METHODENNAME:	showFahrzeugDetails
+
+	BESCHREIBUNG:   Zeigt die Details eines ausgewählten Fahrzeugs an.
+					Ist kein Fahrzeug ausgewählt, so wird nichts angezeigt.
+
+	PARAMETER: 		Fahrzeug.
+					Einn Objekt der Klasse Fahrzeug, von welchem die
+					Details angezeigt werden sollen.
+
+	RETURN:			void
+
+	***************************************************************************/
+
     private void showFahrzeugDetails(Fahrzeug fahrzeug) {
         if (fahrzeug != null) {
+        	fahrzeugIDLabel.setText(Integer.toString(fahrzeug.getLeistung()));
             // Fill the labels with info from the Fahrzeug object.
             herstellerLabel.setText(fahrzeug.getHersteller());
             markeLabel.setText(fahrzeug.getMarke());
             kraftstoffLabel.setText(fahrzeug.getKraftstoff());
             leistungLabel.setText(Integer.toString(fahrzeug.getLeistung()));
-            fahrzeugidentifikationsnummerLabel.setText(fahrzeug.getFahrzeugidentifikationsnummer());
             aenderungsdatumLabel.setText(DateUtil.format(fahrzeug.getAenderungsdatum()));
-            ausleihzustandLabel.setText(fahrzeug.getAusleihzustand());
-            automatikLabel.setText(fahrzeug.getAutomatik());
             kilometerstandLabel.setText(Integer.toString(fahrzeug.getKilometerstand()));
-
         } else {
             // Fahrzeug is null, remove all the text.
+        	fahrzeugIDLabel.setText("");
         	herstellerLabel.setText("");
         	markeLabel.setText("");
         	kraftstoffLabel.setText("");
         	leistungLabel.setText("");
-        	fahrzeugidentifikationsnummerLabel.setText("");
         	aenderungsdatumLabel.setText("");
-        	ausleihzustandLabel.setText("");
-        	automatikLabel.setText("");
         	kilometerstandLabel.setText("");
         }
     }
 
-    /**
-     * Called when the user clicks on the delete button.
-     */
+	/***************************************************************************
+
+	METHODENNAME:	handleDeleteFahrzeug
+
+	BESCHREIBUNG:   handler für den Delete Button.
+					Wird Delete angeklickt, so wird das ausgewählte Objekt
+					gelöscht.
+
+	PARAMETER: 		void
+
+	RETURN:			void
+
+	***************************************************************************/
+
     @FXML
     private void handleDeleteFahrzeug() {
         int selectedIndex = fahrzeugTable.getSelectionModel().getSelectedIndex();
@@ -138,10 +191,21 @@ public class FahrzeugOverviewController {
         }
     }
 
-    /**
-     * Called when the user clicks the new button. Opens a dialog to edit
-     * details for a new Fahrzeug.
-     */
+	/***************************************************************************
+
+	METHODENNAME:	handleNewFahrzeug
+
+	BESCHREIBUNG:   handler für den New Button.
+					Wird New angeklickt, so wird ein Dialogfeld aufgerufen, um
+					ein neues Objekt von der Klasse Fahrzeug zu erstellen.
+					Hierbei können alle nötigen Attribute eingegeben werden.
+
+	PARAMETER: 		void
+
+	RETURN:			void
+
+	***************************************************************************/
+
     @FXML
     private void handleNewFahrzeug() {
         Fahrzeug tempFahrzeug = new Fahrzeug();
@@ -151,10 +215,21 @@ public class FahrzeugOverviewController {
         }
     }
 
-    /**
-     * Called when the user clicks the edit button. Opens a dialog to edit
-     * details for the selected Fahrzeug.
-     */
+	/***************************************************************************
+
+	METHODENNAME:	handleEditFahrzeug
+
+	BESCHREIBUNG:   handler für den Edit Button.
+					Wird Edit angeklickt, so wird ein Dialogfeld aufgerufen, um
+					die Attribute, des ausgewählten Fahrzeugs, verändern zu
+					können.
+
+	PARAMETER: 		void
+
+	RETURN:			void
+
+	***************************************************************************/
+
     @FXML
     private void handleEditFahrzeug() {
         Fahrzeug selectedFahrzeug = fahrzeugTable.getSelectionModel().getSelectedItem();

@@ -1,27 +1,39 @@
 package ch.makery.address.util;
 
+/**************************************************************************/
+/*                                                                        */
+/* Import Section                                                         */
+/*                                                                        */
+/**************************************************************************/
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-/**
- * Helper functions for handling dates.
- * 
- * @author Marco Jakob
- */
+/**************************************************************************/
+/*                                                                        */
+/* Class DateUtil			                                              */
+/*                                                                        */
+/**************************************************************************/
+/**************************************************************************/
+/*                                                                        */
+/* Diese Klasse ist notwendig um ein Datum korrekt darzustellen 		  */
+/*                                                                        */
+/**************************************************************************/
+
 public class DateUtil {
 
     /** The date pattern that is used for conversion. Change as you wish. */
     private static final String DATE_PATTERN = "dd.MM.yyyy";
 
     /** The date formatter. */
-    private static final DateTimeFormatter DATE_FORMATTER = 
+    private static final DateTimeFormatter DATE_FORMATTER =
             DateTimeFormatter.ofPattern(DATE_PATTERN);
 
     /**
-     * Returns the given date as a well formatted String. The above defined 
+     * Returns the given date as a well formatted String. The above defined
      * {@link DateUtil#DATE_PATTERN} is used.
-     * 
+     *
      * @param date the date to be returned as a string
      * @return formatted string
      */
@@ -33,11 +45,11 @@ public class DateUtil {
     }
 
     /**
-     * Converts a String in the format of the defined {@link DateUtil#DATE_PATTERN} 
+     * Converts a String in the format of the defined {@link DateUtil#DATE_PATTERN}
      * to a {@link LocalDate} object.
-     * 
+     *
      * Returns null if the String could not be converted.
-     * 
+     *
      * @param dateString the date as String
      * @return the date object or null if it could not be converted
      */
@@ -51,7 +63,7 @@ public class DateUtil {
 
     /**
      * Checks the String whether it is a valid date.
-     * 
+     *
      * @param dateString
      * @return true if the String is a valid date
      */

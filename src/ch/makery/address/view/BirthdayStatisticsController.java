@@ -1,10 +1,15 @@
 package ch.makery.address.view;
 
+/**************************************************************************/
+/*                                                                        */
+/* Import Section                                                         */
+/*                                                                        */
+/**************************************************************************/
+
 import java.text.DateFormatSymbols;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -13,11 +18,14 @@ import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.XYChart;
 import ch.makery.address.model.Person;
 
-/**
- * The controller for the birthday statistics view.
- *
- * @author Marco Jakob
- */
+/**************************************************************************/
+/*                                                                        */
+/* Class MainApp                                                          */
+/*																		  */
+/* Controller for the birthday statistic view							  */
+/*                                                                        */
+/**************************************************************************/
+
 public class BirthdayStatisticsController {
 
     @FXML
@@ -28,10 +36,26 @@ public class BirthdayStatisticsController {
 
     private ObservableList<String> monthNames = FXCollections.observableArrayList();
 
-    /**
-     * Initializes the controller class. This method is automatically called
-     * after the fxml file has been loaded.
-     */
+	/**************************************************************************/
+	/*                                                                        */
+	/* Local Operation Section                                                */
+	/*                                                                        */
+	/**************************************************************************/
+
+	/***************************************************************************
+
+	METHODENNAME:	initialize
+
+	BESCHREIBUNG:   Initialisiert die Controller Klasse. Diese Methode wird
+					automatisch aufgerufen, nachdem die fxml Datei
+					geladen wurde
+
+	PARAMETER: 		void
+
+	RETURN:			void
+
+	***************************************************************************/
+    
     @FXML
     private void initialize() {
         // Get an array with the English month names.
@@ -43,11 +67,18 @@ public class BirthdayStatisticsController {
         xAxis.setCategories(monthNames);
     }
 
-    /**
-     * Sets the persons to show the statistics for.
-     *
-     * @param persons
-     */
+	/***************************************************************************
+
+	METHODENNAME:	setPersonData
+
+	BESCHREIBUNG:   lädt die Persoen für die Statistik.
+
+	PARAMETER: 		void
+
+	RETURN:			void
+
+	***************************************************************************/
+ 
     public void setPersonData(List<Person> persons) {
         // Count the number of people having their birthday in a specific month.
         int[] monthCounter = new int[12];

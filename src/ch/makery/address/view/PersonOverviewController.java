@@ -1,5 +1,11 @@
 package ch.makery.address.view;
 
+/**************************************************************************/
+/*                                                                        */
+/* Import Section                                                         */
+/*                                                                        */
+/**************************************************************************/
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -10,14 +16,34 @@ import ch.makery.address.MainApp;
 import ch.makery.address.model.Person;
 import ch.makery.address.util.DateUtil;
 
+/**************************************************************************/
+/*                                                                        */
+/* Class PersonOverviewController                                         */
+/*                                                                        */
+/**************************************************************************/
+
 public class PersonOverviewController {
+
+    // Reference to the main application.
+    private MainApp mainApp;
+
+	/**************************************************************************/
+	/*                                                                        */
+	/* FXML Column/Labeln Section                                             */
+	/*                                                                        */
+	/**************************************************************************/
+
     @FXML
     private TableView<Person> personTable;
+    @FXML
+    private TableColumn<Person, Integer> personIDColumn;
     @FXML
     private TableColumn<Person, String> firstNameColumn;
     @FXML
     private TableColumn<Person, String> lastNameColumn;
 
+    @FXML
+    private Label personIDLabel;
     @FXML
     private Label firstNameLabel;
     @FXML
@@ -31,23 +57,41 @@ public class PersonOverviewController {
     @FXML
     private Label birthdayLabel;
 
-    // Reference to the main application.
-    private MainApp mainApp;
+	/**************************************************************************/
+	/*                                                                        */
+	/* Constructur                                                            */
+	/*                                                                        */
+	/**************************************************************************/
 
-    /**
-     * The constructor.
-     * The constructor is called before the initialize() method.
-     */
+    /* Standard Konstruktur. Muss vor dem Initializieren aufgerufen werden.   */
+
     public PersonOverviewController() {
     }
 
-    /**
-     * Initializes the controller class. This method is automatically called
-     * after the fxml file has been loaded.
-     */
+	/**************************************************************************/
+	/*                                                                        */
+	/* Local Operation Section                                                */
+	/*                                                                        */
+	/**************************************************************************/
+
+	/***************************************************************************
+
+	METHODENNAME:	initialize
+
+	BESCHREIBUNG:   Initialisiert die Controller Klasse. Diese Methode wird
+					automatisch aufgerufen, nachdem die fxml Datei
+					geladen wurde
+
+	PARAMETER: 		void
+
+	RETURN:			void
+
+	***************************************************************************/
+
     @FXML
     private void initialize() {
         // Initialize the person table with the two columns.
+    	personIDColumn.setCellValueFactory(cellData -> cellData.getValue().personIDProperty().asObject());
         firstNameColumn.setCellValueFactory(cellData -> cellData.getValue().firstNameProperty());
         lastNameColumn.setCellValueFactory(cellData -> cellData.getValue().lastNameProperty());
 
@@ -59,11 +103,19 @@ public class PersonOverviewController {
                 (observable, oldValue, newValue) -> showPersonDetails(newValue));
     }
 
-    /**
-     * Is called by the main application to give a reference back to itself.
-     *
-     * @param mainApp
-     */
+	/***************************************************************************
+
+	METHODENNAME:	setMainApp
+
+	BESCHREIBUNG:   Is called by the main application to give a reference back
+					to itself.
+
+	PARAMETER: 		mainApp
+
+	RETURN:			void
+
+	***************************************************************************/
+
     public void setMainApp(MainApp mainApp) {
         this.mainApp = mainApp;
 
@@ -71,15 +123,25 @@ public class PersonOverviewController {
         personTable.setItems(mainApp.getPersonData());
     }
 
-    /**
-     * Fills all text fields to show details about the person.
-     * If the specified person is null, all text fields are cleared.
-     *
-     * @param person the person or null
-     */
+	/***************************************************************************
+
+	METHODENNAME:	showPersonDetails
+
+	BESCHREIBUNG:   Zeigt die Details einer ausgewählten Person an.
+					Ist keine Person ausgewählt, so wird nichts angezeigt.
+
+	PARAMETER: 		Person.
+					Einn Objekt der Klasse Person, von welchem die
+					Details angezeigt werden sollen.
+
+	RETURN:			void
+
+	***************************************************************************/
+
     private void showPersonDetails(Person person) {
         if (person != null) {
             // Fill the labels with info from the person object.
+        	personIDLabel.setText(Integer.toString(person.getPersonID()));
             firstNameLabel.setText(person.getFirstName());
             lastNameLabel.setText(person.getLastName());
             streetLabel.setText(person.getStreet());
@@ -88,6 +150,7 @@ public class PersonOverviewController {
             birthdayLabel.setText(DateUtil.format(person.getBirthday()));
         } else {
             // Person is null, remove all the text.
+        	personIDLabel.setText("");
             firstNameLabel.setText("");
             lastNameLabel.setText("");
             streetLabel.setText("");
@@ -97,9 +160,20 @@ public class PersonOverviewController {
         }
     }
 
-    /**
-     * Called when the user clicks on the delete button.
-     */
+	/***************************************************************************
+
+	METHODENNAME:	handleDeletePerson
+
+	BESCHREIBUNG:   handler für den Delete Button.
+					Wird Delete angeklickt, so wird das ausgewählte Objekt
+					gelöscht.
+
+	PARAMETER: 		void
+
+	RETURN:			void
+
+	***************************************************************************/
+
     @FXML
     private void handleDeletePerson() {
         int selectedIndex = personTable.getSelectionModel().getSelectedIndex();
@@ -117,10 +191,21 @@ public class PersonOverviewController {
         }
     }
 
-    /**
-     * Called when the user clicks the new button. Opens a dialog to edit
-     * details for a new person.
-     */
+	/***************************************************************************
+
+	METHODENNAME:	handleNewPerson
+
+	BESCHREIBUNG:   handler für den New Button.
+					Wird New angeklickt, so wird ein Dialogfeld aufgerufen, um
+					ein neues Objekt von der Klasse Person zu erstellen.
+					Hierbei können alle nötigen Attribute eingegeben werden.
+
+	PARAMETER: 		void
+
+	RETURN:			void
+
+	***************************************************************************/
+
     @FXML
     private void handleNewPerson() {
         Person tempPerson = new Person();
@@ -130,10 +215,21 @@ public class PersonOverviewController {
         }
     }
 
-    /**
-     * Called when the user clicks the edit button. Opens a dialog to edit
-     * details for the selected person.
-     */
+	/***************************************************************************
+
+	METHODENNAME:	handleEditPerson
+
+	BESCHREIBUNG:   handler für den Edit Button.
+					Wird Edit angeklickt, so wird ein Dialogfeld aufgerufen, um
+					die Attribute, der ausgewählten Person, verändern zu
+					können.
+
+	PARAMETER: 		void
+
+	RETURN:			void
+
+	***************************************************************************/
+
     @FXML
     private void handleEditPerson() {
         Person selectedPerson = personTable.getSelectionModel().getSelectedItem();

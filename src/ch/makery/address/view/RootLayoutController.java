@@ -1,93 +1,92 @@
 package ch.makery.address.view;
 
-import java.io.File;
-import java.io.IOException;
-import java.net.URL;
+/**************************************************************************/
+/*                                                                        */
+/* Import Section                                                         */
+/*                                                                        */
+/**************************************************************************/
 
-import javafx.event.ActionEvent;
+import java.io.File;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.control.MenuItem;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
 import javafx.stage.FileChooser;
 import ch.makery.address.MainApp;
 
-/**
- * The controller for the root layout. The root layout provides the basic
- * application layout containing a menu bar and space where other JavaFX
- * elements can be placed.
- *
- * @author Marco Jakob
- */
+/**************************************************************************/
+/*                                                                        */
+/* Class RootLayoutController                                             */
+/*                                                                        */
+/**************************************************************************/
+
 public class RootLayoutController {
 
     // Reference to the main application
     private MainApp mainApp;
 
-    /**
-     * Is called by the main application to give a reference back to itself.
-     *
-     * @param mainApp
-     */
+	/**************************************************************************/
+	/*                                                                        */
+	/* Local Operation Section                                                */
+	/*                                                                        */
+	/**************************************************************************/
+
+	/***************************************************************************
+
+	METHODENNAME:	setMainApp
+
+	BESCHREIBUNG:   Is called by the main application to give a reference back
+					to itself.
+
+	PARAMETER: 		mainApp
+
+	RETURN:			void
+
+	***************************************************************************/
+
     public void setMainApp(MainApp mainApp) {
         this.mainApp = mainApp;
     }
 
-    @FXML
-    private MenuItem personOverview;
+	/***************************************************************************
 
-    @FXML
-    private MenuItem fahrzeugOverview;
+	METHODENNAME:	handleNew
 
-    @FXML
-    void switchToOne(ActionEvent event) {
-    	try {
-    		URL personOverviewUrl = getClass().getResource("PersonOverview.fxml");
-    		AnchorPane personOverview = FXMLLoader.load(personOverviewUrl);
+	BESCHREIBUNG:   handler für den New Menüpunkt.
+					Wird New angeklickt, so wird ein neuer Fuhrpark angelegt.
 
-    		BorderPane border = MainApp.getRootLayout();
-    		border.setCenter(personOverview);
-    	} catch (IOException e) {
-    		e.printStackTrace();
-    	}
-    }
+	PARAMETER: 		void
 
-    @FXML
-    void switchToTwo(ActionEvent event) {
-    	try {
-    		URL fahrzeugOverviewUrl = getClass().getResource("FahrzeugOverview.fxml");
-    		AnchorPane fahrzeugOverview = FXMLLoader.load(fahrzeugOverviewUrl);
+	RETURN:			void
 
-    		BorderPane border = MainApp.getRootLayout();
-    		border.setCenter(fahrzeugOverview);
-    	} catch (IOException e) {
-    		e.printStackTrace();
-    	}
-    }
+	***************************************************************************/
 
-
-    /**
-     * Creates an empty address book.
-     */
     @FXML
     private void handleNew() {
         mainApp.getPersonData().clear();
+        mainApp.getFahrzeugData().clear();
         mainApp.setPersonFilePath(null);
     }
 
-    /**
-     * Opens a FileChooser to let the user select an address book to load.
-     */
+	/***************************************************************************
+
+	METHODENNAME:	handleOpen
+
+	BESCHREIBUNG:   handler für den Open Menüpunkt.
+					Wird Open angeklickt, so wird ein Dialogfeld geöffnet, zum
+					Laden einer xml-Datei.
+
+	PARAMETER: 		void
+
+	RETURN:			void
+
+	***************************************************************************/
+
     @FXML
     private void handleOpen() {
         FileChooser fileChooser = new FileChooser();
 
         // Set extension filter
-        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter(
-                "XML files (*.xml)", "*.xml");
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("XML files (*.xml)", "*.xml");
         fileChooser.getExtensionFilters().add(extFilter);
 
         // Show save file dialog
@@ -95,27 +94,59 @@ public class RootLayoutController {
 
         if (file != null) {
             mainApp.loadPersonDataFromFile(file);
+
+            String filePath= file.getAbsolutePath();
+            int pos= filePath.lastIndexOf(".");		// pos des Punktes im Dateipfad
+        	filePath= filePath.substring(0, pos);	// Kürzung bis zum Punkt
+        	String filePathFahrzeug= filePath + "_Fahrzeug.xml";
+        	File Fahrzeugfile= new File(filePathFahrzeug);
+
+        	mainApp.loadFahrzeugDataFromFile(Fahrzeugfile);
         }
     }
 
+	/***************************************************************************
 
-    /**
-     * Saves the file to the person file that is currently open. If there is no
-     * open file, the "save as" dialog is shown.
-     */
+	METHODENNAME:	handleSave
+
+	BESCHREIBUNG:   handler für den Save Menüpunkt.
+					Wird Save angeklickt, so werden die aktuellen Daten
+					gespeichert. Wurde zu Beginn keine Datei geladen, so wird
+					das Save as Dialogfeld geöffnet.
+
+	PARAMETER: 		void
+
+	RETURN:			void
+
+	***************************************************************************/
+
     @FXML
     private void handleSave() {
         File personFile = mainApp.getPersonFilePath();
+        File fahrzeugFile= mainApp.getFahrzeugFilePath();
         if (personFile != null) {
             mainApp.savePersonDataToFile(personFile);
+            mainApp.saveFahrzeugDataToFile(fahrzeugFile);
         } else {
             handleSaveAs();
         }
     }
 
-    /**
-     * Opens a FileChooser to let the user select a file to save to.
-     */
+	/***************************************************************************
+
+	METHODENNAME:	handleSaveAs
+
+	BESCHREIBUNG:   handler für den SaveAs Menüpunkt.
+					Wird SaveAs angeklickt, so wird ein Dialogfeld aufgerufen,
+					in welchem man den Dateinamen für dei xml-Datei eingeben
+					kann.
+
+	PARAMETER: 		void
+
+	RETURN:			void
+
+	***************************************************************************/
+
     @FXML
     private void handleSaveAs() {
         FileChooser fileChooser = new FileChooser();
@@ -127,42 +158,115 @@ public class RootLayoutController {
 
         // Show save file dialog
         File file = fileChooser.showSaveDialog(mainApp.getPrimaryStage());
+        File fileFahrzeug= null;
 
         if (file != null) {
             // Make sure it has the correct extension
             if (!file.getPath().endsWith(".xml")) {
                 file = new File(file.getPath() + ".xml");
+                fileFahrzeug= new File(file.getPath() +"_Fahrzeug.xml");
             }
             mainApp.savePersonDataToFile(file);
+            mainApp.saveFahrzeugDataToFile(fileFahrzeug);
         }
     }
 
-    /**
-     * Opens an about dialog.
-     */
+	/***************************************************************************
+
+	METHODENNAME:	handleAbout
+
+	BESCHREIBUNG:   handler für den About Menüpunkt.
+					Wird About angeklickt, so wird ein Dialogfeld aufgerufen,
+					in welchem eine Beschreibung des Programmes hinterlegt ist.
+
+	PARAMETER: 		void
+
+	RETURN:			void
+
+	***************************************************************************/
+
     @FXML
     private void handleAbout() {
     	Alert alert = new Alert(AlertType.INFORMATION);
-    	alert.setTitle("AddressApp");
-    	alert.setHeaderText("About");
-    	alert.setContentText("Author: Marco Jakob\nWebsite: http://code.makery.ch");
+    	alert.setTitle("Fuhrpark");
+    	alert.setHeaderText("Projektarbeit: Fuhrpark_JOSA");
+    	alert.setContentText("Autoren: Julia, Olga, Simon, Alex");
 
     	alert.showAndWait();
     }
 
-    /**
-     * Closes the application.
-     */
+	/***************************************************************************
+
+	METHODENNAME:	handleExit
+
+	BESCHREIBUNG:   handler für den Exit Menüpunkt.
+					Wird Exit angeklickt, so wird das Programm beendet.
+
+	PARAMETER: 		void
+
+	RETURN:			void
+
+	***************************************************************************/
+
     @FXML
     private void handleExit() {
         System.exit(0);
     }
 
-    /**
-     * Opens the birthday statistics.
-     */
+	/***************************************************************************
+
+	METHODENNAME:	handleShowBirthdayStatistics
+
+	BESCHREIBUNG:   handler für den ShowBirthdayStatistics Menüpunkt.
+					Wird ShowBirthdayStatistics angeklickt, so wird
+					die Geburtstagstatistik in der MainApp geöffnet.
+
+	PARAMETER: 		void
+
+	RETURN:			void
+
+	***************************************************************************/
+
     @FXML
     private void handleShowBirthdayStatistics() {
       mainApp.showBirthdayStatistics();
+    }
+
+	/***************************************************************************
+
+	METHODENNAME:	handleShowPerson
+
+	BESCHREIBUNG:   handler für den ShowPerson Menüpunkt.
+					Wird ShowPerson angeklickt, so wird
+					die PersonOverview in der MainApp geöffnet.
+
+	PARAMETER: 		void
+
+	RETURN:			void
+
+	***************************************************************************/
+
+    @FXML
+    private void handleShowPerson() {
+      mainApp.showPerson();
+    }
+
+	/***************************************************************************
+
+	METHODENNAME:	handleShowFahrzeug
+
+	BESCHREIBUNG:   handler für den ShowFahrzeug Menüpunkt.
+					Wird ShowFahrzeug angeklickt, so wird
+					die FahrzeugOverview in der MainApp geöffnet.
+
+	PARAMETER: 		void
+
+	RETURN:			void
+
+	***************************************************************************/
+
+    @FXML
+    private void handleShowFahrzeug() {
+      mainApp.showFahrzeug();
     }
 }

@@ -6,7 +6,7 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.makery.address.view.RootLayoutController">
+<BorderPane prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.makery.address.view.RootLayoutController">
    <top>
       <MenuBar BorderPane.alignment="CENTER">
         <menus>
@@ -21,8 +21,8 @@
           </Menu>
           <Menu mnemonicParsing="false" text="Verwaltung">
             <items>
-                  <MenuItem mnemonicParsing="false" onAction="#switchToOne" text="Personen Verwaltung" />
-                  <MenuItem mnemonicParsing="false" onAction="#switchToTwo" text="Fahrzeug Verwaltung" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleShowPerson" text="Personen Verwaltung" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleShowFahrzeug" text="Fahrzeug Verwaltung" />
               <MenuItem mnemonicParsing="false" text="Ausleihen / Zurückgeben" />
             </items>
           </Menu>
@@ -33,7 +33,7 @@
             </Menu>
           <Menu mnemonicParsing="false" text="Help">
             <items>
-              <MenuItem mnemonicParsing="false" text="About" />
+              <MenuItem mnemonicParsing="false" onAction="#handleAbout" text="About" />
             </items>
           </Menu>
         </menus>
