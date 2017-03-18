@@ -64,6 +64,7 @@ public class RootLayoutController {
     private void handleNew() {
         mainApp.getPersonData().clear();
         mainApp.getFahrzeugData().clear();
+        mainApp.getBuchungData().clear();
         mainApp.setPersonFilePath(null);
     }
 
@@ -99,9 +100,12 @@ public class RootLayoutController {
             int pos= filePath.lastIndexOf(".");		// pos des Punktes im Dateipfad
         	filePath= filePath.substring(0, pos);	// Kürzung bis zum Punkt
         	String filePathFahrzeug= filePath + "_Fahrzeug.xml";
+        	String filePathBuchung= filePath + "_Buchung.xml";
         	File Fahrzeugfile= new File(filePathFahrzeug);
+        	File Buchungfile= new File(filePathBuchung);
 
         	mainApp.loadFahrzeugDataFromFile(Fahrzeugfile);
+        	mainApp.loadBuchungDataFromFile(Buchungfile);
         }
     }
 
@@ -124,9 +128,11 @@ public class RootLayoutController {
     private void handleSave() {
         File personFile = mainApp.getPersonFilePath();
         File fahrzeugFile= mainApp.getFahrzeugFilePath();
+        File buchungFile= mainApp.getBuchungFilePath();
         if (personFile != null) {
             mainApp.savePersonDataToFile(personFile);
             mainApp.saveFahrzeugDataToFile(fahrzeugFile);
+            mainApp.saveBuchungDataToFile(buchungFile);
         } else {
             handleSaveAs();
         }
@@ -158,16 +164,20 @@ public class RootLayoutController {
 
         // Show save file dialog
         File file = fileChooser.showSaveDialog(mainApp.getPrimaryStage());
-        File fileFahrzeug= null;
+        String filePath= file.getAbsolutePath();
+        int pos= filePath.lastIndexOf(".");		// pos des Punktes im Dateipfad
+    	filePath= filePath.substring(0, pos);	// Kürzung bis zum Punkt
+        File fahrzeugfile= new File(filePath + "_Fahrzeug.xml");
+        File buchungfile= new File(filePath + "_Buchung.xml");
 
         if (file != null) {
             // Make sure it has the correct extension
             if (!file.getPath().endsWith(".xml")) {
                 file = new File(file.getPath() + ".xml");
-                fileFahrzeug= new File(file.getPath() +"_Fahrzeug.xml");
             }
             mainApp.savePersonDataToFile(file);
-            mainApp.saveFahrzeugDataToFile(fileFahrzeug);
+            mainApp.saveFahrzeugDataToFile(fahrzeugfile);
+            mainApp.saveBuchungDataToFile(buchungfile);
         }
     }
 
@@ -268,5 +278,24 @@ public class RootLayoutController {
     @FXML
     private void handleShowFahrzeug() {
       mainApp.showFahrzeug();
+    }
+
+	/***************************************************************************
+
+	METHODENNAME:	handleShowBuchung
+
+	BESCHREIBUNG:   handler für den ShowBuchung Menüpunkt.
+					Wird ShowBuchung angeklickt, so wird
+					die BuchungOverview in der MainApp geöffnet.
+
+	PARAMETER: 		void
+
+	RETURN:			void
+
+	***************************************************************************/
+
+    @FXML
+    private void handleShowBuchung() {
+      mainApp.showBuchung();
     }
 }

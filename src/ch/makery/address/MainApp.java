@@ -24,6 +24,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import ch.makery.address.model.Person;
+import ch.makery.address.model.Buchung;
+import ch.makery.address.model.BuchungListWrapper;
 import ch.makery.address.model.Fahrzeug;
 import ch.makery.address.model.PersonListWrapper;
 import ch.makery.address.model.FahrzeugListWrapper;
@@ -33,6 +35,8 @@ import ch.makery.address.view.PersonOverviewController;
 import ch.makery.address.view.FahrzeugOverviewController;
 import ch.makery.address.view.RootLayoutController;
 import ch.makery.address.view.BirthdayStatisticsController;
+import ch.makery.address.view.BuchungEditDialogController;
+import ch.makery.address.view.BuchungOverviewController;
 
 /**************************************************************************/
 /*                                                                        */
@@ -73,6 +77,7 @@ public class MainApp extends Application {
 
 	private ObservableList<Person> personData = FXCollections.observableArrayList();
 	private ObservableList<Fahrzeug> fahrzeugData = FXCollections.observableArrayList();
+	private ObservableList<Buchung> buchungData = FXCollections.observableArrayList();
 
 	/**************************************************************************/
 	/*                                                                        */
@@ -87,6 +92,9 @@ public class MainApp extends Application {
 
 		fahrzeugData.add(new Fahrzeug(1, "BMW", "525d", "Diesel", 190, 85948));
 		fahrzeugData.add(new Fahrzeug(2, "Audi", "A6", "Diesel", 190, 85948));
+
+		buchungData.add(new Buchung(1, 1, 1, 1));
+		buchungData.add(new Buchung(2, 2, 2, 2));
 	}
 
 	/**************************************************************************/
@@ -129,6 +137,22 @@ public class MainApp extends Application {
 
 	/***************************************************************************
 
+	METHODENNAME:	getBuchungData
+
+	BESCHREIBUNG:   Gibt die Daten der Buchungen als eine observable list wieder
+
+	PARAMETER: 		void
+
+	RETURN:			ObservableList
+
+	***************************************************************************/
+
+	public ObservableList<Buchung> getBuchungData() {
+		return buchungData;
+	}
+
+	/***************************************************************************
+
 	METHODENNAME:	initRootLayout
 
 	BESCHREIBUNG:   Initialisiert das root Layout und versucht
@@ -160,12 +184,14 @@ public class MainApp extends Application {
 			e.printStackTrace();
 		}
 
-		// Try to load last opened person and fahrzeug file.
+		// Try to load last opened person, fahrzeug and buchungen file.
 		File file = getPersonFilePath();
 		File fileFahrzeug = getFahrzeugFilePath();
+		File fileBuchung = getBuchungFilePath();
 		if (file != null) {
 			loadPersonDataFromFile(file);
 			loadFahrzeugDataFromFile(fileFahrzeug);
+			loadBuchungDataFromFile(fileBuchung);
 		}
 	}
 
@@ -227,6 +253,39 @@ public class MainApp extends Application {
 
 			// Give the controller access to the main app.
 			FahrzeugOverviewController controller = loader.getController();
+			controller.setMainApp(this);
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	/***************************************************************************
+
+	METHODENNAME:	showBuchung
+
+	BESCHREIBUNG:   Zeigt die Buchungübersicht (BuchungOverview)
+					innerhalb des root Layout
+
+	PARAMETER: 		void
+
+	RETURN:			void
+
+	***************************************************************************/
+
+	public void showBuchung() {
+		try {
+			// Load buchung overview.
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApp.class.getResource("view/BuchungOverview.fxml"));
+			AnchorPane buchungOverview = (AnchorPane) loader.load();
+
+			// Set buchung overview into the center of root layout.
+			rootLayout.setCenter(buchungOverview);
+
+			// Give the controller access to the main app.
+			BuchungOverviewController controller = loader.getController();
 			controller.setMainApp(this);
 
 		} catch (IOException e) {
@@ -315,6 +374,32 @@ public class MainApp extends Application {
 			filePath = filePath.substring(0, pos); // Kürzung bis zum Punkt
 			String filePathFahrzeug = filePath + "_Fahrzeug.xml";
 			return new File(filePathFahrzeug);
+		} else {
+			return null;
+		}
+	}
+
+	/***************************************************************************
+
+	METHODENNAME:	getBuchungFilePath
+
+	BESCHREIBUNG:   Anhand der Dateipräferenz, wie z.B. die letzte geöffnete
+					Datei, wird der Dateiname der Buchungsliste ermittelt.
+
+	PARAMETER: 		void
+
+	RETURN:			File
+
+	***************************************************************************/
+
+	public File getBuchungFilePath() {
+		Preferences prefs = Preferences.userNodeForPackage(MainApp.class);
+		String filePath = prefs.get("filePath", null);
+		if (filePath != null) {
+			int pos = filePath.lastIndexOf("."); // pos des Punktes im Dateipfad
+			filePath = filePath.substring(0, pos); // Kürzung bis zum Punkt
+			String filePathBuchung = filePath + "_Buchung.xml";
+			return new File(filePathBuchung);
 		} else {
 			return null;
 		}
@@ -442,6 +527,51 @@ public class MainApp extends Application {
 
 	/***************************************************************************
 
+	METHODENNAME:	showBuchungEditDialog
+
+	BESCHREIBUNG:   Öffnet ein Dialogfeld zum Bearbeiten von Buchungsdaten.
+					Wenn man [OK] klickt, so werden die Buchungsdaten
+					überschrieben und das Boolean TRUE wiedergegeben.
+
+	PARAMETER: 		Buchung. Ein Objekt der Klasse Buchung, welche bearbeitet
+					werden soll.
+
+	RETURN:			Boolean
+
+	***************************************************************************/
+
+	public boolean showBuchungEditDialog(Buchung buchung) {
+		try {
+			// Load the fxml file and create a new stage for the popup dialog.
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApp.class.getResource("view/BuchungEditDialog.fxml"));
+			AnchorPane page = (AnchorPane) loader.load();
+
+			// Create the dialog Stage.
+			Stage dialogStage = new Stage();
+			dialogStage.setTitle("Edit Buchung");
+			dialogStage.initModality(Modality.WINDOW_MODAL);
+			dialogStage.initOwner(primaryStage);
+			Scene scene = new Scene(page);
+			dialogStage.setScene(scene);
+
+			// Set the buchung into the controller.
+			BuchungEditDialogController controller = loader.getController();
+			controller.setDialogStage(dialogStage);
+			controller.setBuchung(buchung);
+
+			// Show the dialog and wait until the user closes it
+			dialogStage.showAndWait();
+
+			return controller.isOkClicked();
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+	/***************************************************************************
+
 	METHODENNAME:	loadPersonDataFromFile
 
 	BESCHREIBUNG:   Lädt die Personendaten von einer xml-Datei. Die aktuellen
@@ -502,6 +632,41 @@ public class MainApp extends Application {
 
 			fahrzeugData.clear();
 			fahrzeugData.addAll(wrapper.getFahrzeugs());
+
+		} catch (Exception e) { // catches ANY exception
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Error");
+			alert.setHeaderText("Could not load data");
+			alert.setContentText("Could not load data from file:\n" + file.getPath());
+
+			alert.showAndWait();
+		}
+	}
+
+	/***************************************************************************
+
+	METHODENNAME:	loadBuchungDataFromFile
+
+	BESCHREIBUNG:   Lädt die Buchungsdaten von einer xml-Datei. Die aktuellen
+					Buchungsdaten werden erstetzt.
+
+	PARAMETER: 		File.
+					Die Datei, aus welcher die Buchungsdaten gelesen werden.
+
+	RETURN:			void
+
+	***************************************************************************/
+
+	public void loadBuchungDataFromFile(File file) {
+		try {
+			JAXBContext context = JAXBContext.newInstance(BuchungListWrapper.class);
+			Unmarshaller um = context.createUnmarshaller();
+
+			// Reading XML from the file and unmarshalling.
+			BuchungListWrapper wrapper = (BuchungListWrapper) um.unmarshal(file);
+
+			buchungData.clear();
+			buchungData.addAll(wrapper.getBuchungs());
 
 		} catch (Exception e) { // catches ANY exception
 			Alert alert = new Alert(AlertType.ERROR);
@@ -580,7 +745,40 @@ public class MainApp extends Application {
 			m.marshal(wrapper, file);
 
 		} catch (Exception e) { // catches ANY exception
-			System.out.println("Fehler");
+			System.out.println("Fehler_Speichern_Fahrzeug");
+
+		}
+	}
+
+	/***************************************************************************
+
+	METHODENNAME:	saveBuchungDataToFile
+
+	BESCHREIBUNG:   Speichert die aktuellen Buchungsdaten in eine xml-Datei.
+
+	PARAMETER: 		File.
+					Die Datei, in welcher die Buchungsdaten gespeichert
+					werden sollen.
+
+	RETURN:			void
+
+	***************************************************************************/
+
+	public void saveBuchungDataToFile(File file) {
+		try {
+			JAXBContext context = JAXBContext.newInstance(BuchungListWrapper.class);
+			Marshaller m = context.createMarshaller();
+			m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+
+			// Wrapping our fahrzeug data.
+			BuchungListWrapper wrapper = new BuchungListWrapper();
+			wrapper.setBuchungs(buchungData);
+
+			// Marshalling and saving XML to the file.
+			m.marshal(wrapper, file);
+
+		} catch (Exception e) { // catches ANY exception
+			System.out.println("Fehler_Speichern_Buchung");
 
 		}
 	}

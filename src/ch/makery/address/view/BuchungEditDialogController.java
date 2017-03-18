@@ -11,19 +11,19 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import ch.makery.address.model.Fahrzeug;
+import ch.makery.address.model.Buchung;
 import ch.makery.address.util.DateUtil;
 
 /**************************************************************************/
 /*                                                                        */
-/* Class FahrzeugEditDialogController                                     */
+/* Class BuchungEditDialogController                                     */
 /*                                                                        */
 /**************************************************************************/
 
-public class FahrzeugEditDialogController {
+public class BuchungEditDialogController {
 
     private Stage dialogStage;
-    private Fahrzeug fahrzeug;
+    private Buchung buchung;
     private boolean okClicked = false;
 
 	/**************************************************************************/
@@ -33,19 +33,17 @@ public class FahrzeugEditDialogController {
 	/**************************************************************************/
 
 	@FXML
+    private TextField buchungIDField;
+    @FXML
+    private TextField personIDField;
+    @FXML
     private TextField fahrzeugIDField;
     @FXML
-    private TextField herstellerField;
+    private TextField ausleihdatumField;
     @FXML
-    private TextField markeField;
+    private TextField rueckgabedatumField;
     @FXML
-    private TextField kraftstoffField;
-    @FXML
-    private TextField leistungField;
-    @FXML
-    private TextField aenderungsdatumField;
-    @FXML
-    private TextField kilometerstandField;
+    private TextField leihdauerField;
 
 	/**************************************************************************/
 	/*                                                                        */
@@ -89,27 +87,28 @@ public class FahrzeugEditDialogController {
 
 	/***************************************************************************
 
-	METHODENNAME:	setFahrzeug
+	METHODENNAME:	setBuchung
 
-	BESCHREIBUNG:   Definiert das Fahrzeug, welches bearbeitet werden soll.
+	BESCHREIBUNG:   Definiert die Buchung, welche bearbeitet werden soll.
 
-	PARAMETER: 		Fahrzeug
+	PARAMETER: 		Buchung
 
 	RETURN:			void
 
 	***************************************************************************/
 
-    public void setFahrzeug(Fahrzeug fahrzeug) {
-        this.fahrzeug = fahrzeug;
+    public void setBuchung(Buchung buchung) {
+        this.buchung = buchung;
 
-        fahrzeugIDField.setText(Integer.toString(fahrzeug.getFahrzeugID()));
-        herstellerField.setText(fahrzeug.getHersteller());
-        markeField.setText(fahrzeug.getMarke());
-        kraftstoffField.setText(fahrzeug.getKraftstoff());
-        leistungField.setText(Integer.toString(fahrzeug.getLeistung()));
-        kilometerstandField.setText(Integer.toString(fahrzeug.getKilometerstand()));
-        aenderungsdatumField.setText(DateUtil.format(fahrzeug.getAenderungsdatum()));
-        aenderungsdatumField.setPromptText("dd.mm.yyyy");
+        buchungIDField.setText(Integer.toString(buchung.getBuchungID()));
+        personIDField.setText(Integer.toString(buchung.getPersonID()));
+        fahrzeugIDField.setText(Integer.toString(buchung.getFahrzeugID()));
+        leihdauerField.setText(Integer.toString(buchung.getLeihdauer()));
+
+        ausleihdatumField.setText(DateUtil.format(buchung.getAusleihdatum()));
+        ausleihdatumField.setPromptText("dd.mm.yyyy");
+        rueckgabedatumField.setText(DateUtil.format(buchung.getRueckgabedatum()));
+        rueckgabedatumField.setPromptText("dd.mm.yyyy");
     }
 
 	/***************************************************************************
@@ -134,7 +133,7 @@ public class FahrzeugEditDialogController {
 
 	BESCHREIBUNG:   handler für OK.
 					Dieser handler wird ausgeführt, wenn [OK] geklickt wurde.
-					Neue Fahrzeugdaten werden gespeichert.
+					Neue Buchungsdaten werden gespeichert.
 
 	PARAMETER: 		void
 
@@ -146,13 +145,13 @@ public class FahrzeugEditDialogController {
     private void handleOk() {
         if (isInputValid()) {
 
-        	fahrzeug.setFahrzeugID(Integer.parseInt(fahrzeugIDField.getText()));
-            fahrzeug.setHersteller(herstellerField.getText());
-            fahrzeug.setMarke(markeField.getText());
-            fahrzeug.setKraftstoff(kraftstoffField.getText());
-            fahrzeug.setLeistung(Integer.parseInt(leistungField.getText()));
-            fahrzeug.setAenderungsdatum(DateUtil.parse(aenderungsdatumField.getText()));
-            fahrzeug.setKilometerstand(Integer.parseInt(kilometerstandField.getText()));
+        	buchung.setBuchungID(Integer.parseInt(buchungIDField.getText()));
+        	buchung.setPersonID(Integer.parseInt(personIDField.getText()));
+        	buchung.setFahrzeugID(Integer.parseInt(fahrzeugIDField.getText()));
+        	buchung.setLeihdauer(Integer.parseInt(leihdauerField.getText()));
+
+            buchung.setAusleihdatum(DateUtil.parse(ausleihdatumField.getText()));
+            buchung.setRueckgabedatum(DateUtil.parse(rueckgabedatumField.getText()));
 
             okClicked = true;
             dialogStage.close();
@@ -165,7 +164,7 @@ public class FahrzeugEditDialogController {
 
 	BESCHREIBUNG:   handler für Cancel.
 					Dieser handler wird ausgeführt, wenn [Cancel] geklickt wurde.
-					Dialogfenster wird geschloßen, ohne neue Fahrzeugdaten
+					Dialogfenster wird geschloßen, ohne neue Buchungsdaten
 					zu speichern.
 
 	PARAMETER: 		void
@@ -195,8 +194,30 @@ public class FahrzeugEditDialogController {
     private boolean isInputValid() {
         String errorMessage = "";
 
+        if (buchungIDField.getText() == null || buchungIDField.getText().length() == 0) {
+            errorMessage += "No valid BuchungID!\n";
+        } else {
+            // try to parse the buchungID into an int.
+            try {
+                Integer.parseInt(buchungIDField.getText());
+            } catch (NumberFormatException e) {
+                errorMessage += "No valid buchungID (must be an integer)!\n";
+            }
+        }
+
+        if (personIDField.getText() == null || personIDField.getText().length() == 0) {
+            errorMessage += "No valid personID!\n";
+        } else {
+            // try to parse the personID into an int.
+            try {
+                Integer.parseInt(personIDField.getText());
+            } catch (NumberFormatException e) {
+                errorMessage += "No valid personID (must be an integer)!\n";
+            }
+        }
+
         if (fahrzeugIDField.getText() == null || fahrzeugIDField.getText().length() == 0) {
-            errorMessage += "No valid FahrzeugID!\n";
+            errorMessage += "No valid fahrzeugID!\n";
         } else {
             // try to parse the fahrzeugID into an int.
             try {
@@ -206,43 +227,30 @@ public class FahrzeugEditDialogController {
             }
         }
 
-        if (herstellerField.getText() == null || herstellerField.getText().length() == 0) {
-            errorMessage += "No valid Hersteller!\n";
-        }
-        if (markeField.getText() == null || markeField.getText().length() == 0) {
-            errorMessage += "No valid Marke!\n";
-        }
-        if (kraftstoffField.getText() == null || kraftstoffField.getText().length() == 0) {
-            errorMessage += "No valid Kraftstoff!\n";
-        }
-
-        if (leistungField.getText() == null || leistungField.getText().length() == 0) {
-            errorMessage += "No valid Leistung!\n";
+        if (leihdauerField.getText() == null || leihdauerField.getText().length() == 0) {
+            errorMessage += "No valid Leihdauer!\n";
         } else {
-            // try to parse the leistung into an int.
+            // try to parse the leihdauer into an int.
             try {
-                Integer.parseInt(leistungField.getText());
+                Integer.parseInt(leihdauerField.getText());
             } catch (NumberFormatException e) {
-                errorMessage += "No valid Leistung (must be an integer)!\n";
+                errorMessage += "No valid Leihdauer (must be an integer)!\n";
             }
         }
 
-        if (aenderungsdatumField.getText() == null || aenderungsdatumField.getText().length() == 0) {
-            errorMessage += "No valid Aenderungsdatum!\n";
+        if (ausleihdatumField.getText() == null || ausleihdatumField.getText().length() == 0) {
+            errorMessage += "No valid Ausleihdatum!\n";
         } else {
-            if (!DateUtil.validDate(aenderungsdatumField.getText())) {
-                errorMessage += "No valid Aenderungsdatum. Use the format dd.mm.yyyy!\n";
+            if (!DateUtil.validDate(ausleihdatumField.getText())) {
+                errorMessage += "No valid Ausleihdatum. Use the format dd.mm.yyyy!\n";
             }
         }
 
-        if (kilometerstandField.getText() == null || kilometerstandField.getText().length() == 0) {
-            errorMessage += "No valid Kilometerstand!\n";
+        if (rueckgabedatumField.getText() == null || rueckgabedatumField.getText().length() == 0) {
+            errorMessage += "No valid Rueckgabedatum!\n";
         } else {
-            // try to parse the kilometerstand into an int.
-            try {
-                Integer.parseInt(kilometerstandField.getText());
-            } catch (NumberFormatException e) {
-                errorMessage += "No valid Kilometerstand (must be an integer)!\n";
+            if (!DateUtil.validDate(rueckgabedatumField.getText())) {
+                errorMessage += "No valid Rueckgabedatum. Use the format dd.mm.yyyy!\n";
             }
         }
 

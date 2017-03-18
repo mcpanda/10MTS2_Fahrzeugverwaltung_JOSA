@@ -23,7 +23,7 @@
             <items>
                   <MenuItem mnemonicParsing="false" onAction="#handleShowPerson" text="Personen Verwaltung" />
                   <MenuItem mnemonicParsing="false" onAction="#handleShowFahrzeug" text="Fahrzeug Verwaltung" />
-              <MenuItem mnemonicParsing="false" text="Ausleihen / Zurückgeben" />
+              <MenuItem mnemonicParsing="false" onAction="#handleShowBuchung" text="Buchung Verwaltung" />
             </items>
           </Menu>
             <Menu mnemonicParsing="false" text="Statistics">

@@ -131,7 +131,7 @@ public class FahrzeugOverviewController {
 					Ist kein Fahrzeug ausgewählt, so wird nichts angezeigt.
 
 	PARAMETER: 		Fahrzeug.
-					Einn Objekt der Klasse Fahrzeug, von welchem die
+					Ein Objekt der Klasse Fahrzeug, von welchem die
 					Details angezeigt werden sollen.
 
 	RETURN:			void
@@ -140,7 +140,7 @@ public class FahrzeugOverviewController {
 
     private void showFahrzeugDetails(Fahrzeug fahrzeug) {
         if (fahrzeug != null) {
-        	fahrzeugIDLabel.setText(Integer.toString(fahrzeug.getLeistung()));
+        	fahrzeugIDLabel.setText(Integer.toString(fahrzeug.getFahrzeugID()));
             // Fill the labels with info from the Fahrzeug object.
             herstellerLabel.setText(fahrzeug.getHersteller());
             markeLabel.setText(fahrzeug.getMarke());
