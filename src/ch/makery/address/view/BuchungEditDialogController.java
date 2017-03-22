@@ -337,8 +337,5 @@ public class BuchungEditDialogController {
 
     public void setMainApp(MainApp mainApp) {
         this.mainApp = mainApp;
-
-        // Add observable list data to the table
-//        buchungTable.setItems(mainApp.getBuchungData());
     }
 }

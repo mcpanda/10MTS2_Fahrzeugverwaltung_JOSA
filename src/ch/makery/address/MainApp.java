@@ -78,7 +78,6 @@ public class MainApp extends Application {
 	private ObservableList<Person> personData = FXCollections.observableArrayList();
 	private ObservableList<Fahrzeug> fahrzeugData = FXCollections.observableArrayList();
 	private ObservableList<Buchung> buchungData = FXCollections.observableArrayList();
-//    private ObservableList<Integer> personIDBoxList= FXCollections.observableArrayList(1, 2);
 
 	/**************************************************************************/
 	/*                                                                        */
@@ -151,22 +150,7 @@ public class MainApp extends Application {
 	public ObservableList<Buchung> getBuchungData() {
 		return buchungData;
 	}
-	
-	/***************************************************************************
 
-	METHODENNAME:	getBuchungData
-
-	BESCHREIBUNG:   Gibt die Daten der Buchungen als eine observable list wieder
-
-	PARAMETER: 		void
-
-	RETURN:			ObservableList
-
-	***************************************************************************/
-
-//	public ObservableList<Integer> getPersonIDList() {
-//		return personIDBoxList;
-//	}
 
 	/***************************************************************************
 
