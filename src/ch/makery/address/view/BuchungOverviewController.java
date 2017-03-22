@@ -14,7 +14,10 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import ch.makery.address.MainApp;
 import ch.makery.address.model.Buchung;
+import ch.makery.address.model.Person;
+import ch.makery.address.model.Fahrzeug;
 import ch.makery.address.util.DateUtil;
+import javafx.collections.ObservableList;
 
 /**************************************************************************/
 /*                                                                        */
@@ -151,6 +154,26 @@ public class BuchungOverviewController {
         	personIDLabel.setText(Integer.toString(buchung.getPersonID()));
         	fahrzeugIDLabel.setText(Integer.toString(buchung.getFahrzeugID()));
         	leihdauerLabel.setText(Integer.toString(buchung.getLeihdauer()));
+
+        	ObservableList<Person> personData = mainApp.getPersonData();
+        	for(int i = 0; i<personData.size(); i++){
+        		if(buchung.getPersonID() == personData.get(i).getPersonID()) {
+        			vornameLabel.setText(personData.get(i).getFirstName());
+                	nachnameLabel.setText(personData.get(i).getLastName());
+        		}
+        	}
+
+        	ObservableList<Fahrzeug> fahrzeugData = mainApp.getFahrzeugData();
+        	for(int i = 0; i < fahrzeugData.size(); i++){
+        		if(buchung.getFahrzeugID() == fahrzeugData.get(i).getFahrzeugID()) {
+        			herstellerLabel.setText(fahrzeugData.get(i).getHersteller());
+                	markeLabel.setText(fahrzeugData.get(i).getMarke());
+        		}
+        	}
+
+
+//        	vornameLabel.setText(person.getFirstName());
+//        	nachnameLabel.setText(person.getLastName());
 
             ausleihdatumLabel.setText(DateUtil.format(buchung.getAusleihdatum()));
             rueckgabedatumLabel.setText(DateUtil.format(buchung.getRueckgabedatum()));

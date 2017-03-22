@@ -63,11 +63,11 @@
                         <Label text="Ausleihdauer" GridPane.rowIndex="9" />
                         <Label fx:id="personIDLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                         <Label fx:id="fahrzeugIDLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                        <Label text="Hersteller" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                        <Label text="Marke" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                        <Label fx:id="herstellerLabel" text="Hersteller" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                        <Label fx:id="markeLabel" text="Marke" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                         <Label fx:id="buchungIDLabel" text="Label" GridPane.columnIndex="1" />
-                        <Label text="Vorname" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <Label text="Nachname" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <Label fx:id="vornameLabel" text="Vorname" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <Label fx:id="nachnameLabel" text="Nachname" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                         <Label fx:id="ausleihdatumLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="7" />
                         <Label fx:id="rueckgabedatumLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="8" />
                         <Label fx:id="leihdauerLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="9" />
