@@ -26,6 +26,8 @@ public class FahrzeugEditDialogController {
     private Fahrzeug fahrzeug;
     private boolean okClicked = false;
 
+
+
 	/**************************************************************************/
 	/*                                                                        */
 	/* FXML Field Section                                                     */

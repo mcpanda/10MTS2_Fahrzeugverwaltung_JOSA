@@ -1,5 +1,8 @@
 package ch.makery.address.view;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 /**************************************************************************/
 /*                                                                        */
 /* Import Section                                                         */
@@ -9,20 +12,30 @@ package ch.makery.address.view;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import ch.makery.address.MainApp;
 import ch.makery.address.model.Buchung;
+import ch.makery.address.model.Person;
+import ch.makery.address.model.Fahrzeug;
 import ch.makery.address.util.DateUtil;
 
 /**************************************************************************/
 /*                                                                        */
-/* Class BuchungEditDialogController                                     */
+/* Class BuchungEditDialogController                                      */
 /*                                                                        */
 /**************************************************************************/
 
 public class BuchungEditDialogController {
 
-    private Stage dialogStage;
+	// Reference to the main application.
+    private MainApp mainApp;
+
+	ObservableList<Integer> personIDBoxList= FXCollections.observableArrayList();
+	ObservableList<Integer> fahrzeugIDBoxList= FXCollections.observableArrayList();
+
+    Stage dialogStage;
     private Buchung buchung;
     private boolean okClicked = false;
 
@@ -44,6 +57,11 @@ public class BuchungEditDialogController {
     private TextField rueckgabedatumField;
     @FXML
     private TextField leihdauerField;
+
+    @FXML
+    private ComboBox<Integer> personIDBox;
+    @FXML
+    private ComboBox<Integer> fahrzeugIDBox;
 
 	/**************************************************************************/
 	/*                                                                        */
@@ -67,6 +85,40 @@ public class BuchungEditDialogController {
 
     @FXML
     private void initialize() {
+
+    	personIDBox.setValue(1);
+    	personIDBox.setItems(personIDBoxList);
+
+    	fahrzeugIDBox.setValue(1);
+    	fahrzeugIDBox.setItems(fahrzeugIDBoxList);
+
+    }
+
+	/***************************************************************************
+
+	METHODENNAME:	handlerComboBoxList
+
+	BESCHREIBUNG:   Lädt die IDs der Personen und Fahrzeuge in
+					die Observablelisten ein
+
+	PARAMETER: 		dialogStage
+
+	RETURN:			void
+
+	***************************************************************************/
+
+    public void handlerComboBoxList() {
+
+    	ObservableList<Person> personData = mainApp.getPersonData();
+    	ObservableList<Fahrzeug> fahrzeugData = mainApp.getFahrzeugData();
+
+	  	for(int i = 0; i<personData.size(); i++){
+	  		personIDBoxList.add(personData.get(i).getPersonID());
+	  	}
+
+	  	for(int i = 0; i<fahrzeugData.size(); i++){
+	  		fahrzeugIDBoxList.add(fahrzeugData.get(i).getFahrzeugID());
+	  	}
     }
 
 	/***************************************************************************
@@ -268,5 +320,25 @@ public class BuchungEditDialogController {
 
             return false;
         }
+    }
+
+	/***************************************************************************
+
+	METHODENNAME:	setMainApp
+
+	BESCHREIBUNG:   Is called by the main application to give a reference back
+					to itself.
+
+	PARAMETER: 		mainApp
+
+	RETURN:			void
+
+	***************************************************************************/
+
+    public void setMainApp(MainApp mainApp) {
+        this.mainApp = mainApp;
+
+        // Add observable list data to the table
+//        buchungTable.setItems(mainApp.getBuchungData());
     }
 }

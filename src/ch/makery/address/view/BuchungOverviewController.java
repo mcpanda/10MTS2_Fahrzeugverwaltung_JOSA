@@ -171,10 +171,6 @@ public class BuchungOverviewController {
         		}
         	}
 
-
-//        	vornameLabel.setText(person.getFirstName());
-//        	nachnameLabel.setText(person.getLastName());
-
             ausleihdatumLabel.setText(DateUtil.format(buchung.getAusleihdatum()));
             rueckgabedatumLabel.setText(DateUtil.format(buchung.getRueckgabedatum()));
         } else {
