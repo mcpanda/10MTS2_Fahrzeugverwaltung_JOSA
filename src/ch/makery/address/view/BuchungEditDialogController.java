@@ -86,9 +86,11 @@ public class BuchungEditDialogController {
     @FXML
     private void initialize() {
 
+    	personIDBox.setEditable(true);
     	personIDBox.setValue(1);
     	personIDBox.setItems(personIDBoxList);
 
+    	fahrzeugIDBox.setEditable(true);
     	fahrzeugIDBox.setValue(1);
     	fahrzeugIDBox.setItems(fahrzeugIDBoxList);
 
