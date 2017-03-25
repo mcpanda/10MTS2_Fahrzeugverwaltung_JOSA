@@ -55,7 +55,7 @@ public class BirthdayStatisticsController {
 	RETURN:			void
 
 	***************************************************************************/
-    
+
     @FXML
     private void initialize() {
         // Get an array with the English month names.
@@ -78,7 +78,7 @@ public class BirthdayStatisticsController {
 	RETURN:			void
 
 	***************************************************************************/
- 
+
     public void setPersonData(List<Person> persons) {
         // Count the number of people having their birthday in a specific month.
         int[] monthCounter = new int[12];

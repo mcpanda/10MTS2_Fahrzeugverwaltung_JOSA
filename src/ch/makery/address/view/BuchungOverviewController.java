@@ -171,10 +171,6 @@ public class BuchungOverviewController {
         		}
         	}
 
-
-//        	vornameLabel.setText(person.getFirstName());
-//        	nachnameLabel.setText(person.getLastName());
-
             ausleihdatumLabel.setText(DateUtil.format(buchung.getAusleihdatum()));
             rueckgabedatumLabel.setText(DateUtil.format(buchung.getRueckgabedatum()));
         } else {
@@ -236,7 +232,11 @@ public class BuchungOverviewController {
 
     @FXML
     private void handleNewBuchung() {
+
+    	MainApp.counterBuchung= mainApp.getBuchungData().size()+1;
+
         Buchung tempBuchung = new Buchung();
+
         boolean okClicked = mainApp.showBuchungEditDialog(tempBuchung);
         if (okClicked) {
             mainApp.getBuchungData().add(tempBuchung);
