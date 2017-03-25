@@ -48,6 +48,14 @@ public class MainApp extends Application {
 
 	/**************************************************************************/
 	/*                                                                        */
+	/* Globale Variablen                                                      */
+	/*                                                                        */
+	/**************************************************************************/
+
+	public static int counterBuchung;
+
+	/**************************************************************************/
+	/*                                                                        */
 	/* Get JavaFX started                                                     */
 	/*                                                                        */
 	/**************************************************************************/
@@ -78,12 +86,16 @@ public class MainApp extends Application {
 	private ObservableList<Person> personData = FXCollections.observableArrayList();
 	private ObservableList<Fahrzeug> fahrzeugData = FXCollections.observableArrayList();
 	private ObservableList<Buchung> buchungData = FXCollections.observableArrayList();
+	private ObservableList<Integer> personIDList= FXCollections.observableArrayList();
+	private ObservableList<Integer> fahrzeugIDList= FXCollections.observableArrayList();
+	private ObservableList<Integer> buchungIDList= FXCollections.observableArrayList();
 
 	/**************************************************************************/
 	/*                                                                        */
 	/* Constructur                                                            */
 	/*                                                                        */
 	/**************************************************************************/
+
 
 	public MainApp() {
 		personData.add(new Person(1, "Roman", "Bürki", "Strobelallee 50", 44139, "Dortmund"));
@@ -151,6 +163,65 @@ public class MainApp extends Application {
 		return buchungData;
 	}
 
+	/***************************************************************************
+
+	METHODENNAME:	getPersonIDList
+
+	BESCHREIBUNG:   Gibt eine Liste der PersonenIDs wieder
+
+	PARAMETER: 		void
+
+	RETURN:			ObservableList
+
+	***************************************************************************/
+
+	public ObservableList<Integer> getPersonIDList() {
+		personIDList.clear();
+		for(int i= 0; i < personData.size(); i++){
+	  		personIDList.add(personData.get(i).getPersonID());
+	  	}
+		return personIDList;
+	}
+
+	/***************************************************************************
+
+	METHODENNAME:	getFahrzeugIDList
+
+	BESCHREIBUNG:   Gibt eine Liste der FahrzeugIDs wieder
+
+	PARAMETER: 		void
+
+	RETURN:			ObservableList
+
+	***************************************************************************/
+
+	public ObservableList<Integer> getFahrzeugIDList() {
+		fahrzeugIDList.clear();
+		for(int i= 0; i < fahrzeugData.size(); i++){
+	  		fahrzeugIDList.add(fahrzeugData.get(i).getFahrzeugID());
+	  	}
+		return fahrzeugIDList;
+	}
+
+	/***************************************************************************
+
+	METHODENNAME:	getBuchungIDList
+
+	BESCHREIBUNG:   Gibt eine Liste der BuchungsIDs wieder
+
+	PARAMETER: 		void
+
+	RETURN:			ObservableList
+
+	***************************************************************************/
+
+	public ObservableList<Integer> getBuchungIDList() {
+		buchungIDList.clear();
+		for(int i= 0; i < buchungData.size(); i++){
+	  		buchungIDList.add(buchungData.get(i).getPersonID());
+	  	}
+		return buchungIDList;
+	}
 
 	/***************************************************************************
 

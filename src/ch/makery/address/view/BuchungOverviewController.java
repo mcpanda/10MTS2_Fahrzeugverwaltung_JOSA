@@ -232,7 +232,11 @@ public class BuchungOverviewController {
 
     @FXML
     private void handleNewBuchung() {
+
+    	MainApp.counterBuchung= mainApp.getBuchungData().size()+1;
+
         Buchung tempBuchung = new Buchung();
+
         boolean okClicked = mainApp.showBuchungEditDialog(tempBuchung);
         if (okClicked) {
             mainApp.getBuchungData().add(tempBuchung);

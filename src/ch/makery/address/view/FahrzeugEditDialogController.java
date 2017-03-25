@@ -26,8 +26,6 @@ public class FahrzeugEditDialogController {
     private Fahrzeug fahrzeug;
     private boolean okClicked = false;
 
-
-
 	/**************************************************************************/
 	/*                                                                        */
 	/* FXML Field Section                                                     */
@@ -203,6 +201,7 @@ public class FahrzeugEditDialogController {
             // try to parse the fahrzeugID into an int.
             try {
                 Integer.parseInt(fahrzeugIDField.getText());
+
             } catch (NumberFormatException e) {
                 errorMessage += "No valid fahrzeugID (must be an integer)!\n";
             }

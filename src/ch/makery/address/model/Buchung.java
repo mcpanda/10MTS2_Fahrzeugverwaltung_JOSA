@@ -58,7 +58,7 @@ public class Buchung {
 	/**************************************************************************/
 
     public int getBuchungID() {
-        return fahrzeugID.get();
+        return buchungID.get();
     }
 
     public void setBuchungID(int buchungID) {

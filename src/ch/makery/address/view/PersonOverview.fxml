@@ -71,7 +71,7 @@
                     <buttons>
                       <Button mnemonicParsing="false" onAction="#handleNewPerson" text="New..." />
                         <Button mnemonicParsing="false" onAction="#handleEditPerson" text="Edit..." />
-                        <Button mnemonicParsing="false" onAction="#handleDeletePerson" text="Delete" />
+                        <Button mnemonicParsing="false" onAction="#handleDeletePerson" text="Löschen" />
                     </buttons>
                   </ButtonBar>
                </children>

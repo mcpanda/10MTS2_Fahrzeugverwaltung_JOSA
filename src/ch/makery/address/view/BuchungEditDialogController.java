@@ -1,7 +1,6 @@
 package ch.makery.address.view;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+
 
 /**************************************************************************/
 /*                                                                        */
@@ -10,15 +9,18 @@ import javafx.collections.ObservableList;
 /**************************************************************************/
 
 import javafx.fxml.FXML;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Label;
 import javafx.stage.Stage;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import ch.makery.address.MainApp;
 import ch.makery.address.model.Buchung;
-import ch.makery.address.model.Person;
-import ch.makery.address.model.Fahrzeug;
 import ch.makery.address.util.DateUtil;
 
 /**************************************************************************/
@@ -32,8 +34,13 @@ public class BuchungEditDialogController {
 	// Reference to the main application.
     private MainApp mainApp;
 
-	ObservableList<Integer> personIDBoxList= FXCollections.observableArrayList();
-	ObservableList<Integer> fahrzeugIDBoxList= FXCollections.observableArrayList();
+	ObservableList<Integer> filteredPersonIDBoxList= FXCollections.observableArrayList();
+	ObservableList<Integer> filteredFahrzeugIDBoxList= FXCollections.observableArrayList();
+
+    String filterPerson= "";
+    String filterFahrzeug= "";
+
+    int temp;
 
     Stage dialogStage;
     private Buchung buchung;
@@ -46,7 +53,7 @@ public class BuchungEditDialogController {
 	/**************************************************************************/
 
 	@FXML
-    private TextField buchungIDField;
+    private Label buchungIDLabel;
     @FXML
     private TextField personIDField;
     @FXML
@@ -87,13 +94,12 @@ public class BuchungEditDialogController {
     private void initialize() {
 
     	personIDBox.setEditable(true);
-    	personIDBox.setValue(1);
-    	personIDBox.setItems(personIDBoxList);
+    	//personIDBox.setValue(0);
+    	personIDBox.setItems(filteredPersonIDBoxList);
 
     	fahrzeugIDBox.setEditable(true);
-    	fahrzeugIDBox.setValue(1);
-    	fahrzeugIDBox.setItems(fahrzeugIDBoxList);
-
+    	//fahrzeugIDBox.setValue(0);
+    	fahrzeugIDBox.setItems(filteredFahrzeugIDBoxList);
     }
 
 	/***************************************************************************
@@ -111,16 +117,112 @@ public class BuchungEditDialogController {
 
     public void handlerComboBoxList() {
 
-    	ObservableList<Person> personData = mainApp.getPersonData();
-    	ObservableList<Fahrzeug> fahrzeugData = mainApp.getFahrzeugData();
+	  	filteredPersonIDBoxList.setAll(mainApp.getPersonIDList());
+	  	filteredFahrzeugIDBoxList.setAll(mainApp.getFahrzeugIDList());
+    }
 
-	  	for(int i = 0; i<personData.size(); i++){
-	  		personIDBoxList.add(personData.get(i).getPersonID());
-	  	}
+	/***************************************************************************
 
-	  	for(int i = 0; i<fahrzeugData.size(); i++){
-	  		fahrzeugIDBoxList.add(fahrzeugData.get(i).getFahrzeugID());
-	  	}
+	METHODENNAME:	handleAutoCompletePerson
+
+	BESCHREIBUNG:   Sortiert ComboBox nach Tastatureingabe aus
+
+	PARAMETER: 		KeyEvent
+
+	RETURN:			void
+
+	***************************************************************************/
+
+    public void handleAutoCompletePerson (KeyEvent event) {
+    	personIDBox.show();
+
+    	KeyCode code= event.getCode();
+
+    	if((code == KeyCode.BACK_SPACE) && (filterPerson.length() > 0)) {
+    		filterPerson= filterPerson.substring(0, filterPerson.length()-1);
+    	} else {
+    		filterPerson+= event.getText();
+    	}
+
+    	if (filterPerson.length() > 0) {
+    		filteredPersonIDBoxList.clear();
+
+			for(int i = mainApp.getPersonIDList().size()-1; i > -1 ; i--){
+    			String vergleich= Integer.toString(mainApp.getPersonIDList().get(i));
+    			vergleich= vergleich.substring(0, filterPerson.length());
+        		if (vergleich.equals(filterPerson)) {
+        			int temp= mainApp.getPersonIDList().get(i);
+        			filteredPersonIDBoxList.add(temp);
+        		}
+    	  	}
+		}
+
+    	if (code == KeyCode.ESCAPE) {
+    		filterPerson= "";
+    		personIDBox.setValue(0);
+    	}
+
+    	if (code == KeyCode.ENTER) {
+    		filterPerson= "";
+    		personIDBox.setValue(0);
+    	}
+
+    	if(filterPerson.length()== 0) {
+    		filteredPersonIDBoxList.setAll(mainApp.getPersonIDList());
+    		personIDBox.hide();
+    	}
+    }
+
+    /***************************************************************************
+
+	METHODENNAME:	handleAutoCompleteFahrzeug
+
+	BESCHREIBUNG:   Sortiert ComboBox nach Tastatureingabe aus
+
+	PARAMETER: 		KeyEvent
+
+	RETURN:			void
+
+	***************************************************************************/
+
+    public void handleAutoCompleteFahrzeug (KeyEvent event) {
+    	fahrzeugIDBox.show();
+
+    	KeyCode code= event.getCode();
+
+    	if((code == KeyCode.BACK_SPACE) && (filterFahrzeug.length() > 0)) {
+    		filterFahrzeug= filterFahrzeug.substring(0, filterFahrzeug.length()-1);
+    	} else {
+    		filterFahrzeug+= event.getText();
+    	}
+
+    	if (filterFahrzeug.length() > 0) {
+    		filteredFahrzeugIDBoxList.clear();
+
+			for(int i = mainApp.getFahrzeugIDList().size()-1; i > -1 ; i--){
+    			String vergleich= Integer.toString(mainApp.getFahrzeugIDList().get(i));
+    			vergleich= vergleich.substring(0, filterFahrzeug.length());
+        		if (vergleich.equals(filterFahrzeug)) {
+        			int temp= mainApp.getFahrzeugIDList().get(i);
+        			filteredFahrzeugIDBoxList.add(temp);
+        		}
+    	  	}
+		}
+
+    	if (code == KeyCode.ESCAPE) {
+    		filterFahrzeug= "";
+    		fahrzeugIDBox.setValue(0);
+    	}
+
+    	if (code == KeyCode.ENTER) {
+    		filterFahrzeug= "";
+    		fahrzeugIDBox.setValue(0);
+    	}
+
+    	if(filterFahrzeug.length()== 0) {
+    		filteredFahrzeugIDBoxList.setAll(mainApp.getFahrzeugIDList());
+    		fahrzeugIDBox.hide();
+    	}
     }
 
 	/***************************************************************************
@@ -154,9 +256,16 @@ public class BuchungEditDialogController {
     public void setBuchung(Buchung buchung) {
         this.buchung = buchung;
 
-        buchungIDField.setText(Integer.toString(buchung.getBuchungID()));
-        personIDField.setText(Integer.toString(buchung.getPersonID()));
-        fahrzeugIDField.setText(Integer.toString(buchung.getFahrzeugID()));
+        if (buchung.getBuchungID() == 0) {
+        	buchungIDLabel.setText(Integer.toString(MainApp.counterBuchung));
+        } else {
+        	buchungIDLabel.setText(Integer.toString(buchung.getBuchungID()));
+        }
+
+        System.out.println("get: "+ buchung.getBuchungID());
+
+        personIDBox.setValue(buchung.getPersonID());
+        fahrzeugIDBox.setValue(buchung.getFahrzeugID());
         leihdauerField.setText(Integer.toString(buchung.getLeihdauer()));
 
         ausleihdatumField.setText(DateUtil.format(buchung.getAusleihdatum()));
@@ -199,9 +308,9 @@ public class BuchungEditDialogController {
     private void handleOk() {
         if (isInputValid()) {
 
-        	buchung.setBuchungID(Integer.parseInt(buchungIDField.getText()));
-        	buchung.setPersonID(Integer.parseInt(personIDField.getText()));
-        	buchung.setFahrzeugID(Integer.parseInt(fahrzeugIDField.getText()));
+        	buchung.setBuchungID(Integer.parseInt(buchungIDLabel.getText()));
+        	buchung.setPersonID(Integer.parseInt(personIDBox.getEditor().getText()));
+        	buchung.setFahrzeugID(Integer.parseInt(fahrzeugIDBox.getEditor().getText()));
         	buchung.setLeihdauer(Integer.parseInt(leihdauerField.getText()));
 
             buchung.setAusleihdatum(DateUtil.parse(ausleihdatumField.getText()));
@@ -248,34 +357,34 @@ public class BuchungEditDialogController {
     private boolean isInputValid() {
         String errorMessage = "";
 
-        if (buchungIDField.getText() == null || buchungIDField.getText().length() == 0) {
-            errorMessage += "No valid BuchungID!\n";
-        } else {
-            // try to parse the buchungID into an int.
-            try {
-                Integer.parseInt(buchungIDField.getText());
-            } catch (NumberFormatException e) {
-                errorMessage += "No valid buchungID (must be an integer)!\n";
-            }
-        }
+//        if (buchungIDField.getText() == null || buchungIDField.getText().length() == 0) {
+//            errorMessage += "No valid BuchungID!\n";
+//        } else {
+//            // try to parse the buchungID into an int.
+//            try {
+//                Integer.parseInt(buchungIDField.getText());
+//            } catch (NumberFormatException e) {
+//                errorMessage += "No valid buchungID (must be an integer)!\n";
+//            }
+//        }
 
-        if (personIDField.getText() == null || personIDField.getText().length() == 0) {
+        if (personIDBox.getEditor().getText() == null || personIDBox.getEditor().getText().length() == 0) {
             errorMessage += "No valid personID!\n";
         } else {
             // try to parse the personID into an int.
             try {
-                Integer.parseInt(personIDField.getText());
+                Integer.parseInt(personIDBox.getEditor().getText());
             } catch (NumberFormatException e) {
                 errorMessage += "No valid personID (must be an integer)!\n";
             }
         }
 
-        if (fahrzeugIDField.getText() == null || fahrzeugIDField.getText().length() == 0) {
+        if (fahrzeugIDBox.getEditor().getText() == null || fahrzeugIDBox.getEditor().getText().length() == 0) {
             errorMessage += "No valid fahrzeugID!\n";
         } else {
             // try to parse the fahrzeugID into an int.
             try {
-                Integer.parseInt(fahrzeugIDField.getText());
+                Integer.parseInt(fahrzeugIDBox.getEditor().getText());
             } catch (NumberFormatException e) {
                 errorMessage += "No valid fahrzeugID (must be an integer)!\n";
             }
@@ -341,3 +450,13 @@ public class BuchungEditDialogController {
         this.mainApp = mainApp;
     }
 }
+
+/*
+-------
+
+public List<? extends Comparable> sortieren(List<? extends Comparable> list) {
+
+
+
+
+}*/
