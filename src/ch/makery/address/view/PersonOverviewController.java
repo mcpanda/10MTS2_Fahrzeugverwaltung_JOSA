@@ -56,6 +56,10 @@ public class PersonOverviewController {
     private Label cityLabel;
     @FXML
     private Label birthdayLabel;
+    @FXML
+    private Label lizenzLabel;
+    @FXML
+    private Label ausgeliehenLabel;
 
 	/**************************************************************************/
 	/*                                                                        */
@@ -145,6 +149,8 @@ public class PersonOverviewController {
             firstNameLabel.setText(person.getFirstName());
             lastNameLabel.setText(person.getLastName());
             streetLabel.setText(person.getStreet());
+            lizenzLabel.setText(person.getLizenz());
+            ausgeliehenLabel.setText(person.getAusgeliehen());
             postalCodeLabel.setText(Integer.toString(person.getPostalCode()));
             cityLabel.setText(person.getCity());
             birthdayLabel.setText(DateUtil.format(person.getBirthday()));
@@ -154,6 +160,8 @@ public class PersonOverviewController {
             firstNameLabel.setText("");
             lastNameLabel.setText("");
             streetLabel.setText("");
+            lizenzLabel.setText("");
+            ausgeliehenLabel.setText("");
             postalCodeLabel.setText("");
             cityLabel.setText("");
             birthdayLabel.setText("");

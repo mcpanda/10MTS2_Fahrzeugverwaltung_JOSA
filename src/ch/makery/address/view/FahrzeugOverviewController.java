@@ -1,5 +1,7 @@
 package ch.makery.address.view;
 
+
+
 /**************************************************************************/
 /*                                                                        */
 /* Import Section                                                         */
@@ -56,6 +58,11 @@ public class FahrzeugOverviewController {
     private Label aenderungsdatumLabel;
     @FXML
     private Label kilometerstandLabel;
+    @FXML
+    private Label fahrzeugtypLabel;
+    @FXML
+    private Label ausgeliehenLabel;
+
 
 	/**************************************************************************/
 	/*                                                                        */
@@ -145,6 +152,8 @@ public class FahrzeugOverviewController {
             herstellerLabel.setText(fahrzeug.getHersteller());
             markeLabel.setText(fahrzeug.getMarke());
             kraftstoffLabel.setText(fahrzeug.getKraftstoff());
+            fahrzeugtypLabel.setText(fahrzeug.getFahrzeugtyp());
+            ausgeliehenLabel.setText(fahrzeug.getAusgeliehen());
             leistungLabel.setText(Integer.toString(fahrzeug.getLeistung()));
             aenderungsdatumLabel.setText(DateUtil.format(fahrzeug.getAenderungsdatum()));
             kilometerstandLabel.setText(Integer.toString(fahrzeug.getKilometerstand()));
@@ -154,6 +163,8 @@ public class FahrzeugOverviewController {
         	herstellerLabel.setText("");
         	markeLabel.setText("");
         	kraftstoffLabel.setText("");
+        	fahrzeugtypLabel.setText("");
+            ausgeliehenLabel.setText("");
         	leistungLabel.setText("");
         	aenderungsdatumLabel.setText("");
         	kilometerstandLabel.setText("");

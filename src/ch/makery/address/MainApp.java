@@ -98,15 +98,33 @@ public class MainApp extends Application {
 
 
 	public MainApp() {
-		personData.add(new Person(1, "Roman", "Bürki", "Strobelallee 50", 44139, "Dortmund"));
-		personData.add(new Person(2, "Marc", "Bartra", "Strobelallee 50", 44139, "Dortmund"));
-		personData.add(new Person(3, "Sven", "Bender", "Strobelallee 50", 44139, "Dortmund"));
+		personData.add(new Person(1, "Roman", "Bürki", "Strobelallee 50", "Klasse B", 44139, "Dortmund"));
+		personData.add(new Person(2, "Marc", "Bartra", "Strobelallee 50", "Klasse A", 44139, "Dortmund"));
+		personData.add(new Person(3, "Sven", "Bender", "Strobelallee 50", "Klasse C", 44139, "Dortmund"));
+		personData.add(new Person(4, "Marcel", "Schmelzer", "Strobelallee 50", "Klasse B", 44139, "Dortmund"));
+		personData.add(new Person(5, "Erik", "Durm", "Strobelallee 50", "Klasse A", 44139, "Dortmund"));
+		personData.add(new Person(6, "Matthias", "Ginter", "Strobelallee 50", "Klasse C", 44139, "Dortmund"));
 
-		fahrzeugData.add(new Fahrzeug(1, "BMW", "525d", "Diesel", 190, 85948));
-		fahrzeugData.add(new Fahrzeug(2, "Audi", "A6", "Diesel", 190, 85948));
+		fahrzeugData.add(new Fahrzeug(1, "BMW", "525d", "Diesel", "Langstrecke", 190, 85948));
+		fahrzeugData.add(new Fahrzeug(2, "Audi", "A6 TDI", "Diesel", "Langstrecke", 190, 65948));
+		fahrzeugData.add(new Fahrzeug(3, "MB", "E 220 CDI", "Diesel", "Langstrecke", 190,585948));
+		fahrzeugData.add(new Fahrzeug(4, "Smart", "ForTwo", "Super", "Cityflitzer", 65, 15948));
+		fahrzeugData.add(new Fahrzeug(5, "Toyota", "Aygo", "Super", "Cityflitzer", 65, 25948));
+		fahrzeugData.add(new Fahrzeug(6, "VW", "Up", "Super", "Cityflitzer", 65, 15948));
+		fahrzeugData.add(new Fahrzeug(7, "Volvo", "FH", "Diesel", "LKW", 250, 65948));
+		fahrzeugData.add(new Fahrzeug(8, "MAN", "TGX", "Diesel", "LKW", 250, 45948));
+		fahrzeugData.add(new Fahrzeug(9, "VW", "Crafter", "Diesel", "Kleintransporter", 110, 35948));
+		fahrzeugData.add(new Fahrzeug(10, "MB", "Sprinter", "Diesel", "Kleintransporter", 110, 55948));
+		fahrzeugData.add(new Fahrzeug(11, "Peugeot", "Partner", "Diesel", "Kleintransporter", 110, 45948));
+		fahrzeugData.add(new Fahrzeug(12, "BMW", "F 800 R", "Super", "Motorrad", 90, 15948));
+		fahrzeugData.add(new Fahrzeug(13, "Honda", "Partner", "Diesel", "Motorrad", 80, 25948));
 
 		buchungData.add(new Buchung(1, 1, 1, 1));
 		buchungData.add(new Buchung(2, 2, 2, 2));
+		buchungData.add(new Buchung(3, 3, 3, 1));
+		buchungData.add(new Buchung(4, 4, 4, 2));
+		buchungData.add(new Buchung(5, 5, 5, 1));
+		buchungData.add(new Buchung(6, 6, 6, 2));
 	}
 
 	/**************************************************************************/
@@ -631,6 +649,7 @@ public class MainApp extends Application {
 			BuchungEditDialogController controller = loader.getController();
 			controller.setDialogStage(dialogStage);
 			controller.setBuchung(buchung);
+//			controller.handlerComboBoxList();
 			controller.setMainApp(this);
 
 			// Show the dialog and wait until the user closes it

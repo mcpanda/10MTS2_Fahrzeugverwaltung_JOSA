@@ -60,6 +60,8 @@ public class BuchungOverviewController {
     @FXML
     private Label markeLabel;
     @FXML
+    private Label fahrzeugtypLabel;
+    @FXML
     private Label ausleihdatumLabel;
     @FXML
     private Label rueckgabedatumLabel;
@@ -160,6 +162,7 @@ public class BuchungOverviewController {
         		if(buchung.getPersonID() == personData.get(i).getPersonID()) {
         			vornameLabel.setText(personData.get(i).getFirstName());
                 	nachnameLabel.setText(personData.get(i).getLastName());
+                	buchung.setLastname(personData.get(i).getLastName());
         		}
         	}
 
@@ -168,8 +171,12 @@ public class BuchungOverviewController {
         		if(buchung.getFahrzeugID() == fahrzeugData.get(i).getFahrzeugID()) {
         			herstellerLabel.setText(fahrzeugData.get(i).getHersteller());
                 	markeLabel.setText(fahrzeugData.get(i).getMarke());
+                	buchung.setHersteller(fahrzeugData.get(i).getHersteller());
+                	buchung.setFahrzeugtyp(fahrzeugData.get(i).getFahrzeugtyp());
         		}
         	}
+
+        	fahrzeugtypLabel.setText(buchung.getFahrzeugtyp());
 
             ausleihdatumLabel.setText(DateUtil.format(buchung.getAusleihdatum()));
             rueckgabedatumLabel.setText(DateUtil.format(buchung.getRueckgabedatum()));

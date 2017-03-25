@@ -30,6 +30,8 @@ public class Fahrzeug {
     private final StringProperty kraftstoff;
     private final IntegerProperty leistung;
     private final IntegerProperty kilometerstand;
+    private final StringProperty fahrzeugtyp;
+    private final StringProperty ausgeliehen;
     private final ObjectProperty<LocalDate> aenderungsdatum;
 
 	/**************************************************************************/
@@ -37,22 +39,24 @@ public class Fahrzeug {
 	/* Constructurs                                                           */
 	/*                                                                        */
 	/**************************************************************************/
-    
+
     public Fahrzeug() {
-        this(0, null, null, null, 0, 0);
+        this(0, null, null, null, null, 0, 0);
     }
 
-    public Fahrzeug(int fahrzeugID, String hersteller, String marke, String kraftstoff, int leistung, int kilometerstand) {
+    public Fahrzeug(int fahrzeugID, String hersteller, String marke, String kraftstoff, String fahrzeugtyp, int leistung, int kilometerstand) {
         this.fahrzeugID = new SimpleIntegerProperty(fahrzeugID);
     	this.hersteller = new SimpleStringProperty(hersteller);
         this.marke = new SimpleStringProperty(marke);
         this.kraftstoff = new SimpleStringProperty(kraftstoff);
+        this.fahrzeugtyp = new SimpleStringProperty(fahrzeugtyp);
         this.leistung = new SimpleIntegerProperty(leistung);
         this.kilometerstand = new SimpleIntegerProperty(kilometerstand);
 
+        this.ausgeliehen = new SimpleStringProperty("Nein");
         this.aenderungsdatum = new SimpleObjectProperty<LocalDate>(LocalDate.of(2017, 2, 21));
     }
-    
+
 	/**************************************************************************/
 	/*                                                                        */
 	/* Getters and Setters													  */
@@ -107,6 +111,30 @@ public class Fahrzeug {
 
     public StringProperty markeProperty() {
         return marke;
+    }
+
+    public String getFahrzeugtyp() {
+        return fahrzeugtyp.get();
+    }
+
+    public void setFahrzeugtyp(String fahrzeugtyp) {
+        this.fahrzeugtyp.set(fahrzeugtyp);
+    }
+
+    public StringProperty fahrzeugtypProperty() {
+        return fahrzeugtyp;
+    }
+
+    public String getAusgeliehen() {
+        return ausgeliehen.get();
+    }
+
+    public void setAusgeliehen(String ausgeliehen) {
+        this.ausgeliehen.set(ausgeliehen);
+    }
+
+    public StringProperty ausgeliehenProperty() {
+        return ausgeliehen;
     }
 
     public String getKraftstoff() {

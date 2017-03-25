@@ -8,6 +8,7 @@ package ch.makery.address.view;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -46,6 +47,10 @@ public class PersonEditDialogController {
     private TextField cityField;
     @FXML
     private TextField birthdayField;
+    @FXML
+    private ChoiceBox<String> lizenzBox;
+    @FXML
+    private ChoiceBox<String> ausgeliehenBox;
 
 	/**************************************************************************/
 	/*                                                                        */
@@ -69,6 +74,8 @@ public class PersonEditDialogController {
 
     @FXML
     private void initialize() {
+    	lizenzBox.getItems().addAll("Klasse A", "Klasse B", "Klasse C");
+    	ausgeliehenBox.getItems().addAll("Ja", "Nein");
     }
 
 	/***************************************************************************
@@ -106,6 +113,8 @@ public class PersonEditDialogController {
         firstNameField.setText(person.getFirstName());
         lastNameField.setText(person.getLastName());
         streetField.setText(person.getStreet());
+        lizenzBox.setValue(person.getLizenz());
+        ausgeliehenBox.setValue(person.getAusgeliehen());
         postalCodeField.setText(Integer.toString(person.getPostalCode()));
         cityField.setText(person.getCity());
         birthdayField.setText(DateUtil.format(person.getBirthday()));
@@ -150,6 +159,8 @@ public class PersonEditDialogController {
             person.setFirstName(firstNameField.getText());
             person.setLastName(lastNameField.getText());
             person.setStreet(streetField.getText());
+            person.setLizenz(lizenzBox.getValue());
+            person.setAusgeliehen(ausgeliehenBox.getValue());
             person.setPostalCode(Integer.parseInt(postalCodeField.getText()));
             person.setCity(cityField.getText());
             person.setBirthday(DateUtil.parse(birthdayField.getText()));

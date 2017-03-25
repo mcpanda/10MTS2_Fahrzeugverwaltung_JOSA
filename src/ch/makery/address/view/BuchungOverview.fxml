@@ -53,14 +53,15 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
                         <Label text="BuchungsID" />
                         <Label text="Person" GridPane.rowIndex="1" />
                         <Label text="Fahrzeug" GridPane.rowIndex="4" />
-                        <Label text="Ausleihbeginn" GridPane.rowIndex="7" />
-                        <Label text="Ausleihende" GridPane.rowIndex="8" />
-                        <Label text="Ausleihdauer" GridPane.rowIndex="9" />
+                        <Label text="Ausleihbeginn" GridPane.rowIndex="8" />
+                        <Label text="Ausleihende" GridPane.rowIndex="9" />
+                        <Label text="Ausleihdauer" GridPane.rowIndex="10" />
                         <Label fx:id="personIDLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                         <Label fx:id="fahrzeugIDLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                         <Label fx:id="herstellerLabel" text="Hersteller" GridPane.columnIndex="1" GridPane.rowIndex="5" />
@@ -68,9 +69,10 @@
                         <Label fx:id="buchungIDLabel" text="Label" GridPane.columnIndex="1" />
                         <Label fx:id="vornameLabel" text="Vorname" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                         <Label fx:id="nachnameLabel" text="Nachname" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                        <Label fx:id="ausleihdatumLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-                        <Label fx:id="rueckgabedatumLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-                        <Label fx:id="leihdauerLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+                        <Label fx:id="ausleihdatumLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                        <Label fx:id="rueckgabedatumLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+                        <Label fx:id="leihdauerLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+                        <Label fx:id="fahrzeugtypLabel" text="Fahrzeugtyp" GridPane.columnIndex="1" GridPane.rowIndex="7" />
                      </children>
                   </GridPane>
                   <ButtonBar layoutX="293.0" layoutY="344.0" prefHeight="40.0" prefWidth="200.0" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="15.0">

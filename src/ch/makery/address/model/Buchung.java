@@ -11,6 +11,8 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import ch.makery.address.util.LocalDateAdapter;
 
@@ -24,7 +26,10 @@ public class Buchung {
 
 	private final IntegerProperty buchungID;
     private final IntegerProperty personID;
+    private final StringProperty lastname;
     private final IntegerProperty fahrzeugID;
+    private final StringProperty hersteller;
+    private final StringProperty fahrzeugtyp;
     private final ObjectProperty<LocalDate> ausleihdatum;
     private final ObjectProperty<LocalDate> rueckgabedatum;
     private final IntegerProperty leihdauer;
@@ -45,6 +50,9 @@ public class Buchung {
         this.fahrzeugID = new SimpleIntegerProperty(fahrzeugID);
         this.leihdauer = new SimpleIntegerProperty(leihdauer);
 
+        this.lastname = new SimpleStringProperty("");
+        this.hersteller = new SimpleStringProperty("");
+        this.fahrzeugtyp = new SimpleStringProperty("");
         this.ausleihdatum = new SimpleObjectProperty<LocalDate>(LocalDate.of(2017, 2, 21));
         this.rueckgabedatum = new SimpleObjectProperty<LocalDate>(LocalDate.of(2017, 2, 22));
     }
@@ -104,6 +112,42 @@ public class Buchung {
 	public IntegerProperty leihdauerProperty() {
 		return leihdauer;
 	}
+
+    public String getFahrzeugtyp() {
+        return fahrzeugtyp.get();
+    }
+
+    public void setFahrzeugtyp(String fahrzeugtyp) {
+        this.fahrzeugtyp.set(fahrzeugtyp);
+    }
+
+    public StringProperty fahrzeugtypProperty() {
+        return fahrzeugtyp;
+    }
+
+    public String getLastname() {
+        return lastname.get();
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname.set(lastname);
+    }
+
+    public StringProperty lastnameProperty() {
+        return lastname;
+    }
+
+    public String getHersteller() {
+        return hersteller.get();
+    }
+
+    public void setHersteller(String hersteller) {
+        this.hersteller.set(hersteller);
+    }
+
+    public StringProperty herstellerProperty() {
+        return hersteller;
+    }
 
     @XmlJavaTypeAdapter(LocalDateAdapter.class)
     public LocalDate getAusleihdatum() {

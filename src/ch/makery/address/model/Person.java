@@ -32,6 +32,8 @@ public class Person {
     private final StringProperty street;
     private final IntegerProperty postalCode;
     private final StringProperty city;
+    private final StringProperty lizenz;
+    private final StringProperty ausgeliehen;
     private final ObjectProperty<LocalDate> birthday;
 
 	/**************************************************************************/
@@ -39,19 +41,21 @@ public class Person {
 	/* Constructurs                                                           */
 	/*                                                                        */
 	/**************************************************************************/
-    
+
     public Person() {
-        this(0, null, null, null, 0, null);
+        this(0, null, null, null, null, 0, null);
     }
 
-    public Person(int personID, String firstName, String lastName, String street, int postal, String city) {
+    public Person(int personID, String firstName, String lastName, String street, String lizenz, int postal, String city) {
     	this.personID = new SimpleIntegerProperty(personID);
         this.firstName = new SimpleStringProperty(firstName);
         this.lastName = new SimpleStringProperty(lastName);
         this.street = new SimpleStringProperty(street);
+        this.lizenz = new SimpleStringProperty(lizenz);
         this.postalCode = new SimpleIntegerProperty(postal);
         this.city = new SimpleStringProperty(city);
 
+        this.ausgeliehen = new SimpleStringProperty("Nein");
         this.birthday = new SimpleObjectProperty<LocalDate>(LocalDate.of(1999, 2, 21));
     }
 
@@ -62,7 +66,7 @@ public class Person {
 	/* Wir nutzen Properties um Änderungen unverzüglich anzeigen zu lassen    */
 	/*                                                                        */
 	/**************************************************************************/
-    
+
     public int getPersonID() {
         return personID.get();
     }
@@ -109,6 +113,30 @@ public class Person {
 
     public StringProperty streetProperty() {
         return street;
+    }
+
+    public String getLizenz() {
+        return lizenz.get();
+    }
+
+    public void setLizenz(String lizenz) {
+        this.lizenz.set(lizenz);
+    }
+
+    public StringProperty lizenzProperty() {
+        return lizenz;
+    }
+
+    public String getAusgeliehen() {
+        return ausgeliehen.get();
+    }
+
+    public void setAusgeliehen(String ausgeliehen) {
+        this.ausgeliehen.set(ausgeliehen);
+    }
+
+    public StringProperty ausgeliehenProperty() {
+        return ausgeliehen;
     }
 
     public int getPostalCode() {

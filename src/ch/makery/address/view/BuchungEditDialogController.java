@@ -13,6 +13,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Label;
@@ -54,6 +55,10 @@ public class BuchungEditDialogController {
 
 	@FXML
     private Label buchungIDLabel;
+	@FXML
+    private Label lastnameLabel;
+	@FXML
+    private Label herstellerLabel;
     @FXML
     private TextField personIDField;
     @FXML
@@ -69,6 +74,8 @@ public class BuchungEditDialogController {
     private ComboBox<Integer> personIDBox;
     @FXML
     private ComboBox<Integer> fahrzeugIDBox;
+    @FXML
+    private ChoiceBox<String> fahrzeugtypBox;
 
 	/**************************************************************************/
 	/*                                                                        */
@@ -100,6 +107,8 @@ public class BuchungEditDialogController {
     	fahrzeugIDBox.setEditable(true);
     	//fahrzeugIDBox.setValue(0);
     	fahrzeugIDBox.setItems(filteredFahrzeugIDBoxList);
+
+    	fahrzeugtypBox.getItems().addAll("Motorrad", "Cityflitzer", "Langstrecke", "Kleintransporter", "LKW");
     }
 
 	/***************************************************************************
@@ -119,6 +128,7 @@ public class BuchungEditDialogController {
 
 	  	filteredPersonIDBoxList.setAll(mainApp.getPersonIDList());
 	  	filteredFahrzeugIDBoxList.setAll(mainApp.getFahrzeugIDList());
+//	  	fahrzeugtypBox.getItems().addAll("Motorrad", "Cityflitzer", "Langstrecke", "Kleintransporter", "LKW");
     }
 
 	/***************************************************************************
@@ -267,6 +277,10 @@ public class BuchungEditDialogController {
         personIDBox.setValue(buchung.getPersonID());
         fahrzeugIDBox.setValue(buchung.getFahrzeugID());
         leihdauerField.setText(Integer.toString(buchung.getLeihdauer()));
+        fahrzeugtypBox.setValue(buchung.getFahrzeugtyp());
+
+//        lastnameLabel.setText(buchung.getLastname());
+//        herstellerLabel.setText(buchung.getHersteller());
 
         ausleihdatumField.setText(DateUtil.format(buchung.getAusleihdatum()));
         ausleihdatumField.setPromptText("dd.mm.yyyy");
@@ -312,6 +326,10 @@ public class BuchungEditDialogController {
         	buchung.setPersonID(Integer.parseInt(personIDBox.getEditor().getText()));
         	buchung.setFahrzeugID(Integer.parseInt(fahrzeugIDBox.getEditor().getText()));
         	buchung.setLeihdauer(Integer.parseInt(leihdauerField.getText()));
+        	buchung.setFahrzeugtyp(fahrzeugtypBox.getValue());
+
+//        	buchung.setLastname(lastnameLabel.getText());
+//        	buchung.setHersteller(herstellerLabel.getText());
 
             buchung.setAusleihdatum(DateUtil.parse(ausleihdatumField.getText()));
             buchung.setRueckgabedatum(DateUtil.parse(rueckgabedatumField.getText()));

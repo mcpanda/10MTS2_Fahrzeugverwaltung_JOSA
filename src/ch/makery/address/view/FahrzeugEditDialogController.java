@@ -9,6 +9,7 @@ package ch.makery.address.view;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import ch.makery.address.model.Fahrzeug;
@@ -46,6 +47,10 @@ public class FahrzeugEditDialogController {
     private TextField aenderungsdatumField;
     @FXML
     private TextField kilometerstandField;
+    @FXML
+    private ChoiceBox<String> fahrzeugtypBox;
+    @FXML
+    private ChoiceBox<String> ausgeliehenBox;
 
 	/**************************************************************************/
 	/*                                                                        */
@@ -69,6 +74,8 @@ public class FahrzeugEditDialogController {
 
     @FXML
     private void initialize() {
+    	fahrzeugtypBox.getItems().addAll("Motorrad", "Cityflitzer", "Langstrecke", "Kleintransporter", "LKW");
+    	ausgeliehenBox.getItems().addAll("Ja", "Nein");
     }
 
 	/***************************************************************************
@@ -106,6 +113,8 @@ public class FahrzeugEditDialogController {
         herstellerField.setText(fahrzeug.getHersteller());
         markeField.setText(fahrzeug.getMarke());
         kraftstoffField.setText(fahrzeug.getKraftstoff());
+        fahrzeugtypBox.setValue(fahrzeug.getFahrzeugtyp());
+        ausgeliehenBox.setValue(fahrzeug.getAusgeliehen());
         leistungField.setText(Integer.toString(fahrzeug.getLeistung()));
         kilometerstandField.setText(Integer.toString(fahrzeug.getKilometerstand()));
         aenderungsdatumField.setText(DateUtil.format(fahrzeug.getAenderungsdatum()));
@@ -150,6 +159,8 @@ public class FahrzeugEditDialogController {
             fahrzeug.setHersteller(herstellerField.getText());
             fahrzeug.setMarke(markeField.getText());
             fahrzeug.setKraftstoff(kraftstoffField.getText());
+            fahrzeug.setFahrzeugtyp(fahrzeugtypBox.getValue());
+            fahrzeug.setAusgeliehen(ausgeliehenBox.getValue());
             fahrzeug.setLeistung(Integer.parseInt(leistungField.getText()));
             fahrzeug.setAenderungsdatum(DateUtil.parse(aenderungsdatumField.getText()));
             fahrzeug.setKilometerstand(Integer.parseInt(kilometerstandField.getText()));
