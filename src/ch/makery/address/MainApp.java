@@ -33,6 +33,7 @@ import ch.makery.address.view.PersonEditDialogController;
 import ch.makery.address.view.FahrzeugEditDialogController;
 import ch.makery.address.view.PersonOverviewController;
 import ch.makery.address.view.FahrzeugOverviewController;
+import ch.makery.address.view.FahrzeugStatisticController;
 import ch.makery.address.view.RootLayoutController;
 import ch.makery.address.view.BirthdayStatisticsController;
 import ch.makery.address.view.BuchungEditDialogController;
@@ -887,9 +888,6 @@ public class MainApp extends Application {
 
 	***************************************************************************/
 
-	/**
-	 * Opens a dialog to show birthday statistics.
-	 */
 	public void showBirthdayStatistics() {
 		try {
 			// Load the fxml file and create a new stage for the popup.
@@ -916,5 +914,44 @@ public class MainApp extends Application {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}/***************************************************************************
+
+	METHODENNAME:	showFahrzeugStatistics
+
+	BESCHREIBUNG:   Öffnet die FahrzeugStatistic im root Layout
+
+	PARAMETER: 		void
+
+	RETURN:			void
+
+	***************************************************************************/
+
+	public void showFahrzeugStatistics() {
+		try {
+			// Load the fxml file and create a new stage for the popup.
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApp.class.getResource("view/FahrzeugStatistic.fxml"));
+			AnchorPane page = (AnchorPane) loader.load();
+
+			rootLayout.setCenter(page);
+
+			// Code um Statistic in eienm Popup-Fesnter zu öffnen
+			// Stage dialogStage = new Stage();
+			// dialogStage.setTitle("Birthday Statistics");
+			// dialogStage.initModality(Modality.WINDOW_MODAL);
+			// dialogStage.initOwner(primaryStage);
+			// Scene scene = new Scene(page);
+			// dialogStage.setScene(scene);
+
+			// Set the persons into the controller.
+			FahrzeugStatisticController controller = loader.getController();
+			controller.setFahrzeugStatistik(fahrzeugData, buchungData);
+
+			// dialogStage.show();
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
+
 }

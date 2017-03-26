@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.CheckMenuItem?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
@@ -14,7 +13,7 @@
             <items>
               <MenuItem mnemonicParsing="false" onAction="#handleNew" text="New" />
                   <MenuItem mnemonicParsing="false" onAction="#handleOpen" text="Open..." />
-                  <CheckMenuItem mnemonicParsing="false" onAction="#handleSave" text="Save" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleSave" text="Save" />
                   <MenuItem mnemonicParsing="false" onAction="#handleSaveAs" text="Save As..." />
                   <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
             </items>
@@ -28,6 +27,7 @@
           </Menu>
             <Menu mnemonicParsing="false" text="Statistics">
               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#handleShowFahrzeugStatistic" text="Show Fahrzeug Statistic" />
                 <MenuItem mnemonicParsing="false" onAction="#handleShowBirthdayStatistics" text="Show Birth Month Distribution" />
               </items>
             </Menu>

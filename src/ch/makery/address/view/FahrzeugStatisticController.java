@@ -6,35 +6,39 @@ package ch.makery.address.view;
 /*                                                                        */
 /**************************************************************************/
 
-import java.text.DateFormatSymbols;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Locale;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.XYChart;
-import ch.makery.address.model.Person;
+import ch.makery.address.model.Fahrzeug;
+import ch.makery.address.model.Buchung;
 
 /**************************************************************************/
 /*                                                                        */
 /* Class BirthdayStatisticsController                                     */
 /*																		  */
-/* Controller for the birthday statistic view							  */
 /*                                                                        */
 /**************************************************************************/
 
-public class BirthdayStatisticsController {
+public class FahrzeugStatisticController {
+
+	private ObservableList<String> herstellerMarkenList = FXCollections.observableArrayList();
+
+	/**************************************************************************/
+	/*                                                                        */
+	/* FXML Section                                                           */
+	/*                                                                        */
+	/**************************************************************************/
 
     @FXML
     private BarChart<String, Integer> barChart;
 
     @FXML
     private CategoryAxis xAxis;
-
-    private ObservableList<String> monthNames = FXCollections.observableArrayList();
 
 	/**************************************************************************/
 	/*                                                                        */
@@ -58,18 +62,14 @@ public class BirthdayStatisticsController {
 
     @FXML
     private void initialize() {
-        // Get an array with the English month names.
-        String[] months = DateFormatSymbols.getInstance(Locale.ENGLISH).getMonths();
-        // Convert it to a list and add it to our ObservableList of months.
-        monthNames.addAll(Arrays.asList(months));
+    	herstellerMarkenList.add("test");
 
-        // Assign the month names as categories for the horizontal axis.
-        xAxis.setCategories(monthNames);
+    	xAxis.setCategories(herstellerMarkenList);
     }
 
-	/***************************************************************************
+    /***************************************************************************
 
-	METHODENNAME:	setPersonData
+	METHODENNAME:	setFahrezugStatistik
 
 	BESCHREIBUNG:   lädt die Persoen für die Statistik.
 
@@ -79,21 +79,34 @@ public class BirthdayStatisticsController {
 
 	***************************************************************************/
 
-    public void setPersonData(List<Person> persons) {
-        // Count the number of people having their birthday in a specific month.
-        int[] monthCounter = new int[12];
-        for (Person p : persons) {
-            int month = p.getBirthday().getMonthValue() - 1;
-            monthCounter[month]++;
+    public void setFahrzeugStatistik(List<Fahrzeug> fahrzeugs, List<Buchung> buchungs) {
+
+        int[][] ausleihe = new int[2][fahrzeugs.size()];
+        herstellerMarkenList.clear();
+        for( int i= 0; i < ausleihe[0].length; i++) {
+        	ausleihe[0][i]= fahrzeugs.get(i).getFahrzeugID();
+        	herstellerMarkenList.add(fahrzeugs.get(i).getHersteller() + " " + fahrzeugs.get(i).getMarke());
+        }
+        for (Buchung b : buchungs) {
+        	int gebucht= b.getFahrzeugID();
+        	for( int i= 0; i < ausleihe[0].length; i++) {
+        		if( gebucht == ausleihe[0][i]) {
+        			ausleihe[1][i]++;
+        		}
+        	}
         }
 
         XYChart.Series<String, Integer> series = new XYChart.Series<>();
 
         // Create a XYChart.Data object for each month. Add it to the series.
-        for (int i = 0; i < monthCounter.length; i++) {
-            series.getData().add(new XYChart.Data<>(monthNames.get(i), monthCounter[i]));
+        for (int i = 0; i < herstellerMarkenList.size(); i++) {
+            series.getData().add(new XYChart.Data<>(herstellerMarkenList.get(i), ausleihe[1][i]));
         }
 
         barChart.getData().add(series);
     }
+
+
+
+
 }
