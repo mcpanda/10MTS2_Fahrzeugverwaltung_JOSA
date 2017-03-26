@@ -6,15 +6,15 @@ package ch.makery.address.model;
 /*                                                                        */
 /**************************************************************************/
 
-import java.time.LocalDate;
+//import java.time.LocalDate;
 import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.ObjectProperty;
+//import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleObjectProperty;
+//import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-import ch.makery.address.util.LocalDateAdapter;
+//import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+//import ch.makery.address.util.LocalDateAdapter;
 
 /**************************************************************************/
 /*                                                                        */
@@ -32,7 +32,7 @@ public class Fahrzeug {
     private final IntegerProperty kilometerstand;
     private final StringProperty fahrzeugtyp;
     private final StringProperty ausgeliehen;
-    private final ObjectProperty<LocalDate> aenderungsdatum;
+//    private final ObjectProperty<LocalDate> aenderungsdatum;
 
 	/**************************************************************************/
 	/*                                                                        */
@@ -54,7 +54,7 @@ public class Fahrzeug {
         this.kilometerstand = new SimpleIntegerProperty(kilometerstand);
 
         this.ausgeliehen = new SimpleStringProperty("Nein");
-        this.aenderungsdatum = new SimpleObjectProperty<LocalDate>(LocalDate.of(2017, 2, 21));
+//        this.aenderungsdatum = new SimpleObjectProperty<LocalDate>(LocalDate.of(2017, 2, 21));
     }
 
 	/**************************************************************************/
@@ -162,16 +162,16 @@ public class Fahrzeug {
     }
 
 
-    @XmlJavaTypeAdapter(LocalDateAdapter.class)
-    public LocalDate getAenderungsdatum() {
-        return aenderungsdatum.get();
-    }
-
-    public void setAenderungsdatum(LocalDate aenderungsdatum) {
-        this.aenderungsdatum.set(aenderungsdatum);
-    }
-
-    public ObjectProperty<LocalDate> aenderungsdatumProperty() {
-        return aenderungsdatum;
-    }
+//    @XmlJavaTypeAdapter(LocalDateAdapter.class)
+//    public LocalDate getAenderungsdatum() {
+//        return aenderungsdatum.get();
+//    }
+//
+//    public void setAenderungsdatum(LocalDate aenderungsdatum) {
+//        this.aenderungsdatum.set(aenderungsdatum);
+//    }
+//
+//    public ObjectProperty<LocalDate> aenderungsdatumProperty() {
+//        return aenderungsdatum;
+//    }
 }

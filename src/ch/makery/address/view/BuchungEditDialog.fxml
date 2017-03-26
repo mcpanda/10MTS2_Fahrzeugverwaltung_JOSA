@@ -35,9 +35,8 @@
             <Label text="Ausleihdatum" GridPane.rowIndex="4" />
             <Label text="Rueckgabedatum" GridPane.rowIndex="5" />
             <Label text="Leihdauer" GridPane.rowIndex="6" />
-            <TextField fx:id="ausleihdatumField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <TextField fx:id="rueckgabedatumField" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-            <TextField fx:id="leihdauerField" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <TextField fx:id="ausleihdatumField" onMouseExited="#AusleihdauerBerechnung" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <TextField fx:id="rueckgabedatumField" onMouseExited="#AusleihdauerBerechnung" GridPane.columnIndex="1" GridPane.rowIndex="5" />
             <ComboBox fx:id="personIDBox" onKeyReleased="#handleAutoCompletePerson" prefHeight="31.0" prefWidth="150.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="2">
                <GridPane.margin>
                   <Insets />
@@ -49,7 +48,8 @@
             </ComboBox>
             <Label fx:id="buchungIDLabel" text="Label" GridPane.columnIndex="1" />
             <Label text="Fahrzeugtyp" GridPane.rowIndex="1" />
-            <ChoiceBox fx:id="fahrzeugtypBox" prefHeight="31.0" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <ChoiceBox fx:id="fahrzeugtypBox" onMouseMoved="#handleAutoCompleteFahrzeugtyp" prefHeight="31.0" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label fx:id="leihdauerLabel" text="Tage" GridPane.columnIndex="1" GridPane.rowIndex="6" />
          </children>
       </GridPane>
       <ButtonBar layoutX="486.0" layoutY="346.0" prefHeight="40.0" prefWidth="296.0" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="15.0">

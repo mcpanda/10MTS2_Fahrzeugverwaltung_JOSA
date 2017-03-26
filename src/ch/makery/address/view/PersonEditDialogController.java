@@ -49,8 +49,6 @@ public class PersonEditDialogController {
     private TextField birthdayField;
     @FXML
     private ChoiceBox<String> lizenzBox;
-    @FXML
-    private ChoiceBox<String> ausgeliehenBox;
 
 	/**************************************************************************/
 	/*                                                                        */
@@ -75,7 +73,6 @@ public class PersonEditDialogController {
     @FXML
     private void initialize() {
     	lizenzBox.getItems().addAll("Klasse A", "Klasse B", "Klasse C");
-    	ausgeliehenBox.getItems().addAll("Ja", "Nein");
     }
 
 	/***************************************************************************
@@ -114,7 +111,6 @@ public class PersonEditDialogController {
         lastNameField.setText(person.getLastName());
         streetField.setText(person.getStreet());
         lizenzBox.setValue(person.getLizenz());
-        ausgeliehenBox.setValue(person.getAusgeliehen());
         postalCodeField.setText(Integer.toString(person.getPostalCode()));
         cityField.setText(person.getCity());
         birthdayField.setText(DateUtil.format(person.getBirthday()));
@@ -160,7 +156,7 @@ public class PersonEditDialogController {
             person.setLastName(lastNameField.getText());
             person.setStreet(streetField.getText());
             person.setLizenz(lizenzBox.getValue());
-            person.setAusgeliehen(ausgeliehenBox.getValue());
+            person.setAusgeliehen("Nein");
             person.setPostalCode(Integer.parseInt(postalCodeField.getText()));
             person.setCity(cityField.getText());
             person.setBirthday(DateUtil.parse(birthdayField.getText()));

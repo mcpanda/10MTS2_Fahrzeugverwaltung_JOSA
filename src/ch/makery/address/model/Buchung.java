@@ -53,8 +53,8 @@ public class Buchung {
         this.lastname = new SimpleStringProperty("");
         this.hersteller = new SimpleStringProperty("");
         this.fahrzeugtyp = new SimpleStringProperty("");
-        this.ausleihdatum = new SimpleObjectProperty<LocalDate>(LocalDate.of(2017, 2, 21));
-        this.rueckgabedatum = new SimpleObjectProperty<LocalDate>(LocalDate.of(2017, 2, 22));
+        this.ausleihdatum = new SimpleObjectProperty<LocalDate>(LocalDate.now());
+        this.rueckgabedatum = new SimpleObjectProperty<LocalDate>(LocalDate.now());
     }
 
 	/**************************************************************************/

@@ -13,7 +13,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import ch.makery.address.model.Fahrzeug;
-import ch.makery.address.util.DateUtil;
+//import ch.makery.address.util.DateUtil;
 
 /**************************************************************************/
 /*                                                                        */
@@ -43,14 +43,12 @@ public class FahrzeugEditDialogController {
     private TextField kraftstoffField;
     @FXML
     private TextField leistungField;
-    @FXML
-    private TextField aenderungsdatumField;
+//    @FXML
+//    private TextField aenderungsdatumField;
     @FXML
     private TextField kilometerstandField;
     @FXML
     private ChoiceBox<String> fahrzeugtypBox;
-    @FXML
-    private ChoiceBox<String> ausgeliehenBox;
 
 	/**************************************************************************/
 	/*                                                                        */
@@ -75,7 +73,6 @@ public class FahrzeugEditDialogController {
     @FXML
     private void initialize() {
     	fahrzeugtypBox.getItems().addAll("Motorrad", "Cityflitzer", "Langstrecke", "Kleintransporter", "LKW");
-    	ausgeliehenBox.getItems().addAll("Ja", "Nein");
     }
 
 	/***************************************************************************
@@ -114,11 +111,10 @@ public class FahrzeugEditDialogController {
         markeField.setText(fahrzeug.getMarke());
         kraftstoffField.setText(fahrzeug.getKraftstoff());
         fahrzeugtypBox.setValue(fahrzeug.getFahrzeugtyp());
-        ausgeliehenBox.setValue(fahrzeug.getAusgeliehen());
         leistungField.setText(Integer.toString(fahrzeug.getLeistung()));
         kilometerstandField.setText(Integer.toString(fahrzeug.getKilometerstand()));
-        aenderungsdatumField.setText(DateUtil.format(fahrzeug.getAenderungsdatum()));
-        aenderungsdatumField.setPromptText("dd.mm.yyyy");
+//        aenderungsdatumField.setText(DateUtil.format(fahrzeug.getAenderungsdatum()));
+//        aenderungsdatumField.setPromptText("dd.mm.yyyy");
     }
 
 	/***************************************************************************
@@ -160,9 +156,9 @@ public class FahrzeugEditDialogController {
             fahrzeug.setMarke(markeField.getText());
             fahrzeug.setKraftstoff(kraftstoffField.getText());
             fahrzeug.setFahrzeugtyp(fahrzeugtypBox.getValue());
-            fahrzeug.setAusgeliehen(ausgeliehenBox.getValue());
+            fahrzeug.setAusgeliehen("Nein");
             fahrzeug.setLeistung(Integer.parseInt(leistungField.getText()));
-            fahrzeug.setAenderungsdatum(DateUtil.parse(aenderungsdatumField.getText()));
+//            fahrzeug.setAenderungsdatum(DateUtil.parse(aenderungsdatumField.getText()));
             fahrzeug.setKilometerstand(Integer.parseInt(kilometerstandField.getText()));
 
             okClicked = true;
@@ -239,13 +235,13 @@ public class FahrzeugEditDialogController {
             }
         }
 
-        if (aenderungsdatumField.getText() == null || aenderungsdatumField.getText().length() == 0) {
-            errorMessage += "No valid Aenderungsdatum!\n";
-        } else {
-            if (!DateUtil.validDate(aenderungsdatumField.getText())) {
-                errorMessage += "No valid Aenderungsdatum. Use the format dd.mm.yyyy!\n";
-            }
-        }
+//        if (aenderungsdatumField.getText() == null || aenderungsdatumField.getText().length() == 0) {
+//            errorMessage += "No valid Aenderungsdatum!\n";
+//        } else {
+//            if (!DateUtil.validDate(aenderungsdatumField.getText())) {
+//                errorMessage += "No valid Aenderungsdatum. Use the format dd.mm.yyyy!\n";
+//            }
+//        }
 
         if (kilometerstandField.getText() == null || kilometerstandField.getText().length() == 0) {
             errorMessage += "No valid Kilometerstand!\n";

@@ -26,7 +26,6 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
             <Label text="FahrzeugID" />
@@ -35,18 +34,16 @@
             <Label text="Kraftstoff" GridPane.rowIndex="3" />
             <Label text="Leistung" GridPane.rowIndex="4" />
             <Label text="Kilometerstand" GridPane.rowIndex="5" />
-            <Label text="Änderungsdatum" GridPane.rowIndex="8" />
             <TextField fx:id="fahrzeugIDField" GridPane.columnIndex="1" />
             <TextField fx:id="herstellerField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <TextField fx:id="markeField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <TextField fx:id="kraftstoffField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <TextField fx:id="leistungField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <TextField fx:id="kilometerstandField" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-            <TextField fx:id="aenderungsdatumField" GridPane.columnIndex="1" GridPane.rowIndex="8" />
             <Label text="Fahrzeugtyp" GridPane.rowIndex="6" />
             <Label text="Ausgeliehen" GridPane.rowIndex="7" />
             <ChoiceBox fx:id="fahrzeugtypBox" prefWidth="400.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-            <ChoiceBox fx:id="ausgeliehenBox" prefWidth="400.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+            <Label text="Nein" GridPane.columnIndex="1" GridPane.rowIndex="7" />
          </children>
       </GridPane>
       <ButtonBar layoutX="400.0" layoutY="260.0" prefHeight="40.0" prefWidth="200.0" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="15.0">

@@ -13,6 +13,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import ch.makery.address.MainApp;
+import ch.makery.address.model.Buchung;
 import ch.makery.address.model.Person;
 import ch.makery.address.util.DateUtil;
 
@@ -220,6 +221,50 @@ public class PersonOverviewController {
         boolean okClicked = mainApp.showPersonEditDialog(tempPerson);
         if (okClicked) {
             mainApp.getPersonData().add(tempPerson);
+        }
+    }
+
+    /***************************************************************************
+
+	METHODENNAME:	handlePersonBuchung
+
+	BESCHREIBUNG:   handler für den Buchungs Button.
+					Hiermit wird eine neue Buchung angelegt und die Daten
+					der ausgewählten Person geladen.
+
+	PARAMETER: 		void
+
+	RETURN:			void
+
+	***************************************************************************/
+
+    @FXML
+    private void handlePersonBuchung() {
+    	Person selectedPerson = personTable.getSelectionModel().getSelectedItem();
+    	Buchung tempBuchung= new Buchung();
+
+        if (selectedPerson != null) {
+        	tempBuchung.setPersonID(selectedPerson.getPersonID());
+        	tempBuchung.setLastname(selectedPerson.getLastName());
+
+        	MainApp.counterBuchung= mainApp.getBuchungData().size()+1;
+
+            boolean okClicked = mainApp.showBuchungEditDialog(tempBuchung);
+            if (okClicked) {
+            	mainApp.getBuchungData().add(tempBuchung);
+            } else {
+            	MainApp.counterBuchung--;
+            }
+
+        } else {
+            // Nothing selected.
+            Alert alert = new Alert(AlertType.WARNING);
+            alert.initOwner(mainApp.getPrimaryStage());
+            alert.setTitle("No Selection");
+            alert.setHeaderText("No Person Selected");
+            alert.setContentText("Please select a Person in the table.");
+
+            alert.showAndWait();
         }
     }
 

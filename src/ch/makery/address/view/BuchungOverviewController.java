@@ -247,6 +247,8 @@ public class BuchungOverviewController {
         boolean okClicked = mainApp.showBuchungEditDialog(tempBuchung);
         if (okClicked) {
             mainApp.getBuchungData().add(tempBuchung);
+        } else {
+        	MainApp.counterBuchung--;
         }
     }
 

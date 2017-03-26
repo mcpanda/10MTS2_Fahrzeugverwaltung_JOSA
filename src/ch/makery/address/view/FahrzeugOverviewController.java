@@ -15,8 +15,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import ch.makery.address.MainApp;
+import ch.makery.address.model.Buchung;
 import ch.makery.address.model.Fahrzeug;
-import ch.makery.address.util.DateUtil;
+//import ch.makery.address.util.DateUtil;
 
 /**************************************************************************/
 /*                                                                        */
@@ -54,8 +55,8 @@ public class FahrzeugOverviewController {
     private Label kraftstoffLabel;
     @FXML
     private Label leistungLabel;
-    @FXML
-    private Label aenderungsdatumLabel;
+//    @FXML
+//    private Label aenderungsdatumLabel;
     @FXML
     private Label kilometerstandLabel;
     @FXML
@@ -155,7 +156,7 @@ public class FahrzeugOverviewController {
             fahrzeugtypLabel.setText(fahrzeug.getFahrzeugtyp());
             ausgeliehenLabel.setText(fahrzeug.getAusgeliehen());
             leistungLabel.setText(Integer.toString(fahrzeug.getLeistung()));
-            aenderungsdatumLabel.setText(DateUtil.format(fahrzeug.getAenderungsdatum()));
+//            aenderungsdatumLabel.setText(DateUtil.format(fahrzeug.getAenderungsdatum()));
             kilometerstandLabel.setText(Integer.toString(fahrzeug.getKilometerstand()));
         } else {
             // Fahrzeug is null, remove all the text.
@@ -166,7 +167,7 @@ public class FahrzeugOverviewController {
         	fahrzeugtypLabel.setText("");
             ausgeliehenLabel.setText("");
         	leistungLabel.setText("");
-        	aenderungsdatumLabel.setText("");
+//        	aenderungsdatumLabel.setText("");
         	kilometerstandLabel.setText("");
         }
     }
@@ -223,6 +224,51 @@ public class FahrzeugOverviewController {
         boolean okClicked = mainApp.showFahrzeugEditDialog(tempFahrzeug);
         if (okClicked) {
             mainApp.getFahrzeugData().add(tempFahrzeug);
+        }
+    }
+
+    /***************************************************************************
+
+	METHODENNAME:	handleFahrzeugBuchung
+
+	BESCHREIBUNG:   handler für den Buchungs Button.
+					Hiermit wird eine neue Buchung angelegt und die Daten
+					des ausgewählten Fahrzeuges geladen.
+
+	PARAMETER: 		void
+
+	RETURN:			void
+
+	***************************************************************************/
+
+    @FXML
+    private void handleFahrzeugBuchung() {
+    	Fahrzeug selectedFahrzeug = fahrzeugTable.getSelectionModel().getSelectedItem();
+    	Buchung tempBuchung= new Buchung();
+
+        if (selectedFahrzeug != null) {
+        	tempBuchung.setFahrzeugID(selectedFahrzeug.getFahrzeugID());
+        	tempBuchung.setFahrzeugtyp(selectedFahrzeug.getFahrzeugtyp());
+        	tempBuchung.setHersteller(selectedFahrzeug.getHersteller());
+
+        	MainApp.counterBuchung= mainApp.getBuchungData().size()+1;
+
+            boolean okClicked = mainApp.showBuchungEditDialog(tempBuchung);
+            if (okClicked) {
+            	mainApp.getBuchungData().add(tempBuchung);
+            } else {
+            	MainApp.counterBuchung--;
+            }
+
+        } else {
+            // Nothing selected.
+            Alert alert = new Alert(AlertType.WARNING);
+            alert.initOwner(mainApp.getPrimaryStage());
+            alert.setTitle("No Selection");
+            alert.setHeaderText("No Fahrzeug Selected");
+            alert.setContentText("Please select a Fahrzeug in the table.");
+
+            alert.showAndWait();
         }
     }
 

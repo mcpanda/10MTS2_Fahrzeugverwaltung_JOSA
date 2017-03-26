@@ -20,8 +20,13 @@ import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+
+import java.time.LocalDate;
+
 import ch.makery.address.MainApp;
 import ch.makery.address.model.Buchung;
+import ch.makery.address.model.Fahrzeug;
+import ch.makery.address.model.Person;
 import ch.makery.address.util.DateUtil;
 
 /**************************************************************************/
@@ -68,7 +73,7 @@ public class BuchungEditDialogController {
     @FXML
     private TextField rueckgabedatumField;
     @FXML
-    private TextField leihdauerField;
+    private Label leihdauerLabel;
 
     @FXML
     private ComboBox<Integer> personIDBox;
@@ -108,7 +113,7 @@ public class BuchungEditDialogController {
     	//fahrzeugIDBox.setValue(0);
     	fahrzeugIDBox.setItems(filteredFahrzeugIDBoxList);
 
-    	fahrzeugtypBox.getItems().addAll("Motorrad", "Cityflitzer", "Langstrecke", "Kleintransporter", "LKW");
+    	fahrzeugtypBox.getItems().addAll("Alle", "Motorrad", "Cityflitzer", "Langstrecke", "Kleintransporter", "LKW");
     }
 
 	/***************************************************************************
@@ -130,6 +135,31 @@ public class BuchungEditDialogController {
 	  	filteredFahrzeugIDBoxList.setAll(mainApp.getFahrzeugIDList());
 //	  	fahrzeugtypBox.getItems().addAll("Motorrad", "Cityflitzer", "Langstrecke", "Kleintransporter", "LKW");
     }
+
+    /***************************************************************************
+
+	METHODENNAME:	AusleihdauerBerechnung
+
+	BESCHREIBUNG:   Berechnung der Ausleihdauer
+
+	PARAMETER: 		LocalDate, LocalDate
+
+	RETURN:			int
+
+	***************************************************************************/
+
+    public void AusleihdauerBerechnung() {
+
+    	LocalDate datum1= DateUtil.parse(ausleihdatumField.getText());
+    	LocalDate datum2= DateUtil.parse(rueckgabedatumField.getText());
+
+    	int years= datum2.getYear() - datum1.getYear();
+    	int days= datum2.getDayOfYear() - datum1.getDayOfYear();
+    	days= days + 365 * years;
+
+	    leihdauerLabel.setText(Integer.toString(days));
+    }
+
 
 	/***************************************************************************
 
@@ -235,6 +265,39 @@ public class BuchungEditDialogController {
     	}
     }
 
+    /***************************************************************************
+
+	METHODENNAME:	handleAutoCompleteFahrzeugtyp
+
+	BESCHREIBUNG:   Sortiert ComboBox nach Fahrzeugtypauswahl
+
+	PARAMETER: 		void
+
+	RETURN:			void
+
+	***************************************************************************/
+
+    public void handleAutoCompleteFahrzeugtyp() {
+
+    	if(fahrzeugtypBox.getValue().equals("Alle")) {
+    		filteredFahrzeugIDBoxList.setAll(mainApp.getFahrzeugIDList());
+    	} else {
+    		filteredFahrzeugIDBoxList.clear();
+
+        	ObservableList<Fahrzeug> fahrzeugData = mainApp.getFahrzeugData();
+
+    		for(int i = fahrzeugData.size()-1; i > -1 ; i--){
+    			String vergleich= fahrzeugData.get(i).getFahrzeugtyp();
+        		if (vergleich.equals(fahrzeugtypBox.getValue())) {
+        			int temp= fahrzeugData.get(i).getFahrzeugID();
+        			filteredFahrzeugIDBoxList.add(temp);
+        		}
+    	  	}
+    	}
+
+    }
+
+
 	/***************************************************************************
 
 	METHODENNAME:	setDialogStage
@@ -272,11 +335,8 @@ public class BuchungEditDialogController {
         	buchungIDLabel.setText(Integer.toString(buchung.getBuchungID()));
         }
 
-        System.out.println("get: "+ buchung.getBuchungID());
-
         personIDBox.setValue(buchung.getPersonID());
         fahrzeugIDBox.setValue(buchung.getFahrzeugID());
-        leihdauerField.setText(Integer.toString(buchung.getLeihdauer()));
         fahrzeugtypBox.setValue(buchung.getFahrzeugtyp());
 
 //        lastnameLabel.setText(buchung.getLastname());
@@ -286,6 +346,8 @@ public class BuchungEditDialogController {
         ausleihdatumField.setPromptText("dd.mm.yyyy");
         rueckgabedatumField.setText(DateUtil.format(buchung.getRueckgabedatum()));
         rueckgabedatumField.setPromptText("dd.mm.yyyy");
+
+        AusleihdauerBerechnung();
     }
 
 	/***************************************************************************
@@ -325,7 +387,7 @@ public class BuchungEditDialogController {
         	buchung.setBuchungID(Integer.parseInt(buchungIDLabel.getText()));
         	buchung.setPersonID(Integer.parseInt(personIDBox.getEditor().getText()));
         	buchung.setFahrzeugID(Integer.parseInt(fahrzeugIDBox.getEditor().getText()));
-        	buchung.setLeihdauer(Integer.parseInt(leihdauerField.getText()));
+        	buchung.setLeihdauer(Integer.parseInt(leihdauerLabel.getText()));
         	buchung.setFahrzeugtyp(fahrzeugtypBox.getValue());
 
 //        	buchung.setLastname(lastnameLabel.getText());
@@ -334,9 +396,58 @@ public class BuchungEditDialogController {
             buchung.setAusleihdatum(DateUtil.parse(ausleihdatumField.getText()));
             buchung.setRueckgabedatum(DateUtil.parse(rueckgabedatumField.getText()));
 
+            setAusgeliehen(buchung.getPersonID(), buchung.getFahrzeugID(), buchung.getRueckgabedatum());
+
             okClicked = true;
             dialogStage.close();
         }
+    }
+
+	/***************************************************************************
+
+	METHODENNAME:	setAusgeliehen
+
+	BESCHREIBUNG:   Beim Klick auf [OK] wird verglichen, ob das heutige Datum
+					kleiner oder gleich ist dem Rückgabedatum. Abhängig davon,
+					wird der AUsleihzustand des jeweiligen Fahrzeugs und der
+					Person auf "Ja" oder "Nein" gesetzt.
+
+	PARAMETER: 		int, int, LocalDate
+
+	RETURN:			void
+
+	***************************************************************************/
+
+    public void setAusgeliehen(int personID, int fahrID, LocalDate rueckgabedatum) {
+
+    	if (LocalDate.now().compareTo(rueckgabedatum) < 1) {
+
+    	}
+
+    	ObservableList<Person> personData = mainApp.getPersonData();
+    	for(int i = 0; i < personData.size(); i++){
+    		if(personID == personData.get(i).getPersonID()) {
+    			if (LocalDate.now().compareTo(rueckgabedatum) < 1) {
+    				personData.get(i).setAusgeliehen("Ja");
+    	    	} else {
+    	    		personData.get(i).setAusgeliehen("Nein");
+    	    	}
+
+    		}
+    	}
+
+    	ObservableList<Fahrzeug> fahrzeugData = mainApp.getFahrzeugData();
+    	for(int i = 0; i < fahrzeugData.size(); i++){
+    		if(fahrID == fahrzeugData.get(i).getFahrzeugID()) {
+    			if (LocalDate.now().compareTo(rueckgabedatum) < 1) {
+    				fahrzeugData.get(i).setAusgeliehen("Ja");
+    			} else {
+    				fahrzeugData.get(i).setAusgeliehen("Nein");
+    			}
+
+    		}
+    	}
+
     }
 
 	/***************************************************************************
@@ -408,15 +519,8 @@ public class BuchungEditDialogController {
             }
         }
 
-        if (leihdauerField.getText() == null || leihdauerField.getText().length() == 0) {
+        if (Integer.parseInt(leihdauerLabel.getText()) < 0) {
             errorMessage += "No valid Leihdauer!\n";
-        } else {
-            // try to parse the leihdauer into an int.
-            try {
-                Integer.parseInt(leihdauerField.getText());
-            } catch (NumberFormatException e) {
-                errorMessage += "No valid Leihdauer (must be an integer)!\n";
-            }
         }
 
         if (ausleihdatumField.getText() == null || ausleihdatumField.getText().length() == 0) {
