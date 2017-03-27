@@ -22,6 +22,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import ch.makery.address.MainApp;
 import ch.makery.address.model.Buchung;
@@ -326,7 +327,7 @@ public class BuchungEditDialogController {
 
 	***************************************************************************/
 
-    public void setBuchung(Buchung buchung) {
+    public void setBuchung(Buchung buchung, List<Person> persons,  List<Fahrzeug> fahrzeugs) {
         this.buchung = buchung;
 
         if (buchung.getBuchungID() == 0) {

@@ -12,8 +12,11 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import java.util.List;
+import ch.makery.address.MainApp;
 import ch.makery.address.model.Person;
 import ch.makery.address.util.DateUtil;
+import javafx.scene.control.Label;
 
 /**************************************************************************/
 /*                                                                        */
@@ -22,6 +25,8 @@ import ch.makery.address.util.DateUtil;
 /**************************************************************************/
 
 public class PersonEditDialogController {
+
+	private MainApp mainApp;
 
     private Stage dialogStage;
     private Person person;
@@ -47,6 +52,8 @@ public class PersonEditDialogController {
     private TextField cityField;
     @FXML
     private TextField birthdayField;
+    @FXML
+    private Label ausgeliehenLabel;
     @FXML
     private ChoiceBox<String> lizenzBox;
 
@@ -93,6 +100,23 @@ public class PersonEditDialogController {
 
 	/***************************************************************************
 
+	METHODENNAME:	setMainApp
+
+	BESCHREIBUNG:   Is called by the main application to give a reference back
+					to itself.
+
+	PARAMETER: 		mainApp
+
+	RETURN:			void
+
+	***************************************************************************/
+
+    public void setMainApp(MainApp mainApp) {
+        this.mainApp = mainApp;
+    }
+
+	/***************************************************************************
+
 	METHODENNAME:	setPerson
 
 	BESCHREIBUNG:   Definiert die Person, welche bearbeitet werden soll.
@@ -113,6 +137,7 @@ public class PersonEditDialogController {
         lizenzBox.setValue(person.getLizenz());
         postalCodeField.setText(Integer.toString(person.getPostalCode()));
         cityField.setText(person.getCity());
+        ausgeliehenLabel.setText(person.getAusgeliehen());
         birthdayField.setText(DateUtil.format(person.getBirthday()));
         birthdayField.setPromptText("dd.mm.yyyy");
     }
@@ -149,14 +174,14 @@ public class PersonEditDialogController {
 
     @FXML
     private void handleOk() {
-        if (isInputValid()) {
+        if (isInputValid(mainApp.getPersonData())) {
 
         	person.setPersonID(Integer.parseInt(personIDField.getText()));
             person.setFirstName(firstNameField.getText());
             person.setLastName(lastNameField.getText());
             person.setStreet(streetField.getText());
             person.setLizenz(lizenzBox.getValue());
-            person.setAusgeliehen("Nein");
+            person.setAusgeliehen(ausgeliehenLabel.getText());
             person.setPostalCode(Integer.parseInt(postalCodeField.getText()));
             person.setCity(cityField.getText());
             person.setBirthday(DateUtil.parse(birthdayField.getText()));
@@ -199,7 +224,7 @@ public class PersonEditDialogController {
 
 	***************************************************************************/
 
-    private boolean isInputValid() {
+    private boolean isInputValid(List<Person> persons) {
         String errorMessage = "";
 
         if (personIDField.getText() == null || personIDField.getText().length() == 0) {
@@ -210,6 +235,14 @@ public class PersonEditDialogController {
                 Integer.parseInt(personIDField.getText());
             } catch (NumberFormatException e) {
                 errorMessage += "No valid PersonID (must be an integer)!\n";
+            }
+        }
+
+        if (Integer.parseInt(personIDField.getText()) != person.getPersonID()) {
+        	for(Person p : persons) {
+            	if (Integer.parseInt(personIDField.getText()) == p.getPersonID()) {
+            		errorMessage += "PersonID already exists";
+            	}
             }
         }
 

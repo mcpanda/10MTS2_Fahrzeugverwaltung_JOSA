@@ -559,6 +559,7 @@ public class MainApp extends Application {
 
 			// Set the person into the controller.
 			PersonEditDialogController controller = loader.getController();
+			controller.setMainApp(this);
 			controller.setDialogStage(dialogStage);
 			controller.setPerson(person);
 
@@ -604,6 +605,7 @@ public class MainApp extends Application {
 
 			// Set the fahrzeug into the controller.
 			FahrzeugEditDialogController controller = loader.getController();
+			controller.setMainApp(this);
 			controller.setDialogStage(dialogStage);
 			controller.setFahrzeug(fahrzeug);
 
@@ -650,7 +652,7 @@ public class MainApp extends Application {
 			// Set the buchung into the controller.
 			BuchungEditDialogController controller = loader.getController();
 			controller.setDialogStage(dialogStage);
-			controller.setBuchung(buchung);
+			controller.setBuchung(buchung, personData, fahrzeugData);
 //			controller.handlerComboBoxList();
 			controller.setMainApp(this);
 

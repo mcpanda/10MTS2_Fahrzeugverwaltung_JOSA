@@ -12,12 +12,14 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+
+import java.util.List;
+
 import ch.makery.address.MainApp;
 import ch.makery.address.model.Buchung;
 import ch.makery.address.model.Person;
 import ch.makery.address.model.Fahrzeug;
 import ch.makery.address.util.DateUtil;
-import javafx.collections.ObservableList;
 
 /**************************************************************************/
 /*                                                                        */
@@ -107,11 +109,11 @@ public class BuchungOverviewController {
         fahrzeugIDColumn.setCellValueFactory(cellData -> cellData.getValue().fahrzeugIDProperty().asObject());
 
         // Clear Buchung details.
-        showBuchungDetails(null);
+        showBuchungDetails(null, null, null);
 
         // Listen for selection changes and show the buchung details when changed.
         buchungTable.getSelectionModel().selectedItemProperty().addListener(
-                (observable, oldValue, newValue) -> showBuchungDetails(newValue));
+                (observable, oldValue, newValue) -> showBuchungDetails(newValue, mainApp.getPersonData(), mainApp.getFahrzeugData()));
     }
 
 	/***************************************************************************
@@ -149,7 +151,7 @@ public class BuchungOverviewController {
 
 	***************************************************************************/
 
-    private void showBuchungDetails(Buchung buchung) {
+    private void showBuchungDetails(Buchung buchung, List<Person> persons, List<Fahrzeug> fahrzeugs) {
         if (buchung != null) {
         	buchungIDLabel.setText(Integer.toString(buchung.getBuchungID()));
             // Fill the labels with info from the buchung object.
@@ -157,22 +159,24 @@ public class BuchungOverviewController {
         	fahrzeugIDLabel.setText(Integer.toString(buchung.getFahrzeugID()));
         	leihdauerLabel.setText(Integer.toString(buchung.getLeihdauer()));
 
-        	ObservableList<Person> personData = mainApp.getPersonData();
-        	for(int i = 0; i<personData.size(); i++){
-        		if(buchung.getPersonID() == personData.get(i).getPersonID()) {
-        			vornameLabel.setText(personData.get(i).getFirstName());
-                	nachnameLabel.setText(personData.get(i).getLastName());
-                	buchung.setLastname(personData.get(i).getLastName());
+//        	ObservableList<Person> personData = mainApp.getPersonData();
+//        	for(int i = 0; i<personData.size(); i++){
+        	for (Person p : persons) {
+        		if(buchung.getPersonID() == p.getPersonID()) {
+        			vornameLabel.setText(p.getFirstName());
+                	nachnameLabel.setText(p.getLastName());
+                	buchung.setLastname(p.getLastName());
         		}
         	}
 
-        	ObservableList<Fahrzeug> fahrzeugData = mainApp.getFahrzeugData();
-        	for(int i = 0; i < fahrzeugData.size(); i++){
-        		if(buchung.getFahrzeugID() == fahrzeugData.get(i).getFahrzeugID()) {
-        			herstellerLabel.setText(fahrzeugData.get(i).getHersteller());
-                	markeLabel.setText(fahrzeugData.get(i).getMarke());
-                	buchung.setHersteller(fahrzeugData.get(i).getHersteller());
-                	buchung.setFahrzeugtyp(fahrzeugData.get(i).getFahrzeugtyp());
+//        	ObservableList<Fahrzeug> fahrzeugData = mainApp.getFahrzeugData();
+//        	for(int i = 0; i < fahrzeugData.size(); i++){
+        	for (Fahrzeug f : fahrzeugs) {
+        		if(buchung.getFahrzeugID() == f.getFahrzeugID()) {
+        			herstellerLabel.setText(f.getHersteller());
+                	markeLabel.setText(f.getMarke());
+                	buchung.setHersteller(f.getHersteller());
+                	buchung.setFahrzeugtyp(f.getFahrzeugtyp());
         		}
         	}
 
@@ -273,7 +277,7 @@ public class BuchungOverviewController {
         if (selectedBuchung != null) {
             boolean okClicked = mainApp.showBuchungEditDialog(selectedBuchung);
             if (okClicked) {
-                showBuchungDetails(selectedBuchung);
+                showBuchungDetails(selectedBuchung, mainApp.getPersonData(), mainApp.getFahrzeugData());
             }
 
         } else {

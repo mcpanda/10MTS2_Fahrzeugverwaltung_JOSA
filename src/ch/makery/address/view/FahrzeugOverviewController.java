@@ -55,8 +55,6 @@ public class FahrzeugOverviewController {
     private Label kraftstoffLabel;
     @FXML
     private Label leistungLabel;
-//    @FXML
-//    private Label aenderungsdatumLabel;
     @FXML
     private Label kilometerstandLabel;
     @FXML
@@ -156,7 +154,6 @@ public class FahrzeugOverviewController {
             fahrzeugtypLabel.setText(fahrzeug.getFahrzeugtyp());
             ausgeliehenLabel.setText(fahrzeug.getAusgeliehen());
             leistungLabel.setText(Integer.toString(fahrzeug.getLeistung()));
-//            aenderungsdatumLabel.setText(DateUtil.format(fahrzeug.getAenderungsdatum()));
             kilometerstandLabel.setText(Integer.toString(fahrzeug.getKilometerstand()));
         } else {
             // Fahrzeug is null, remove all the text.
@@ -167,7 +164,6 @@ public class FahrzeugOverviewController {
         	fahrzeugtypLabel.setText("");
             ausgeliehenLabel.setText("");
         	leistungLabel.setText("");
-//        	aenderungsdatumLabel.setText("");
         	kilometerstandLabel.setText("");
         }
     }

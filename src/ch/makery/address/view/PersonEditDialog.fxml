@@ -46,7 +46,7 @@
             <Label text="Führerschein" GridPane.rowIndex="6" />
             <Label text="Ausgeliehen" GridPane.rowIndex="7" />
             <ChoiceBox fx:id="lizenzBox" prefWidth="400.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-            <Label text="Nein" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+            <Label fx:id="ausgeliehenLabel" text="Ja / Nein" GridPane.columnIndex="1" GridPane.rowIndex="7" />
          </children>
       </GridPane>
       <ButtonBar layoutX="450.0" layoutY="346.0" prefHeight="40.0" prefWidth="200.0" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="15.0">
