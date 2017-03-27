@@ -19,14 +19,14 @@ import ch.makery.address.model.Buchung;
 
 /**************************************************************************/
 /*                                                                        */
-/* Class FahrzeugStatisticController                                      */
+/* Class FahrzeugTypStatisticController                                   */
 /*																		  */
 /*                                                                        */
 /**************************************************************************/
 
-public class FahrzeugStatisticController {
+public class FahrzeugTypStatisticController {
 
-	private ObservableList<String> herstellerMarkenList = FXCollections.observableArrayList();
+	private ObservableList<String> fahrzeugTypenList = FXCollections.observableArrayList();
 
 	/**************************************************************************/
 	/*                                                                        */
@@ -62,9 +62,9 @@ public class FahrzeugStatisticController {
 
     @FXML
     private void initialize() {
-    	herstellerMarkenList.add("test");
+    	fahrzeugTypenList.addAll("Motorrad", "Cityflitzer", "Langstrecke", "Kleintransporter", "LKW");
 
-    	xAxis.setCategories(herstellerMarkenList);
+    	xAxis.setCategories(fahrzeugTypenList);
     }
 
     /***************************************************************************
@@ -79,30 +79,28 @@ public class FahrzeugStatisticController {
 
 	***************************************************************************/
 
-    public void setFahrzeugStatistic(List<Fahrzeug> fahrzeugs, List<Buchung> buchungs) {
+    public void setFahrzeugTypStatistic(List<Fahrzeug> fahrzeugs, List<Buchung> buchungs) {
 
-        int[][] ausleihe = new int[2][fahrzeugs.size()];
-        herstellerMarkenList.clear();
-        for( int i= 0; i < ausleihe[0].length; i++) {
-        	ausleihe[0][i]= fahrzeugs.get(i).getFahrzeugID();
-        	herstellerMarkenList.add(fahrzeugs.get(i).getHersteller() + " " + fahrzeugs.get(i).getMarke());
-        }
+        int[] typen= new int[fahrzeugTypenList.size()];
+
         for (Buchung b : buchungs) {
-        	int gebucht= b.getFahrzeugID();
-        	for( int i= 0; i < ausleihe[0].length; i++) {
-        		if( gebucht == ausleihe[0][i]) {
-        			ausleihe[1][i]++;
+        	for(int j= 0; j < fahrzeugTypenList.size(); j++) {
+    			System.out.println(fahrzeugTypenList.get(j) + " = " + b.getFahrzeugtyp());
+        		if(fahrzeugTypenList.get(j).equals(b.getFahrzeugtyp())) {
+        			typen[j]++;
         		}
+        		System.out.println(typen[j]);
         	}
         }
 
         XYChart.Series<String, Integer> series = new XYChart.Series<>();
 
         // Create a XYChart.Data object for each month. Add it to the series.
-        for (int i = 0; i < herstellerMarkenList.size(); i++) {
-            series.getData().add(new XYChart.Data<>(herstellerMarkenList.get(i), ausleihe[1][i]));
+        for (int i = 0; i < fahrzeugTypenList.size(); i++) {
+            series.getData().add(new XYChart.Data<>(fahrzeugTypenList.get(i), typen[i]));
         }
 
         barChart.getData().add(series);
     }
+
 }

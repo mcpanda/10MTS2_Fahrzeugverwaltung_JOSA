@@ -261,6 +261,26 @@ public class RootLayoutController {
       mainApp.showFahrzeugStatistics();
     }
 
+    /***************************************************************************
+
+	METHODENNAME:	handleShowFahrzeugTypStatistic
+
+	BESCHREIBUNG:   handler für den handleShowFahrzeugTypStatistic Menüpunkt.
+					Wird handleShowFahrzeugTypStatistic angeklickt, so wird
+					die Fahrzeugtypstatistik in der MainApp geöffnet.
+
+	PARAMETER: 		void
+
+	RETURN:			void
+
+	***************************************************************************/
+
+    @FXML
+    private void handleShowFahrzeugTypStatistic() {
+      mainApp.showFahrzeugTypStatistics();
+    }
+
+
 	/***************************************************************************
 
 	METHODENNAME:	handleShowPerson
