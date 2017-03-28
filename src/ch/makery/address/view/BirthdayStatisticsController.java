@@ -5,7 +5,7 @@ package ch.makery.address.view;
 /* Import Section                                                         */
 /*                                                                        */
 /**************************************************************************/
-
+////////
 import java.text.DateFormatSymbols;
 import java.util.Arrays;
 import java.util.List;
@@ -25,7 +25,7 @@ import ch.makery.address.model.Person;
 /* Controller for the birthday statistic view							  */
 /*                                                                        */
 /**************************************************************************/
-
+/* zum Loeschen*/
 public class BirthdayStatisticsController {
 
     @FXML
