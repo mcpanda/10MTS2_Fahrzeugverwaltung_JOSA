@@ -48,7 +48,7 @@
             </ComboBox>
             <Label fx:id="buchungIDLabel" text="Label" GridPane.columnIndex="1" />
             <Label text="Fahrzeugtyp" GridPane.rowIndex="1" />
-            <ChoiceBox fx:id="fahrzeugtypBox" onMouseMoved="#handleAutoCompleteFahrzeugtyp" prefHeight="31.0" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <ChoiceBox fx:id="fahrzeugtypBox" prefHeight="31.0" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <Label fx:id="leihdauerLabel" text="Tage" GridPane.columnIndex="1" GridPane.rowIndex="6" />
          </children>
       </GridPane>

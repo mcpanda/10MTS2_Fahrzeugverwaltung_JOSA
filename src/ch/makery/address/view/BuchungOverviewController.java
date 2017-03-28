@@ -159,8 +159,6 @@ public class BuchungOverviewController {
         	fahrzeugIDLabel.setText(Integer.toString(buchung.getFahrzeugID()));
         	leihdauerLabel.setText(Integer.toString(buchung.getLeihdauer()));
 
-//        	ObservableList<Person> personData = mainApp.getPersonData();
-//        	for(int i = 0; i<personData.size(); i++){
         	for (Person p : persons) {
         		if(buchung.getPersonID() == p.getPersonID()) {
         			vornameLabel.setText(p.getFirstName());
@@ -169,8 +167,6 @@ public class BuchungOverviewController {
         		}
         	}
 
-//        	ObservableList<Fahrzeug> fahrzeugData = mainApp.getFahrzeugData();
-//        	for(int i = 0; i < fahrzeugData.size(); i++){
         	for (Fahrzeug f : fahrzeugs) {
         		if(buchung.getFahrzeugID() == f.getFahrzeugID()) {
         			herstellerLabel.setText(f.getHersteller());

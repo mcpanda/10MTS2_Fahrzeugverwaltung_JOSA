@@ -42,7 +42,9 @@ public class BuchungEditDialogController {
     private MainApp mainApp;
 
 	ObservableList<Integer> filteredPersonIDBoxList= FXCollections.observableArrayList();
+	ObservableList<Integer> filteredPersonLizenzIDBoxList= FXCollections.observableArrayList();
 	ObservableList<Integer> filteredFahrzeugIDBoxList= FXCollections.observableArrayList();
+	ObservableList<Integer> filteredFahrzeugTypIDBoxList= FXCollections.observableArrayList();
 
     String filterPerson= "";
     String filterFahrzeug= "";
@@ -115,6 +117,24 @@ public class BuchungEditDialogController {
     	fahrzeugIDBox.setItems(filteredFahrzeugIDBoxList);
 
     	fahrzeugtypBox.getItems().addAll("Alle", "Motorrad", "Cityflitzer", "Langstrecke", "Kleintransporter", "LKW");
+    	fahrzeugtypBox.setValue("Alle");
+    }
+
+	/***************************************************************************
+
+	METHODENNAME:	setMainApp
+
+	BESCHREIBUNG:   Is called by the main application to give a reference back
+					to itself.
+
+	PARAMETER: 		mainApp
+
+	RETURN:			void
+
+	***************************************************************************/
+
+    public void setMainApp(MainApp mainApp) {
+        this.mainApp = mainApp;
     }
 
 	/***************************************************************************
@@ -175,26 +195,36 @@ public class BuchungEditDialogController {
 	***************************************************************************/
 
     public void handleAutoCompletePerson (KeyEvent event) {
+
+    	AutoCompleteFahrzeugtyp(mainApp.getPersonData(), mainApp.getFahrzeugData());
+
     	personIDBox.show();
 
     	KeyCode code= event.getCode();
 
     	if((code == KeyCode.BACK_SPACE) && (filterPerson.length() > 0)) {
     		filterPerson= filterPerson.substring(0, filterPerson.length()-1);
-    	} else {
+    	}
+
+    	if(code.isDigitKey()) {
     		filterPerson+= event.getText();
     	}
 
     	if (filterPerson.length() > 0) {
     		filteredPersonIDBoxList.clear();
 
-			for(int i = mainApp.getPersonIDList().size()-1; i > -1 ; i--){
-    			String vergleich= Integer.toString(mainApp.getPersonIDList().get(i));
-    			vergleich= vergleich.substring(0, filterPerson.length());
-        		if (vergleich.equals(filterPerson)) {
-        			int temp= mainApp.getPersonIDList().get(i);
-        			filteredPersonIDBoxList.add(temp);
-        		}
+			for(int i= 0; i < filteredPersonLizenzIDBoxList.size(); i++){
+    			String vergleich= Integer.toString(filteredPersonLizenzIDBoxList.get(i));
+    			if(vergleich.length() < filterPerson.length()) {
+
+    			} else {
+    				vergleich= vergleich.substring(0, filterPerson.length());
+            		if (vergleich.equals(filterPerson)) {
+            			int temp= filteredPersonLizenzIDBoxList.get(i);
+            			filteredPersonIDBoxList.add(temp);
+            		}
+    			}
+
     	  	}
 		}
 
@@ -209,8 +239,8 @@ public class BuchungEditDialogController {
     	}
 
     	if(filterPerson.length()== 0) {
-    		filteredPersonIDBoxList.setAll(mainApp.getPersonIDList());
-    		personIDBox.hide();
+    		filteredPersonIDBoxList.setAll(filteredPersonLizenzIDBoxList);
+//    		personIDBox.hide();
     	}
     }
 
@@ -227,26 +257,36 @@ public class BuchungEditDialogController {
 	***************************************************************************/
 
     public void handleAutoCompleteFahrzeug (KeyEvent event) {
+
+    	AutoCompleteFahrzeugtyp(mainApp.getPersonData(), mainApp.getFahrzeugData());
+
     	fahrzeugIDBox.show();
 
     	KeyCode code= event.getCode();
 
     	if((code == KeyCode.BACK_SPACE) && (filterFahrzeug.length() > 0)) {
     		filterFahrzeug= filterFahrzeug.substring(0, filterFahrzeug.length()-1);
-    	} else {
+    	}
+
+    	if(code.isDigitKey()) {
     		filterFahrzeug+= event.getText();
     	}
 
     	if (filterFahrzeug.length() > 0) {
     		filteredFahrzeugIDBoxList.clear();
 
-			for(int i = mainApp.getFahrzeugIDList().size()-1; i > -1 ; i--){
-    			String vergleich= Integer.toString(mainApp.getFahrzeugIDList().get(i));
-    			vergleich= vergleich.substring(0, filterFahrzeug.length());
-        		if (vergleich.equals(filterFahrzeug)) {
-        			int temp= mainApp.getFahrzeugIDList().get(i);
-        			filteredFahrzeugIDBoxList.add(temp);
-        		}
+			for(int i= 0; i < filteredFahrzeugTypIDBoxList.size(); i++){
+    			String vergleich= Integer.toString(filteredFahrzeugTypIDBoxList.get(i));
+    			if (vergleich.length() < filterFahrzeug.length()) {
+
+    			} else {
+    				vergleich= vergleich.substring(0, filterFahrzeug.length());
+    				if (vergleich.equals(filterFahrzeug)) {
+            			int temp= filteredFahrzeugTypIDBoxList.get(i);
+            			filteredFahrzeugIDBoxList.add(temp);
+            		}
+    			}
+
     	  	}
 		}
 
@@ -261,43 +301,67 @@ public class BuchungEditDialogController {
     	}
 
     	if(filterFahrzeug.length()== 0) {
-    		filteredFahrzeugIDBoxList.setAll(mainApp.getFahrzeugIDList());
-    		fahrzeugIDBox.hide();
+    		filteredFahrzeugIDBoxList.setAll(filteredFahrzeugTypIDBoxList);
     	}
     }
 
     /***************************************************************************
 
-	METHODENNAME:	handleAutoCompleteFahrzeugtyp
+	METHODENNAME:	AutoCompleteFahrzeugtyp
 
-	BESCHREIBUNG:   Sortiert ComboBox nach Fahrzeugtypauswahl
+	BESCHREIBUNG:   Filtert FahrzeugComboBox nach Fahrzeugtypauswahl und
+					PersonenComboBox nach Fahrerlaubnis aus
 
-	PARAMETER: 		void
+	PARAMETER: 		List<Person>, List<Fahrzeug>
 
 	RETURN:			void
 
 	***************************************************************************/
 
-    public void handleAutoCompleteFahrzeugtyp() {
+    public void AutoCompleteFahrzeugtyp(List<Person> persons, List<Fahrzeug> fahrzeugs) {
 
-    	if(fahrzeugtypBox.getValue().equals("Alle")) {
-    		filteredFahrzeugIDBoxList.setAll(mainApp.getFahrzeugIDList());
+    	if(fahrzeugtypBox.getValue().equals("Alle") || fahrzeugtypBox.getValue().equals("")) {
+    		filteredFahrzeugTypIDBoxList.clear();
+    		filteredPersonLizenzIDBoxList.clear();
+
+    		for(Fahrzeug f : fahrzeugs) {
+    			filteredFahrzeugTypIDBoxList.add(f.getFahrzeugID());
+    		}
+    		for(Person p : persons) {
+    			filteredPersonLizenzIDBoxList.add(p.getPersonID());
+    		}
     	} else {
-    		filteredFahrzeugIDBoxList.clear();
+    		filteredFahrzeugTypIDBoxList.clear();
+    		filteredPersonLizenzIDBoxList.clear();
 
-        	ObservableList<Fahrzeug> fahrzeugData = mainApp.getFahrzeugData();
-
-    		for(int i = fahrzeugData.size()-1; i > -1 ; i--){
-    			String vergleich= fahrzeugData.get(i).getFahrzeugtyp();
+    		for(Fahrzeug f : fahrzeugs){
+    			String vergleich= f.getFahrzeugtyp();
         		if (vergleich.equals(fahrzeugtypBox.getValue())) {
-        			int temp= fahrzeugData.get(i).getFahrzeugID();
-        			filteredFahrzeugIDBoxList.add(temp);
+        			int temp= f.getFahrzeugID();
+        			filteredFahrzeugTypIDBoxList.add(temp);
         		}
     	  	}
+    		for(Person p : persons) {
+    			if(fahrzeugtypBox.getValue().equals("Motorrad")) {
+    				int temp= p.getPersonID();
+    				filteredPersonLizenzIDBoxList.add(temp);
+    			}
+
+    			if(fahrzeugtypBox.getValue().equals("Cityflitzer") || fahrzeugtypBox.getValue().equals("Langstrecke")) {
+    				if(p.getLizenz().equals("Klasse B") || p.getLizenz().equals("Klasse C")) {
+    					int temp= p.getPersonID();
+    					filteredPersonLizenzIDBoxList.add(temp);
+    				}
+    			}
+    			if(fahrzeugtypBox.getValue().equals("Kleintransporter") || fahrzeugtypBox.getValue().equals("LKW")) {
+    				if(p.getLizenz().equals("Klasse C")) {
+    					int temp= p.getPersonID();
+    					filteredPersonLizenzIDBoxList.add(temp);
+    				}
+    			}
+    		}
     	}
-
     }
-
 
 	/***************************************************************************
 
@@ -339,9 +403,6 @@ public class BuchungEditDialogController {
         personIDBox.setValue(buchung.getPersonID());
         fahrzeugIDBox.setValue(buchung.getFahrzeugID());
         fahrzeugtypBox.setValue(buchung.getFahrzeugtyp());
-
-//        lastnameLabel.setText(buchung.getLastname());
-//        herstellerLabel.setText(buchung.getHersteller());
 
         ausleihdatumField.setText(DateUtil.format(buchung.getAusleihdatum()));
         ausleihdatumField.setPromptText("dd.mm.yyyy");
@@ -390,9 +451,6 @@ public class BuchungEditDialogController {
         	buchung.setFahrzeugID(Integer.parseInt(fahrzeugIDBox.getEditor().getText()));
         	buchung.setLeihdauer(Integer.parseInt(leihdauerLabel.getText()));
         	buchung.setFahrzeugtyp(fahrzeugtypBox.getValue());
-
-//        	buchung.setLastname(lastnameLabel.getText());
-//        	buchung.setHersteller(herstellerLabel.getText());
 
             buchung.setAusleihdatum(DateUtil.parse(ausleihdatumField.getText()));
             buchung.setRueckgabedatum(DateUtil.parse(rueckgabedatumField.getText()));
@@ -487,17 +545,6 @@ public class BuchungEditDialogController {
     private boolean isInputValid() {
         String errorMessage = "";
 
-//        if (buchungIDField.getText() == null || buchungIDField.getText().length() == 0) {
-//            errorMessage += "No valid BuchungID!\n";
-//        } else {
-//            // try to parse the buchungID into an int.
-//            try {
-//                Integer.parseInt(buchungIDField.getText());
-//            } catch (NumberFormatException e) {
-//                errorMessage += "No valid buchungID (must be an integer)!\n";
-//            }
-//        }
-
         if (personIDBox.getEditor().getText() == null || personIDBox.getEditor().getText().length() == 0) {
             errorMessage += "No valid personID!\n";
         } else {
@@ -554,23 +601,6 @@ public class BuchungEditDialogController {
 
             return false;
         }
-    }
-
-	/***************************************************************************
-
-	METHODENNAME:	setMainApp
-
-	BESCHREIBUNG:   Is called by the main application to give a reference back
-					to itself.
-
-	PARAMETER: 		mainApp
-
-	RETURN:			void
-
-	***************************************************************************/
-
-    public void setMainApp(MainApp mainApp) {
-        this.mainApp = mainApp;
     }
 }
 
