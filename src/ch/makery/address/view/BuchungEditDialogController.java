@@ -444,7 +444,7 @@ public class BuchungEditDialogController {
 
     @FXML
     private void handleOk() {
-        if (isInputValid()) {
+        if (isInputValid(mainApp.getPersonData(), mainApp.getFahrzeugData())) {
 
         	buchung.setBuchungID(Integer.parseInt(buchungIDLabel.getText()));
         	buchung.setPersonID(Integer.parseInt(personIDBox.getEditor().getText()));
@@ -542,8 +542,10 @@ public class BuchungEditDialogController {
 
 	***************************************************************************/
 
-    private boolean isInputValid() {
+    private boolean isInputValid(List<Person> persons, List<Fahrzeug> fahrzeugs) {
         String errorMessage = "";
+        int tempP= 0;
+        int tempF= 0;
 
         if (personIDBox.getEditor().getText() == null || personIDBox.getEditor().getText().length() == 0) {
             errorMessage += "No valid personID!\n";
@@ -555,6 +557,14 @@ public class BuchungEditDialogController {
                 errorMessage += "No valid personID (must be an integer)!\n";
             }
         }
+        for(Person p : persons) {
+        	if (Integer.parseInt(personIDBox.getEditor().getText()) == p.getPersonID()) {
+        		tempP= 1;
+        	}
+        }
+        if (tempP == 0) {
+    		errorMessage += "PersonID doesnt exist";
+    	}
 
         if (fahrzeugIDBox.getEditor().getText() == null || fahrzeugIDBox.getEditor().getText().length() == 0) {
             errorMessage += "No valid fahrzeugID!\n";
@@ -566,6 +576,15 @@ public class BuchungEditDialogController {
                 errorMessage += "No valid fahrzeugID (must be an integer)!\n";
             }
         }
+
+        for(Fahrzeug f : fahrzeugs) {
+        	if (Integer.parseInt(fahrzeugIDBox.getEditor().getText()) == f.getFahrzeugID()) {
+        		tempF= 1;
+        	}
+        }
+        if(tempF == 0) {
+    		errorMessage += "FahrzeugID doesnt exist";
+    	}
 
         if (Integer.parseInt(leihdauerLabel.getText()) < 0) {
             errorMessage += "No valid Leihdauer!\n";
