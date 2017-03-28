@@ -32,6 +32,12 @@
                 <MenuItem mnemonicParsing="false" onAction="#handleShowBirthdayStatistics" text="Show Birth Month Distribution" />
               </items>
             </Menu>
+            <Menu mnemonicParsing="false" text="Sortierung">
+              <items>
+                  <MenuItem mnemonicParsing="false" text="Nachname" />
+                <MenuItem mnemonicParsing="false" text="Action 1" />
+              </items>
+            </Menu>
           <Menu mnemonicParsing="false" text="Help">
             <items>
               <MenuItem mnemonicParsing="false" onAction="#handleAbout" text="About" />

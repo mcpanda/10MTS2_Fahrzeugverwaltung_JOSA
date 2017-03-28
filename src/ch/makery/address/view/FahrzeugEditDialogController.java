@@ -267,14 +267,6 @@ public class FahrzeugEditDialogController {
             }
         }
 
-//        if (aenderungsdatumField.getText() == null || aenderungsdatumField.getText().length() == 0) {
-//            errorMessage += "No valid Aenderungsdatum!\n";
-//        } else {
-//            if (!DateUtil.validDate(aenderungsdatumField.getText())) {
-//                errorMessage += "No valid Aenderungsdatum. Use the format dd.mm.yyyy!\n";
-//            }
-//        }
-
         if (kilometerstandField.getText() == null || kilometerstandField.getText().length() == 0) {
             errorMessage += "No valid Kilometerstand!\n";
         } else {
