@@ -20,7 +20,7 @@ import javafx.scene.control.Label;
 
 /**************************************************************************/
 /*                                                                        */
-/* Class PersonEditDialogController                                     */
+/* Class PersonEditDialogController                                       */
 /*                                                                        */
 /**************************************************************************/
 

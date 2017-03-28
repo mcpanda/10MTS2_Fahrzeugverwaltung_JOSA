@@ -36,6 +36,7 @@ import ch.makery.address.view.FahrzeugOverviewController;
 import ch.makery.address.view.FahrzeugStatisticController;
 import ch.makery.address.view.FahrzeugTypStatisticController;
 import ch.makery.address.view.RootLayoutController;
+import ch.makery.address.view.SortedTableController;
 import ch.makery.address.view.BirthdayStatisticsController;
 import ch.makery.address.view.BuchungEditDialogController;
 import ch.makery.address.view.BuchungOverviewController;
@@ -385,6 +386,40 @@ public class MainApp extends Application {
 		}
 
 	}
+
+	/***************************************************************************
+
+	METHODENNAME:	showSortedTable
+
+	BESCHREIBUNG:   Zeigt eine sortierte Tabelle aller Personen
+
+	PARAMETER: 		void
+
+	RETURN:			void
+
+	***************************************************************************/
+
+	public void showSortedTable() {
+		try {
+			// Load person overview.
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApp.class.getResource("view/SortedTable.fxml"));
+			AnchorPane sortedTable = (AnchorPane) loader.load();
+
+			// Set person overview into the center of root layout.
+			rootLayout.setCenter(sortedTable);
+
+			// Give the controller access to the main app.
+			SortedTableController controller = loader.getController();
+			controller.setMainApp(this);
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+	}
+
+
 
 	/***************************************************************************
 
