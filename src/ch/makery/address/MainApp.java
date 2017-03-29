@@ -422,7 +422,7 @@ public class MainApp extends Application {
 
 	/***************************************************************************
 
-	METHODENNAME:	showSortedTableNachname
+	METHODENNAME:	showSortedTableVorname
 
 	BESCHREIBUNG:   Zeigt eine sortierte Tabelle aller Personen nach Vorname
 
@@ -452,6 +452,40 @@ public class MainApp extends Application {
 		}
 
 	}
+	
+	/***************************************************************************
+
+	METHODENNAME:	showSortedTableStadt
+
+	BESCHREIBUNG:   Zeigt eine sortierte Tabelle aller Personen nach der Stadt
+
+	PARAMETER: 		void
+
+	RETURN:			void
+
+	***************************************************************************/
+
+	public void showSortedTableStadt() {
+		try {
+			// Load person overview.
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApp.class.getResource("view/SortedTable.fxml"));
+			AnchorPane sortedTable = (AnchorPane) loader.load();
+
+			// Set person overview into the center of root layout.
+			rootLayout.setCenter(sortedTable);
+
+			// Give the controller access to the main app.
+			SortedTableController controller = loader.getController();
+			controller.setMainApp(this);
+			controller.ShowSortStadt();
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+	}
+
 
 	/***************************************************************************
 

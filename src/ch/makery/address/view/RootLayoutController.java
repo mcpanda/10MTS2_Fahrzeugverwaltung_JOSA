@@ -356,6 +356,25 @@ public class RootLayoutController {
     private void handleShowSortedTableVorname() {
       mainApp.showSortedTableVorname();
     }
+    
+	/***************************************************************************
+
+	METHODENNAME:	handleShowSortedTableStadt
+
+	BESCHREIBUNG:   handler für den ShowSortedTable Menüpunkt.
+					Wird ShowSortedTable angeklickt, so wird
+					die SortedTable in der MainApp geöffnet.
+
+	PARAMETER: 		void
+
+	RETURN:			void
+
+	***************************************************************************/
+
+    @FXML
+    private void handleShowSortedTableStadt() {
+      mainApp.showSortedTableStadt();
+    }
 
     /***************************************************************************
 
