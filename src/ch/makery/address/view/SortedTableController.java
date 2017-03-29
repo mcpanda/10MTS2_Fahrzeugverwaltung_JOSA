@@ -119,7 +119,41 @@ public class SortedTableController {
         this.mainApp = mainApp;
 
         // Add observable list data to the table
+        // personTable.setItems(sortNachname(mainApp.getPersonData()));
+    }
+
+	/***************************************************************************
+
+	METHODENNAME:	ShowSortNachname
+
+	BESCHREIBUNG:
+
+	PARAMETER: 		void
+
+	RETURN:			void
+
+	***************************************************************************/
+
+    public void ShowSortNachname() {
+
         personTable.setItems(sortNachname(mainApp.getPersonData()));
+    }
+
+	/***************************************************************************
+
+	METHODENNAME:	ShowSortVorname
+
+	BESCHREIBUNG:
+
+	PARAMETER: 		void
+
+	RETURN:			void
+
+	***************************************************************************/
+
+    public void ShowSortVorname() {
+
+        personTable.setItems(sortVorname(mainApp.getPersonData()));
     }
 
     /***************************************************************************
@@ -139,31 +173,55 @@ public class SortedTableController {
     	personenListe.setAll(persons);
     	Person Platzhalter= new Person();
 
-    	for( int i= 0; i< personenListe.size(); i++) {
-    		System.out.print(personenListe.get(i).getLastName()+ " ");
-    	}
-    	System.out.println(" ");
-    	System.out.println(personenListe.size());
 		for (int i= 0; i < personenListe.size() - 1; i++) {
-			System.out.println("index 0: " + personenListe.get(0).getLastName());
 			int minIndex= i;
 			Platzhalter= personenListe.get(i);
-			System.out.println(personenListe.get(i).getLastName());
+
 			for (int j= i + 1; j < personenListe.size(); j++) {
 				if (Platzhalter.getLastName().compareTo(personenListe.get(j).getLastName()) > 0) {
 					minIndex= j;
 					Platzhalter= persons.get(j);
 				}
 			}
-			System.out.println(minIndex + " " + Platzhalter.getLastName());
-			System.out.println(i + " " + personenListe.get(i).getLastName());
 			personenListe.set(minIndex, personenListe.get(i));
 			personenListe.set(i, Platzhalter);
-			for( int k= 0; k< personenListe.size(); k++) {
-	    		System.out.print(personenListe.get(k).getLastName()+ " ");
-	    	}
-	    	System.out.println(" ");
+		}
+		return personenListe;
+	}
 
+    /***************************************************************************
+
+	METHODENNAME:	sortVorname
+
+	BESCHREIBUNG:   Sortiert eine ObservableList aus Personen nach dem Vornamen
+
+	PARAMETER: 		ObservableList<Person>
+
+	RETURN:			ObservableList<Person>
+
+	***************************************************************************/
+
+    public ObservableList<Person> sortVorname (ObservableList<Person> persons) {
+    	ObservableList<Person> personenListe= FXCollections.observableArrayList();
+    	personenListe.setAll(persons);
+    	Person Platzhalter= new Person();
+
+
+    	mainApp.getPersonData();
+
+		for (int i= 0; i < personenListe.size() - 1; i++) {
+			int minIndex= i;
+			Platzhalter= personenListe.get(i);
+
+			for (int j= i + 1; j < personenListe.size(); j++) {
+				if (Platzhalter.getFirstName().compareTo(personenListe.get(j).getFirstName()) > 0) {
+					minIndex= j;
+					Platzhalter= persons.get(j);
+				}
+			}
+			System.out.println(minIndex + " " + personenListe.get(i));
+			personenListe.set(minIndex, personenListe.get(i));
+			personenListe.set(i, Platzhalter);
 		}
 		return personenListe;
 	}

@@ -389,9 +389,9 @@ public class MainApp extends Application {
 
 	/***************************************************************************
 
-	METHODENNAME:	showSortedTable
+	METHODENNAME:	showSortedTableNachname
 
-	BESCHREIBUNG:   Zeigt eine sortierte Tabelle aller Personen
+	BESCHREIBUNG:   Zeigt eine sortierte Tabelle aller Personen nach Nachname
 
 	PARAMETER: 		void
 
@@ -399,7 +399,7 @@ public class MainApp extends Application {
 
 	***************************************************************************/
 
-	public void showSortedTable() {
+	public void showSortedTableNachname() {
 		try {
 			// Load person overview.
 			FXMLLoader loader = new FXMLLoader();
@@ -412,6 +412,7 @@ public class MainApp extends Application {
 			// Give the controller access to the main app.
 			SortedTableController controller = loader.getController();
 			controller.setMainApp(this);
+			controller.ShowSortNachname();
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -419,7 +420,38 @@ public class MainApp extends Application {
 
 	}
 
+	/***************************************************************************
 
+	METHODENNAME:	showSortedTableNachname
+
+	BESCHREIBUNG:   Zeigt eine sortierte Tabelle aller Personen nach Vorname
+
+	PARAMETER: 		void
+
+	RETURN:			void
+
+	***************************************************************************/
+
+	public void showSortedTableVorname() {
+		try {
+			// Load person overview.
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApp.class.getResource("view/SortedTable.fxml"));
+			AnchorPane sortedTable = (AnchorPane) loader.load();
+
+			// Set person overview into the center of root layout.
+			rootLayout.setCenter(sortedTable);
+
+			// Give the controller access to the main app.
+			SortedTableController controller = loader.getController();
+			controller.setMainApp(this);
+			controller.ShowSortVorname();
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+	}
 
 	/***************************************************************************
 
