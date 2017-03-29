@@ -62,7 +62,7 @@ public class SortedTableController {
 
     /* Standard Konstruktur. Muss vor dem Initializieren aufgerufen werden.   */
 
-	public void SortLastName() {
+	public void SortedTable() {
 
 	}
 
@@ -93,11 +93,11 @@ public class SortedTableController {
         firstNameColumn.setCellValueFactory(cellData -> cellData.getValue().firstNameProperty());
         lastNameColumn.setCellValueFactory(cellData -> cellData.getValue().lastNameProperty());
         streetColumn.setCellValueFactory(cellData -> cellData.getValue().streetProperty());
-//        postalColumn.setCellValueFactory(cellData -> cellData.getValue().postalCodeProperty());
+        postalColumn.setCellValueFactory(cellData -> cellData.getValue().postalCodeProperty().asObject());
         cityColumn.setCellValueFactory(cellData -> cellData.getValue().cityProperty());
         lizenzColumn.setCellValueFactory(cellData -> cellData.getValue().lizenzProperty());
 //        ausgeliehenColumn.setCellValueFactory(cellData -> cellData.getValue().ausgeliehenProperty());
-//        birthdayColumn.setCellValueFactory(cellData -> cellData.getValue().birthdayProperty());
+//        birthdayColumn.setCellValueFactory(cellData -> cellData.getValue().birthdayProperty().asObject());
 
 
     }
@@ -180,7 +180,7 @@ public class SortedTableController {
 			for (int j= i + 1; j < personenListe.size(); j++) {
 				if (Platzhalter.getLastName().compareTo(personenListe.get(j).getLastName()) > 0) {
 					minIndex= j;
-					Platzhalter= persons.get(j);
+					Platzhalter= personenListe.get(j);
 				}
 			}
 			personenListe.set(minIndex, personenListe.get(i));
@@ -206,9 +206,6 @@ public class SortedTableController {
     	personenListe.setAll(persons);
     	Person Platzhalter= new Person();
 
-
-    	mainApp.getPersonData();
-
 		for (int i= 0; i < personenListe.size() - 1; i++) {
 			int minIndex= i;
 			Platzhalter= personenListe.get(i);
@@ -216,13 +213,14 @@ public class SortedTableController {
 			for (int j= i + 1; j < personenListe.size(); j++) {
 				if (Platzhalter.getFirstName().compareTo(personenListe.get(j).getFirstName()) > 0) {
 					minIndex= j;
-					Platzhalter= persons.get(j);
+					Platzhalter= personenListe.get(j);
 				}
 			}
-			System.out.println(minIndex + " " + personenListe.get(i));
+
 			personenListe.set(minIndex, personenListe.get(i));
 			personenListe.set(i, Platzhalter);
 		}
 		return personenListe;
 	}
+
 }
