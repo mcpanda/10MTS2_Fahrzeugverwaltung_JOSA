@@ -718,10 +718,11 @@ public class MainApp extends Application {
 
 			// Set the buchung into the controller.
 			BuchungEditDialogController controller = loader.getController();
+			controller.setMainApp(this);
 			controller.setDialogStage(dialogStage);
 			controller.setBuchung(buchung, personData, fahrzeugData);
-//			controller.handlerComboBoxList();
-			controller.setMainApp(this);
+			controller.handlerComboBoxList();
+
 
 			// Show the dialog and wait until the user closes it
 			dialogStage.showAndWait();
