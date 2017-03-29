@@ -13,6 +13,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import ch.makery.address.MainApp;
+import ch.makery.address.model.Buchung;
 import ch.makery.address.model.Person;
 import java.time.LocalDate;
 
@@ -172,8 +173,7 @@ public class SortedTableController {
 
         personTable.setItems(sortStadt(mainApp.getPersonData()));
     }
-
-
+    
     /***************************************************************************
 
 	METHODENNAME:	sortNachname
@@ -276,4 +276,37 @@ public class SortedTableController {
 		}
 		return personenListe;
 	}
+    
+    /***************************************************************************
+
+ 	METHODENNAME:	sortAusleihende
+
+ 	BESCHREIBUNG:   Sortiert eine ObservableList aus Personen nach Ausleihende
+
+ 	PARAMETER: 		ObservableList<Buchung>
+
+ 	RETURN:			ObservableList<Buchung>
+
+ 	***************************************************************************/
+
+     public ObservableList<Buchung> sortAusleihende (ObservableList<Buchung> persons) {	// 
+     	ObservableList<Buchung> personenListe= FXCollections.observableArrayList();	// neue Liste initialisieren
+     	personenListe.setAll(persons);												// alte Liste in neue Liste kopieren
+     	Buchung Platzhalter= new Buchung();											// neue Person als Platzhalter erzeugen
+
+ 		for (int i= 0; i < personenListe.size() - 1; i++) {
+ 			int minIndex= i;														// Annahme: aktueller Nachname = minimum; Index speichern
+ 			Platzhalter= personenListe.get(i);										// Annahme: aktueller Nachname = minimum; Person speichern
+
+ 			for (int j= i + 1; j < personenListe.size(); j++) {
+ 				if (Platzhalter.getRueckgabedatum().compareTo(personenListe.get(j).getRueckgabedatum()) > 0) {		// Vergleich: mit Rest der Liste (ab aktuell + 1, nacheinander)
+ 					minIndex= j;						//Person an d Stelle j //Attribut an d Stelle j		(wobei bsp. B => i; A =>j)
+ 					Platzhalter= personenListe.get(j);		// A als neues minímum gespeichert
+ 				}
+ 			}
+ 			personenListe.set(minIndex, personenListe.get(i));
+ 			personenListe.set(i, Platzhalter);
+ 		}
+ 		return personenListe;
+ 	}
 }

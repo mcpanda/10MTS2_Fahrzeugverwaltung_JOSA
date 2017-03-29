@@ -486,7 +486,6 @@ public class MainApp extends Application {
 
 	}
 
-
 	/***************************************************************************
 
 	METHODENNAME:	getPrimaryStage
