@@ -161,6 +161,10 @@ public class Fahrzeug {
         return leistung;
     }
 
+    public String getFahrzeugBeschreibung() {
+    	return this.getFahrzeugID() + " - " + this.getHersteller() + " " + this.getMarke();
+    }
+
 
 //    @XmlJavaTypeAdapter(LocalDateAdapter.class)
 //    public LocalDate getAenderungsdatum() {
