@@ -267,25 +267,12 @@ public class PersonOverviewController {
  //////////////////////////////////////////////////////////////////
     @FXML
     private void SearchingResultDialog(){
-	 	   try {
-	            // Load person overview.
-	            FXMLLoader loader = new FXMLLoader();
-	            loader.setLocation(MainApp.class.getResource("view/SuchenFenster.fxml"));
-	            AnchorPane page = (AnchorPane) loader.load();
+    boolean okClicked = mainApp.showSuchenFenster();
+    if(okClicked)
+    	{
+    		mainApp.showSuchenFenster();
+    	}
 
+   }
 
-	            	Stage SearchDialog = new Stage();
-	            	SearchDialog.setTitle("Sie können jetzt die Ergebnisse des Suchen anschauen");
-	            	SearchDialog.initModality(Modality.WINDOW_MODAL);
-					SearchDialog.initOwner(primaryStage);
-					Scene scene = new Scene(page);
-	            	SearchDialog.setScene(scene);
-
-
-	            	SearchDialog.showAndWait();
-
-	        } catch (IOException e) {
-	            e.printStackTrace();
-	        }
-    }
 }

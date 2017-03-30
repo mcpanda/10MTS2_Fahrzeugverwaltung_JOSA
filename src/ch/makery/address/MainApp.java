@@ -29,11 +29,13 @@ import ch.makery.address.model.BuchungListWrapper;
 import ch.makery.address.model.Fahrzeug;
 import ch.makery.address.model.PersonListWrapper;
 import ch.makery.address.model.FahrzeugListWrapper;
+import ch.makery.address.model.Tree;
 import ch.makery.address.view.PersonEditDialogController;
 import ch.makery.address.view.FahrzeugEditDialogController;
 import ch.makery.address.view.PersonOverviewController;
 import ch.makery.address.view.FahrzeugOverviewController;
 import ch.makery.address.view.RootLayoutController;
+import ch.makery.address.view.SuchenFensterController;
 import ch.makery.address.view.BirthdayStatisticsController;
 import ch.makery.address.view.BuchungEditDialogController;
 import ch.makery.address.view.BuchungOverviewController;
@@ -86,7 +88,14 @@ public class MainApp extends Application {
 	/**************************************************************************/
 
 	public MainApp() {
+		Tree personD = new Tree();
+		personD.addNodee(1, "Roman", "Bürki", "Strobelallee 50", 44139, "Dortmund");
+		personD.addNodee(2, "Marc", "Bartra", "Strobelallee 50", 44139, "Dortmund");
+		personD.addNodee(2, "Marc", "Bartra", "Strobelallee 50", 44139, "Dortmund");
+		personD.addNodee(3, "Sven", "Bender", "Strobelallee 50", 44139, "Dortmund");
+
 		personData.add(new Person(1, "Roman", "Bürki", "Strobelallee 50", 44139, "Dortmund"));
+		personData.add(new Person(2, "Marc", "Bartra", "Strobelallee 50", 44139, "Dortmund"));
 		personData.add(new Person(2, "Marc", "Bartra", "Strobelallee 50", 44139, "Dortmund"));
 		personData.add(new Person(3, "Sven", "Bender", "Strobelallee 50", 44139, "Dortmund"));
 
@@ -294,6 +303,43 @@ public class MainApp extends Application {
 		}
 
 	}
+
+/***************************************************/
+
+	public boolean showSuchenFenster()
+	{
+		try {
+			// Load buchung overview.
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApp.class.getResource("view/SuchenFenster.fxml"));
+			AnchorPane Suchen = (AnchorPane) loader.load();
+
+			// Create the dialog Stage.
+			Stage dialogStage = new Stage();
+			dialogStage.setTitle("Suchen");
+			dialogStage.initModality(Modality.WINDOW_MODAL);
+			dialogStage.initOwner(primaryStage);
+			Scene scene = new Scene(Suchen);
+			dialogStage.setScene(scene);
+
+			// Set buchung overview into the center of root layout.
+//			rootLayout.setCenter(Suchen);
+
+			// Give the controller access to the main app.
+			SuchenFensterController controller = loader.getController();
+			controller.setDialogStage(dialogStage);
+         	controller.setMainApp(this);
+         	dialogStage.showAndWait();
+         	return true;
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
+		}
+
+	}
+
+
+
 
 	/***************************************************************************
 
