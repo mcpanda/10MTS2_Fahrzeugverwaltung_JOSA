@@ -33,7 +33,7 @@ import ch.makery.address.util.LocalDateAdapter;
 CLASS:	Buchung
 *//*!
  Die Klasse Buchung hat als Attribute buchungID, personID, fahrzeugID,
- ausleihdatum, rueckgabedatum. <br>
+ ausleihdatum, rueckgabedatum.<br>
  Wir nutzen Properties,um mit Hilfe von ObservableLists Änderungen
  unverzüglich anzeigen zu lassen.
 
