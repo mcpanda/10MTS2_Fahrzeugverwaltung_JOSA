@@ -28,7 +28,10 @@
             <Menu mnemonicParsing="false" text="Statistics">
               <items>
                   <MenuItem mnemonicParsing="false" onAction="#handleShowFahrzeugStatistic" text="Show Fahrzeug Statistic" />
-                  <MenuItem mnemonicParsing="false" onAction="#handleShowFahrzeugTypStatistic" text="Show FahrzeugTypen STatistic" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleShowFahrzeugTypStatistic" text="Show FahrzeugTypen Statistic" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleShowFahrzeugTageStatistic" text="Show Fahrzeug Ausleihdauer Statistik" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleShowFahrzeugTypTageStatistic" text="Show FahrzeugTypen Ausleihdauer Statistic" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleShowPersonStatistic" text="Show Mitarbeiter Statistic" />
                 <MenuItem mnemonicParsing="false" onAction="#handleShowBirthdayStatistics" text="Show Birth Month Distribution" />
               </items>
             </Menu>

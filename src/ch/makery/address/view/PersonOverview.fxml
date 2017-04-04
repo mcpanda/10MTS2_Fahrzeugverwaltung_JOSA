@@ -79,6 +79,7 @@
                         <Button mnemonicParsing="false" onAction="#handleEditPerson" text="Edit..." />
                         <Button mnemonicParsing="false" onAction="#handleDeletePerson" text="Löschen" />
                         <Button mnemonicParsing="false" onAction="#handlePersonBuchung" text="Buchen" />
+                        <Button mnemonicParsing="false" onAction="#SearchingResultDialog" text="Suchen" />
                     </buttons>
                   </ButtonBar>
                </children>

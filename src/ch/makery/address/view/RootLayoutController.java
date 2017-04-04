@@ -244,6 +244,25 @@ public class RootLayoutController {
 
     /***************************************************************************
 
+	METHODENNAME:	handleShowPersonStatistic
+
+	BESCHREIBUNG:   handler für den handleShowPersonStatistic Menüpunkt.
+					Wird handleShowPersonStatistic angeklickt, so wird
+					die Personstatistik in der MainApp geöffnet.
+
+	PARAMETER: 		void
+
+	RETURN:			void
+
+	***************************************************************************/
+
+    @FXML
+    private void handleShowPersonStatistic() {
+      mainApp.showPersonStatistics();
+    }
+
+    /***************************************************************************
+
 	METHODENNAME:	handleShowFahrzeugStatistic
 
 	BESCHREIBUNG:   handler für den handleShowFahrzeugStatistic Menüpunkt.
@@ -280,6 +299,42 @@ public class RootLayoutController {
       mainApp.showFahrzeugTypStatistics();
     }
 
+    /***************************************************************************
+
+	METHODENNAME:	handleShowFahrzeugTageStatistic
+
+	BESCHREIBUNG:   handler für den handleShowFahrzeugTageStatistic Menüpunkt.
+					Wird handleShowFahrzeugTageStatistic angeklickt, so wird
+					die FahrzeugTagestatistik in der MainApp geöffnet.
+
+	PARAMETER: 		void
+
+	RETURN:			void
+
+	***************************************************************************/
+
+    @FXML
+    private void handleShowFahrzeugTypTageStatistic() {
+      mainApp.showFahrzeugTypTageStatistics();
+    }
+    /***************************************************************************
+
+ 	METHODENNAME:	handleShowFahrzeugTageStatistic
+
+ 	BESCHREIBUNG:   handler für den handleShowFahrzeugTageStatistic Menüpunkt.
+ 					Wird handleShowFahrzeugTageStatistic angeklickt, so wird
+ 					die FahrzeugTagestatistik in der MainApp geöffnet.
+
+ 	PARAMETER: 		void
+
+ 	RETURN:			void
+
+ 	***************************************************************************/
+
+     @FXML
+     private void handleShowFahrzeugTageStatistic() {
+       mainApp.showFahrzeugTageStatistics();
+     }
 
 	/***************************************************************************
 

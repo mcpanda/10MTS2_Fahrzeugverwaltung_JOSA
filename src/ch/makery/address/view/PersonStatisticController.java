@@ -14,19 +14,19 @@ import javafx.fxml.FXML;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.XYChart;
-import ch.makery.address.model.Fahrzeug;
+import ch.makery.address.model.Person;
 import ch.makery.address.model.Buchung;
 
 /**************************************************************************/
 /*                                                                        */
-/* Class FahrzeugTypStatisticController                                   */
+/* Class PersonStatisticController                                        */
 /*																		  */
 /*                                                                        */
 /**************************************************************************/
 
-public class FahrzeugTypStatisticController {
+public class PersonStatisticController {
 
-	private ObservableList<String> fahrzeugTypenList = FXCollections.observableArrayList();
+	private ObservableList<String> personenNamenList = FXCollections.observableArrayList();
 
 	/**************************************************************************/
 	/*                                                                        */
@@ -40,7 +40,7 @@ public class FahrzeugTypStatisticController {
     @FXML
     private CategoryAxis xAxis;
 
-	/**************************************************************************/
+    /**************************************************************************/
 	/*                                                                        */
 	/* Local Operation Section                                                */
 	/*                                                                        */
@@ -62,17 +62,16 @@ public class FahrzeugTypStatisticController {
 
     @FXML
     private void initialize() {
-    	fahrzeugTypenList.addAll("Motorrad", "Cityflitzer", "Langstrecke", "Kleintransporter", "LKW");
+    	personenNamenList.add("test");
 
-    	xAxis.setCategories(fahrzeugTypenList);
+    	xAxis.setCategories(personenNamenList);
     }
 
     /***************************************************************************
 
-	METHODENNAME:	setFahrezugTypStatistic
+	METHODENNAME:	setPersonStatistic
 
-	BESCHREIBUNG:   lädt die Persoen für die Statistik.
-					Codekommentierung: siehe FahrzeugStatisticController
+	BESCHREIBUNG:   lädt die Personen für die Statistic.
 
 	PARAMETER: 		void
 
@@ -80,14 +79,19 @@ public class FahrzeugTypStatisticController {
 
 	***************************************************************************/
 
-    public void setFahrzeugTypStatistic(List<Fahrzeug> fahrzeugs, List<Buchung> buchungs) {
+    public void setPersonStatistic(List<Person> persons, List<Buchung> buchungs) {
 
-        int[] typen= new int[fahrzeugTypenList.size()];
-
+        int[][] ausleihe = new int[2][persons.size()];
+        personenNamenList.clear();
+        for( int i= 0; i < ausleihe[0].length; i++) {
+        	ausleihe[0][i]= persons.get(i).getPersonID();
+        	personenNamenList.add(persons.get(i).getFirstName() + " " + persons.get(i).getLastName());
+        }
         for (Buchung b : buchungs) {
-        	for(int j= 0; j < fahrzeugTypenList.size(); j++) {
-        		if(fahrzeugTypenList.get(j).equals(b.getFahrzeugtyp())) {
-        			typen[j]++;
+        	int gebucht= b.getFahrzeugID();
+        	for( int i= 0; i < ausleihe[0].length; i++) {
+        		if( gebucht == ausleihe[0][i]) {
+        			ausleihe[1][i]++;
         		}
         	}
         }
@@ -95,55 +99,13 @@ public class FahrzeugTypStatisticController {
         XYChart.Series<String, Integer> series = new XYChart.Series<>();
 
         // Create a XYChart.Data object for each month. Add it to the series.
-        for (int i = 0; i < fahrzeugTypenList.size(); i++) {
-            series.getData().add(new XYChart.Data<>(fahrzeugTypenList.get(i), typen[i]));
+        for (int i = 0; i < personenNamenList.size(); i++) {
+            series.getData().add(new XYChart.Data<>(personenNamenList.get(i), ausleihe[1][i]));
         }
 
         barChart.getData().add(series);
     }
 
-    /***************************************************************************
 
-	METHODENNAME:	setFahrezugTypTageStatistic
-
-	BESCHREIBUNG:   lädt die Persoen für die Statistic.
-					Codekommentierung: siehe FahrzeugStatisticController
-
-	PARAMETER: 		void
-
-	RETURN:			void
-
-	***************************************************************************/
-
-    public void setFahrzeugTypTageStatistic(List<Fahrzeug> fahrzeugs, List<Buchung> buchungs) {
-
-        int[][] typen= new int[3][fahrzeugTypenList.size()];
-
-        for (Buchung b : buchungs) {
-        	for(int i= 0; i < fahrzeugTypenList.size(); i++) {
-        		if(fahrzeugTypenList.get(i).equals(b.getFahrzeugtyp())) {
-        			typen[1][i]++;
-        			typen[0][i]= typen[2][i] + b.getLeihdauer();
-        		}
-        	}
-        }
-
-        for(int i= 0; i < fahrzeugTypenList.size(); i++) {
-        	if (typen[1][i] != 0) {
-        		typen[2][i]= typen[0][i]/typen[1][i];
-        	} else {
-        		typen[2][i]= 0;
-        	}
-        }
-
-        XYChart.Series<String, Integer> series = new XYChart.Series<>();
-
-        // Create a XYChart.Data object for each month. Add it to the series.
-        for (int i = 0; i < fahrzeugTypenList.size(); i++) {
-            series.getData().add(new XYChart.Data<>(fahrzeugTypenList.get(i), typen[2][i]));
-        }
-
-        barChart.getData().add(series);
-    }
 
 }

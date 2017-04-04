@@ -1,3 +1,16 @@
+/**************************************************************************************************/
+/*! \file
+  FILE         : $Source: Buchung.java $
+  BESCHREIBUNG : Buchungsmodel
+                 Modellierung einer Buchung mit eindeutiger BuchungsID. Über die PersonID und
+                 FahrzeugID lassen sich Verknüpfungen zu bestehenden Fahrzeugen und Personen
+                 erstellen.
+***************************************************************************************************/
+
+/** \addtogroup Model
+ *  @{
+ */
+
 package ch.makery.address.model;
 
 /**************************************************************************/
@@ -16,33 +29,48 @@ import javafx.beans.property.StringProperty;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import ch.makery.address.util.LocalDateAdapter;
 
-/**************************************************************************/
-/*                                                                        */
-/* Class Buchung                                                          */
-/*                                                                        */
-/**************************************************************************/
+/***************************************************************************
+CLASS:	Buchung
+*//*!
+ Die Klasse Buchung hat als Attribute buchungID, personID, fahrzeugID,
+ ausleihdatum, rueckgabedatum. <br>
+ Wir nutzen Properties,um mit Hilfe von ObservableLists Änderungen
+ unverzüglich anzeigen zu lassen.
+
+***************************************************************************/
 
 public class Buchung {
 
-	private final IntegerProperty buchungID;
-    private final IntegerProperty personID;
+	private final IntegerProperty buchungID;				//!< BuchungID
+    private final IntegerProperty personID;					//!< PersonID
     private final StringProperty lastname;
-    private final IntegerProperty fahrzeugID;
+    private final IntegerProperty fahrzeugID;				//!< Fahrzeug ID
     private final StringProperty hersteller;
     private final StringProperty fahrzeugtyp;
-    private final ObjectProperty<LocalDate> ausleihdatum;
-    private final ObjectProperty<LocalDate> rueckgabedatum;
-    private final IntegerProperty leihdauer;
+    private final ObjectProperty<LocalDate> ausleihdatum;	//!< Ausleihdatum
+    private final ObjectProperty<LocalDate> rueckgabedatum;	//!< Rueckgabedatum
+    private final IntegerProperty leihdauer;				//!< Leihdauer
 
 	/**************************************************************************/
 	/*                                                                        */
-	/* Constructurs                                                           */
+	/* Constructur                                                            */
 	/*                                                                        */
 	/**************************************************************************/
 
     public Buchung() {
         this(0, 0, 0, 0);
     }
+
+    /***************************************************************************
+    METHODENNAME:	Buchung
+    *//*!
+     Konstruktor der Klasse Buchung
+
+     \param   buchungID, personID, fahrzeugID, leihdauer
+
+     \return  void
+
+    ***************************************************************************/
 
     public Buchung(int buchungID, int personID, int fahrzeugID, int leihdauer) {
         this.buchungID = new SimpleIntegerProperty(buchungID);
@@ -60,8 +88,6 @@ public class Buchung {
 	/**************************************************************************/
 	/*                                                                        */
 	/* Getters and Setters													  */
-	/* 																		  */
-	/* Wir nutzen Properties um Änderungen unverzüglich anzeigen zu lassen    */
 	/*                                                                        */
 	/**************************************************************************/
 
@@ -175,3 +201,5 @@ public class Buchung {
         return rueckgabedatum;
     }
 }
+
+/** @}*/ /*end of doxygen group*/

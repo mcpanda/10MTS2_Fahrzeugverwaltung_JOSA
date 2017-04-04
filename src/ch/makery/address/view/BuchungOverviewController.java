@@ -103,7 +103,7 @@ public class BuchungOverviewController {
 
     @FXML
     private void initialize() {
-        // Initialize the Buchung table with the two columns.
+        // Initialize the Buchung table with the three columns.
     	buchungIDColumn.setCellValueFactory(cellData -> cellData.getValue().buchungIDProperty().asObject());
         personIDColumn.setCellValueFactory(cellData -> cellData.getValue().personIDProperty().asObject());
         fahrzeugIDColumn.setCellValueFactory(cellData -> cellData.getValue().fahrzeugIDProperty().asObject());
@@ -171,12 +171,13 @@ public class BuchungOverviewController {
         		if(buchung.getFahrzeugID() == f.getFahrzeugID()) {
         			herstellerLabel.setText(f.getHersteller());
                 	markeLabel.setText(f.getMarke());
+                	fahrzeugtypLabel.setText(f.getFahrzeugtyp());
                 	buchung.setHersteller(f.getHersteller());
                 	buchung.setFahrzeugtyp(f.getFahrzeugtyp());
         		}
         	}
 
-        	fahrzeugtypLabel.setText(buchung.getFahrzeugtyp());
+//        	fahrzeugtypLabel.setText(buchung.getFahrzeugtyp());
 
             ausleihdatumLabel.setText(DateUtil.format(buchung.getAusleihdatum()));
             rueckgabedatumLabel.setText(DateUtil.format(buchung.getRueckgabedatum()));
@@ -186,6 +187,7 @@ public class BuchungOverviewController {
         	personIDLabel.setText("");
         	fahrzeugIDLabel.setText("");
         	leihdauerLabel.setText("");
+        	fahrzeugtypLabel.setText("");
         	ausleihdatumLabel.setText("");
         	rueckgabedatumLabel.setText("");
         }

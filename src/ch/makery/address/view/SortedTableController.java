@@ -1,8 +1,5 @@
 package ch.makery.address.view;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-
 /**************************************************************************/
 /*                                                                        */
 /* Import Section                                                         */
@@ -15,6 +12,8 @@ import javafx.scene.control.TableView;
 import ch.makery.address.MainApp;
 import ch.makery.address.model.Person;
 import java.time.LocalDate;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 /**************************************************************************/
 /*                                                                        */
@@ -117,16 +116,13 @@ public class SortedTableController {
 
     public void setMainApp(MainApp mainApp) {
         this.mainApp = mainApp;
-
-        // Add observable list data to the table
-        // personTable.setItems(sortNachname(mainApp.getPersonData()));
     }
 
 	/***************************************************************************
 
 	METHODENNAME:	ShowSortNachname
 
-	BESCHREIBUNG:
+	BESCHREIBUNG:	Anzeige der Personen, sortiert nach Nachnamen
 
 	PARAMETER: 		void
 
@@ -143,7 +139,7 @@ public class SortedTableController {
 
 	METHODENNAME:	ShowSortVorname
 
-	BESCHREIBUNG:
+	BESCHREIBUNG:	Anzeige der Personen, sortiert nach Vornamen
 
 	PARAMETER: 		void
 
@@ -160,7 +156,7 @@ public class SortedTableController {
 
 	METHODENNAME:	sortNachname
 
-	BESCHREIBUNG:   Sortiert eine ObservableList aus Personen nach dem Nachnamen
+	BESCHREIBUNG:   Sortiert eine ObservableList aus Personen nach dem Nachnamen.
 
 	PARAMETER: 		ObservableList<Person>
 
@@ -170,20 +166,20 @@ public class SortedTableController {
 
     public ObservableList<Person> sortNachname (ObservableList<Person> persons) {
     	ObservableList<Person> personenListe= FXCollections.observableArrayList();
-    	personenListe.setAll(persons);
-    	Person Platzhalter= new Person();
+    	personenListe.setAll(persons);			// Erstelle Kopie von persons
+    	Person Platzhalter= new Person();		// Platzhalter von der Klasse Person. Nötig, für das Spätere tauschen innerhalb der Liste
 
-		for (int i= 0; i < personenListe.size() - 1; i++) {
-			int minIndex= i;
+		for (int i= 0; i < personenListe.size() - 1; i++) {			// durchlaufe die gesamte personenListe
+			int minIndex= i;										// Annahme, die aktuelle Position enthält den kleinsten Eintrag
 			Platzhalter= personenListe.get(i);
 
-			for (int j= i + 1; j < personenListe.size(); j++) {
-				if (Platzhalter.getLastName().compareTo(personenListe.get(j).getLastName()) > 0) {
-					minIndex= j;
+			for (int j= i + 1; j < personenListe.size(); j++) {		// durchlaufe den Rest der Liste
+				if (Platzhalter.getLastName().compareTo(personenListe.get(j).getLastName()) > 0) {	// vergleiche ob es sich ein kleinerer Eintrag finden lässt
+					minIndex= j;																	// falls ja, so wird die Position und Inhalt des neuen Minimum zwischengespeichert
 					Platzhalter= personenListe.get(j);
-				}
+				}																					// am Ende haben wir ein Minimum von der Liste
 			}
-			personenListe.set(minIndex, personenListe.get(i));
+			personenListe.set(minIndex, personenListe.get(i));										// Tausche aktuelle Position mit der Postion des Minimum
 			personenListe.set(i, Platzhalter);
 		}
 		return personenListe;
@@ -194,6 +190,7 @@ public class SortedTableController {
 	METHODENNAME:	sortVorname
 
 	BESCHREIBUNG:   Sortiert eine ObservableList aus Personen nach dem Vornamen
+					Codekommentierung: siehe sortNachname
 
 	PARAMETER: 		ObservableList<Person>
 

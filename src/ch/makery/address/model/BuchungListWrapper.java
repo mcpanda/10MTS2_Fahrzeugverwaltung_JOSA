@@ -1,3 +1,14 @@
+/**************************************************************************************************/
+/*! \file
+  FILE         : $Source: BuchungListWrapper.java $
+  BESCHREIBUNG : Diese Klasse ist notwendig um die Daten in eine xml-Datei zu speichern
+  				 und die Daten aus einer xml-Datei zu laden
+***************************************************************************************************/
+
+/** \addtogroup Model
+ *  @{
+ */
+
 package ch.makery.address.model;
 
 /**************************************************************************/
@@ -10,16 +21,13 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-/**************************************************************************/
-/*                                                                        */
-/* Class buchungListWrapper                                              */
-/*                                                                        */
-/**************************************************************************/
-/**************************************************************************/
-/*                                                                        */
-/* Diese Klasse ist notwendig um die Daten in eine xml-Datei zu speichern */
-/*                                                                        */
-/**************************************************************************/
+/***************************************************************************
+CLASS:	BuchungListWrapper
+*//*!
+ Diese Klasse ist notwendig um die Daten in eine xml-Datei zu speichern
+ und die Daten aus einer xml-Datei zu laden
+
+***************************************************************************/
 
 @XmlRootElement(name = "buchungs")
 public class BuchungListWrapper {
@@ -35,3 +43,5 @@ public class BuchungListWrapper {
         this.buchungs = buchungs;
     }
 }
+
+/** @}*/ /*end of doxygen group*/

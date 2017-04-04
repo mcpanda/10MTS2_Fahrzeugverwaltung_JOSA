@@ -29,9 +29,11 @@ import ch.makery.address.model.BuchungListWrapper;
 import ch.makery.address.model.Fahrzeug;
 import ch.makery.address.model.PersonListWrapper;
 import ch.makery.address.model.FahrzeugListWrapper;
+import ch.makery.address.model.Tree;
 import ch.makery.address.view.PersonEditDialogController;
 import ch.makery.address.view.FahrzeugEditDialogController;
 import ch.makery.address.view.PersonOverviewController;
+import ch.makery.address.view.PersonStatisticController;
 import ch.makery.address.view.FahrzeugOverviewController;
 import ch.makery.address.view.FahrzeugStatisticController;
 import ch.makery.address.view.FahrzeugTypStatisticController;
@@ -40,6 +42,8 @@ import ch.makery.address.view.SortedTableController;
 import ch.makery.address.view.BirthdayStatisticsController;
 import ch.makery.address.view.BuchungEditDialogController;
 import ch.makery.address.view.BuchungOverviewController;
+import ch.makery.address.view.SuchenFensterController;
+
 
 /**************************************************************************/
 /*                                                                        */
@@ -82,16 +86,13 @@ public class MainApp extends Application {
 
 	/**************************************************************************/
 	/*                                                                        */
-	/* Data as observable list                                                */
+	/* Data as observable lists                                                */
 	/*                                                                        */
 	/**************************************************************************/
 
 	private ObservableList<Person> personData = FXCollections.observableArrayList();
 	private ObservableList<Fahrzeug> fahrzeugData = FXCollections.observableArrayList();
 	private ObservableList<Buchung> buchungData = FXCollections.observableArrayList();
-	private ObservableList<Integer> personIDList= FXCollections.observableArrayList();
-	private ObservableList<Integer> fahrzeugIDList= FXCollections.observableArrayList();
-	private ObservableList<Integer> buchungIDList= FXCollections.observableArrayList();
 
 	/**************************************************************************/
 	/*                                                                        */
@@ -128,6 +129,14 @@ public class MainApp extends Application {
 		buchungData.add(new Buchung(4, 4, 4, 2));
 		buchungData.add(new Buchung(5, 5, 5, 1));
 		buchungData.add(new Buchung(6, 6, 6, 2));
+
+		Tree personD = new Tree();
+		personD.addNode(1, "Roman", "Bürki", "Strobelallee 50", 44139, "Dortmund");
+		personD.addNode(2, "Marc", "Bartra", "Strobelallee 50", 44139, "Dortmund");
+		personD.addNode(3, "Sven", "Bender", "Strobelallee 50", 44139, "Dortmund");
+		personD.addNode(4, "Marcel", "Schmelzer", "Strobelallee 50", 44139, "Dortmund");
+		personD.addNode(5, "Erik", "Durm", "Strobelallee 50", 44139, "Dortmund");
+		personD.addNode(6, "Matthias", "Ginter", "Strobelallee 50", 44139, "Dortmund");
 	}
 
 	/**************************************************************************/
@@ -182,66 +191,6 @@ public class MainApp extends Application {
 
 	public ObservableList<Buchung> getBuchungData() {
 		return buchungData;
-	}
-
-	/***************************************************************************
-
-	METHODENNAME:	getPersonIDList
-
-	BESCHREIBUNG:   Gibt eine Liste der PersonenIDs wieder
-
-	PARAMETER: 		void
-
-	RETURN:			ObservableList
-
-	***************************************************************************/
-
-	public ObservableList<Integer> getPersonIDList() {
-		personIDList.clear();
-		for(int i= 0; i < personData.size(); i++){
-	  		personIDList.add(personData.get(i).getPersonID());
-	  	}
-		return personIDList;
-	}
-
-	/***************************************************************************
-
-	METHODENNAME:	getFahrzeugIDList
-
-	BESCHREIBUNG:   Gibt eine Liste der FahrzeugIDs wieder
-
-	PARAMETER: 		void
-
-	RETURN:			ObservableList
-
-	***************************************************************************/
-
-	public ObservableList<Integer> getFahrzeugIDList() {
-		fahrzeugIDList.clear();
-		for(int i= 0; i < fahrzeugData.size(); i++){
-	  		fahrzeugIDList.add(fahrzeugData.get(i).getFahrzeugID());
-	  	}
-		return fahrzeugIDList;
-	}
-
-	/***************************************************************************
-
-	METHODENNAME:	getBuchungIDList
-
-	BESCHREIBUNG:   Gibt eine Liste der BuchungsIDs wieder
-
-	PARAMETER: 		void
-
-	RETURN:			ObservableList
-
-	***************************************************************************/
-
-	public ObservableList<Integer> getBuchungIDList() {
-		buchungIDList.clear();
-		for(int i= 0; i < buchungData.size(); i++){
-	  		buchungIDList.add(buchungData.get(i).getPersonID());
-	  	}
-		return buchungIDList;
 	}
 
 	/***************************************************************************
@@ -491,7 +440,7 @@ public class MainApp extends Application {
 	METHODENNAME:	getPersonFilePath
 
 	BESCHREIBUNG:   Gibt die Dateipräferenz zurück, z.B. die letzte geöffnete
-					Datei. Die Präferenzen werden aus dem betriebssystem-
+					Datei. Die Präferenzen werden aus dem Betriebssystem-
 					spezifischen Register gelesen. Falls keine solche
 					Präferenz gefunden wird, so wird NULL zurückgegeben.
 
@@ -569,7 +518,7 @@ public class MainApp extends Application {
 	METHODENNAME:	setPersonFilePath
 
 	BESCHREIBUNG:   Setzt den Dateipfad der aktuell geladenen Datei. Der Pfad
-					verharrt in dem betribsspezifischen Register.
+					verharrt in dem betriebsspezifischen Register.
 					Fügt der Programmüberschrift den Dateinamen hinzu.
 
 	PARAMETER: 		File
@@ -720,8 +669,9 @@ public class MainApp extends Application {
 			BuchungEditDialogController controller = loader.getController();
 			controller.setMainApp(this);
 			controller.setDialogStage(dialogStage);
+			controller.AutoCompleteFahrzeugtyp(personData, fahrzeugData);
 			controller.setBuchung(buchung, personData, fahrzeugData);
-			controller.handlerComboBoxList();
+
 
 
 			// Show the dialog and wait until the user closes it
@@ -968,17 +918,40 @@ public class MainApp extends Application {
 
 			rootLayout.setCenter(page);
 
-			// Code um Statistic in eienm Popup-Fesnter zu öffnen
-			// Stage dialogStage = new Stage();
-			// dialogStage.setTitle("Birthday Statistics");
-			// dialogStage.initModality(Modality.WINDOW_MODAL);
-			// dialogStage.initOwner(primaryStage);
-			// Scene scene = new Scene(page);
-			// dialogStage.setScene(scene);
-
 			// Set the persons into the controller.
 			BirthdayStatisticsController controller = loader.getController();
 			controller.setPersonData(personData);
+
+			// dialogStage.show();
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	/***************************************************************************
+
+	METHODENNAME:	showPersonStatistics
+
+	BESCHREIBUNG:   Öffnet die PersonStatistic im root Layout
+
+	PARAMETER: 		void
+
+	RETURN:			void
+
+	***************************************************************************/
+
+	public void showPersonStatistics() {
+		try {
+			// Load the fxml file and create a new stage for the popup.
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApp.class.getResource("view/PersonStatistic.fxml"));
+			AnchorPane page = (AnchorPane) loader.load();
+
+			rootLayout.setCenter(page);
+
+			PersonStatisticController controller = loader.getController();
+			controller.setPersonStatistic(personData, buchungData);
 
 			// dialogStage.show();
 
@@ -1046,6 +1019,108 @@ public class MainApp extends Application {
 
 		} catch (IOException e) {
 			e.printStackTrace();
+		}
+	}
+
+	/***************************************************************************
+
+	METHODENNAME:	showFahrzeugTageStatistics
+
+	BESCHREIBUNG:   Öffnet die FahrzeugStatistic im root Layout
+
+	PARAMETER: 		void
+
+	RETURN:			void
+
+	***************************************************************************/
+
+	public void showFahrzeugTageStatistics() {
+		try {
+			// Load the fxml file and create a new stage for the popup.
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApp.class.getResource("view/FahrzeugStatistic.fxml"));
+			AnchorPane page = (AnchorPane) loader.load();
+
+			rootLayout.setCenter(page);
+
+			FahrzeugStatisticController controller = loader.getController();
+			controller.setFahrzeugTageStatistic(fahrzeugData, buchungData);
+
+			// dialogStage.show();
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	/***************************************************************************
+
+	METHODENNAME:	showFahrzeugTypTageStatistics
+
+	BESCHREIBUNG:   Öffnet die FahrzeugTypTageStatistic im root Layout
+
+	PARAMETER: 		void
+
+	RETURN:			void
+
+	***************************************************************************/
+
+	public void showFahrzeugTypTageStatistics() {
+		try {
+			// Load the fxml file and create a new stage for the popup.
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApp.class.getResource("view/FahrzeugTypStatistic.fxml"));
+			AnchorPane page = (AnchorPane) loader.load();
+
+			rootLayout.setCenter(page);
+
+			FahrzeugTypStatisticController controller = loader.getController();
+			controller.setFahrzeugTypTageStatistic(fahrzeugData, buchungData);
+
+			// dialogStage.show();
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	/***************************************************************************
+
+	METHODENNAME:	showSuchenFenster
+
+	BESCHREIBUNG:   Öffnet Fenster zur Sucheingabe
+
+	PARAMETER: 		void
+
+	RETURN:			void
+
+	***************************************************************************/
+
+	public boolean showSuchenFenster()
+	{
+		try {
+			// Load buchung overview.
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApp.class.getResource("view/SuchenFenster.fxml"));
+			AnchorPane Suchen = (AnchorPane) loader.load();
+
+			// Create the dialog Stage.
+			Stage dialogStage = new Stage();
+			dialogStage.setTitle("Suchen");
+			dialogStage.initModality(Modality.WINDOW_MODAL);
+			dialogStage.initOwner(primaryStage);
+			Scene scene = new Scene(Suchen);
+			dialogStage.setScene(scene);
+
+			// Give the controller access to the main app.
+			SuchenFensterController controller = loader.getController();
+			controller.setDialogStage(dialogStage);
+         	controller.setMainApp(this);
+         	dialogStage.showAndWait();
+         	return true;
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
 		}
 	}
 }

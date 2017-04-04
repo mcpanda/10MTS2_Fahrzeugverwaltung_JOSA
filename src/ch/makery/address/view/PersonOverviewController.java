@@ -1,3 +1,14 @@
+/**************************************************************************************************/
+/*! \file
+  FILE         : $Source: PersonOverviewController.java $
+  BESCHREIBUNG : Controller
+                 Controller für die Personenübersicht
+***************************************************************************************************/
+
+/** \defgroup View View
+ *  @{
+ */
+
 package ch.makery.address.view;
 
 /**************************************************************************/
@@ -17,11 +28,12 @@ import ch.makery.address.model.Buchung;
 import ch.makery.address.model.Person;
 import ch.makery.address.util.DateUtil;
 
-/**************************************************************************/
-/*                                                                        */
-/* Class PersonOverviewController                                         */
-/*                                                                        */
-/**************************************************************************/
+/***************************************************************************
+CLASS:	PersonOverviewController
+*//*!
+ Die Klasse PersonOverviewController hat nur einen Standardkonstruktor.
+
+***************************************************************************/
 
 public class PersonOverviewController {
 
@@ -79,19 +91,17 @@ public class PersonOverviewController {
 	/*                                                                        */
 	/**************************************************************************/
 
-	/***************************************************************************
+    /***************************************************************************
+    METHODENNAME:	initialize
+    *//*!
+     Initialisiert die Controller Klasse. Diese Methode wird automatisch
+     aufgerufen, nachdem die fxml Datei geladen wurde.
 
-	METHODENNAME:	initialize
+     \param   void
 
-	BESCHREIBUNG:   Initialisiert die Controller Klasse. Diese Methode wird
-					automatisch aufgerufen, nachdem die fxml Datei
-					geladen wurde
+     \return  void
 
-	PARAMETER: 		void
-
-	RETURN:			void
-
-	***************************************************************************/
+    ***************************************************************************/
 
     @FXML
     private void initialize() {
@@ -108,18 +118,16 @@ public class PersonOverviewController {
                 (observable, oldValue, newValue) -> showPersonDetails(newValue));
     }
 
-	/***************************************************************************
+    /***************************************************************************
+    METHODENNAME:	setMainApp
+    *//*!
+     Is called by the main application to give a reference back to itself.
 
-	METHODENNAME:	setMainApp
+     \param   mainApp
 
-	BESCHREIBUNG:   Is called by the main application to give a reference back
-					to itself.
+     \return  void
 
-	PARAMETER: 		mainApp
-
-	RETURN:			void
-
-	***************************************************************************/
+    ***************************************************************************/
 
     public void setMainApp(MainApp mainApp) {
         this.mainApp = mainApp;
@@ -128,20 +136,18 @@ public class PersonOverviewController {
         personTable.setItems(mainApp.getPersonData());
     }
 
-	/***************************************************************************
+    /***************************************************************************
+    METHODENNAME:	showPersonDetails
+    *//*!
+     Zeigt die Details einer ausgewählten Person an. Ist keine Person
+     ausgewählt, so wird nichts angezeigt.
 
-	METHODENNAME:	showPersonDetails
+     \param   Person. Ein Objekt der Klasse Person, von welchem die
+			  Details angezeigt werden sollen.
 
-	BESCHREIBUNG:   Zeigt die Details einer ausgewählten Person an.
-					Ist keine Person ausgewählt, so wird nichts angezeigt.
+     \return  void
 
-	PARAMETER: 		Person.
-					Einn Objekt der Klasse Person, von welchem die
-					Details angezeigt werden sollen.
-
-	RETURN:			void
-
-	***************************************************************************/
+    ***************************************************************************/
 
     private void showPersonDetails(Person person) {
         if (person != null) {
@@ -169,19 +175,17 @@ public class PersonOverviewController {
         }
     }
 
-	/***************************************************************************
+    /***************************************************************************
+    METHODENNAME:	handleDeletePerson
+    *//*!
+     Handler für den Delete Button. Wird Delete angeklickt, so wird das
+     ausgewählte Objekt gelöscht.
 
-	METHODENNAME:	handleDeletePerson
+     \param   void
 
-	BESCHREIBUNG:   handler für den Delete Button.
-					Wird Delete angeklickt, so wird das ausgewählte Objekt
-					gelöscht.
+     \return  void
 
-	PARAMETER: 		void
-
-	RETURN:			void
-
-	***************************************************************************/
+    ***************************************************************************/
 
     @FXML
     private void handleDeletePerson() {
@@ -200,20 +204,18 @@ public class PersonOverviewController {
         }
     }
 
-	/***************************************************************************
+    /***************************************************************************
+    METHODENNAME:	handleNewPerson
+    *//*!
+     Handler für den New Button. Wird New angeklickt, so wird ein Dialogfeld
+     aufgerufen, um ein neues Objekt von der Klasse Person zu erstellen.
+	 Hierbei können alle nötigen Attribute eingegeben werden.
 
-	METHODENNAME:	handleNewPerson
+     \param   void
 
-	BESCHREIBUNG:   handler für den New Button.
-					Wird New angeklickt, so wird ein Dialogfeld aufgerufen, um
-					ein neues Objekt von der Klasse Person zu erstellen.
-					Hierbei können alle nötigen Attribute eingegeben werden.
+     \return  void
 
-	PARAMETER: 		void
-
-	RETURN:			void
-
-	***************************************************************************/
+    ***************************************************************************/
 
     @FXML
     private void handleNewPerson() {
@@ -225,18 +227,16 @@ public class PersonOverviewController {
     }
 
     /***************************************************************************
+    METHODENNAME:	handlePersonBuchung
+    *//*!
+     Handler für den Buchungs Button. Hiermit wird eine neue Buchung angelegt
+     und die Daten der ausgewählten Person geladen.
 
-	METHODENNAME:	handlePersonBuchung
+     \param   void
 
-	BESCHREIBUNG:   handler für den Buchungs Button.
-					Hiermit wird eine neue Buchung angelegt und die Daten
-					der ausgewählten Person geladen.
+     \return  void
 
-	PARAMETER: 		void
-
-	RETURN:			void
-
-	***************************************************************************/
+    ***************************************************************************/
 
     @FXML
     private void handlePersonBuchung() {
@@ -268,20 +268,17 @@ public class PersonOverviewController {
         }
     }
 
-	/***************************************************************************
+    /***************************************************************************
+    METHODENNAME:	handleEditPerson
+    *//*!
+    Handler für den Edit Button. Wird Edit angeklickt, so wird ein Dialogfeld
+    aufgerufen, um die Attribute, der ausgewählten Person, verändern zu können.
 
-	METHODENNAME:	handleEditPerson
+     \param   void
 
-	BESCHREIBUNG:   handler für den Edit Button.
-					Wird Edit angeklickt, so wird ein Dialogfeld aufgerufen, um
-					die Attribute, der ausgewählten Person, verändern zu
-					können.
+     \return  void
 
-	PARAMETER: 		void
-
-	RETURN:			void
-
-	***************************************************************************/
+    ***************************************************************************/
 
     @FXML
     private void handleEditPerson() {
@@ -303,4 +300,27 @@ public class PersonOverviewController {
             alert.showAndWait();
         }
     }
+
+    /***************************************************************************
+    METHODENNAME:	SearchingResultDialog
+    *//*!
+    Öffnet ein Suchdialfeld, zur Eingabe eines Vornames, welches im binärem
+    Baum gesucht und falls gefunden auch mit Details angezeigt wird.
+
+     \param   void
+
+     \return  void
+
+    ***************************************************************************/
+
+    @FXML
+    private void SearchingResultDialog(){
+    boolean okClicked = mainApp.showSuchenFenster();
+    if(okClicked)
+    	{
+    		mainApp.showSuchenFenster();
+    	}
+   }
 }
+
+/** @}*/ /*end of doxygen group*/

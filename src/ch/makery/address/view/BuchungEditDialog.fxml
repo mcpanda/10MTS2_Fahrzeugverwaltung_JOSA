@@ -37,7 +37,7 @@
             <Label text="Leihdauer" GridPane.rowIndex="6" />
             <TextField fx:id="ausleihdatumField" onMouseExited="#AusleihdauerBerechnung" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <TextField fx:id="rueckgabedatumField" onMouseExited="#AusleihdauerBerechnung" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-            <ComboBox fx:id="personIDBox" onDragDropped="#handleAutoCompletePerson" onKeyReleased="#handleAutoCompletePerson" prefHeight="31.0" prefWidth="150.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="2">
+            <ComboBox fx:id="personIDBox" onKeyReleased="#handleAutoCompletePerson" prefHeight="31.0" prefWidth="150.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="2">
                <GridPane.margin>
                   <Insets />
                </GridPane.margin></ComboBox>

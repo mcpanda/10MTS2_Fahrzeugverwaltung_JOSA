@@ -1,7 +1,5 @@
 package ch.makery.address.view;
 
-
-
 /**************************************************************************/
 /*                                                                        */
 /* Import Section                                                         */
@@ -20,10 +18,8 @@ import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-
 import java.time.LocalDate;
 import java.util.List;
-
 import ch.makery.address.MainApp;
 import ch.makery.address.model.Buchung;
 import ch.makery.address.model.Fahrzeug;
@@ -112,11 +108,9 @@ public class BuchungEditDialogController {
     private void initialize() {
 
     	personIDBox.setEditable(true);
-    	//personIDBox.setValue(0);
     	personIDBox.setItems(filteredPersonBeschreibungBoxList);
 
     	fahrzeugIDBox.setEditable(true);
-    	//fahrzeugIDBox.setValue(0);
     	fahrzeugIDBox.setItems(filteredFahrzeugBeschreibungBoxList);
 
     	fahrzeugtypBox.getItems().addAll("Alle", "Motorrad", "Cityflitzer", "Langstrecke", "Kleintransporter", "LKW");
@@ -138,26 +132,6 @@ public class BuchungEditDialogController {
 
     public void setMainApp(MainApp mainApp) {
         this.mainApp = mainApp;
-    }
-
-	/***************************************************************************
-
-	METHODENNAME:	handlerComboBoxList
-
-	BESCHREIBUNG:   Lädt die IDs der Personen und Fahrzeuge in
-					die Observablelisten ein
-
-	PARAMETER: 		dialogStage
-
-	RETURN:			void
-
-	***************************************************************************/
-
-    public void handlerComboBoxList() {
-
-	  	filteredPersonIDBoxList.setAll(mainApp.getPersonIDList());
-	  	filteredFahrzeugIDBoxList.setAll(mainApp.getFahrzeugIDList());
-//	  	fahrzeugtypBox.getItems().addAll("Motorrad", "Cityflitzer", "Langstrecke", "Kleintransporter", "LKW");
     }
 
     /***************************************************************************
@@ -421,10 +395,11 @@ public class BuchungEditDialogController {
         for (Fahrzeug f : fahrzeugs) {
         	if (buchung.getFahrzeugID() == f.getFahrzeugID()) {
         		fahrzeugIDBox.setValue(f.getFahrzeugBeschreibung());
+        		fahrzeugtypBox.setValue(f.getFahrzeugtyp());
         	}
         }
 
-        fahrzeugtypBox.setValue(buchung.getFahrzeugtyp());
+//        fahrzeugtypBox.setValue(buchung.getFahrzeugtyp());
 
         ausleihdatumField.setText(DateUtil.format(buchung.getAusleihdatum()));
         ausleihdatumField.setPromptText("dd.mm.yyyy");
@@ -673,8 +648,3 @@ public class BuchungEditDialogController {
         }
     }
 }
-
-/*
--------
-public List<? extends Comparable> sortieren(List<? extends Comparable> list) {
-}*/

@@ -1,3 +1,14 @@
+/**************************************************************************************************/
+/*! \file
+  FILE         : $Source: Fahrzeug.java $
+  BESCHREIBUNG : Fahrzeugmodel
+                 Modellierung eines Fahrzeugs.
+***************************************************************************************************/
+
+/** \addtogroup Model
+ *  @{
+ */
+
 package ch.makery.address.model;
 
 /**************************************************************************/
@@ -6,21 +17,20 @@ package ch.makery.address.model;
 /*                                                                        */
 /**************************************************************************/
 
-//import java.time.LocalDate;
 import javafx.beans.property.IntegerProperty;
-//import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-//import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-//import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-//import ch.makery.address.util.LocalDateAdapter;
 
-/**************************************************************************/
-/*                                                                        */
-/* Class Fahrzeug                                                         */
-/*                                                                        */
-/**************************************************************************/
+/***************************************************************************
+CLASS:	Fahrzeug
+*//*!
+ Die Klasse Fahrzeug hat als Attribute fahrzeugID, hersteller, marke, kraftstaoff,
+ leistung, kilometerstand, fahrzeugtyp, ausgeliehen. <br>
+ Wir nutzen Properties,um mit Hilfe von ObservableLists Änderungen
+ unverzüglich anzeigen zu lassen.
+
+***************************************************************************/
 
 public class Fahrzeug {
 
@@ -44,6 +54,18 @@ public class Fahrzeug {
         this(0, null, null, null, null, 0, 0);
     }
 
+    /***************************************************************************
+    METHODENNAME:	Fahrzeug
+    *//*!
+     Konstruktor der Klasse Fahrzeug
+
+     \param   fahrzeugID, hersteller, marke, kraftstoff, fahrzeugtyp, leistung,
+     		  kilometerstand
+
+     \return  void
+
+    ***************************************************************************/
+
     public Fahrzeug(int fahrzeugID, String hersteller, String marke, String kraftstoff, String fahrzeugtyp, int leistung, int kilometerstand) {
         this.fahrzeugID = new SimpleIntegerProperty(fahrzeugID);
     	this.hersteller = new SimpleStringProperty(hersteller);
@@ -60,8 +82,6 @@ public class Fahrzeug {
 	/**************************************************************************/
 	/*                                                                        */
 	/* Getters and Setters													  */
-	/* 																		  */
-	/* Wir nutzen Properties um Änderungen unverzüglich anzeigen zu lassen    */
 	/*                                                                        */
 	/**************************************************************************/
 
@@ -164,18 +184,6 @@ public class Fahrzeug {
     public String getFahrzeugBeschreibung() {
     	return this.getFahrzeugID() + " - " + this.getHersteller() + " " + this.getMarke();
     }
-
-
-//    @XmlJavaTypeAdapter(LocalDateAdapter.class)
-//    public LocalDate getAenderungsdatum() {
-//        return aenderungsdatum.get();
-//    }
-//
-//    public void setAenderungsdatum(LocalDate aenderungsdatum) {
-//        this.aenderungsdatum.set(aenderungsdatum);
-//    }
-//
-//    public ObjectProperty<LocalDate> aenderungsdatumProperty() {
-//        return aenderungsdatum;
-//    }
 }
+
+/** @}*/ /*end of doxygen group*/

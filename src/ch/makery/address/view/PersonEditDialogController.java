@@ -1,3 +1,15 @@
+/**************************************************************************************************/
+/*! \file
+  FILE         : $Source: PersonEditController.java $
+  BESCHREIBUNG : Controller
+                 Controller für das Dialogfeld zur Personenbearbeitung.
+                 Hierzu zählt New, Edit, Delete, Buchung, Suchen
+***************************************************************************************************/
+
+/** \addtogroup View
+ *  @{
+ */
+
 package ch.makery.address.view;
 
 /**************************************************************************/
@@ -18,11 +30,12 @@ import ch.makery.address.model.Person;
 import ch.makery.address.util.DateUtil;
 import javafx.scene.control.Label;
 
-/**************************************************************************/
-/*                                                                        */
-/* Class PersonEditDialogController                                       */
-/*                                                                        */
-/**************************************************************************/
+/***************************************************************************
+CLASS:	PersonEditDialogController
+*//*!
+ Die Klasse PersonEditDialogController hat nur einen Standardkonstruktor
+
+***************************************************************************/
 
 public class PersonEditDialogController {
 
@@ -63,69 +76,63 @@ public class PersonEditDialogController {
 	/*                                                                        */
 	/**************************************************************************/
 
-	/***************************************************************************
+    /***************************************************************************
+    METHODENNAME:	initialize
+    *//*!
+     Initialisiert die Controller Klasse. Diese Methode wird automatisch
+     aufgerufen, nachdem die fxml Datei geladen wurde.
 
-	METHODENNAME:	initialize
+     \param   void
 
-	BESCHREIBUNG:   Initialisiert die Controller Klasse. Diese Methode wird
-					automatisch aufgerufen, nachdem die fxml Datei
-					geladen wurde
+     \return  void
 
-	PARAMETER: 		void
-
-	RETURN:			void
-
-	***************************************************************************/
+    ***************************************************************************/
 
     @FXML
     private void initialize() {
     	lizenzBox.getItems().addAll("Klasse A", "Klasse B", "Klasse C");
     }
 
-	/***************************************************************************
+    /***************************************************************************
+    METHODENNAME:	setDialogStage
+    *//*!
+     Gibt die Stage des Dialagfeldes an.
 
-	METHODENNAME:	setDialogStage
+     \param   dialogStage
 
-	BESCHREIBUNG:   Gibt die Stage des Dialagfeldes an.
+     \return  void
 
-	PARAMETER: 		dialogStage
-
-	RETURN:			void
-
-	***************************************************************************/
+    ***************************************************************************/
 
     public void setDialogStage(Stage dialogStage) {
         this.dialogStage = dialogStage;
     }
 
-	/***************************************************************************
+    /***************************************************************************
+    METHODENNAME:	setMainApp
+    *//*!
+     Is called by the main application to give a reference back to itself.
 
-	METHODENNAME:	setMainApp
+     \param   mainApp
 
-	BESCHREIBUNG:   Is called by the main application to give a reference back
-					to itself.
+     \return  void
 
-	PARAMETER: 		mainApp
-
-	RETURN:			void
-
-	***************************************************************************/
+    ***************************************************************************/
 
     public void setMainApp(MainApp mainApp) {
         this.mainApp = mainApp;
     }
 
-	/***************************************************************************
+    /***************************************************************************
+    METHODENNAME:	setPerson
+    *//*!
+     Definiert die Person, welche bearbeitet werden soll.
 
-	METHODENNAME:	setPerson
+     \param   Person
 
-	BESCHREIBUNG:   Definiert die Person, welche bearbeitet werden soll.
+     \return  void
 
-	PARAMETER: 		Person
-
-	RETURN:			void
-
-	***************************************************************************/
+    ***************************************************************************/
 
     public void setPerson(Person person) {
         this.person = person;
@@ -142,35 +149,32 @@ public class PersonEditDialogController {
         birthdayField.setPromptText("dd.mm.yyyy");
     }
 
-	/***************************************************************************
+    /***************************************************************************
+    METHODENNAME:	isOkClicked
+    *//*!
+     Gibt ein TRUE aus, wenn [OK] geklickt wurde.
 
-	METHODENNAME:	isOkClicked
+     \param   void
 
-	BESCHREIBUNG:   Gibt ein TRUE aus, wenn [OK] geklickt wurde.
+     \return  Boolean
 
-	PARAMETER: 		void
-
-	RETURN:			Boolean
-
-	***************************************************************************/
+    ***************************************************************************/
 
     public boolean isOkClicked() {
         return okClicked;
     }
 
-	/***************************************************************************
+    /***************************************************************************
+    METHODENNAME:	handleOk
+    *//*!
+     Handler für OK. Dieser handler wird ausgeführt, wenn [OK] geklickt wurde.
+	 Neue Personendaten werden gespeichert.
 
-	METHODENNAME:	handleOk
+     \param   void
 
-	BESCHREIBUNG:   handler für OK.
-					Dieser handler wird ausgeführt, wenn [OK] geklickt wurde.
-					Neue Personendaten werden gespeichert.
+     \return  void
 
-	PARAMETER: 		void
-
-	RETURN:			void
-
-	***************************************************************************/
+    ***************************************************************************/
 
     @FXML
     private void handleOk() {
@@ -191,38 +195,34 @@ public class PersonEditDialogController {
         }
     }
 
-	/***************************************************************************
+    /***************************************************************************
+    METHODENNAME:	handleCancel
+    *//*!
+     Handler für Cancel. Dieser handler wird ausgeführt, wenn [Cancel] geklickt
+     wurde. Dialogfenster wird geschloßen, ohne neue Personendaten zu speichern.
 
-	METHODENNAME:	handleCancel
+     \param   void
 
-	BESCHREIBUNG:   handler für Cancel.
-					Dieser handler wird ausgeführt, wenn [Cancel] geklickt wurde.
-					Dialogfenster wird geschloßen, ohne neue Personendaten
-					zu speichern.
+     \return  void
 
-	PARAMETER: 		void
-
-	RETURN:			void
-
-	***************************************************************************/
+    ***************************************************************************/
 
     @FXML
     private void handleCancel() {
         dialogStage.close();
     }
 
-	/***************************************************************************
+    /***************************************************************************
+    METHODENNAME:	isInputValid
+    *//*!
+     Überprüfung der eingegeben Daten. Sollten nicht konforme Daten vorhanden
+     sein, so wird eine Fehlermeldung ausgegeben.
 
-	METHODENNAME:	isInputValid
+     \param   void
 
-	BESCHREIBUNG:   Überprüfung der eingegeben Daten. Sollten nicht konforme
-					Daten vorhanden sein, so wird eine Fehlermeldung ausgegeben.
+     \return  Boolean
 
-	PARAMETER: 		void
-
-	RETURN:			Boolean
-
-	***************************************************************************/
+    ***************************************************************************/
 
     private boolean isInputValid(List<Person> persons) {
         String errorMessage = "";
@@ -295,3 +295,5 @@ public class PersonEditDialogController {
         }
     }
 }
+
+/** @}*/ /*end of doxygen group*/

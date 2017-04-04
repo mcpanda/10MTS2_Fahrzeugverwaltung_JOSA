@@ -1,3 +1,14 @@
+/**************************************************************************************************/
+/*! \file
+  FILE         : $Source: Person.java $
+  BESCHREIBUNG : Personenmodel
+                 Modellierung einer Person.
+***************************************************************************************************/
+
+/** \defgroup Model Model
+ *  @{
+ */
+
 package ch.makery.address.model;
 
 /**************************************************************************/
@@ -18,23 +29,27 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import ch.makery.address.util.LocalDateAdapter;
 
-/**************************************************************************/
-/*                                                                        */
-/* Class Person                                                           */
-/*                                                                        */
-/**************************************************************************/
+/***************************************************************************
+CLASS:	Person
+*//*!
+ Die Klasse Person hat als Attribute personID, firstName, lastName, street,
+ postalCode, city, lizenz, ausgeliehen, birthday. <br>
+ Wir nutzen Properties,um mit Hilfe von ObservableLists Änderungen
+ unverzüglich anzeigen zu lassen.
+
+***************************************************************************/
 
 public class Person {
 
-	private final IntegerProperty personID;
-    private final StringProperty firstName;
-    private final StringProperty lastName;
-    private final StringProperty street;
-    private final IntegerProperty postalCode;
-    private final StringProperty city;
-    private final StringProperty lizenz;
-    private final StringProperty ausgeliehen;
-    private final ObjectProperty<LocalDate> birthday;
+	private final IntegerProperty personID;				//!< personID
+    private final StringProperty firstName;				//!< firstName
+    private final StringProperty lastName;				//!< lastName
+    private final StringProperty street;				//!< street
+    private final IntegerProperty postalCode;			//!< postalCode
+    private final StringProperty city;					//!< city
+    private final StringProperty lizenz;				//!< lizenz
+    private final StringProperty ausgeliehen;			//!< ausgeliehen
+    private final ObjectProperty<LocalDate> birthday;	//!< birthday
 
 	/**************************************************************************/
 	/*                                                                        */
@@ -45,6 +60,17 @@ public class Person {
     public Person() {
         this(0, null, null, null, null, 0, null);
     }
+
+    /***************************************************************************
+    METHODENNAME:	Person
+    *//*!
+     Konstruktor der Klasse Person
+
+     \param   personID, fistName, lastName, street, lizenz, postal, city
+
+     \return  void
+
+    ***************************************************************************/
 
     public Person(int personID, String firstName, String lastName, String street, String lizenz, int postal, String city) {
     	this.personID = new SimpleIntegerProperty(personID);
@@ -62,8 +88,6 @@ public class Person {
 	/**************************************************************************/
 	/*                                                                        */
 	/* Getters and Setters													  */
-	/* 																		  */
-	/* Wir nutzen Properties um Änderungen unverzüglich anzeigen zu lassen    */
 	/*                                                                        */
 	/**************************************************************************/
 
@@ -180,3 +204,5 @@ public class Person {
     	return this.getPersonID() + " - " + this.getFirstName() + " " + this.getLastName();
     }
 }
+
+/** @}*/ /*end of doxygen group*/
