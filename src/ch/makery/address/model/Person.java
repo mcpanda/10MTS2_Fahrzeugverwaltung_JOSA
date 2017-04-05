@@ -175,4 +175,8 @@ public class Person {
     public ObjectProperty<LocalDate> birthdayProperty() {
         return birthday;
     }
+    
+//    public String getPersonBeschreibung() {
+//    	return this.getPersonID() + " - " + this.getFirstName() + " " + this.getLastName();
+//    }
 }

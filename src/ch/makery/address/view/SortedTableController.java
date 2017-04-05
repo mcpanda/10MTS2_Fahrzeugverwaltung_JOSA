@@ -19,7 +19,7 @@ import java.time.LocalDate;
 
 /**************************************************************************/
 /*                                                                        */
-/* Class SortLastNameController                                         */
+/* Class SortLastNameController                                           */
 /*                                                                        */
 /**************************************************************************/
 
@@ -54,14 +54,17 @@ public class SortedTableController {
     private TableColumn<Person, String> birthdayColumn;
     @FXML
     private TableColumn<Person, LocalDate> ausgeliehenColumn;
+    @FXML
+    private TableColumn<Person, String> rueckgabedatumColumn;
+
 
 	/**************************************************************************/
 	/*                                                                        */
-	/* Constructur                                                            */
+	/* Constructor                                                            */
 	/*                                                                        */
 	/**************************************************************************/
 
-    /* Standard Konstruktur. Muss vor dem Initializieren aufgerufen werden.   */
+    /* Standard Konstruktor. Muss vor dem Initialisieren aufgerufen werden.   */
 
 	public void Sort() {
 
@@ -94,11 +97,8 @@ public class SortedTableController {
         firstNameColumn.setCellValueFactory(cellData -> cellData.getValue().firstNameProperty());
         lastNameColumn.setCellValueFactory(cellData -> cellData.getValue().lastNameProperty());
         streetColumn.setCellValueFactory(cellData -> cellData.getValue().streetProperty());
-//        postalColumn.setCellValueFactory(cellData -> cellData.getValue().postalCodeProperty());
         cityColumn.setCellValueFactory(cellData -> cellData.getValue().cityProperty());
         lizenzColumn.setCellValueFactory(cellData -> cellData.getValue().lizenzProperty());
-//        ausgeliehenColumn.setCellValueFactory(cellData -> cellData.getValue().ausgeliehenProperty());
-//        birthdayColumn.setCellValueFactory(cellData -> cellData.getValue().birthdayProperty());
 
 
     }
@@ -156,7 +156,7 @@ public class SortedTableController {
 
         personTable.setItems(sortVorname(mainApp.getPersonData()));
     }
-    
+
 	/***************************************************************************
 
 	METHODENNAME:	ShowSortStadt
@@ -173,7 +173,25 @@ public class SortedTableController {
 
         personTable.setItems(sortStadt(mainApp.getPersonData()));
     }
-    
+
+	/***************************************************************************
+
+	METHODENNAME:	ShowSortAusleihende
+
+	BESCHREIBUNG:
+
+	PARAMETER: 		void
+
+	RETURN:			void
+
+	***************************************************************************/
+
+    public void ShowSortAusleihende() {
+
+        personTable.setItems(sortAusleihende(mainApp.getPersonData()));
+    }
+
+
     /***************************************************************************
 
 	METHODENNAME:	sortNachname
@@ -186,7 +204,7 @@ public class SortedTableController {
 
 	***************************************************************************/
 
-    public ObservableList<Person> sortNachname (ObservableList<Person> persons) {	// 
+    public ObservableList<Person> sortNachname (ObservableList<Person> persons) {	//
     	ObservableList<Person> personenListe= FXCollections.observableArrayList();	// neue Liste initialisieren
     	personenListe.setAll(persons);												// alte Liste in neue Liste kopieren
     	Person Platzhalter= new Person();											// neue Person als Platzhalter erzeugen
@@ -197,8 +215,8 @@ public class SortedTableController {
 
 			for (int j= i + 1; j < personenListe.size(); j++) {
 				if (Platzhalter.getLastName().compareTo(personenListe.get(j).getLastName()) > 0) {		// Vergleich: mit Rest der Liste (ab aktuell + 1, nacheinander)
-					minIndex= j;						//Person an d Stelle j //Attribut an d Stelle j		(wobei bsp. B => i; A =>j)
-					Platzhalter= personenListe.get(j);		// A als neues minímum gespeichert
+					minIndex= j;							//Person an d Stelle j //Attribut an d Stelle j		(wobei bsp. B => i; A =>j)
+					Platzhalter= personenListe.get(j);		// A als neues minimum gespeichert
 				}
 			}
 			personenListe.set(minIndex, personenListe.get(i));
@@ -243,7 +261,7 @@ public class SortedTableController {
 		}
 		return personenListe;
 	}
-    
+
     /***************************************************************************
 
 	METHODENNAME:	sortStadt
@@ -256,7 +274,7 @@ public class SortedTableController {
 
 	***************************************************************************/
 
-    public ObservableList<Person> sortStadt (ObservableList<Person> persons) {	// 
+    public ObservableList<Person> sortStadt (ObservableList<Person> persons) {	//
     	ObservableList<Person> personenListe= FXCollections.observableArrayList();	// neue Liste initialisieren
     	personenListe.setAll(persons);												// alte Liste in neue Liste kopieren
     	Person Platzhalter= new Person();											// neue Person als Platzhalter erzeugen
@@ -267,8 +285,8 @@ public class SortedTableController {
 
 			for (int j= i + 1; j < personenListe.size(); j++) {
 				if (Platzhalter.getCity().compareTo(personenListe.get(j).getCity()) > 0) {		// Vergleich: mit Rest der Liste (ab aktuell + 1, nacheinander)
-					minIndex= j;						//Person an d Stelle j //Attribut an d Stelle j		(wobei bsp. B => i; A =>j)
-					Platzhalter= personenListe.get(j);		// A als neues minímum gespeichert
+					minIndex= j;							//Person an d Stelle j //Attribut an d Stelle j		(wobei bsp. B => i; A =>j)
+					Platzhalter= personenListe.get(j);		// A als neues minimum gespeichert
 				}
 			}
 			personenListe.set(minIndex, personenListe.get(i));
@@ -276,7 +294,7 @@ public class SortedTableController {
 		}
 		return personenListe;
 	}
-    
+
     /***************************************************************************
 
  	METHODENNAME:	sortAusleihende
@@ -289,23 +307,37 @@ public class SortedTableController {
 
  	***************************************************************************/
 
-     public ObservableList<Buchung> sortAusleihende (ObservableList<Buchung> persons) {	// 
-     	ObservableList<Buchung> personenListe= FXCollections.observableArrayList();	// neue Liste initialisieren
-     	personenListe.setAll(persons);												// alte Liste in neue Liste kopieren
+     public ObservableList<Person> sortAusleihende (ObservableList<Person> persons) {	//
+
+     	ObservableList<Buchung> buchungListe= FXCollections.observableArrayList();	// neue Liste initialisieren
+     	buchungListe.setAll(mainApp.getBuchungData());											// alte Liste in neue Liste kopieren
      	Buchung Platzhalter= new Buchung();											// neue Person als Platzhalter erzeugen
 
- 		for (int i= 0; i < personenListe.size() - 1; i++) {
- 			int minIndex= i;														// Annahme: aktueller Nachname = minimum; Index speichern
- 			Platzhalter= personenListe.get(i);										// Annahme: aktueller Nachname = minimum; Person speichern
+     	mainApp.getBuchungData();
 
- 			for (int j= i + 1; j < personenListe.size(); j++) {
- 				if (Platzhalter.getRueckgabedatum().compareTo(personenListe.get(j).getRueckgabedatum()) > 0) {		// Vergleich: mit Rest der Liste (ab aktuell + 1, nacheinander)
- 					minIndex= j;						//Person an d Stelle j //Attribut an d Stelle j		(wobei bsp. B => i; A =>j)
- 					Platzhalter= personenListe.get(j);		// A als neues minímum gespeichert
+ 		for (int i= 0; i < buchungListe.size() - 1; i++) {
+ 			int minIndex= i;														// Annahme: aktueller Nachname = minimum; Index speichern
+ 			Platzhalter= buchungListe.get(i);										// Annahme: aktueller Nachname = minimum; Person speichern
+
+ 			for (int j= i + 1; j < buchungListe.size(); j++) {
+ 				if (Platzhalter.getRueckgabedatum().compareTo(buchungListe.get(j).getRueckgabedatum()) > 0) {		// Vergleich: mit Rest der Liste (ab aktuell + 1, nacheinander)
+ 					minIndex= j;							//Person an d Stelle j //Attribut an d Stelle j		(wobei bsp. B => i; A =>j)
+ 					Platzhalter= buchungListe.get(j);		// A als neues minimum gespeichert
  				}
  			}
- 			personenListe.set(minIndex, personenListe.get(i));
- 			personenListe.set(i, Platzhalter);
+ 			buchungListe.set(minIndex, buchungListe.get(i));
+ 			buchungListe.set(i, Platzhalter);
+ 		}
+
+ 		ObservableList<Person> personenListe= FXCollections.observableArrayList();
+ 		for (int i= 0; i < buchungListe.size(); i++) {
+
+ 			for (int j = 0;  j < persons.size(); j++)  {
+ 				if (buchungListe.get(i).getPersonID() == persons.get(j).getPersonID()) {
+
+ 					personenListe.add(persons.get(j));
+ 				}
+ 			}
  		}
  		return personenListe;
  	}

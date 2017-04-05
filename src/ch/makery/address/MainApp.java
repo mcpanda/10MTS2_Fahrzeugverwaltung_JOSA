@@ -36,7 +36,9 @@ import ch.makery.address.view.FahrzeugOverviewController;
 import ch.makery.address.view.FahrzeugStatisticController;
 import ch.makery.address.view.FahrzeugTypStatisticController;
 import ch.makery.address.view.RootLayoutController;
+import ch.makery.address.view.SortedFahrzeugTableController;
 import ch.makery.address.view.SortedTableController;
+import ch.makery.address.view.TableBuchungAuslesen;
 import ch.makery.address.view.BirthdayStatisticsController;
 import ch.makery.address.view.BuchungEditDialogController;
 import ch.makery.address.view.BuchungOverviewController;
@@ -95,7 +97,7 @@ public class MainApp extends Application {
 
 	/**************************************************************************/
 	/*                                                                        */
-	/* Constructur                                                            */
+	/* Constructor                                                            */
 	/*                                                                        */
 	/**************************************************************************/
 
@@ -452,7 +454,7 @@ public class MainApp extends Application {
 		}
 
 	}
-	
+
 	/***************************************************************************
 
 	METHODENNAME:	showSortedTableStadt
@@ -485,6 +487,209 @@ public class MainApp extends Application {
 		}
 
 	}
+
+	/***************************************************************************
+
+	METHODENNAME:	showSortedTableAusleihende
+
+	BESCHREIBUNG:   Zeigt eine sortierte Tabelle aller Personen nach Ausleihende
+
+	PARAMETER: 		void
+
+	RETURN:			void
+
+	***************************************************************************/
+
+	public void showSortedTableAusleihende() {
+		try {
+			// Load person overview.
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApp.class.getResource("view/SortedTable.fxml"));
+			AnchorPane sortedTable = (AnchorPane) loader.load();
+
+			// Set person overview into the center of root layout.
+			rootLayout.setCenter(sortedTable);
+
+			// Give the controller access to the main app.
+			SortedTableController controller = loader.getController();
+			controller.setMainApp(this);
+			controller.ShowSortAusleihende();
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	/***************************************************************************
+
+	METHODENNAME:	showSortedFahrzeugTableAusleihende
+
+	BESCHREIBUNG:   Zeigt eine sortierte Tabelle aller Fahrzeuge nach Ausleihende
+
+	PARAMETER: 		void
+
+	RETURN:			void
+
+	***************************************************************************/
+
+	public void showSortedFahrzeugTableAusleihende() {
+		try {
+			// Load person overview.
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApp.class.getResource("view/SortedFahrzeugTable.fxml"));
+			AnchorPane sortedTable = (AnchorPane) loader.load();
+
+			// Set person overview into the center of root layout.
+			rootLayout.setCenter(sortedTable);
+
+			// Give the controller access to the main app.
+			SortedFahrzeugTableController controller = loader.getController();
+			controller.setMainApp(this);
+			controller.ShowSortFahrzeugAusleihende();
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+	}
+	
+	/***************************************************************************
+
+	METHODENNAME:	showSortedFahrzeugTableHersteller
+
+	BESCHREIBUNG:   Zeigt eine sortierte Tabelle aller Fahrzeuge nach Hersteller
+
+	PARAMETER: 		void
+
+	RETURN:			void
+
+	***************************************************************************/
+
+	public void showSortedFahrzeugTableHersteller() {
+		try {
+			// Load person overview.
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApp.class.getResource("view/SortedFahrzeugTable.fxml"));
+			AnchorPane sortedTable = (AnchorPane) loader.load();
+
+			// Set person overview into the center of root layout.
+			rootLayout.setCenter(sortedTable);
+
+			// Give the controller access to the main app.
+			SortedFahrzeugTableController controller = loader.getController();
+			controller.setMainApp(this);
+			controller.ShowSortFahrzeugHersteller();
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+	}
+	
+	/***************************************************************************
+
+	METHODENNAME:	showSortedFahrzeugTableMarke
+
+	BESCHREIBUNG:   Zeigt eine sortierte Tabelle aller Fahrzeuge nach Marke
+
+	PARAMETER: 		void
+
+	RETURN:			void
+
+	***************************************************************************/
+
+	public void showSortedFahrzeugTableMarke() {
+		try {
+			// Load person overview.
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApp.class.getResource("view/SortedFahrzeugTable.fxml"));
+			AnchorPane sortedTable = (AnchorPane) loader.load();
+
+			// Set person overview into the center of root layout.
+			rootLayout.setCenter(sortedTable);
+
+			// Give the controller access to the main app.
+			SortedFahrzeugTableController controller = loader.getController();
+			controller.setMainApp(this);
+			controller.ShowSortFahrzeugMarke();
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+	}
+	
+	/***************************************************************************
+
+	METHODENNAME:	showSortedFahrzeugTableKilometerstand
+
+	BESCHREIBUNG:   Zeigt eine sortierte Tabelle aller Fahrzeuge nach Kilometerstand
+
+	PARAMETER: 		void
+
+	RETURN:			void
+
+	***************************************************************************/
+
+	public void showSortedFahrzeugTableKilometerstand() {
+		try {
+			// Load person overview.
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApp.class.getResource("view/SortedFahrzeugTable.fxml"));
+			AnchorPane sortedTable = (AnchorPane) loader.load();
+
+			// Set person overview into the center of root layout.
+			rootLayout.setCenter(sortedTable);
+
+			// Give the controller access to the main app.
+			SortedFahrzeugTableController controller = loader.getController();
+			controller.setMainApp(this);
+			controller.ShowSortFahrzeugKilometerstand();
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+	}
+	
+	/***************************************************************************
+
+	METHODENNAME:	showSortedFahrzeugTableLeistung
+
+	BESCHREIBUNG:   Zeigt eine sortierte Tabelle aller Fahrzeuge nach Leistung
+
+	PARAMETER: 		void
+
+	RETURN:			void
+
+	***************************************************************************/
+
+	public void showSortedFahrzeugTableLeistung() {
+		try {
+			// Load person overview.
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApp.class.getResource("view/SortedFahrzeugTable.fxml"));
+			AnchorPane sortedTable = (AnchorPane) loader.load();
+
+			// Set person overview into the center of root layout.
+			rootLayout.setCenter(sortedTable);
+
+			// Give the controller access to the main app.
+			SortedFahrzeugTableController controller = loader.getController();
+			controller.setMainApp(this);
+			controller.ShowSortFahrzeugLeistung();
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+	}
+
+
+
+
+
 
 	/***************************************************************************
 
@@ -1079,5 +1284,25 @@ public class MainApp extends Application {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	/***************************************************************************
+
+	METHODENNAME:	getPersonIDList
+
+	BESCHREIBUNG:   Gibt eine Liste der PersonenIDs wieder
+
+	PARAMETER: 		void
+
+	RETURN:			ObservableList
+
+	***************************************************************************/
+
+	public void TableBuchungAuslesen() {
+//		personIDList.clear();
+//		for(int i= 0; i < personData.size(); i++){
+//	  		personIDList.add(personData.get(i).getPersonID());
+//	  	}
+//		return;
 	}
 }

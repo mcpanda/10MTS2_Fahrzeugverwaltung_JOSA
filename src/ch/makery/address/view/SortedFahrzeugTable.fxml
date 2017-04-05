@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.makery.address.view.SortedFahrzeugTableController">
+   <children>
+      <TableView fx:id="fahrzeugTable" layoutX="-8.0" prefHeight="500.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <columns>
+          <TableColumn fx:id="fahrzeugIDColumn" prefWidth="75.0" text="FahrzeugID" />
+          <TableColumn fx:id="herstellerColumn" prefWidth="75.0" text="Hersteller" />
+            <TableColumn fx:id="markeColumn" prefWidth="75.0" text="Marke" />
+            <TableColumn fx:id="kilometerstandColumn" prefWidth="75.0" text="Kilometerstand" />
+            <TableColumn fx:id="leistungColumn" prefWidth="75.0" text="Leistung" />
+        </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
+      </TableView>
+   </children>
+</AnchorPane>

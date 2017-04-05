@@ -37,6 +37,12 @@
                   <MenuItem mnemonicParsing="false" onAction="#handleShowSortedTableNachname" text="Nachname" />
                 <MenuItem mnemonicParsing="false" onAction="#handleShowSortedTableVorname" text="Vorname" />
                   <MenuItem mnemonicParsing="false" onAction="#handleShowSortedTableStadt" text="Stadt" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleShowSortedTableAusleihende" text="Ausleihende" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleShowSortedFahrzeugTableAusleihende" text="FahrzeugAusleihende" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleShowSortedFahrzeugTableHersteller" text="Hersteller" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleShowSortedFahrzeugTableMarke" text="Marke" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleShowSortedFahrzeugTableKilometerstand" text="Kilometerstand" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleShowSortedFahrzeugTableLeistung" text="Leistung" />
               </items>
             </Menu>
           <Menu mnemonicParsing="false" text="Help">

@@ -32,6 +32,8 @@ public class Fahrzeug {
     private final IntegerProperty kilometerstand;
     private final StringProperty fahrzeugtyp;
     private final StringProperty ausgeliehen;
+    
+    
 //    private final ObjectProperty<LocalDate> aenderungsdatum;
 
 	/**************************************************************************/
@@ -160,18 +162,4 @@ public class Fahrzeug {
     public IntegerProperty leistungProperty() {
         return leistung;
     }
-
-
-//    @XmlJavaTypeAdapter(LocalDateAdapter.class)
-//    public LocalDate getAenderungsdatum() {
-//        return aenderungsdatum.get();
-//    }
-//
-//    public void setAenderungsdatum(LocalDate aenderungsdatum) {
-//        this.aenderungsdatum.set(aenderungsdatum);
-//    }
-//
-//    public ObjectProperty<LocalDate> aenderungsdatumProperty() {
-//        return aenderungsdatum;
-//    }
 }
