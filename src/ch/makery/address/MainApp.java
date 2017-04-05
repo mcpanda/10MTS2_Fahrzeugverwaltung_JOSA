@@ -55,14 +55,6 @@ public class MainApp extends Application {
 
 	/**************************************************************************/
 	/*                                                                        */
-	/* Globale Variablen                                                      */
-	/*                                                                        */
-	/**************************************************************************/
-
-	public static int counterBuchung;
-
-	/**************************************************************************/
-	/*                                                                        */
 	/* Get JavaFX started                                                     */
 	/*                                                                        */
 	/**************************************************************************/
@@ -669,8 +661,8 @@ public class MainApp extends Application {
 			BuchungEditDialogController controller = loader.getController();
 			controller.setMainApp(this);
 			controller.setDialogStage(dialogStage);
+			controller.setBuchung(buchung, personData, fahrzeugData, buchungData);
 			controller.AutoCompleteFahrzeugtyp(personData, fahrzeugData);
-			controller.setBuchung(buchung, personData, fahrzeugData);
 
 
 

@@ -244,16 +244,10 @@ public class FahrzeugOverviewController {
 
         if (selectedFahrzeug != null) {
         	tempBuchung.setFahrzeugID(selectedFahrzeug.getFahrzeugID());
-        	tempBuchung.setFahrzeugtyp(selectedFahrzeug.getFahrzeugtyp());
-        	tempBuchung.setHersteller(selectedFahrzeug.getHersteller());
-
-        	MainApp.counterBuchung= mainApp.getBuchungData().size()+1;
 
             boolean okClicked = mainApp.showBuchungEditDialog(tempBuchung);
             if (okClicked) {
             	mainApp.getBuchungData().add(tempBuchung);
-            } else {
-            	MainApp.counterBuchung--;
             }
 
         } else {

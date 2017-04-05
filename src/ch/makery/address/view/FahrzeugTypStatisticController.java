@@ -84,10 +84,14 @@ public class FahrzeugTypStatisticController {
 
         int[] typen= new int[fahrzeugTypenList.size()];
 
-        for (Buchung b : buchungs) {
+        for (Fahrzeug f : fahrzeugs) {
         	for(int j= 0; j < fahrzeugTypenList.size(); j++) {
-        		if(fahrzeugTypenList.get(j).equals(b.getFahrzeugtyp())) {
-        			typen[j]++;
+        		if(fahrzeugTypenList.get(j).equals(f.getFahrzeugtyp())) {
+        			for (Buchung b : buchungs) {
+        				if(f.getFahrzeugID() == b.getFahrzeugID()) {
+        					typen[j]++;
+        				}
+        			}
         		}
         	}
         }
@@ -119,11 +123,15 @@ public class FahrzeugTypStatisticController {
 
         int[][] typen= new int[3][fahrzeugTypenList.size()];
 
-        for (Buchung b : buchungs) {
+        for (Fahrzeug f : fahrzeugs) {
         	for(int i= 0; i < fahrzeugTypenList.size(); i++) {
-        		if(fahrzeugTypenList.get(i).equals(b.getFahrzeugtyp())) {
-        			typen[1][i]++;
-        			typen[0][i]= typen[2][i] + b.getLeihdauer();
+        		if(fahrzeugTypenList.get(i).equals(f.getFahrzeugtyp())) {
+        			for(Buchung b : buchungs) {
+        				if(b.getFahrzeugID() == f.getFahrzeugID()) {
+        					typen[1][i]++;
+                			typen[0][i]= typen[2][i] + b.getLeihdauer();
+        				}
+        			}
         		}
         	}
         }

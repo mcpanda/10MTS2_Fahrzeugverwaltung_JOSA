@@ -37,12 +37,8 @@ public class BuchungEditDialogController {
 	// Reference to the main application.
     private MainApp mainApp;
 
-	ObservableList<Integer> filteredPersonIDBoxList= FXCollections.observableArrayList();
-	ObservableList<Integer> filteredPersonLizenzIDBoxList= FXCollections.observableArrayList();
 	ObservableList<String> filteredPersonBeschreibungBoxList= FXCollections.observableArrayList();
 	ObservableList<String> filteredPersonLizenzBeschreibungBoxList= FXCollections.observableArrayList();
-	ObservableList<Integer> filteredFahrzeugIDBoxList= FXCollections.observableArrayList();
-	ObservableList<Integer> filteredFahrzeugTypIDBoxList= FXCollections.observableArrayList();
 	ObservableList<String> filteredFahrzeugBeschreibungBoxList= FXCollections.observableArrayList();
 	ObservableList<String> filteredFahrzeugTypBeschreibungBoxList= FXCollections.observableArrayList();
 
@@ -113,8 +109,8 @@ public class BuchungEditDialogController {
     	fahrzeugIDBox.setEditable(true);
     	fahrzeugIDBox.setItems(filteredFahrzeugBeschreibungBoxList);
 
-    	fahrzeugtypBox.getItems().addAll("Alle", "Motorrad", "Cityflitzer", "Langstrecke", "Kleintransporter", "LKW");
-    	fahrzeugtypBox.setValue("Alle");
+    	fahrzeugtypBox.getItems().addAll("Fahrzeugtyp", "Motorrad", "Cityflitzer", "Langstrecke", "Kleintransporter", "LKW");
+    	fahrzeugtypBox.setValue("Fahrzeugtyp");
     }
 
 	/***************************************************************************
@@ -133,31 +129,6 @@ public class BuchungEditDialogController {
     public void setMainApp(MainApp mainApp) {
         this.mainApp = mainApp;
     }
-
-    /***************************************************************************
-
-	METHODENNAME:	AusleihdauerBerechnung
-
-	BESCHREIBUNG:   Berechnung der Ausleihdauer
-
-	PARAMETER: 		LocalDate, LocalDate
-
-	RETURN:			int
-
-	***************************************************************************/
-
-    public void AusleihdauerBerechnung() {
-
-    	LocalDate datum1= DateUtil.parse(ausleihdatumField.getText());
-    	LocalDate datum2= DateUtil.parse(rueckgabedatumField.getText());
-
-    	int years= datum2.getYear() - datum1.getYear();
-    	int days= datum2.getDayOfYear() - datum1.getDayOfYear();
-    	days= days + 365 * years;
-
-	    leihdauerLabel.setText(Integer.toString(days));
-    }
-
 
 	/***************************************************************************
 
@@ -183,26 +154,18 @@ public class BuchungEditDialogController {
     		filterPerson= filterPerson.substring(0, filterPerson.length()-1);
     	}
 
-    	if(code.isDigitKey()) {
+    	if(code.isDigitKey() || code.isLetterKey() || code == KeyCode.SHIFT) {
     		filterPerson+= event.getText();
     	}
 
     	if (filterPerson.length() > 0) {
-    		filteredPersonIDBoxList.clear();
     		filteredPersonBeschreibungBoxList.clear();
 
-			for(int i= 0; i < filteredPersonLizenzIDBoxList.size(); i++){
-    			String vergleich= Integer.toString(filteredPersonLizenzIDBoxList.get(i));
-    			if(vergleich.length() < filterPerson.length()) {
-
-    			} else {
-    				vergleich= vergleich.substring(0, filterPerson.length());
-            		if (vergleich.equals(filterPerson)) {
-            			filteredPersonIDBoxList.add(filteredPersonLizenzIDBoxList.get(i));
-            			filteredPersonBeschreibungBoxList.add(filteredPersonLizenzBeschreibungBoxList.get(i));
-            		}
+			for(int i= 0; i < filteredPersonLizenzBeschreibungBoxList.size(); i++){
+    			String vergleich= filteredPersonLizenzBeschreibungBoxList.get(i).toLowerCase();
+    			if (vergleich.indexOf(filterPerson) > -1) {
+        			filteredPersonBeschreibungBoxList.add(filteredPersonLizenzBeschreibungBoxList.get(i));
     			}
-
     	  	}
 		}
 
@@ -217,7 +180,6 @@ public class BuchungEditDialogController {
     	}
 
     	if(filterPerson.length()== 0) {
-    		filteredPersonIDBoxList.setAll(filteredPersonLizenzIDBoxList);
     		filteredPersonBeschreibungBoxList.setAll(filteredPersonLizenzBeschreibungBoxList);
     	}
     }
@@ -246,26 +208,18 @@ public class BuchungEditDialogController {
     		filterFahrzeug= filterFahrzeug.substring(0, filterFahrzeug.length()-1);
     	}
 
-    	if(code.isDigitKey()) {
+    	if(code.isDigitKey() || code.isLetterKey() || code == KeyCode.SHIFT) {
     		filterFahrzeug+= event.getText();
     	}
 
     	if (filterFahrzeug.length() > 0) {
-    		filteredFahrzeugIDBoxList.clear();
     		filteredFahrzeugBeschreibungBoxList.clear();
 
-			for(int i= 0; i < filteredFahrzeugTypIDBoxList.size(); i++){
-    			String vergleich= Integer.toString(filteredFahrzeugTypIDBoxList.get(i));
-    			if (vergleich.length() < filterFahrzeug.length()) {
-
-    			} else {
-    				vergleich= vergleich.substring(0, filterFahrzeug.length());
-    				if (vergleich.equals(filterFahrzeug)) {
-            			filteredFahrzeugIDBoxList.add(filteredFahrzeugTypIDBoxList.get(i));
-            			filteredFahrzeugBeschreibungBoxList.add(filteredFahrzeugTypBeschreibungBoxList.get(i));
-            		}
+			for(int i= 0; i < filteredFahrzeugTypBeschreibungBoxList.size(); i++){
+    			String vergleich= filteredFahrzeugTypBeschreibungBoxList.get(i).toLowerCase();
+    			if (vergleich.indexOf(filterFahrzeug) > -1) {
+    				filteredFahrzeugBeschreibungBoxList.add(filteredFahrzeugTypBeschreibungBoxList.get(i));
     			}
-
     	  	}
 		}
 
@@ -280,7 +234,6 @@ public class BuchungEditDialogController {
     	}
 
     	if(filterFahrzeug.length()== 0) {
-    		filteredFahrzeugIDBoxList.setAll(filteredFahrzeugTypIDBoxList);
     		filteredFahrzeugBeschreibungBoxList.setAll(filteredFahrzeugTypBeschreibungBoxList);
     	}
     }
@@ -300,53 +253,48 @@ public class BuchungEditDialogController {
 
     public void AutoCompleteFahrzeugtyp(List<Person> persons, List<Fahrzeug> fahrzeugs) {
 
-    	if(fahrzeugtypBox.getValue().equals("Alle") || fahrzeugtypBox.getValue().equals("")) {
-    		filteredFahrzeugTypIDBoxList.clear();
-    		filteredPersonLizenzIDBoxList.clear();
+    	if(fahrzeugtypBox.getValue().equals("Fahrzeugtyp") || fahrzeugtypBox.getValue().equals("")) {
     		filteredFahrzeugTypBeschreibungBoxList.clear();
     		filteredPersonLizenzBeschreibungBoxList.clear();
 
     		for(Fahrzeug f : fahrzeugs) {
-    			filteredFahrzeugTypIDBoxList.add(f.getFahrzeugID());
     			filteredFahrzeugTypBeschreibungBoxList.add(f.getFahrzeugBeschreibung());
     		}
     		for(Person p : persons) {
-    			filteredPersonLizenzIDBoxList.add(p.getPersonID());
     			filteredPersonLizenzBeschreibungBoxList.add(p.getPersonBeschreibung());
     		}
     	} else {
-    		filteredFahrzeugTypIDBoxList.clear();
-    		filteredPersonLizenzIDBoxList.clear();
     		filteredFahrzeugTypBeschreibungBoxList.clear();
     		filteredPersonLizenzBeschreibungBoxList.clear();
 
     		for(Fahrzeug f : fahrzeugs){
     			String vergleich= f.getFahrzeugtyp();
         		if (vergleich.equals(fahrzeugtypBox.getValue())) {
-        			filteredFahrzeugTypIDBoxList.add(f.getFahrzeugID());
         			filteredFahrzeugTypBeschreibungBoxList.add(f.getFahrzeugBeschreibung());
         		}
     	  	}
     		for(Person p : persons) {
     			if(fahrzeugtypBox.getValue().equals("Motorrad")) {
-    				filteredPersonLizenzIDBoxList.add(p.getPersonID());
-    				filteredPersonLizenzBeschreibungBoxList.add(p.getPersonBeschreibung());
+    				if(p.getLizenz().indexOf("A") > 0) {
+        				filteredPersonLizenzBeschreibungBoxList.add(p.getPersonBeschreibung());
+    				}
     			}
 
     			if(fahrzeugtypBox.getValue().equals("Cityflitzer") || fahrzeugtypBox.getValue().equals("Langstrecke")) {
-    				if(p.getLizenz().equals("Klasse B") || p.getLizenz().equals("Klasse C")) {
-    					filteredPersonLizenzIDBoxList.add(p.getPersonID());
+    				if(p.getLizenz().indexOf("B") > 0) {
         				filteredPersonLizenzBeschreibungBoxList.add(p.getPersonBeschreibung());
     				}
     			}
     			if(fahrzeugtypBox.getValue().equals("Kleintransporter") || fahrzeugtypBox.getValue().equals("LKW")) {
-    				if(p.getLizenz().equals("Klasse C")) {
-    					filteredPersonLizenzIDBoxList.add(p.getPersonID());
+    				if(p.getLizenz().indexOf("C") > 0) {
         				filteredPersonLizenzBeschreibungBoxList.add(p.getPersonBeschreibung());
     				}
     			}
     		}
     	}
+
+    	filteredFahrzeugBeschreibungBoxList.setAll(filteredFahrzeugTypBeschreibungBoxList);
+    	filteredPersonBeschreibungBoxList.setAll(filteredPersonLizenzBeschreibungBoxList);
     }
 
 	/***************************************************************************
@@ -377,11 +325,12 @@ public class BuchungEditDialogController {
 
 	***************************************************************************/
 
-    public void setBuchung(Buchung buchung, List<Person> persons,  List<Fahrzeug> fahrzeugs) {
+    public void setBuchung(Buchung buchung, List<Person> persons,  List<Fahrzeug> fahrzeugs, List<Buchung> buchungs) {
         this.buchung = buchung;
 
         if (buchung.getBuchungID() == 0) {
-        	buchungIDLabel.setText(Integer.toString(MainApp.counterBuchung));
+        	int temp= buchungs.get(buchungs.size()-1).getBuchungID() + 1;
+        	buchungIDLabel.setText(Integer.toString(temp));
         } else {
         	buchungIDLabel.setText(Integer.toString(buchung.getBuchungID()));
         }
@@ -399,7 +348,41 @@ public class BuchungEditDialogController {
         	}
         }
 
-//        fahrzeugtypBox.setValue(buchung.getFahrzeugtyp());
+        if (fahrzeugtypBox.getValue() == "Fahrzeugtyp") {
+        	for(Person p : persons) {
+        		if(buchung.getPersonID() == p.getPersonID()) {
+        			if(p.getLizenz().indexOf("A") > 0) {
+        				fahrzeugtypBox.setValue("Motorrad");
+        			} else {
+        				if(p.getLizenz().indexOf("B") > 0) {
+            				fahrzeugtypBox.setValue("Cityflitzer");
+            			} else {
+            				if(p.getLizenz().indexOf("C") > 0) {
+                				fahrzeugtypBox.setValue("LKW");
+                			}
+            			}
+        			}
+        		}
+        	}
+        }
+        for(Person p : persons) {
+			if(fahrzeugtypBox.getValue().equals("Motorrad")) {
+				if(p.getLizenz().indexOf("A") > 0) {
+    				filteredPersonLizenzBeschreibungBoxList.add(p.getPersonBeschreibung());
+				}
+			}
+
+			if(fahrzeugtypBox.getValue().equals("Cityflitzer") || fahrzeugtypBox.getValue().equals("Langstrecke")) {
+				if(p.getLizenz().indexOf("B") > 0) {
+    				filteredPersonLizenzBeschreibungBoxList.add(p.getPersonBeschreibung());
+				}
+			}
+			if(fahrzeugtypBox.getValue().equals("Kleintransporter") || fahrzeugtypBox.getValue().equals("LKW")) {
+				if(p.getLizenz().indexOf("C") > 0) {
+    				filteredPersonLizenzBeschreibungBoxList.add(p.getPersonBeschreibung());
+				}
+			}
+		}
 
         ausleihdatumField.setText(DateUtil.format(buchung.getAusleihdatum()));
         ausleihdatumField.setPromptText("dd.mm.yyyy");
@@ -449,7 +432,6 @@ public class BuchungEditDialogController {
         	buchung.setPersonID(getIDfromBeschreibung(personIDBox.getEditor().getText()));
         	buchung.setFahrzeugID(getIDfromBeschreibung(fahrzeugIDBox.getEditor().getText()));
         	buchung.setLeihdauer(Integer.parseInt(leihdauerLabel.getText()));
-        	buchung.setFahrzeugtyp(fahrzeugtypBox.getValue());
 
             buchung.setAusleihdatum(DateUtil.parse(ausleihdatumField.getText()));
             buchung.setRueckgabedatum(DateUtil.parse(rueckgabedatumField.getText()));
@@ -505,10 +487,6 @@ public class BuchungEditDialogController {
 
     public void setAusgeliehen(int personID, int fahrID, LocalDate rueckgabedatum) {
 
-    	if (LocalDate.now().compareTo(rueckgabedatum) < 1) {
-
-    	}
-
     	ObservableList<Person> personData = mainApp.getPersonData();
     	for(int i = 0; i < personData.size(); i++){
     		if(personID == personData.get(i).getPersonID()) {
@@ -517,7 +495,6 @@ public class BuchungEditDialogController {
     	    	} else {
     	    		personData.get(i).setAusgeliehen("Nein");
     	    	}
-
     		}
     	}
 
@@ -529,10 +506,8 @@ public class BuchungEditDialogController {
     			} else {
     				fahrzeugData.get(i).setAusgeliehen("Nein");
     			}
-
     		}
     	}
-
     }
 
 	/***************************************************************************
@@ -573,44 +548,41 @@ public class BuchungEditDialogController {
         int tempP= 0;
         int tempF= 0;
 
-        if (personIDBox.getEditor().getText() == null || personIDBox.getEditor().getText().length() == 0) {
-            errorMessage += "No valid personID!\n";
-        } else {
-            // try to parse the personID into an int.
-            try {
-            	getIDfromBeschreibung(personIDBox.getEditor().getText());
-            } catch (NumberFormatException e) {
-                errorMessage += "No valid personID (must be an integer)!\n";
-            }
-        }
-        for(Person p : persons) {
-        	if (getIDfromBeschreibung(personIDBox.getEditor().getText()) == p.getPersonID()) {
+        for (int i= 0; i < filteredPersonBeschreibungBoxList.size(); i++) {
+        	if (personIDBox.getEditor().getText().equals(filteredPersonBeschreibungBoxList.get(i))) {
         		tempP= 1;
         	}
         }
-        if (tempP == 0) {
-    		errorMessage += "PersonID doesnt exist";
-    	}
 
-        if (fahrzeugIDBox.getEditor().getText() == null || fahrzeugIDBox.getEditor().getText().length() == 0) {
-            errorMessage += "No valid fahrzeugID!\n";
-        } else {
-            // try to parse the fahrzeugID into an int.
-            try {
-            	getIDfromBeschreibung(fahrzeugIDBox.getEditor().getText());
-            } catch (NumberFormatException e) {
-                errorMessage += "No valid fahrzeugID (must be an integer)!\n";
-            }
+        if (tempP == 0) {
+        	errorMessage += "Bitte passende Person auswaehlen!\n";
         }
 
-        for(Fahrzeug f : fahrzeugs) {
-        	if (getIDfromBeschreibung(fahrzeugIDBox.getEditor().getText()) == f.getFahrzeugID()) {
+        for(Person p : persons) {
+        	if (personIDBox.getEditor().getText().equals(p.getPersonBeschreibung())) {
+        		if(p.getAusgeliehen().equals("Ja")) {
+        			errorMessage += "Diese Person leit bereits schon ein Fahrzeug aus!\n";
+        		}
+        	}
+        }
+
+        for (int i= 0; i < filteredFahrzeugBeschreibungBoxList.size(); i++) {
+        	if (fahrzeugIDBox.getEditor().getText().equals(filteredFahrzeugBeschreibungBoxList.get(i))) {
         		tempF= 1;
         	}
         }
-        if(tempF == 0) {
-    		errorMessage += "FahrzeugID doesnt exist";
-    	}
+
+        if (tempF == 0) {
+        	errorMessage += "Bitte passendes Fahrzeug auswaehlen!\n";
+        }
+
+        for(Fahrzeug f : fahrzeugs) {
+        	if (fahrzeugIDBox.getEditor().getText().equals(f.getFahrzeugBeschreibung())) {
+        		if(f.getAusgeliehen().equals("Ja")) {
+        			errorMessage += "Dieses Fahrzeug wird bereits verliehen!\n";
+        		}
+        	}
+        }
 
         if (Integer.parseInt(leihdauerLabel.getText()) < 0) {
             errorMessage += "No valid Leihdauer!\n";
@@ -632,6 +604,10 @@ public class BuchungEditDialogController {
             }
         }
 
+        if(fahrzeugtypBox.getValue().equals("Fahrzeugtyp")) {
+        	errorMessage += "Bitte einen Fahrzeugtyp auswählen!\n";
+        }
+
         if (errorMessage.length() == 0) {
             return true;
         } else {
@@ -647,4 +623,28 @@ public class BuchungEditDialogController {
             return false;
         }
     }
+
+    /***************************************************************************
+
+ 	METHODENNAME:	AusleihdauerBerechnung
+
+ 	BESCHREIBUNG:   Berechnung der Ausleihdauer
+
+ 	PARAMETER: 		LocalDate, LocalDate
+
+ 	RETURN:			int
+
+ 	***************************************************************************/
+
+     public void AusleihdauerBerechnung() {
+
+     	LocalDate datum1= DateUtil.parse(ausleihdatumField.getText());
+     	LocalDate datum2= DateUtil.parse(rueckgabedatumField.getText());
+
+     	int years= datum2.getYear() - datum1.getYear();
+     	int days= datum2.getDayOfYear() - datum1.getDayOfYear();
+     	days= days + 365 * years;
+
+     	leihdauerLabel.setText(Integer.toString(days));
+     }
 }

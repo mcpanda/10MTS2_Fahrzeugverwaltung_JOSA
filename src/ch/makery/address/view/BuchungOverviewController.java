@@ -163,7 +163,7 @@ public class BuchungOverviewController {
         		if(buchung.getPersonID() == p.getPersonID()) {
         			vornameLabel.setText(p.getFirstName());
                 	nachnameLabel.setText(p.getLastName());
-                	buchung.setLastname(p.getLastName());
+//                	buchung.setLastname(p.getLastName());
         		}
         	}
 
@@ -172,8 +172,8 @@ public class BuchungOverviewController {
         			herstellerLabel.setText(f.getHersteller());
                 	markeLabel.setText(f.getMarke());
                 	fahrzeugtypLabel.setText(f.getFahrzeugtyp());
-                	buchung.setHersteller(f.getHersteller());
-                	buchung.setFahrzeugtyp(f.getFahrzeugtyp());
+//                	buchung.setHersteller(f.getHersteller());
+//                	buchung.setFahrzeugtyp(f.getFahrzeugtyp());
         		}
         	}
 
@@ -242,15 +242,11 @@ public class BuchungOverviewController {
     @FXML
     private void handleNewBuchung() {
 
-    	MainApp.counterBuchung= mainApp.getBuchungData().size()+1;
-
         Buchung tempBuchung = new Buchung();
 
         boolean okClicked = mainApp.showBuchungEditDialog(tempBuchung);
         if (okClicked) {
             mainApp.getBuchungData().add(tempBuchung);
-        } else {
-        	MainApp.counterBuchung--;
         }
     }
 

@@ -23,7 +23,7 @@ public class SuchenFensterController {
 
 		private MainApp mainApp;
 		private Stage dialogStage;
-	    private boolean okClicked = false;
+//	    private boolean okClicked = false;
 
 
 		@FXML

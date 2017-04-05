@@ -245,17 +245,11 @@ public class PersonOverviewController {
 
         if (selectedPerson != null) {
         	tempBuchung.setPersonID(selectedPerson.getPersonID());
-        	tempBuchung.setLastname(selectedPerson.getLastName());
-
-        	MainApp.counterBuchung= mainApp.getBuchungData().size()+1;
 
             boolean okClicked = mainApp.showBuchungEditDialog(tempBuchung);
             if (okClicked) {
             	mainApp.getBuchungData().add(tempBuchung);
-            } else {
-            	MainApp.counterBuchung--;
             }
-
         } else {
             // Nothing selected.
             Alert alert = new Alert(AlertType.WARNING);
