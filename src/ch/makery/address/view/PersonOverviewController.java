@@ -76,7 +76,7 @@ public class PersonOverviewController {
 
 	/**************************************************************************/
 	/*                                                                        */
-	/* Constructur                                                            */
+	/* Constructor                                                            */
 	/*                                                                        */
 	/**************************************************************************/
 
@@ -105,7 +105,7 @@ public class PersonOverviewController {
 
     @FXML
     private void initialize() {
-        // Initialize the person table with the two columns.
+        // Initialize the person table with the three columns.
     	personIDColumn.setCellValueFactory(cellData -> cellData.getValue().personIDProperty().asObject());
         firstNameColumn.setCellValueFactory(cellData -> cellData.getValue().firstNameProperty());
         lastNameColumn.setCellValueFactory(cellData -> cellData.getValue().lastNameProperty());
@@ -219,10 +219,10 @@ public class PersonOverviewController {
 
     @FXML
     private void handleNewPerson() {
-        Person tempPerson = new Person();
-        boolean okClicked = mainApp.showPersonEditDialog(tempPerson);
+        Person tempPerson = new Person();								// ein Objekt der Klasse wird neu erzeugt
+        boolean okClicked = mainApp.showPersonEditDialog(tempPerson);	// und an PersonEdit übergeben
         if (okClicked) {
-            mainApp.getPersonData().add(tempPerson);
+            mainApp.getPersonData().add(tempPerson);					// falls PersonEdit mit OK bestätigt wird, so wird die neue Person in die Personenliste aufgenommen
         }
     }
 

@@ -414,6 +414,139 @@ public class RootLayoutController {
 
     /***************************************************************************
 
+	METHODENNAME:	handleShowSortedTableStadt
+
+	BESCHREIBUNG:   handler für den ShowSortedTable Menüpunkt.
+					Wird ShowSortedTable angeklickt, so wird
+					die SortedTable in der MainApp geöffnet.
+
+	PARAMETER: 		void
+
+	RETURN:			void
+
+	***************************************************************************/
+
+    @FXML
+    private void handleShowSortedTableStadt() {
+      mainApp.showSortedTableStadt();
+    }
+
+	/***************************************************************************
+
+	METHODENNAME:	handleShowSortedTableAusleihende
+
+	BESCHREIBUNG:   handler für den ShowSortedTable Menüpunkt.
+					Wird ShowSortedTable angeklickt, so wird
+					die SortedTable in der MainApp geöffnet.
+
+	PARAMETER: 		void
+
+	RETURN:			void
+
+	***************************************************************************/
+
+    @FXML
+    private void handleShowSortedTableAusleihende() {
+      mainApp.showSortedTableAusleihende();
+    }
+
+	/***************************************************************************
+
+	METHODENNAME:	handleShowSortedFahrzeugTableHersteller
+
+	BESCHREIBUNG:   handler für den ShowSortedFahrzeugTable Menüpunkt.
+					Wird ShowSortedTable angeklickt, so wird
+					die SortedTable in der MainApp geöffnet.
+
+	PARAMETER: 		void
+
+	RETURN:			void
+
+	***************************************************************************/
+
+    @FXML
+    private void handleShowSortedFahrzeugTableHersteller() {
+      mainApp.showSortedFahrzeugTableHersteller();
+    }
+
+    /***************************************************************************
+
+	METHODENNAME:	handleShowSortedFahrzeugTableMarke
+
+	BESCHREIBUNG:   handler für den ShowSortedFahrzeugTable Menüpunkt.
+					Wird ShowSortedTable angeklickt, so wird
+					die SortedTable in der MainApp geöffnet.
+
+	PARAMETER: 		void
+
+	RETURN:			void
+
+	***************************************************************************/
+
+    @FXML
+    private void handleShowSortedFahrzeugTableMarke() {
+      mainApp.showSortedFahrzeugTableMarke();
+    }
+
+    /***************************************************************************
+
+	METHODENNAME:	handleShowSortedFahrzeugTableKilometerstand
+
+	BESCHREIBUNG:   handler für den ShowSortedFahrzeugTable Menüpunkt.
+					Wird ShowSortedTable angeklickt, so wird
+					die SortedTable in der MainApp geöffnet.
+
+	PARAMETER: 		void
+
+	RETURN:			void
+
+	***************************************************************************/
+
+    @FXML
+    private void handleShowSortedFahrzeugTableKilometerstand() {
+      mainApp.showSortedFahrzeugTableKilometerstand();
+    }
+
+    /***************************************************************************
+
+	METHODENNAME:	handleShowSortedFahrzeugTableLeistung
+
+	BESCHREIBUNG:   handler für den ShowSortedFahrzeugTable Menüpunkt.
+					Wird ShowSortedTable angeklickt, so wird
+					die SortedTable in der MainApp geöffnet.
+
+	PARAMETER: 		void
+
+	RETURN:			void
+
+	***************************************************************************/
+
+    @FXML
+    private void handleShowSortedFahrzeugTableLeistung() {
+      mainApp.showSortedFahrzeugTableLeistung();
+    }
+
+    /***************************************************************************
+
+	METHODENNAME:	handleShowSortedFahrzeugTableAusleihende
+
+	BESCHREIBUNG:   handler für den ShowSortedFahrzeugTable Menüpunkt.
+					Wird ShowSortedTable angeklickt, so wird
+					die SortedTable in der MainApp geöffnet.
+
+	PARAMETER: 		void
+
+	RETURN:			void
+
+	***************************************************************************/
+
+    @FXML
+    private void handleShowSortedFahrzeugTableAusleihende() {
+      mainApp.showSortedFahrzeugTableAusleihende();
+    }
+
+    /***************************************************************************
+
 	METHODENNAME:	handleShowBuchung
 
 	BESCHREIBUNG:   handler für den ShowBuchung Menüpunkt.

@@ -77,30 +77,6 @@ public class Tree {
 		}
 	}
 
-	public void inOrderTraverseTree(Node focusNode)
-	{
-		if (focusNode != null)
-		inOrderTraverseTree(focusNode.leftChild);
-//		System.out.println(focusNode);
-		inOrderTraverseTree(focusNode.rightChild);
-	}
-
-	public void preOrderTraverseTree(Node focusNode)
-	{
-		if (focusNode != null)
-//		System.out.println(focusNode);
-		preOrderTraverseTree(focusNode.leftChild);
-		preOrderTraverseTree(focusNode.rightChild);
-	}
-
-    public void postOrderTraverseTree(Node focusNode) {
-    	if (focusNode != null) {
-    		postOrderTraverseTree(focusNode.leftChild);
-    		postOrderTraverseTree(focusNode.rightChild);
-//    		System.out.println(focusNode);
-        }
-    }
-
     /***************************************************************************
     METHODENNAME:	findNote
     *//*!
@@ -128,10 +104,7 @@ public class Tree {
     				if(focusNode == null)
     					return null;
     			}
-//    	if(focusNode.getFirstName().compareTo(firstName) == 0)
-//    	{
-//    		System.out.println(focusNode.getFirstName() + " " + focusNode.getCity());
-//    	}
+
 		return focusNode;
 
 		}

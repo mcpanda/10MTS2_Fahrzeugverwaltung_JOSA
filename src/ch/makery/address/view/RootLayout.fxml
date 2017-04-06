@@ -27,18 +27,25 @@
           </Menu>
             <Menu mnemonicParsing="false" text="Statistics">
               <items>
-                  <MenuItem mnemonicParsing="false" onAction="#handleShowFahrzeugStatistic" text="Show Fahrzeug Statistic" />
-                  <MenuItem mnemonicParsing="false" onAction="#handleShowFahrzeugTypStatistic" text="Show FahrzeugTypen Statistic" />
-                  <MenuItem mnemonicParsing="false" onAction="#handleShowFahrzeugTageStatistic" text="Show Fahrzeug Ausleihdauer Statistik" />
-                  <MenuItem mnemonicParsing="false" onAction="#handleShowFahrzeugTypTageStatistic" text="Show FahrzeugTypen Ausleihdauer Statistic" />
-                  <MenuItem mnemonicParsing="false" onAction="#handleShowPersonStatistic" text="Show Mitarbeiter Statistic" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleShowFahrzeugStatistic" text="Fahrzeugausleihhäufigkeit" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleShowFahrzeugTypStatistic" text="Fahrzeugtypenausleihhäufigkeit" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleShowFahrzeugTageStatistic" text="Fahrzeugausleihdauer" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleShowFahrzeugTypTageStatistic" text="Fahrzeugtypausleihdauer" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleShowPersonStatistic" text="Personenausleihdauer" />
                 <MenuItem mnemonicParsing="false" onAction="#handleShowBirthdayStatistics" text="Show Birth Month Distribution" />
               </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Sortierung">
               <items>
-                  <MenuItem mnemonicParsing="false" onAction="#handleShowSortedTableNachname" text="Nachname" />
-                <MenuItem mnemonicParsing="false" onAction="#handleShowSortedTableVorname" text="Vorname" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleShowSortedTableNachname" text="Personen nach Nachname" />
+                <MenuItem mnemonicParsing="false" onAction="#handleShowSortedTableVorname" text="Personen nach Vorname" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleShowSortedTableStadt" text="Personen nach Stadt" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleShowSortedTableAusleihende" text="Personen nach Ausleihende" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleShowSortedFahrzeugTableHersteller" text="Fahrzeug nach Hersteller" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleShowSortedFahrzeugTableMarke" text="Fahrzeug nach Marke" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleShowSortedFahrzeugTableLeistung" text="Fahrzeug nach Leistung" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleShowSortedFahrzeugTableKilometerstand" text="Fahrzeug nach Kilometerstand" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleShowSortedFahrzeugTableAusleihende" text="Fahrzeug nach Ausleihende" />
               </items>
             </Menu>
           <Menu mnemonicParsing="false" text="Help">

@@ -1,8 +1,4 @@
-
-
 package ch.makery.address.view;
-
-import javafx.collections.ObservableList;
 
 /**************************************************************************/
 /*                                                                        */
@@ -12,23 +8,24 @@ import javafx.collections.ObservableList;
 
 import javafx.fxml.FXML;
 import javafx.stage.Stage;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import ch.makery.address.MainApp;
 import ch.makery.address.model.Node;
 import ch.makery.address.model.Person;
 import ch.makery.address.model.Tree;
+import javafx.collections.ObservableList;
 
 public class SuchenFensterController {
 
 		private MainApp mainApp;
 		private Stage dialogStage;
-//	    private boolean okClicked = false;
-
+//	    private boolean AbbrechenClicked = false;
 
 		@FXML
 	    private TextField firstNameField;
-
 
 	    @FXML
 	    private Label personIDLabel;
@@ -44,47 +41,50 @@ public class SuchenFensterController {
 	    private Label cityLabel;
 	    @FXML
 	    private Label birthdayLabel;
-
+	    @FXML
+	    private Label ZeitunterschiedLabel;
 
 	    public void setDialogStage(Stage dialogStage) {
 	        this.dialogStage = dialogStage;
 	    }
+		public void setMainApp(MainApp mainApp) {
+			this.mainApp = mainApp;
+		}
 
-
-
-
-	// neue Objekt cozdat' 4tobi potom ego cravnit'
-	    /* 	    private void setPerson(String temp)
-	    {
-  	Person pers = new Person();
-	    	pers = temp;
-	        this.person = temp;
-*/
 	    @FXML
-	    private String setPerson()
+	    private String getPerson()
 	    {
 	        return firstNameField.getText();
 	    }
 
-
 		private void find (String temp) {
 	    	Tree theTree = new Tree();
+	    	Node tempNode= new Node(0, "firstName", "lastName", "street", 12345, "city");
 	    	ObservableList<Person> persons= mainApp.getPersonData();
 	    	for (Person p : persons) {
 	    		theTree.addNode(p.getPersonID(), p.getFirstName(), p.getLastName(), p.getStreet(), p.getPostalCode(), p.getCity());
 	    	}
 
-	    	showPersonDetails(theTree.findNode(temp));
-//	    			setPerson(temp)));
+	    	long zeitLinear;
+	    	zeitLinear= -System.currentTimeMillis();
+	    	for (int i= 0; i < 10000; i++) {
+	    		for( Person p : persons) {
+		    		if (temp.equals(p.getFirstName())) {
+		    			showPersonDetails(tempNode);
+		    			break;
+		    		}
+		    	}
+	    	}
+	    	zeitLinear= zeitLinear + System.currentTimeMillis();
 
-	    }
+	    	long zeitBaum= -System.currentTimeMillis();
+	    	for (int i= 0; i < 10000; i++) {
+	    		showPersonDetails(theTree.findNode(temp));
+	    	}
+	    	zeitBaum= zeitBaum + System.currentTimeMillis();
 
-//// funktioniert noch nicht =((
-	    @FXML
-	    private void handleAbrechnen() {
-	        dialogStage.close();
+	    	ZeitunterschiedLabel.setText(Integer.toString((int)((zeitLinear - zeitBaum)))+ " [ms]");
 	    }
-//////////////////
 
 	    private void showPersonDetails(Node temp) {
 	        if (temp != null) {
@@ -108,18 +108,26 @@ public class SuchenFensterController {
 
 	    @FXML
 	    private void ResultKnopf(){
-	    	find(setPerson());
+	    	find(getPerson());
+	    	if (lastNameLabel.getText().length() == 0) {
+	    		// Show the error message.
+	            Alert alert = new Alert(AlertType.ERROR);
+	            alert.initOwner(dialogStage);
+	            alert.setTitle("Invalid Fields");
+	            alert.setHeaderText("Fehler - unzulässige Eingabe");
+	            alert.setContentText("Gesuchte Person ist nicht vorhanden");
 
+	            alert.showAndWait();
+	    	}
+	    }
+	    @FXML
+	    private void handleAbbrechen() {
+	        dialogStage.close();
+//	        AbbrechenClicked = true;
 	    }
 
-
-
-
-		public void setMainApp(MainApp mainApp) {
-			// TODO Auto-generated method stub
-			this.mainApp = mainApp;
-		}
-
+//	    public boolean isAbbrechenClicked() {
+//	        return AbbrechenClicked;
+//	    }
 
  }
-
