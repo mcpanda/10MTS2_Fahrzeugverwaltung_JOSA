@@ -1,3 +1,14 @@
+/**************************************************************************************************/
+/*! \file
+  FILE         : $Source: RootLayoutController.java $
+  BESCHREIBUNG : Controller
+                 Controller für die Menüleiste
+***************************************************************************************************/
+
+/** \addtogroup View
+ *  @{
+ */
+
 package ch.makery.address.view;
 
 /**************************************************************************/
@@ -13,11 +24,12 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.stage.FileChooser;
 import ch.makery.address.MainApp;
 
-/**************************************************************************/
-/*                                                                        */
-/* Class RootLayoutController                                             */
-/*                                                                        */
-/**************************************************************************/
+/***************************************************************************
+CLASS:	RootLayoutController
+*//*!
+ Die Klasse RootLayoutController hat nur einen Standardkonstruktor.
+
+***************************************************************************/
 
 public class RootLayoutController {
 
@@ -30,35 +42,32 @@ public class RootLayoutController {
 	/*                                                                        */
 	/**************************************************************************/
 
-	/***************************************************************************
+    /***************************************************************************
+    METHODENNAME:	setMainApp
+    *//*!
+     Is called by the main application to give a reference back to itself.
 
-	METHODENNAME:	setMainApp
+     \param   mainApp
 
-	BESCHREIBUNG:   Is called by the main application to give a reference back
-					to itself.
+     \return  void
 
-	PARAMETER: 		mainApp
-
-	RETURN:			void
-
-	***************************************************************************/
+    ***************************************************************************/
 
     public void setMainApp(MainApp mainApp) {
         this.mainApp = mainApp;
     }
 
-	/***************************************************************************
+    /***************************************************************************
+    METHODENNAME:	handleNew
+    *//*!
+     handler für den New Menüpunkt.
+	 Wird New angeklickt, so wird ein neuer Fuhrpark angelegt.
 
-	METHODENNAME:	handleNew
+     \param   void
 
-	BESCHREIBUNG:   handler für den New Menüpunkt.
-					Wird New angeklickt, so wird ein neuer Fuhrpark angelegt.
+     \return  void
 
-	PARAMETER: 		void
-
-	RETURN:			void
-
-	***************************************************************************/
+    ***************************************************************************/
 
     @FXML
     private void handleNew() {
@@ -68,19 +77,17 @@ public class RootLayoutController {
         mainApp.setPersonFilePath(null);
     }
 
-	/***************************************************************************
+    /***************************************************************************
+    METHODENNAME:	handleOpen
+    *//*!
+     handler für den Open Menüpunkt. Wird Open angeklickt, so wird ein
+     Dialogfeld geöffnet, zum Laden einer xml-Datei.
 
-	METHODENNAME:	handleOpen
+     \param   void
 
-	BESCHREIBUNG:   handler für den Open Menüpunkt.
-					Wird Open angeklickt, so wird ein Dialogfeld geöffnet, zum
-					Laden einer xml-Datei.
+     \return  void
 
-	PARAMETER: 		void
-
-	RETURN:			void
-
-	***************************************************************************/
+    ***************************************************************************/
 
     @FXML
     private void handleOpen() {
@@ -109,20 +116,18 @@ public class RootLayoutController {
         }
     }
 
-	/***************************************************************************
+    /***************************************************************************
+    METHODENNAME:	handleSave
+    *//*!
+     handler für den Save Menüpunkt. Wird Save angeklickt, so werden die
+     aktuellen Daten gespeichert. Wurde zu Beginn keine Datei geladen, so wird
+	 das Save as Dialogfeld geöffnet.
 
-	METHODENNAME:	handleSave
+     \param   void
 
-	BESCHREIBUNG:   handler für den Save Menüpunkt.
-					Wird Save angeklickt, so werden die aktuellen Daten
-					gespeichert. Wurde zu Beginn keine Datei geladen, so wird
-					das Save as Dialogfeld geöffnet.
+     \return  void
 
-	PARAMETER: 		void
-
-	RETURN:			void
-
-	***************************************************************************/
+    ***************************************************************************/
 
     @FXML
     private void handleSave() {
@@ -138,20 +143,18 @@ public class RootLayoutController {
         }
     }
 
-	/***************************************************************************
+    /***************************************************************************
+    METHODENNAME:	handleSaveAs
+    *//*!
+     handler für den SaveAs Menüpunkt. Wird SaveAs angeklickt, so wird ein
+     Dialogfeld aufgerufen, in welchem man den Dateinamen für dei xml-Datei
+     eingeben kann.
 
-	METHODENNAME:	handleSaveAs
+     \param   void
 
-	BESCHREIBUNG:   handler für den SaveAs Menüpunkt.
-					Wird SaveAs angeklickt, so wird ein Dialogfeld aufgerufen,
-					in welchem man den Dateinamen für dei xml-Datei eingeben
-					kann.
+     \return  void
 
-	PARAMETER: 		void
-
-	RETURN:			void
-
-	***************************************************************************/
+    ***************************************************************************/
 
     @FXML
     private void handleSaveAs() {
@@ -181,19 +184,18 @@ public class RootLayoutController {
         }
     }
 
-	/***************************************************************************
+    /***************************************************************************
+    METHODENNAME:	handleAbout
+    *//*!
+     handler für den About Menüpunkt. Wird About angeklickt, so wird ein
+     Dialogfeld aufgerufen, in welchem eine Beschreibung des Programmes
+     hinterlegt ist
 
-	METHODENNAME:	handleAbout
+     \param   void
 
-	BESCHREIBUNG:   handler für den About Menüpunkt.
-					Wird About angeklickt, so wird ein Dialogfeld aufgerufen,
-					in welchem eine Beschreibung des Programmes hinterlegt ist.
+     \return  void
 
-	PARAMETER: 		void
-
-	RETURN:			void
-
-	***************************************************************************/
+    ***************************************************************************/
 
     @FXML
     private void handleAbout() {
@@ -205,37 +207,35 @@ public class RootLayoutController {
     	alert.showAndWait();
     }
 
-	/***************************************************************************
+    /***************************************************************************
+    METHODENNAME:	handleExit
+    *//*!
+     handler für den Exit Menüpunkt. Wird Exit angeklickt, so wird das
+     Programm beendet.
 
-	METHODENNAME:	handleExit
+     \param   void
 
-	BESCHREIBUNG:   handler für den Exit Menüpunkt.
-					Wird Exit angeklickt, so wird das Programm beendet.
+     \return  void
 
-	PARAMETER: 		void
-
-	RETURN:			void
-
-	***************************************************************************/
+    ***************************************************************************/
 
     @FXML
     private void handleExit() {
         System.exit(0);
     }
 
-	/***************************************************************************
+    /***************************************************************************
+    METHODENNAME:	handleShowBirthdayStatistics
+    *//*!
+     handler für den ShowBirthdayStatistics Menüpunkt. Wird
+     ShowBirthdayStatistics angeklickt, so wird die Geburtstagstatistik in
+     der MainApp geöffnet.
 
-	METHODENNAME:	handleShowBirthdayStatistics
+     \param   void
 
-	BESCHREIBUNG:   handler für den ShowBirthdayStatistics Menüpunkt.
-					Wird ShowBirthdayStatistics angeklickt, so wird
-					die Geburtstagstatistik in der MainApp geöffnet.
+     \return  void
 
-	PARAMETER: 		void
-
-	RETURN:			void
-
-	***************************************************************************/
+    ***************************************************************************/
 
     @FXML
     private void handleShowBirthdayStatistics() {
@@ -243,18 +243,17 @@ public class RootLayoutController {
     }
 
     /***************************************************************************
+    METHODENNAME:	handleShowPersonStatistic
+    *//*!
+     handler für den ShowPersonStatistic Menüpunkt. Wird
+     ShowPersonStatistic angeklickt, so wird die Personstatistik in
+     der MainApp geöffnet.
 
-	METHODENNAME:	handleShowPersonStatistic
+     \param   void
 
-	BESCHREIBUNG:   handler für den handleShowPersonStatistic Menüpunkt.
-					Wird handleShowPersonStatistic angeklickt, so wird
-					die Personstatistik in der MainApp geöffnet.
+     \return  void
 
-	PARAMETER: 		void
-
-	RETURN:			void
-
-	***************************************************************************/
+    ***************************************************************************/
 
     @FXML
     private void handleShowPersonStatistic() {
@@ -262,18 +261,17 @@ public class RootLayoutController {
     }
 
     /***************************************************************************
+    METHODENNAME:	handleShowFahrzeugStatistic
+    *//*!
+     handler für den ShowFahrzeugStatistic Menüpunkt. Wird
+     ShowFahrzeugStatistic angeklickt, so wird die Fahrzeugstatistik in
+     der MainApp geöffnet.
 
-	METHODENNAME:	handleShowFahrzeugStatistic
+     \param   void
 
-	BESCHREIBUNG:   handler für den handleShowFahrzeugStatistic Menüpunkt.
-					Wird handleShowFahrzeugStatistic angeklickt, so wird
-					die Fahrzeugstatistik in der MainApp geöffnet.
+     \return  void
 
-	PARAMETER: 		void
-
-	RETURN:			void
-
-	***************************************************************************/
+    ***************************************************************************/
 
     @FXML
     private void handleShowFahrzeugStatistic() {
@@ -281,18 +279,17 @@ public class RootLayoutController {
     }
 
     /***************************************************************************
+    METHODENNAME:	handleShowFahrzeugTypStatistic
+    *//*!
+     handler für den ShowFahrzeugTypStatistic Menüpunkt. Wird
+     ShowFahrzeugTypStatistic angeklickt, so wird die Fahrzeugtypstatistik
+     in der MainApp geöffnet.
 
-	METHODENNAME:	handleShowFahrzeugTypStatistic
+     \param   void
 
-	BESCHREIBUNG:   handler für den handleShowFahrzeugTypStatistic Menüpunkt.
-					Wird handleShowFahrzeugTypStatistic angeklickt, so wird
-					die Fahrzeugtypstatistik in der MainApp geöffnet.
+     \return  void
 
-	PARAMETER: 		void
-
-	RETURN:			void
-
-	***************************************************************************/
+    ***************************************************************************/
 
     @FXML
     private void handleShowFahrzeugTypStatistic() {
@@ -300,112 +297,122 @@ public class RootLayoutController {
     }
 
     /***************************************************************************
+    METHODENNAME:	handleShowFahrzeugTageStatistic
+    *//*!
+     handler für den ShowFahrzeugTageStatistic Menüpunkt. Wird
+     ShowFahrzeugTageStatistic angeklickt, so wird die FahrzeugTagestatistik
+     in der MainApp geöffnet.
 
-	METHODENNAME:	handleShowFahrzeugTageStatistic
+     \param   void
 
-	BESCHREIBUNG:   handler für den handleShowFahrzeugTageStatistic Menüpunkt.
-					Wird handleShowFahrzeugTageStatistic angeklickt, so wird
-					die FahrzeugTagestatistik in der MainApp geöffnet.
+     \return  void
 
-	PARAMETER: 		void
-
-	RETURN:			void
-
-	***************************************************************************/
+    ***************************************************************************/
 
     @FXML
     private void handleShowFahrzeugTypTageStatistic() {
       mainApp.showFahrzeugTypTageStatistics();
     }
+
     /***************************************************************************
+    METHODENNAME:	handleShowFahrzeugTageStatistic
+    *//*!
+     handler für den ShowFahrzeugTageStatistic Menüpunkt. Wird
+     ShowFahrzeugTageStatistic angeklickt, so wird die FahrzeugTagestatistik
+     in der MainApp geöffnet.
 
- 	METHODENNAME:	handleShowFahrzeugTageStatistic
+     \param   void
 
- 	BESCHREIBUNG:   handler für den handleShowFahrzeugTageStatistic Menüpunkt.
- 					Wird handleShowFahrzeugTageStatistic angeklickt, so wird
- 					die FahrzeugTagestatistik in der MainApp geöffnet.
+     \return  void
 
- 	PARAMETER: 		void
-
- 	RETURN:			void
-
- 	***************************************************************************/
+    ***************************************************************************/
 
      @FXML
      private void handleShowFahrzeugTageStatistic() {
        mainApp.showFahrzeugTageStatistics();
      }
 
-	/***************************************************************************
+     /***************************************************************************
+     METHODENNAME:	handleShowPerson
+     *//*!
+      handler für den ShowPerson Menüpunkt. Wird ShowPerson angeklickt, so wird
+	  die PersonOverview in der MainApp geöffnet.
 
-	METHODENNAME:	handleShowPerson
+      \param   void
 
-	BESCHREIBUNG:   handler für den ShowPerson Menüpunkt.
-					Wird ShowPerson angeklickt, so wird
-					die PersonOverview in der MainApp geöffnet.
+      \return  void
 
-	PARAMETER: 		void
+     ***************************************************************************/
 
-	RETURN:			void
+     @FXML
+     private void handleShowPerson() {
+    	 mainApp.showPerson();
+     }
 
-	***************************************************************************/
+     /***************************************************************************
+     METHODENNAME:	handleShowFahrzeug
+     *//*!
+      handler für den ShowFahrzeug Menüpunkt. Wird ShowPerson angeklickt, so wird
+	  die FahrzeugOverview in der MainApp geöffnet.
 
-    @FXML
-    private void handleShowPerson() {
-      mainApp.showPerson();
-    }
+      \param   void
 
-	/***************************************************************************
+      \return  void
 
-	METHODENNAME:	handleShowFahrzeug
+     ***************************************************************************/
 
-	BESCHREIBUNG:   handler für den ShowFahrzeug Menüpunkt.
-					Wird ShowFahrzeug angeklickt, so wird
-					die FahrzeugOverview in der MainApp geöffnet.
+     @FXML
+     private void handleShowFahrzeug() {
+    	 mainApp.showFahrzeug();
+     }
 
-	PARAMETER: 		void
+     /***************************************************************************
+     METHODENNAME:	handleShowBuchung
+     *//*!
+      handler für den ShowBuchung Menüpunkt. Wird ShowBuchung angeklickt, so wird
+ 	 die BuchungOverview in der MainApp geöffnet.
 
-	RETURN:			void
+      \param   void
 
-	***************************************************************************/
+      \return  void
 
-    @FXML
-    private void handleShowFahrzeug() {
-      mainApp.showFahrzeug();
-    }
+     ***************************************************************************/
 
-	/***************************************************************************
+     @FXML
+     private void handleShowBuchung() {
+       mainApp.showBuchung();
+     }
 
-	METHODENNAME:	handleShowSortedTableNachname
+    /***************************************************************************
+    METHODENNAME:	handleShowSortedTableNachname
+    *//*!
+     handler für den Personen nach Nachnamen Menüpunkt. Wird
+     Personen nach Nachnamen angeklickt, so wird die showSortedTableNachname
+     in der MainApp geöffnet.
 
-	BESCHREIBUNG:   handler für den ShowSortedTable Menüpunkt.
-					Wird ShowSortedTable angeklickt, so wird
-					die SortedTable in der MainApp geöffnet.
+     \param   void
 
-	PARAMETER: 		void
+     \return  void
 
-	RETURN:			void
-
-	***************************************************************************/
+    ***************************************************************************/
 
     @FXML
     private void handleShowSortedTableNachname() {
       mainApp.showSortedTableNachname();
     }
 
-	/***************************************************************************
+    /***************************************************************************
+    METHODENNAME:	handleShowSortedTableVorname
+    *//*!
+     handler für den Personen nach Nachnamen Menüpunkt. Wird
+     Personen nach Nachnamen angeklickt, so wird die showSortedTableVorname
+     in der MainApp geöffnet.
 
-	METHODENNAME:	handleShowSortedTableVorname
+     \param   void
 
-	BESCHREIBUNG:   handler für den ShowSortedTable Menüpunkt.
-					Wird ShowSortedTable angeklickt, so wird
-					die SortedTable in der MainApp geöffnet.
+     \return  void
 
-	PARAMETER: 		void
-
-	RETURN:			void
-
-	***************************************************************************/
+    ***************************************************************************/
 
     @FXML
     private void handleShowSortedTableVorname() {
@@ -413,56 +420,52 @@ public class RootLayoutController {
     }
 
     /***************************************************************************
+    METHODENNAME:	handleShowSortedTableStadt
+    *//*!
+     handler für den Personen nach Stadt Menüpunkt. Wird Personen nach Stadt
+     angeklickt, so wird die showSortedTableStadt in der MainApp geöffnet.
 
-	METHODENNAME:	handleShowSortedTableStadt
+     \param   void
 
-	BESCHREIBUNG:   handler für den ShowSortedTable Menüpunkt.
-					Wird ShowSortedTable angeklickt, so wird
-					die SortedTable in der MainApp geöffnet.
+     \return  void
 
-	PARAMETER: 		void
-
-	RETURN:			void
-
-	***************************************************************************/
+    ***************************************************************************/
 
     @FXML
     private void handleShowSortedTableStadt() {
       mainApp.showSortedTableStadt();
     }
 
-	/***************************************************************************
+    /***************************************************************************
+    METHODENNAME:	handleShowSortedTableAusleihende
+    *//*!
+     handler für den Personen nach Ausleihende Menüpunkt. Wird
+     Personen nach Ausleihende angeklickt, so wird die showSortedTableAusleihende
+     in der MainApp geöffnet.
 
-	METHODENNAME:	handleShowSortedTableAusleihende
+     \param   void
 
-	BESCHREIBUNG:   handler für den ShowSortedTable Menüpunkt.
-					Wird ShowSortedTable angeklickt, so wird
-					die SortedTable in der MainApp geöffnet.
+     \return  void
 
-	PARAMETER: 		void
-
-	RETURN:			void
-
-	***************************************************************************/
+    ***************************************************************************/
 
     @FXML
     private void handleShowSortedTableAusleihende() {
       mainApp.showSortedTableAusleihende();
     }
 
-	/***************************************************************************
+    /***************************************************************************
+    METHODENNAME:	handleShowSortedFahrzeugTableHersteller
+    *//*!
+     handler für den Fahrzeug nach Hersteller Menüpunkt. Wird
+     Fahrzeug nach Hersteller angeklickt, so wird die
+     showSortedFahrzeugTableHersteller in der MainApp geöffnet.
 
-	METHODENNAME:	handleShowSortedFahrzeugTableHersteller
+     \param   void
 
-	BESCHREIBUNG:   handler für den ShowSortedFahrzeugTable Menüpunkt.
-					Wird ShowSortedTable angeklickt, so wird
-					die SortedTable in der MainApp geöffnet.
+     \return  void
 
-	PARAMETER: 		void
-
-	RETURN:			void
-
-	***************************************************************************/
+    ***************************************************************************/
 
     @FXML
     private void handleShowSortedFahrzeugTableHersteller() {
@@ -470,18 +473,17 @@ public class RootLayoutController {
     }
 
     /***************************************************************************
+    METHODENNAME:	handleShowSortedFahrzeugTableMarke
+    *//*!
+     handler für den Fahrzeug nach Marke Menüpunkt. Wird
+     Fahrzeug nach Marke angeklickt, so wird die showSortedFahrzeugTableMarke in
+     der MainApp geöffnet.
 
-	METHODENNAME:	handleShowSortedFahrzeugTableMarke
+     \param   void
 
-	BESCHREIBUNG:   handler für den ShowSortedFahrzeugTable Menüpunkt.
-					Wird ShowSortedTable angeklickt, so wird
-					die SortedTable in der MainApp geöffnet.
+     \return  void
 
-	PARAMETER: 		void
-
-	RETURN:			void
-
-	***************************************************************************/
+    ***************************************************************************/
 
     @FXML
     private void handleShowSortedFahrzeugTableMarke() {
@@ -489,18 +491,17 @@ public class RootLayoutController {
     }
 
     /***************************************************************************
+    METHODENNAME:	handleShowSortedFahrzeugTableKilometerstand
+    *//*!
+     handler für den Fahrzeug nach Kilometerstand Menüpunkt. Wird
+     Fahrzeug nach Kilometerstand angeklickt, so wird die
+     showSortedFahrzeugTableKilometerstand in der MainApp geöffnet.
 
-	METHODENNAME:	handleShowSortedFahrzeugTableKilometerstand
+     \param   void
 
-	BESCHREIBUNG:   handler für den ShowSortedFahrzeugTable Menüpunkt.
-					Wird ShowSortedTable angeklickt, so wird
-					die SortedTable in der MainApp geöffnet.
+     \return  void
 
-	PARAMETER: 		void
-
-	RETURN:			void
-
-	***************************************************************************/
+    ***************************************************************************/
 
     @FXML
     private void handleShowSortedFahrzeugTableKilometerstand() {
@@ -508,18 +509,18 @@ public class RootLayoutController {
     }
 
     /***************************************************************************
+    METHODENNAME:	handleShowSortedFahrzeugTableLeistung
+    *//*!
+     handler für den Fahrzeug nach Leistung Menüpunkt. Wird
+     Fahrzeug nach Leistung angeklickt, so wird die
+     showSortedFahrzeugTableLeistung in der MainApp geöffnet.
 
-	METHODENNAME:	handleShowSortedFahrzeugTableLeistung
+     \param   void
 
-	BESCHREIBUNG:   handler für den ShowSortedFahrzeugTable Menüpunkt.
-					Wird ShowSortedTable angeklickt, so wird
-					die SortedTable in der MainApp geöffnet.
+     \return  void
 
-	PARAMETER: 		void
+    ***************************************************************************/
 
-	RETURN:			void
-
-	***************************************************************************/
 
     @FXML
     private void handleShowSortedFahrzeugTableLeistung() {
@@ -527,40 +528,22 @@ public class RootLayoutController {
     }
 
     /***************************************************************************
+    METHODENNAME:	handleShowSortedFahrzeugTableAusleihende
+    *//*!
+     handler für den Fahrzeug nach Ausleihende Menüpunkt. Wird
+     Fahrzeug nach Ausleihende angeklickt, so wird die
+     handleShowSortedFahrzeugTableAusleihende in der MainApp geöffnet.
 
-	METHODENNAME:	handleShowSortedFahrzeugTableAusleihende
+     \param   void
 
-	BESCHREIBUNG:   handler für den ShowSortedFahrzeugTable Menüpunkt.
-					Wird ShowSortedTable angeklickt, so wird
-					die SortedTable in der MainApp geöffnet.
+     \return  void
 
-	PARAMETER: 		void
-
-	RETURN:			void
-
-	***************************************************************************/
+    ***************************************************************************/
 
     @FXML
     private void handleShowSortedFahrzeugTableAusleihende() {
       mainApp.showSortedFahrzeugTableAusleihende();
     }
-
-    /***************************************************************************
-
-	METHODENNAME:	handleShowBuchung
-
-	BESCHREIBUNG:   handler für den ShowBuchung Menüpunkt.
-					Wird ShowBuchung angeklickt, so wird
-					die BuchungOverview in der MainApp geöffnet.
-
-	PARAMETER: 		void
-
-	RETURN:			void
-
-	***************************************************************************/
-
-    @FXML
-    private void handleShowBuchung() {
-      mainApp.showBuchung();
-    }
 }
+
+/** @}*/ /*end of doxygen group*/

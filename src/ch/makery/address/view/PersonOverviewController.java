@@ -80,7 +80,7 @@ public class PersonOverviewController {
 	/*                                                                        */
 	/**************************************************************************/
 
-    /* Standard Konstruktur. Muss vor dem Initializieren aufgerufen werden.   */
+    /* Standard Konstruktor. Muss vor dem Initializieren aufgerufen werden.   */
 
     public PersonOverviewController() {
     }

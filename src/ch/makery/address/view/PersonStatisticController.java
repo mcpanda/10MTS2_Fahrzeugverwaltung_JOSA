@@ -1,3 +1,14 @@
+/**************************************************************************************************/
+/*! \file
+  FILE         : $Source: PersonStatisticController.java $
+  BESCHREIBUNG : Controller
+                 Controller für die Statistik von Personen
+***************************************************************************************************/
+
+/** \addtogroup View
+ *  @{
+ */
+
 package ch.makery.address.view;
 
 /**************************************************************************/
@@ -7,7 +18,6 @@ package ch.makery.address.view;
 /**************************************************************************/
 
 import java.util.List;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -17,12 +27,12 @@ import javafx.scene.chart.XYChart;
 import ch.makery.address.model.Person;
 import ch.makery.address.model.Buchung;
 
-/**************************************************************************/
-/*                                                                        */
-/* Class PersonStatisticController                                        */
-/*																		  */
-/*                                                                        */
-/**************************************************************************/
+/***************************************************************************
+CLASS:	PersonStatisticController
+*//*!
+ Die Klasse PersonStatisticController hat nur einen Standardkonstruktor.
+
+***************************************************************************/
 
 public class PersonStatisticController {
 
@@ -46,19 +56,17 @@ public class PersonStatisticController {
 	/*                                                                        */
 	/**************************************************************************/
 
-	/***************************************************************************
+    /***************************************************************************
+    METHODENNAME:	initialize
+    *//*!
+     Initialisiert die Controller Klasse. Diese Methode wird automatisch
+     aufgerufen, nachdem die fxml Datei geladen wurde.
 
-	METHODENNAME:	initialize
+     \param   void
 
-	BESCHREIBUNG:   Initialisiert die Controller Klasse. Diese Methode wird
-					automatisch aufgerufen, nachdem die fxml Datei
-					geladen wurde
+     \return  void
 
-	PARAMETER: 		void
-
-	RETURN:			void
-
-	***************************************************************************/
+    ***************************************************************************/
 
     @FXML
     private void initialize() {
@@ -68,16 +76,15 @@ public class PersonStatisticController {
     }
 
     /***************************************************************************
+    METHODENNAME:	setPersonStatistic
+    *//*!
+     lädt die Personen für die Statistik.
 
-	METHODENNAME:	setPersonStatistic
+     \param   List<Person>, List<Buchung>
 
-	BESCHREIBUNG:   lädt die Personen für die Statistic.
+     \return  void
 
-	PARAMETER: 		void
-
-	RETURN:			void
-
-	***************************************************************************/
+    ***************************************************************************/
 
     public void setPersonStatistic(List<Person> persons, List<Buchung> buchungs) {
 
@@ -105,7 +112,6 @@ public class PersonStatisticController {
 
         barChart.getData().add(series);
     }
-
-
-
 }
+
+/** @}*/ /*end of doxygen group*/

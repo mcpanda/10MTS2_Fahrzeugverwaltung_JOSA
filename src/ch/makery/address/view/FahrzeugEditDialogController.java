@@ -1,3 +1,15 @@
+/**************************************************************************************************/
+/*! \file
+  FILE         : $Source: FahrzeugEditDialogController.java $
+  BESCHREIBUNG : Controller
+                 Controller für das Dialogfeld zur Fahrzeugbearbeitung.
+                 Hierzu zählt New, Edit, Delete, Buchung
+***************************************************************************************************/
+
+/** \addtogroup View
+ *  @{
+ */
+
 package ch.makery.address.view;
 
 /**************************************************************************/
@@ -10,19 +22,18 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import java.util.List;
 import ch.makery.address.MainApp;
 import ch.makery.address.model.Fahrzeug;
-//import ch.makery.address.util.DateUtil;
 
-/**************************************************************************/
-/*                                                                        */
-/* Class FahrzeugEditDialogController                                     */
-/*                                                                        */
-/**************************************************************************/
+/***************************************************************************
+CLASS:	FahrzeugEditDialogController
+*//*!
+ Die Klasse FahrzeugEditDialogController hat nur einen Standardkonstruktor
+
+***************************************************************************/
 
 public class FahrzeugEditDialogController {
 
@@ -51,8 +62,6 @@ public class FahrzeugEditDialogController {
     @FXML
     private TextField kilometerstandField;
     @FXML
-    private Label ausgeliehenLabel;
-    @FXML
     private ChoiceBox<String> fahrzeugtypBox;
 
 	/**************************************************************************/
@@ -61,70 +70,63 @@ public class FahrzeugEditDialogController {
 	/*                                                                        */
 	/**************************************************************************/
 
-	/***************************************************************************
+    /***************************************************************************
+    METHODENNAME:	initialize
+    *//*!
+     Initialisiert die Controller Klasse. Diese Methode wird automatisch
+     aufgerufen, nachdem die fxml Datei geladen wurde.
 
-	METHODENNAME:	initialize
+     \param   void
 
-	BESCHREIBUNG:   Initialisiert die Controller Klasse. Diese Methode wird
-					automatisch aufgerufen, nachdem die fxml Datei
-					geladen wurde
+     \return  void
 
-	PARAMETER: 		void
-
-	RETURN:			void
-
-	***************************************************************************/
+    ***************************************************************************/
 
     @FXML
     private void initialize() {
     	fahrzeugtypBox.getItems().addAll("Motorrad", "Cityflitzer", "Langstrecke", "Kleintransporter", "LKW");
     }
 
-	/***************************************************************************
+    /***************************************************************************
+    METHODENNAME:	setDialogStage
+    *//*!
+     Gibt die Stage des Dialagfeldes an.
 
-	METHODENNAME:	setDialogStage
+     \param   dialogStage
 
-	BESCHREIBUNG:   Gibt die Stage des Dialagfeldes an.
+     \return  void
 
-	PARAMETER: 		dialogStage
-
-	RETURN:			void
-
-	***************************************************************************/
+    ***************************************************************************/
 
     public void setDialogStage(Stage dialogStage) {
         this.dialogStage = dialogStage;
     }
 
-	/***************************************************************************
+    /***************************************************************************
+    METHODENNAME:	setMainApp
+    *//*!
+     Is called by the main application to give a reference back to itself.
 
-	METHODENNAME:	setMainApp
+     \param   mainApp
 
-	BESCHREIBUNG:   Is called by the main application to give a reference back
-					to itself.
+     \return  void
 
-	PARAMETER: 		mainApp
-
-	RETURN:			void
-
-	***************************************************************************/
+    ***************************************************************************/
 
     public void setMainApp(MainApp mainApp) {
         this.mainApp = mainApp;
     }
 
+    /***************************************************************************
+    METHODENNAME:	setFahrzeug
+    *//*!
+     Definiert die Fahrzeug, welche bearbeitet werden soll.
 
-	/***************************************************************************
+     \param   Fahrzeug
 
-	METHODENNAME:	setFahrzeug
+     \return  void
 
-	BESCHREIBUNG:   Definiert das Fahrzeug, welches bearbeitet werden soll.
-
-	PARAMETER: 		Fahrzeug
-
-	RETURN:			void
-
-	***************************************************************************/
+    ***************************************************************************/
 
     public void setFahrzeug(Fahrzeug fahrzeug) {
         this.fahrzeug = fahrzeug;
@@ -136,38 +138,34 @@ public class FahrzeugEditDialogController {
         fahrzeugtypBox.setValue(fahrzeug.getFahrzeugtyp());
         leistungField.setText(Integer.toString(fahrzeug.getLeistung()));
         kilometerstandField.setText(Integer.toString(fahrzeug.getKilometerstand()));
-        ausgeliehenLabel.setText(fahrzeug.getAusgeliehen());
     }
 
-	/***************************************************************************
+    /***************************************************************************
+    METHODENNAME:	isOkClicked
+    *//*!
+     Gibt ein TRUE aus, wenn [OK] geklickt wurde.
 
-	METHODENNAME:	isOkClicked
+     \param   void
 
-	BESCHREIBUNG:   Gibt ein TRUE aus, wenn [OK] geklickt wurde.
+     \return  Boolean
 
-	PARAMETER: 		void
-
-	RETURN:			Boolean
-
-	***************************************************************************/
+    ***************************************************************************/
 
     public boolean isOkClicked() {
         return okClicked;
     }
 
-	/***************************************************************************
+    /***************************************************************************
+    METHODENNAME:	handleOk
+    *//*!
+     Handler für OK. Dieser handler wird ausgeführt, wenn [OK] geklickt wurde.
+	 Neue Fahrzeugdaten werden gespeichert.
 
-	METHODENNAME:	handleOk
+     \param   void
 
-	BESCHREIBUNG:   handler für OK.
-					Dieser handler wird ausgeführt, wenn [OK] geklickt wurde.
-					Neue Fahrzeugdaten werden gespeichert.
+     \return  void
 
-	PARAMETER: 		void
-
-	RETURN:			void
-
-	***************************************************************************/
+    ***************************************************************************/
 
     @FXML
     private void handleOk() {
@@ -178,7 +176,6 @@ public class FahrzeugEditDialogController {
             fahrzeug.setMarke(markeField.getText());
             fahrzeug.setKraftstoff(kraftstoffField.getText());
             fahrzeug.setFahrzeugtyp(fahrzeugtypBox.getValue());
-            fahrzeug.setAusgeliehen(ausgeliehenLabel.getText());
             fahrzeug.setLeistung(Integer.parseInt(leistungField.getText()));
             fahrzeug.setKilometerstand(Integer.parseInt(kilometerstandField.getText()));
 
@@ -187,38 +184,34 @@ public class FahrzeugEditDialogController {
         }
     }
 
-	/***************************************************************************
+    /***************************************************************************
+    METHODENNAME:	handleCancel
+    *//*!
+     Handler für Cancel. Dieser handler wird ausgeführt, wenn [Cancel] geklickt
+     wurde. Dialogfenster wird geschloßen, ohne neue Fahrzeugdaten zu speichern.
 
-	METHODENNAME:	handleCancel
+     \param   void
 
-	BESCHREIBUNG:   handler für Cancel.
-					Dieser handler wird ausgeführt, wenn [Cancel] geklickt wurde.
-					Dialogfenster wird geschloßen, ohne neue Fahrzeugdaten
-					zu speichern.
+     \return  void
 
-	PARAMETER: 		void
-
-	RETURN:			void
-
-	***************************************************************************/
+    ***************************************************************************/
 
     @FXML
     private void handleCancel() {
         dialogStage.close();
     }
 
-	/***************************************************************************
+    /***************************************************************************
+    METHODENNAME:	isInputValid
+    *//*!
+     Überprüfung der eingegeben Daten. Sollten nicht konforme Daten vorhanden
+     sein, so wird eine Fehlermeldung ausgegeben.
 
-	METHODENNAME:	isInputValid
+     \param   void
 
-	BESCHREIBUNG:   Überprüfung der eingegeben Daten. Sollten nicht konforme
-					Daten vorhanden sein, so wird eine Fehlermeldung ausgegeben.
+     \return  Boolean
 
-	PARAMETER: 		void
-
-	RETURN:			Boolean
-
-	***************************************************************************/
+    ***************************************************************************/
 
     private boolean isInputValid(List<Fahrzeug> fahrzeugs) {
         String errorMessage = "";
@@ -293,3 +286,5 @@ public class FahrzeugEditDialogController {
         }
     }
 }
+
+/** @}*/ /*end of doxygen group*/

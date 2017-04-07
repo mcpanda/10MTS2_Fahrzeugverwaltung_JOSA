@@ -72,9 +72,9 @@
                   </GridPane>
                   <ButtonBar layoutX="198.0" layoutY="344.0" prefHeight="40.0" prefWidth="200.0" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="15.0">
                     <buttons>
-                      <Button mnemonicParsing="false" onAction="#handleNewFahrzeug" text="New..." />
-                        <Button mnemonicParsing="false" onAction="#handleEditFahrzeug" text="Edit..." />
-                        <Button mnemonicParsing="false" onAction="#handleDeleteFahrzeug" text="Delete" />
+                      <Button mnemonicParsing="false" onAction="#handleNewFahrzeug" text="Neu" />
+                        <Button mnemonicParsing="false" onAction="#handleEditFahrzeug" text="Ändern" />
+                        <Button mnemonicParsing="false" onAction="#handleDeleteFahrzeug" text="Löschen" />
                         <Button mnemonicParsing="false" onAction="#handleFahrzeugBuchung" text="Buchung" />
                     </buttons>
                   </ButtonBar>

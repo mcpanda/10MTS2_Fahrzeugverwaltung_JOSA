@@ -75,8 +75,8 @@
                   </GridPane>
                   <ButtonBar layoutX="137.0" layoutY="244.0" prefHeight="40.0" prefWidth="200.0" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="15.0">
                     <buttons>
-                      <Button mnemonicParsing="false" onAction="#handleNewPerson" text="New..." />
-                        <Button mnemonicParsing="false" onAction="#handleEditPerson" text="Edit..." />
+                      <Button mnemonicParsing="false" onAction="#handleNewPerson" text="Neu" />
+                        <Button mnemonicParsing="false" onAction="#handleEditPerson" text="Ändern" />
                         <Button mnemonicParsing="false" onAction="#handleDeletePerson" text="Löschen" />
                         <Button mnemonicParsing="false" onAction="#handlePersonBuchung" text="Buchen" />
                         <Button mnemonicParsing="false" onAction="#SearchingResultDialog" text="Suchen" />

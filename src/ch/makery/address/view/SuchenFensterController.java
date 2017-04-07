@@ -1,3 +1,14 @@
+/**************************************************************************************************/
+/*! \file
+  FILE         : $Source: SuchenFensterController.java $
+  BESCHREIBUNG : Controller
+                 Controller für das Suchfesnter mit binären Bäumen
+***************************************************************************************************/
+
+/** \addtogroup View
+ *  @{
+ */
+
 package ch.makery.address.view;
 
 /**************************************************************************/
@@ -18,11 +29,23 @@ import ch.makery.address.model.Person;
 import ch.makery.address.model.Tree;
 import javafx.collections.ObservableList;
 
+/***************************************************************************
+CLASS:	SuchenFensterController
+*//*!
+ Die Klasse SuchenFensterController hat nur einen Standardkonstruktor.
+
+***************************************************************************/
+
 public class SuchenFensterController {
 
 		private MainApp mainApp;
 		private Stage dialogStage;
-//	    private boolean AbbrechenClicked = false;
+
+		/**************************************************************************/
+		/*                                                                        */
+		/* FXML Field Section                                                     */
+		/*                                                                        */
+		/**************************************************************************/
 
 		@FXML
 	    private TextField firstNameField;
@@ -44,18 +67,65 @@ public class SuchenFensterController {
 	    @FXML
 	    private Label ZeitunterschiedLabel;
 
+	    /***************************************************************************
+	    METHODENNAME:	setDialogStage
+	    *//*!
+	     Gibt die Stage des Dialogfeldes an.
+
+	     \param   dialogStage
+
+	     \return  void
+
+	    ***************************************************************************/
+
 	    public void setDialogStage(Stage dialogStage) {
 	        this.dialogStage = dialogStage;
 	    }
+
+	    /***************************************************************************
+	    METHODENNAME:	setMainApp
+	    *//*!
+	     Is called by the main application to give a reference back to itself.
+
+	     \param   mainApp
+
+	     \return  void
+
+	    ***************************************************************************/
+
 		public void setMainApp(MainApp mainApp) {
 			this.mainApp = mainApp;
 		}
+
+	    /***************************************************************************
+	    METHODENNAME:	getPerson
+	    *//*!
+	     Liest die Eingabe aus dem Vornamentexfeld aus und gibt sie weiter.
+
+	     \param   void
+
+	     \return  String
+
+	    ***************************************************************************/
 
 	    @FXML
 	    private String getPerson()
 	    {
 	        return firstNameField.getText();
 	    }
+
+	    /***************************************************************************
+	    METHODENNAME:	find
+	    *//*!
+	     Sucht den eingegebenen String im binären Baum. Wird der passende Knoten
+	     im Baum gefunden, so wird dieser in die Anzeige weitergegeben.
+	     Ebenfalls wird hier der ZEitunterscheid zur linearen Suche ermittelt.
+
+	     \param   String
+
+	     \return  void
+
+	    ***************************************************************************/
 
 		private void find (String temp) {
 	    	Tree theTree = new Tree();
@@ -86,6 +156,17 @@ public class SuchenFensterController {
 	    	ZeitunterschiedLabel.setText(Integer.toString((int)((zeitLinear - zeitBaum)))+ " [ms]");
 	    }
 
+	    /***************************************************************************
+	    METHODENNAME:	showPersonDetails
+	    *//*!
+	     Die Details eines Knotens werden angezeigt
+
+	     \param   Knoten (Node)
+
+	     \return  void
+
+	    ***************************************************************************/
+
 	    private void showPersonDetails(Node temp) {
 	        if (temp != null) {
 	            // Fill the labels with info from the person object.
@@ -106,6 +187,18 @@ public class SuchenFensterController {
 	        }
 	    }
 
+	    /***************************************************************************
+	    METHODENNAME:	ResultKnopf
+	    *//*!
+	    eingegebene Person wird gesucht und wenn möglich angezeigt bzw. eine
+	    Fehlermeldung ausgegeben
+
+	     \param   Knoten (Node)
+
+	     \return  void
+
+	    ***************************************************************************/
+
 	    @FXML
 	    private void ResultKnopf(){
 	    	find(getPerson());
@@ -120,14 +213,22 @@ public class SuchenFensterController {
 	            alert.showAndWait();
 	    	}
 	    }
+
+	    /***************************************************************************
+	    METHODENNAME:	handleAbbrechen
+	    *//*!
+	    Schließt Suchfeld
+
+	     \param   void
+
+	     \return  void
+
+	    ***************************************************************************/
+
 	    @FXML
 	    private void handleAbbrechen() {
 	        dialogStage.close();
-//	        AbbrechenClicked = true;
 	    }
-
-//	    public boolean isAbbrechenClicked() {
-//	        return AbbrechenClicked;
-//	    }
-
  }
+
+/** @}*/ /*end of doxygen group*/

@@ -1,6 +1,15 @@
+/**************************************************************************************************/
+/*! \file
+  FILE         : $Source: SortedFahrzeugTableController.java $
+  BESCHREIBUNG : Controller
+                 Controller für die Fahrzeugsortierung
+***************************************************************************************************/
+
+/** \addtogroup View
+ *  @{
+ */
+
 package ch.makery.address.view;
-
-
 
 /**************************************************************************/
 /*                                                                        */
@@ -17,11 +26,12 @@ import ch.makery.address.model.Fahrzeug;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-/**************************************************************************/
-/*                                                                        */
-/* Class SortedFahrzeugTableController                                    */
-/*                                                                        */
-/**************************************************************************/
+/***************************************************************************
+CLASS:	SortedFahrzeugTableController
+*//*!
+ Die Klasse BuchungEditDialogController hat nur einen Standardkonstruktor.
+
+***************************************************************************/
 
 public class SortedFahrzeugTableController {
 
@@ -47,24 +57,13 @@ public class SortedFahrzeugTableController {
     @FXML
     private TableColumn<Fahrzeug, Integer> kilometerstandColumn;
 
-
-//    @FXML
-//    private TableColumn<Fahrzeug, String> rueckgabedatumColumn;
-
-//    @FXML
-//    private TableColumn<Fahrzeug, Integer> postalColumn;
-//    @FXML
-//    private TableColumn<Fahrzeug, String> cityColumn;
-//    @FXML
-//    private TableColumn<Fahrzeug, LocalDate> ausgeliehenColumn;
-
 	/**************************************************************************/
 	/*                                                                        */
 	/* Constructor                                                            */
 	/*                                                                        */
 	/**************************************************************************/
 
-    /* Standard Konstruktur. Muss vor dem Initialisieren aufgerufen werden.   */
+    /* Standard Konstruktor. Muss vor dem Initialisieren aufgerufen werden.   */
 
 	public void Sort() {
 
@@ -76,19 +75,17 @@ public class SortedFahrzeugTableController {
 	/*                                                                        */
 	/**************************************************************************/
 
-	/***************************************************************************
+    /***************************************************************************
+    METHODENNAME:	initialize
+    *//*!
+     Initialisiert die Controller Klasse. Diese Methode wird automatisch
+     aufgerufen, nachdem die fxml Datei geladen wurde.
 
-	METHODENNAME:	initialize
+     \param   void
 
-	BESCHREIBUNG:   Initialisiert die Controller Klasse. Diese Methode wird
-					automatisch aufgerufen, nachdem die fxml Datei
-					geladen wurde
+     \return  void
 
-	PARAMETER: 		void
-
-	RETURN:			void
-
-	***************************************************************************/
+    ***************************************************************************/
 
     @FXML
     private void initialize() {
@@ -100,89 +97,79 @@ public class SortedFahrzeugTableController {
         kilometerstandColumn.setCellValueFactory(cellData -> cellData.getValue().kilometerstandProperty().asObject());
     }
 
+    /***************************************************************************
+    METHODENNAME:	setMainApp
+    *//*!
+     Is called by the main application to give a reference back to itself.
 
-	/***************************************************************************
+     \param   mainApp
 
-	METHODENNAME:	setMainApp
+     \return  void
 
-	BESCHREIBUNG:   Is called by the main application to give a reference back
-					to itself.
-
-	PARAMETER: 		mainApp
-
-	RETURN:			void
-
-	***************************************************************************/
+    ***************************************************************************/
 
     public void setMainApp(MainApp mainApp) {
         this.mainApp = mainApp;
     }
 
-	/***************************************************************************
+    /***************************************************************************
+    METHODENNAME:	ShowSortFahrzeugHersteller
+    *//*!
+     Anzeige der Fahrzeuge, sortiert nach Hersteller.
 
-	METHODENNAME:	ShowSortFahrzeugHersteller
+     \param   void
 
-	BESCHREIBUNG:
+     \return  void
 
-	PARAMETER: 		void
-
-	RETURN:			void
-
-	***************************************************************************/
+    ***************************************************************************/
 
     public void ShowSortFahrzeugHersteller() {
 
         fahrzeugTable.setItems(sortFahrzeugHersteller(mainApp.getFahrzeugData()));
     }
 
+    /***************************************************************************
+    METHODENNAME:	ShowSortFahrzeugMarke
+    *//*!
+     Anzeige der Fahrzeuge, sortiert nach Marke.
 
-	/***************************************************************************
+     \param   void
 
-	METHODENNAME:	ShowSortFahrzeugMarke
+     \return  void
 
-	BESCHREIBUNG:
-
-	PARAMETER: 		void
-
-	RETURN:			void
-
-	***************************************************************************/
+    ***************************************************************************/
 
     public void ShowSortFahrzeugMarke() {
 
         fahrzeugTable.setItems(sortFahrzeugMarke(mainApp.getFahrzeugData()));
     }
 
+    /***************************************************************************
+    METHODENNAME:	ShowSortFahrzeugKilometerstand
+    *//*!
+     Anzeige der Fahrzeuge, sortiert nach Kilometerstand.
 
-	/***************************************************************************
+     \param   void
 
-	METHODENNAME:	ShowSortFahrzeugKilometerstand
+     \return  void
 
-	BESCHREIBUNG:
-
-	PARAMETER: 		void
-
-	RETURN:			void
-
-	***************************************************************************/
+    ***************************************************************************/
 
     public void ShowSortFahrzeugKilometerstand() {
 
         fahrzeugTable.setItems(sortFahrzeugKilometerstand(mainApp.getFahrzeugData()));
     }
 
+    /***************************************************************************
+    METHODENNAME:	ShowSortFahrzeugLeistung
+    *//*!
+     Anzeige der Fahrzeuge, sortiert nach Leistung.
 
-	/***************************************************************************
+     \param   void
 
-	METHODENNAME:	ShowSortFahrzeugLeistung
+     \return  void
 
-	BESCHREIBUNG:
-
-	PARAMETER: 		void
-
-	RETURN:			void
-
-	***************************************************************************/
+    ***************************************************************************/
 
     public void ShowSortFahrzeugLeistung() {
 
@@ -190,66 +177,71 @@ public class SortedFahrzeugTableController {
     }
 
     /***************************************************************************
+    METHODENNAME:	ShowSortFahrzeugAusleihende
+    *//*!
+     Anzeige der Fahrzeuge, sortiert nach Rückgabedatum
 
- 	METHODENNAME:	sortFahrzeugHersteller
+     \param   void
 
- 	BESCHREIBUNG:   Sortiert eine ObservableList aus Fahrzeug nach Hersteller
+     \return  void
 
- 	PARAMETER: 		ObservableList<Fahrzeug>
+    ***************************************************************************/
 
- 	RETURN:			ObservableList<Fahrzeug>
+    public void ShowSortFahrzeugAusleihende() {
 
- 	***************************************************************************/
+       fahrzeugTable.setItems(sortFahrzeugAusleihende(mainApp.getFahrzeugData()));
+    }
 
+    /***************************************************************************
+    METHODENNAME:	sortFahrzeugHersteller
+    *//*!
+     Sortiert eine ObservableList aus Fahrzeug nach Hersteller
 
-     public ObservableList<Fahrzeug> sortFahrzeugHersteller (ObservableList<Fahrzeug> fahrzeugs) {	//
+     \param   ObservableList<Fahrzeug>
 
+     \return  ObservableList<Fahrzeug>
 
-     	ObservableList<Fahrzeug> fahrzeugListe= FXCollections.observableArrayList();	// neue Liste initialisieren
-     	fahrzeugListe.setAll(mainApp.getFahrzeugData());								// alte Liste in neue Liste kopieren
-     	Fahrzeug Platzhalter= new Fahrzeug();											// neues Fahrzeug als Platzhalter erzeugen
+    ***************************************************************************/
 
-     	mainApp.getFahrzeugData();
+	public ObservableList<Fahrzeug> sortFahrzeugHersteller(ObservableList<Fahrzeug> fahrzeugs) { //
 
+		ObservableList<Fahrzeug> fahrzeugListe = FXCollections.observableArrayList(); // neue Liste initialisieren
+		fahrzeugListe.setAll(mainApp.getFahrzeugData()); // alte Liste in neue Liste kopieren
+		Fahrzeug Platzhalter = new Fahrzeug(); // neues Fahrzeug als Platzhalter erzeugen
 
- 		for (int i= 0; i < fahrzeugListe.size() -1; i++) {
- 			int minIndex= i;														// Annahme: aktueller Hersteller = minimum; Index speichern
- 			Platzhalter= fahrzeugListe.get(i);										// Annahme: aktueller Hersteller = minimum; Fahrzeug speichern
+		for (int i = 0; i < fahrzeugListe.size() - 1; i++) {
+			int minIndex = i; // Annahme: aktueller Hersteller = minimum; Index speichern
+			Platzhalter = fahrzeugListe.get(i); // Annahme: aktueller Hersteller = minimum; Fahrzeug speichern
 
- 			for (int j= i + 1; j < fahrzeugListe.size(); j++) {
+			for (int j = i + 1; j < fahrzeugListe.size(); j++) {
 
- 				if (Platzhalter.getHersteller().compareTo(fahrzeugListe.get(j).getHersteller()) > 0) {		// Vergleich: mit Rest der Liste (ab aktuell +1)
- 					minIndex= j;							//Fahrzeug an der Stelle j
- 					Platzhalter= fahrzeugListe.get(j);	}	//neues minimum gespeichert
- 			}
- 			fahrzeugListe.set(minIndex, fahrzeugListe.get(i));
- 			fahrzeugListe.set(i, Platzhalter);
- 		}
- 		return fahrzeugListe;
- 	}
+				if (Platzhalter.getHersteller().compareTo(fahrzeugListe.get(j).getHersteller()) > 0) { // Vergleich: mit Rest der Liste (ab aktuell +1)
+					minIndex = j; 						// Fahrzeug an der Stelle j
+					Platzhalter = fahrzeugListe.get(j);	// neues minimum gespeichert
+				}
+			}
+			fahrzeugListe.set(minIndex, fahrzeugListe.get(i));
+			fahrzeugListe.set(i, Platzhalter);
+		}
+		return fahrzeugListe;
+	}
 
-     /***************************************************************************
+	/***************************************************************************
+    METHODENNAME:	sortFahrzeugMarke
+    *//*!
+     Sortiert eine ObservableList aus Fahrzeug nach Marke
 
-  	METHODENNAME:	sortFahrzeugMarke
+     \param   ObservableList<Fahrzeug>
 
-  	BESCHREIBUNG:   Sortiert eine ObservableList aus Fahrzeug nach Marke
+     \return  ObservableList<Fahrzeug>
 
-  	PARAMETER: 		ObservableList<Fahrzeug>
+    ***************************************************************************/
 
-  	RETURN:			ObservableList<Fahrzeug>
+	public ObservableList<Fahrzeug> sortFahrzeugMarke (ObservableList<Fahrzeug> fahrzeugs) {
 
-  	***************************************************************************/
-
-
-      public ObservableList<Fahrzeug> sortFahrzeugMarke (ObservableList<Fahrzeug> fahrzeugs) {	//
-
-
-      	ObservableList<Fahrzeug> fahrzeugListe= FXCollections.observableArrayList();	// neue Liste initialisieren
-      	fahrzeugListe.setAll(mainApp.getFahrzeugData());											// alte Liste in neue Liste kopieren
+		ObservableList<Fahrzeug> fahrzeugListe= FXCollections.observableArrayList();	// neue Liste initialisieren
+      	fahrzeugListe.setAll(mainApp.getFahrzeugData());								// alte Liste in neue Liste kopieren
       	Fahrzeug Platzhalter= new Fahrzeug();											// neues Fahrzeug als Platzhalter erzeugen
-
-      	mainApp.getFahrzeugData();
-
 
   		for (int i= 0; i < fahrzeugListe.size() - 1; i++) {
   			int minIndex= i;														// Annahme: aktuelle Marke = minimum; Index speichern
@@ -266,30 +258,24 @@ public class SortedFahrzeugTableController {
   			fahrzeugListe.set(i, Platzhalter);
   		}
   		return fahrzeugListe;
-  	}
+	}
 
-      /***************************************************************************
+	/***************************************************************************
+    METHODENNAME:	sortFahrzeugKilometerstand
+    *//*!
+     Sortiert eine ObservableList aus Fahrzeug nach Kilometerstand
 
-   	METHODENNAME:	sortFahrzeugKilometerstand
+     \param   ObservableList<Fahrzeug>
 
-   	BESCHREIBUNG:   Sortiert eine ObservableList aus Fahrzeug nach Kilometerstand
+     \return  ObservableList<Fahrzeug>
 
-   	PARAMETER: 		ObservableList<Fahrzeug>
+    ***************************************************************************/
 
-   	RETURN:			ObservableList<Fahrzeug>
-
-   	***************************************************************************/
-
-
-       public ObservableList<Fahrzeug> sortFahrzeugKilometerstand (ObservableList<Fahrzeug> fahrzeugs) {	//
-
+	public ObservableList<Fahrzeug> sortFahrzeugKilometerstand (ObservableList<Fahrzeug> fahrzeugs) {
 
        	ObservableList<Fahrzeug> fahrzeugListe= FXCollections.observableArrayList();	// neue Liste initialisieren
-       	fahrzeugListe.setAll(mainApp.getFahrzeugData());											// alte Liste in neue Liste kopieren
+       	fahrzeugListe.setAll(mainApp.getFahrzeugData());								// alte Liste in neue Liste kopieren
        	Fahrzeug Platzhalter= new Fahrzeug();											// neues Fahrzeug als Platzhalter erzeugen
-
-       	mainApp.getFahrzeugData();
-
 
    		for (int i= 0; i < fahrzeugListe.size() - 1; i++) {
    			int minIndex= i;														// Annahme: aktueller Nachname = minimum; Index speichern
@@ -308,35 +294,24 @@ public class SortedFahrzeugTableController {
    		return fahrzeugListe;
    	}
 
+	/***************************************************************************
+    METHODENNAME:	sortFahrzeugLeistung
+    *//*!
+     Sortiert eine ObservableList aus Fahrzeug nach Leistung
 
+     \param   ObservableList<Fahrzeug>
 
+     \return  ObservableList<Fahrzeug>
 
+    ***************************************************************************/
 
-
-    /***************************************************************************
-
- 	METHODENNAME:	sortFahrzeugLeistung
-
- 	BESCHREIBUNG:   Sortiert eine ObservableList aus Fahrzeug nach Leistung
-
- 	PARAMETER: 		ObservableList<Fahrzeug>
-
- 	RETURN:			ObservableList<Fahrzeug>
-
- 	***************************************************************************/
-
-
-     public ObservableList<Fahrzeug> sortFahrzeugLeistung (ObservableList<Fahrzeug> fahrzeugs) {	//
-
+	public ObservableList<Fahrzeug> sortFahrzeugLeistung (ObservableList<Fahrzeug> fahrzeugs) {
 
      	ObservableList<Fahrzeug> fahrzeugListe= FXCollections.observableArrayList();
      	fahrzeugListe.setAll(mainApp.getFahrzeugData());
      	Fahrzeug Platzhalter= new Fahrzeug();
 
-     	mainApp.getFahrzeugData();
-
-
- 		for (int i= 0; i < fahrzeugListe.size() - 1; i++) {
+     	for (int i= 0; i < fahrzeugListe.size() - 1; i++) {
  			int minIndex= i;
  			Platzhalter= fahrzeugListe.get(i);
 
@@ -353,44 +328,23 @@ public class SortedFahrzeugTableController {
  		return fahrzeugListe;
  	}
 
-	/***************************************************************************
-
-	METHODENNAME:	ShowSortFahrzeugAusleihende
-
-	BESCHREIBUNG:
-
-	PARAMETER: 		void
-
-	RETURN:			void
-
-	***************************************************************************/
-
-    public void ShowSortFahrzeugAusleihende() {
-
-        fahrzeugTable.setItems(sortFahrzeugAusleihende(mainApp.getFahrzeugData()));
-    }
-
-
 
     /***************************************************************************
+    METHODENNAME:	sortFahrzeugAusleihende
+    *//*!
+     Sortiert eine ObservableList aus Fahrzeug nach Rückgabedatum
 
- 	METHODENNAME:	sortFahrzeugAusleihende
+     \param   ObservableList<Fahrzeug>
 
- 	BESCHREIBUNG:   Sortiert eine ObservableList aus Fahrzeug nach Ausleihende
+     \return  ObservableList<Fahrzeug>
 
- 	PARAMETER: 		ObservableList<Buchung>
+    ***************************************************************************/
 
- 	RETURN:			ObservableList<Buchung>
-
- 	***************************************************************************/
-
-     public ObservableList<Fahrzeug> sortFahrzeugAusleihende (ObservableList<Fahrzeug> fahrzeugs) {	//
+	public ObservableList<Fahrzeug> sortFahrzeugAusleihende (ObservableList<Fahrzeug> fahrzeugs) {
 
      	ObservableList<Buchung> buchungListe= FXCollections.observableArrayList();
      	buchungListe.setAll(mainApp.getBuchungData());
      	Buchung Platzhalter= new Buchung();
-
-     	mainApp.getBuchungData();
 
  		for (int i= 0; i < buchungListe.size() - 1; i++) {
  			int minIndex= i;
@@ -419,3 +373,5 @@ public class SortedFahrzeugTableController {
  		return fahrzeugeListe;
  	}
 }
+
+/** @}*/ /*end of doxygen group*/

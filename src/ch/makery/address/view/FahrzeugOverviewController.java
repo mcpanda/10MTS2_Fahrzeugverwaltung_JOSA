@@ -1,6 +1,15 @@
+/**************************************************************************************************/
+/*! \file
+  FILE         : $Source: FahrzeugOverviewController.java $
+  BESCHREIBUNG : Controller
+                 Controller für die Fahrzeugübersicht
+***************************************************************************************************/
+
+/** \addtogroup View
+ *  @{
+ */
+
 package ch.makery.address.view;
-
-
 
 /**************************************************************************/
 /*                                                                        */
@@ -17,13 +26,13 @@ import javafx.scene.control.TableView;
 import ch.makery.address.MainApp;
 import ch.makery.address.model.Buchung;
 import ch.makery.address.model.Fahrzeug;
-//import ch.makery.address.util.DateUtil;
 
-/**************************************************************************/
-/*                                                                        */
-/* Class FahrzeugOverviewController                                       */
-/*                                                                        */
-/**************************************************************************/
+/***************************************************************************
+CLASS:	FahrzeugOverviewController
+*//*!
+ Die Klasse FahrzeugOverviewController hat nur einen Standardkonstruktor.
+
+***************************************************************************/
 
 public class FahrzeugOverviewController {
 
@@ -69,7 +78,7 @@ public class FahrzeugOverviewController {
 	/*                                                                        */
 	/**************************************************************************/
 
-    /* Standard Konstruktur. Muss vor dem Initializieren aufgerufen werden.   */
+    /* Standard Konstruktor. Muss vor dem Initializieren aufgerufen werden.   */
 
     public FahrzeugOverviewController() {
     }
@@ -80,19 +89,17 @@ public class FahrzeugOverviewController {
 	/*                                                                        */
 	/**************************************************************************/
 
-	/***************************************************************************
+    /***************************************************************************
+    METHODENNAME:	initialize
+    *//*!
+     Initialisiert die Controller Klasse. Diese Methode wird automatisch
+     aufgerufen, nachdem die fxml Datei geladen wurde.
 
-	METHODENNAME:	initialize
+     \param   void
 
-	BESCHREIBUNG:   Initialisiert die Controller Klasse. Diese Methode wird
-					automatisch aufgerufen, nachdem die fxml Datei
-					geladen wurde
+     \return  void
 
-	PARAMETER: 		void
-
-	RETURN:			void
-
-	***************************************************************************/
+    ***************************************************************************/
 
     @FXML
     private void initialize() {
@@ -109,18 +116,16 @@ public class FahrzeugOverviewController {
                 (observable, oldValue, newValue) -> showFahrzeugDetails(newValue));
     }
 
-	/***************************************************************************
+    /***************************************************************************
+    METHODENNAME:	setMainApp
+    *//*!
+     Is called by the main application to give a reference back to itself.
 
-	METHODENNAME:	setMainApp
+     \param   mainApp
 
-	BESCHREIBUNG:   Is called by the main application to give a reference back
-					to itself.
+     \return  void
 
-	PARAMETER: 		mainApp
-
-	RETURN:			void
-
-	***************************************************************************/
+    ***************************************************************************/
 
     public void setMainApp(MainApp mainApp) {
         this.mainApp = mainApp;
@@ -129,20 +134,18 @@ public class FahrzeugOverviewController {
         fahrzeugTable.setItems(mainApp.getFahrzeugData());
     }
 
-	/***************************************************************************
+    /***************************************************************************
+    METHODENNAME:	showFahrzeugDetails
+    *//*!
+     Zeigt die Details eines ausgewählten Fahrzeugs an. Ist kein Fahrzeug
+     ausgewählt, so wird nichts angezeigt.
 
-	METHODENNAME:	showFahrzeugDetails
+     \param   Fahrzeug. Ein Objekt der Klasse Fahrzeug, von welchem die
+			  Details angezeigt werden sollen.
 
-	BESCHREIBUNG:   Zeigt die Details eines ausgewählten Fahrzeugs an.
-					Ist kein Fahrzeug ausgewählt, so wird nichts angezeigt.
+     \return  void
 
-	PARAMETER: 		Fahrzeug.
-					Ein Objekt der Klasse Fahrzeug, von welchem die
-					Details angezeigt werden sollen.
-
-	RETURN:			void
-
-	***************************************************************************/
+    ***************************************************************************/
 
     private void showFahrzeugDetails(Fahrzeug fahrzeug) {
         if (fahrzeug != null) {
@@ -168,19 +171,17 @@ public class FahrzeugOverviewController {
         }
     }
 
-	/***************************************************************************
+    /***************************************************************************
+    METHODENNAME:	handleDeleteFahrzeug
+    *//*!
+     Handler für den Delete Button. Wird Delete angeklickt, so wird das
+     ausgewählte Objekt gelöscht.
 
-	METHODENNAME:	handleDeleteFahrzeug
+     \param   void
 
-	BESCHREIBUNG:   handler für den Delete Button.
-					Wird Delete angeklickt, so wird das ausgewählte Objekt
-					gelöscht.
+     \return  void
 
-	PARAMETER: 		void
-
-	RETURN:			void
-
-	***************************************************************************/
+    ***************************************************************************/
 
     @FXML
     private void handleDeleteFahrzeug() {
@@ -199,20 +200,19 @@ public class FahrzeugOverviewController {
         }
     }
 
-	/***************************************************************************
 
-	METHODENNAME:	handleNewFahrzeug
+    /***************************************************************************
+    METHODENNAME:	handleNewFahrzeug
+    *//*!
+     Handler für den New Button. Wird New angeklickt, so wird ein Dialogfeld
+     aufgerufen, um ein neues Objekt von der Klasse Fahrzeug zu erstellen.
+	 Hierbei können alle nötigen Attribute eingegeben werden.
 
-	BESCHREIBUNG:   handler für den New Button.
-					Wird New angeklickt, so wird ein Dialogfeld aufgerufen, um
-					ein neues Objekt von der Klasse Fahrzeug zu erstellen.
-					Hierbei können alle nötigen Attribute eingegeben werden.
+     \param   void
 
-	PARAMETER: 		void
+     \return  void
 
-	RETURN:			void
-
-	***************************************************************************/
+    ***************************************************************************/
 
     @FXML
     private void handleNewFahrzeug() {
@@ -223,19 +223,18 @@ public class FahrzeugOverviewController {
         }
     }
 
+
     /***************************************************************************
+    METHODENNAME:	handleFahrzeugBuchung
+    *//*!
+     Handler für den Buchungs Button. Hiermit wird eine neue Buchung angelegt
+     und die Daten des ausgewählten Fahrzeuges geladen.
 
-	METHODENNAME:	handleFahrzeugBuchung
+     \param   void
 
-	BESCHREIBUNG:   handler für den Buchungs Button.
-					Hiermit wird eine neue Buchung angelegt und die Daten
-					des ausgewählten Fahrzeuges geladen.
+     \return  void
 
-	PARAMETER: 		void
-
-	RETURN:			void
-
-	***************************************************************************/
+    ***************************************************************************/
 
     @FXML
     private void handleFahrzeugBuchung() {
@@ -262,20 +261,17 @@ public class FahrzeugOverviewController {
         }
     }
 
-	/***************************************************************************
+    /***************************************************************************
+    METHODENNAME:	handleEditFahrzeug
+    *//*!
+    Handler für den Edit Button. Wird Edit angeklickt, so wird ein Dialogfeld
+    aufgerufen, um die Attribute, des ausgewählten Fahrzeugs, verändern zu können.
 
-	METHODENNAME:	handleEditFahrzeug
+     \param   void
 
-	BESCHREIBUNG:   handler für den Edit Button.
-					Wird Edit angeklickt, so wird ein Dialogfeld aufgerufen, um
-					die Attribute, des ausgewählten Fahrzeugs, verändern zu
-					können.
+     \return  void
 
-	PARAMETER: 		void
-
-	RETURN:			void
-
-	***************************************************************************/
+    ***************************************************************************/
 
     @FXML
     private void handleEditFahrzeug() {
@@ -298,3 +294,5 @@ public class FahrzeugOverviewController {
         }
     }
 }
+
+/** @}*/ /*end of doxygen group*/

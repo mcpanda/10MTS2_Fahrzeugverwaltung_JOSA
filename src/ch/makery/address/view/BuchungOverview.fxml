@@ -77,9 +77,9 @@
                   </GridPane>
                   <ButtonBar layoutX="293.0" layoutY="344.0" prefHeight="40.0" prefWidth="200.0" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="15.0">
                     <buttons>
-                      <Button mnemonicParsing="false" onAction="#handleNewBuchung" text="New..." />
-                        <Button mnemonicParsing="false" onAction="#handleEditBuchung" text="Edit..." />
-                        <Button mnemonicParsing="false" onAction="#handleDeleteBuchung" text="Delete" />
+                      <Button mnemonicParsing="false" onAction="#handleNewBuchung" text="Neu" />
+                        <Button mnemonicParsing="false" onAction="#handleEditBuchung" text="Ändern" />
+                        <Button mnemonicParsing="false" onAction="#handleDeleteBuchung" text="Löschen" />
                     </buttons>
                   </ButtonBar>
                </children>

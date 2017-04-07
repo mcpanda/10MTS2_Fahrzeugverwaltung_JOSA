@@ -1,3 +1,14 @@
+/**************************************************************************************************/
+/*! \file
+  FILE         : $Source: PersonStatisticController.java $
+  BESCHREIBUNG : Controller
+                 Controller für die Statistik von Personen
+***************************************************************************************************/
+
+/** \addtogroup View
+ *  @{
+ */
+
 package ch.makery.address.view;
 
 /**************************************************************************/
@@ -7,7 +18,6 @@ package ch.makery.address.view;
 /**************************************************************************/
 
 import java.util.List;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -17,12 +27,12 @@ import javafx.scene.chart.XYChart;
 import ch.makery.address.model.Fahrzeug;
 import ch.makery.address.model.Buchung;
 
-/**************************************************************************/
-/*                                                                        */
-/* Class FahrzeugTypStatisticController                                   */
-/*																		  */
-/*                                                                        */
-/**************************************************************************/
+/***************************************************************************
+CLASS:	FahrzeugTypStatisticController
+*//*!
+ Die Klasse FahrzeugTypStatisticController hat nur einen Standardkonstruktor.
+
+***************************************************************************/
 
 public class FahrzeugTypStatisticController {
 
@@ -46,19 +56,17 @@ public class FahrzeugTypStatisticController {
 	/*                                                                        */
 	/**************************************************************************/
 
-	/***************************************************************************
+    /***************************************************************************
+    METHODENNAME:	initialize
+    *//*!
+     Initialisiert die Controller Klasse. Diese Methode wird automatisch
+     aufgerufen, nachdem die fxml Datei geladen wurde.
 
-	METHODENNAME:	initialize
+     \param   void
 
-	BESCHREIBUNG:   Initialisiert die Controller Klasse. Diese Methode wird
-					automatisch aufgerufen, nachdem die fxml Datei
-					geladen wurde
+     \return  void
 
-	PARAMETER: 		void
-
-	RETURN:			void
-
-	***************************************************************************/
+    ***************************************************************************/
 
     @FXML
     private void initialize() {
@@ -68,17 +76,16 @@ public class FahrzeugTypStatisticController {
     }
 
     /***************************************************************************
+    METHODENNAME:	setFahrezugTypStatistic
+    *//*!
+     lädt die Fahrzeuge für die Statistik.
+     Codekommentierung: siehe FahrzeugStatisticController
 
-	METHODENNAME:	setFahrezugTypStatistic
+     \param   List<Fahrzeug>, List<Fahrzeug>
 
-	BESCHREIBUNG:   lädt die Persoen für die Statistik.
-					Codekommentierung: siehe FahrzeugStatisticController
+     \return  void
 
-	PARAMETER: 		void
-
-	RETURN:			void
-
-	***************************************************************************/
+    ***************************************************************************/
 
     public void setFahrzeugTypStatistic(List<Fahrzeug> fahrzeugs, List<Buchung> buchungs) {
 
@@ -107,17 +114,16 @@ public class FahrzeugTypStatisticController {
     }
 
     /***************************************************************************
+    METHODENNAME:	setFahrezugTypTageStatistic
+    *//*!
+     lädt die Fahrzeuge für die Statistik.
+     Codekommentierung: siehe FahrzeugStatisticController
 
-	METHODENNAME:	setFahrezugTypTageStatistic
+     \param   List<Fahrzeug>, List<Fahrzeug>
 
-	BESCHREIBUNG:   lädt die Persoen für die Statistic.
-					Codekommentierung: siehe FahrzeugStatisticController
+     \return  void
 
-	PARAMETER: 		void
-
-	RETURN:			void
-
-	***************************************************************************/
+    ***************************************************************************/
 
     public void setFahrzeugTypTageStatistic(List<Fahrzeug> fahrzeugs, List<Buchung> buchungs) {
 
@@ -153,5 +159,6 @@ public class FahrzeugTypStatisticController {
 
         barChart.getData().add(series);
     }
-
 }
+
+/** @}*/ /*end of doxygen group*/

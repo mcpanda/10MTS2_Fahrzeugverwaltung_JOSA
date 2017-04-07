@@ -1,3 +1,14 @@
+/**************************************************************************************************/
+/*! \file
+  FILE         : $Source: PersonOverviewController.java $
+  BESCHREIBUNG : Controller
+                 Controller für die Personenübersicht
+***************************************************************************************************/
+
+/** \addtogroup View
+ *  @{
+ */
+
 package ch.makery.address.view;
 
 /**************************************************************************/
@@ -12,20 +23,19 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-
 import java.util.List;
-
 import ch.makery.address.MainApp;
 import ch.makery.address.model.Buchung;
 import ch.makery.address.model.Person;
 import ch.makery.address.model.Fahrzeug;
 import ch.makery.address.util.DateUtil;
 
-/**************************************************************************/
-/*                                                                        */
-/* Class BuchungOverviewController                                       */
-/*                                                                        */
-/**************************************************************************/
+/***************************************************************************
+CLASS:	BuchungOverviewController
+*//*!
+ Die Klasse BuchungOverviewController hat nur einen Standardkonstruktor.
+
+***************************************************************************/
 
 public class BuchungOverviewController {
 
@@ -76,7 +86,7 @@ public class BuchungOverviewController {
 	/*                                                                        */
 	/**************************************************************************/
 
-    /* Standard Konstruktur. Muss vor dem Initializieren aufgerufen werden.   */
+    /* Standard Konstruktor. Muss vor dem Initializieren aufgerufen werden.   */
 
     public BuchungOverviewController() {
     }
@@ -87,19 +97,17 @@ public class BuchungOverviewController {
 	/*                                                                        */
 	/**************************************************************************/
 
-	/***************************************************************************
+    /***************************************************************************
+    METHODENNAME:	initialize
+    *//*!
+     Initialisiert die Controller Klasse. Diese Methode wird automatisch
+     aufgerufen, nachdem die fxml Datei geladen wurde.
 
-	METHODENNAME:	initialize
+     \param   void
 
-	BESCHREIBUNG:   Initialisiert die Controller Klasse. Diese Methode wird
-					automatisch aufgerufen, nachdem die fxml Datei
-					geladen wurde
+     \return  void
 
-	PARAMETER: 		void
-
-	RETURN:			void
-
-	***************************************************************************/
+    ***************************************************************************/
 
     @FXML
     private void initialize() {
@@ -116,18 +124,16 @@ public class BuchungOverviewController {
                 (observable, oldValue, newValue) -> showBuchungDetails(newValue, mainApp.getPersonData(), mainApp.getFahrzeugData()));
     }
 
-	/***************************************************************************
+    /***************************************************************************
+    METHODENNAME:	setMainApp
+    *//*!
+     Is called by the main application to give a reference back to itself.
 
-	METHODENNAME:	setMainApp
+     \param   mainApp
 
-	BESCHREIBUNG:   Is called by the main application to give a reference back
-					to itself.
+     \return  void
 
-	PARAMETER: 		mainApp
-
-	RETURN:			void
-
-	***************************************************************************/
+    ***************************************************************************/
 
     public void setMainApp(MainApp mainApp) {
         this.mainApp = mainApp;
@@ -136,20 +142,18 @@ public class BuchungOverviewController {
         buchungTable.setItems(mainApp.getBuchungData());
     }
 
-	/***************************************************************************
+    /***************************************************************************
+    METHODENNAME:	showbuchungDetails
+    *//*!
+     Zeigt die Details einer ausgewählten Buchung an. Ist keine Buchung
+     ausgewählt, so wird nichts angezeigt.
 
-	METHODENNAME:	showbuchungDetails
+     \param   Buchung. Ein Objekt der Klasse Buchung, von welchem die
+			  Details angezeigt werden sollen.
 
-	BESCHREIBUNG:   Zeigt die Details einer ausgewählten Buchungs an.
-					Ist kein Buchung ausgewählt, so wird nichts angezeigt.
+     \return  void
 
-	PARAMETER: 		Buchung.
-					Ein Objekt der Klasse Buchung, von welchem die
-					Details angezeigt werden sollen.
-
-	RETURN:			void
-
-	***************************************************************************/
+    ***************************************************************************/
 
     private void showBuchungDetails(Buchung buchung, List<Person> persons, List<Fahrzeug> fahrzeugs) {
         if (buchung != null) {
@@ -163,7 +167,6 @@ public class BuchungOverviewController {
         		if(buchung.getPersonID() == p.getPersonID()) {
         			vornameLabel.setText(p.getFirstName());
                 	nachnameLabel.setText(p.getLastName());
-//                	buchung.setLastname(p.getLastName());
         		}
         	}
 
@@ -172,12 +175,8 @@ public class BuchungOverviewController {
         			herstellerLabel.setText(f.getHersteller());
                 	markeLabel.setText(f.getMarke());
                 	fahrzeugtypLabel.setText(f.getFahrzeugtyp());
-//                	buchung.setHersteller(f.getHersteller());
-//                	buchung.setFahrzeugtyp(f.getFahrzeugtyp());
         		}
         	}
-
-//        	fahrzeugtypLabel.setText(buchung.getFahrzeugtyp());
 
             ausleihdatumLabel.setText(DateUtil.format(buchung.getAusleihdatum()));
             rueckgabedatumLabel.setText(DateUtil.format(buchung.getRueckgabedatum()));
@@ -193,19 +192,17 @@ public class BuchungOverviewController {
         }
     }
 
-	/***************************************************************************
+    /***************************************************************************
+    METHODENNAME:	handleDeleteBuchung
+    *//*!
+     Handler für den Delete Button. Wird Delete angeklickt, so wird das
+     ausgewählte Objekt gelöscht.
 
-	METHODENNAME:	handleDeleteBuchung
+     \param   void
 
-	BESCHREIBUNG:   handler für den Delete Button.
-					Wird Delete angeklickt, so wird das ausgewählte Objekt
-					gelöscht.
+     \return  void
 
-	PARAMETER: 		void
-
-	RETURN:			void
-
-	***************************************************************************/
+    ***************************************************************************/
 
     @FXML
     private void handleDeleteBuchung() {
@@ -216,28 +213,26 @@ public class BuchungOverviewController {
             // Nothing selected.
             Alert alert = new Alert(AlertType.WARNING);
             alert.initOwner(mainApp.getPrimaryStage());
-            alert.setTitle("No Selection");
-            alert.setHeaderText("No Buchung Selected");
-            alert.setContentText("Please select a Buchung in the table.");
+            alert.setTitle("Keine Auswahl");
+            alert.setHeaderText("Es wurde keine Buchung ausgewählt");
+            alert.setContentText("Bitte wählen Sie eine Buchung aus der Tabelle aus.");
 
             alert.showAndWait();
         }
     }
 
-	/***************************************************************************
+    /***************************************************************************
+    METHODENNAME:	handleNewBuchung
+    *//*!
+     Handler für den New Button. Wird New angeklickt, so wird ein Dialogfeld
+     aufgerufen, um ein neues Objekt von der Klasse Buchung zu erstellen.
+	 Hierbei können alle nötigen Attribute eingegeben werden.
 
-	METHODENNAME:	handleNewBuchung
+     \param   void
 
-	BESCHREIBUNG:   handler für den New Button.
-					Wird New angeklickt, so wird ein Dialogfeld aufgerufen, um
-					ein neues Objekt von der Klasse Buchung zu erstellen.
-					Hierbei können alle nötigen Attribute eingegeben werden.
+     \return  void
 
-	PARAMETER: 		void
-
-	RETURN:			void
-
-	***************************************************************************/
+    ***************************************************************************/
 
     @FXML
     private void handleNewBuchung() {
@@ -250,20 +245,17 @@ public class BuchungOverviewController {
         }
     }
 
-	/***************************************************************************
+    /***************************************************************************
+    METHODENNAME:	handleEditBuchung
+    *//*!
+    Handler für den Edit Button. Wird Edit angeklickt, so wird ein Dialogfeld
+    aufgerufen, um die Attribute, der ausgewählten Buchung, verändern zu können.
 
-	METHODENNAME:	handleEditBuchung
+     \param   void
 
-	BESCHREIBUNG:   handler für den Edit Button.
-					Wird Edit angeklickt, so wird ein Dialogfeld aufgerufen, um
-					die Attribute, der ausgewählten Buchung, verändern zu
-					können.
+     \return  void
 
-	PARAMETER: 		void
-
-	RETURN:			void
-
-	***************************************************************************/
+    ***************************************************************************/
 
     @FXML
     private void handleEditBuchung() {
@@ -286,3 +278,5 @@ public class BuchungOverviewController {
         }
     }
 }
+
+/** @}*/ /*end of doxygen group*/

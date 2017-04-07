@@ -1,3 +1,15 @@
+/**************************************************************************************************/
+/*! \file
+  FILE         : $Source: BuchungEditDialogController.java $
+  BESCHREIBUNG : Controller
+                 Controller für das Dialogfeld zur Buchungsbearbeitung.
+                 Hierzu zählt New, Edit, Delete
+***************************************************************************************************/
+
+/** \addtogroup View
+ *  @{
+ */
+
 package ch.makery.address.view;
 
 /**************************************************************************/
@@ -26,11 +38,12 @@ import ch.makery.address.model.Fahrzeug;
 import ch.makery.address.model.Person;
 import ch.makery.address.util.DateUtil;
 
-/**************************************************************************/
-/*                                                                        */
-/* Class BuchungEditDialogController                                      */
-/*                                                                        */
-/**************************************************************************/
+/***************************************************************************
+CLASS:	BuchungEditDialogController
+*//*!
+ Die Klasse BuchungEditDialogController hat nur einen Standardkonstruktor.
+
+***************************************************************************/
 
 public class BuchungEditDialogController {
 
@@ -41,7 +54,6 @@ public class BuchungEditDialogController {
 	ObservableList<String> filteredPersonLizenzBeschreibungBoxList= FXCollections.observableArrayList();
 	ObservableList<String> filteredFahrzeugBeschreibungBoxList= FXCollections.observableArrayList();
 	ObservableList<String> filteredFahrzeugTypBeschreibungBoxList= FXCollections.observableArrayList();
-
 
     String filterPerson= "";
     String filterFahrzeug= "";
@@ -86,19 +98,17 @@ public class BuchungEditDialogController {
 	/*                                                                        */
 	/**************************************************************************/
 
-	/***************************************************************************
+    /***************************************************************************
+    METHODENNAME:	initialize
+    *//*!
+     Initialisiert die Controller Klasse. Diese Methode wird automatisch
+     aufgerufen, nachdem die fxml Datei geladen wurde.
 
-	METHODENNAME:	initialize
+     \param   void
 
-	BESCHREIBUNG:   Initialisiert die Controller Klasse. Diese Methode wird
-					automatisch aufgerufen, nachdem die fxml Datei
-					geladen wurde
+     \return  void
 
-	PARAMETER: 		void
-
-	RETURN:			void
-
-	***************************************************************************/
+    ***************************************************************************/
 
     @FXML
     private void initialize() {
@@ -113,34 +123,31 @@ public class BuchungEditDialogController {
     	fahrzeugtypBox.setValue("Fahrzeugtyp");
     }
 
-	/***************************************************************************
+    /***************************************************************************
+    METHODENNAME:	setMainApp
+    *//*!
+     Is called by the main application to give a reference back to itself.
 
-	METHODENNAME:	setMainApp
+     \param   mainApp
 
-	BESCHREIBUNG:   Is called by the main application to give a reference back
-					to itself.
+     \return  void
 
-	PARAMETER: 		mainApp
-
-	RETURN:			void
-
-	***************************************************************************/
+    ***************************************************************************/
 
     public void setMainApp(MainApp mainApp) {
         this.mainApp = mainApp;
     }
 
-	/***************************************************************************
+    /***************************************************************************
+    METHODENNAME:	handleAutoCompletePerson
+    *//*!
+     Sortiert ComboBox nach Tastatureingabe aus.
 
-	METHODENNAME:	handleAutoCompletePerson
+     \param   KeyEvent
 
-	BESCHREIBUNG:   Sortiert ComboBox nach Tastatureingabe aus
+     \return  void
 
-	PARAMETER: 		KeyEvent
-
-	RETURN:			void
-
-	***************************************************************************/
+    ***************************************************************************/
 
     public void handleAutoCompletePerson (KeyEvent event) {
 
@@ -185,16 +192,15 @@ public class BuchungEditDialogController {
     }
 
     /***************************************************************************
+    METHODENNAME:	handleAutoCompleteFahrzeug
+    *//*!
+     Sortiert ComboBox nach Tastatureingabe aus
 
-	METHODENNAME:	handleAutoCompleteFahrzeug
+     \param   KeyEvent
 
-	BESCHREIBUNG:   Sortiert ComboBox nach Tastatureingabe aus
+     \return  void
 
-	PARAMETER: 		KeyEvent
-
-	RETURN:			void
-
-	***************************************************************************/
+    ***************************************************************************/
 
     public void handleAutoCompleteFahrzeug (KeyEvent event) {
 
@@ -239,17 +245,16 @@ public class BuchungEditDialogController {
     }
 
     /***************************************************************************
+    METHODENNAME:	AutoCompleteFahrzeugtyp
+    *//*!
+     Filtert FahrzeugComboBox nach Fahrzeugtypauswahl und PersonenComboBox
+     nach Fahrerlaubnis aus
 
-	METHODENNAME:	AutoCompleteFahrzeugtyp
+     \param   List<Person>, List<Fahrzeug>
 
-	BESCHREIBUNG:   Filtert FahrzeugComboBox nach Fahrzeugtypauswahl und
-					PersonenComboBox nach Fahrerlaubnis aus
+     \return  void
 
-	PARAMETER: 		List<Person>, List<Fahrzeug>
-
-	RETURN:			void
-
-	***************************************************************************/
+    ***************************************************************************/
 
     public void AutoCompleteFahrzeugtyp(List<Person> persons, List<Fahrzeug> fahrzeugs) {
 
@@ -297,40 +302,43 @@ public class BuchungEditDialogController {
     	filteredPersonBeschreibungBoxList.setAll(filteredPersonLizenzBeschreibungBoxList);
     }
 
-	/***************************************************************************
+    /***************************************************************************
+    METHODENNAME:	setDialogStage
+    *//*!
+     Gibt die Stage des Dialogfeldes an.
 
-	METHODENNAME:	setDialogStage
+     \param   dialogStage
 
-	BESCHREIBUNG:   Gibt die Stage des Dialagfeldes an.
+     \return  void
 
-	PARAMETER: 		dialogStage
-
-	RETURN:			void
-
-	***************************************************************************/
+    ***************************************************************************/
 
     public void setDialogStage(Stage dialogStage) {
         this.dialogStage = dialogStage;
     }
 
-	/***************************************************************************
+    /***************************************************************************
+    METHODENNAME:	setBuchung
+    *//*!
+     Definiert die Buchung, welche bearbeitet werden soll.
 
-	METHODENNAME:	setBuchung
+     \param   Buchung
 
-	BESCHREIBUNG:   Definiert die Buchung, welche bearbeitet werden soll.
+     \return  void
 
-	PARAMETER: 		Buchung
-
-	RETURN:			void
-
-	***************************************************************************/
+    ***************************************************************************/
 
     public void setBuchung(Buchung buchung, List<Person> persons,  List<Fahrzeug> fahrzeugs, List<Buchung> buchungs) {
         this.buchung = buchung;
 
         if (buchung.getBuchungID() == 0) {
-        	int temp= buchungs.get(buchungs.size()-1).getBuchungID() + 1;
-        	buchungIDLabel.setText(Integer.toString(temp));
+        	if (0 < buchungs.size()){
+        		int temp= buchungs.get(buchungs.size()-1).getBuchungID() + 1;
+        		buchungIDLabel.setText(Integer.toString(temp));
+        	} else {
+        		buchungIDLabel.setText(Integer.toString(1));
+        	}
+
         } else {
         	buchungIDLabel.setText(Integer.toString(buchung.getBuchungID()));
         }
@@ -392,36 +400,32 @@ public class BuchungEditDialogController {
         AusleihdauerBerechnung();
     }
 
-	/***************************************************************************
+    /***************************************************************************
+    METHODENNAME:	isOkClicked
+    *//*!
+     Gibt ein TRUE aus, wenn [OK] geklickt wurde.
 
-	METHODENNAME:	isOkClicked
+     \param   void
 
-	BESCHREIBUNG:   Gibt ein TRUE aus, wenn [OK] geklickt wurde.
+     \return  Boolean
 
-	PARAMETER: 		void
-
-	RETURN:			Boolean
-
-	***************************************************************************/
+    ***************************************************************************/
 
     public boolean isOkClicked() {
         return okClicked;
     }
 
-	/***************************************************************************
+    /***************************************************************************
+    METHODENNAME:	handleOk
+    *//*!
+     handler für OK. Dieser handler wird ausgeführt, wenn [OK] geklickt wurde.
+	 Neue Buchungsdaten werden gespeichert.
 
-	METHODENNAME:	handleOk
+     \param   void
 
-	BESCHREIBUNG:   handler für OK.
+     \return  void
 
-					Dieser handler wird ausgeführt, wenn [OK] geklickt wurde.
-					Neue Buchungsdaten werden gespeichert.
-
-	PARAMETER: 		void
-
-	RETURN:			void
-
-	***************************************************************************/
+    ***************************************************************************/
 
     @FXML
     private void handleOk() {
@@ -443,17 +447,16 @@ public class BuchungEditDialogController {
         }
     }
 
-	/***************************************************************************
+    /***************************************************************************
+    METHODENNAME:	getIDfromBeschreibung
+    *//*!
+     Die Zahl im String, welche vor dem "-", wird zurückgegeben
 
-	METHODENNAME:	getIDfromBeschreibung
+     \param   String
 
-	BESCHREIBUNG:   Die Zahl im String, welche vor dem "-", wird zurückgegeben
+     \return  int
 
-	PARAMETER: 		String
-
-	RETURN:			int
-
-	***************************************************************************/
+    ***************************************************************************/
 
     public int getIDfromBeschreibung(String temp) {
     	int pos= 0;
@@ -470,20 +473,18 @@ public class BuchungEditDialogController {
     	return pos;
     }
 
-	/***************************************************************************
+    /***************************************************************************
+    METHODENNAME:	setAusgeliehen
+    *//*!
+     Beim Klick auf [OK] wird verglichen, ob das heutige Datum kleiner oder
+     gleich ist dem Rückgabedatum. Abhängig davon, wird der Ausleihzustand des
+     jeweiligen Fahrzeugs und der Person auf "Ja" oder "Nein" gesetzt.
 
-	METHODENNAME:	setAusgeliehen
+     \param   int, int, LocalDate
 
-	BESCHREIBUNG:   Beim Klick auf [OK] wird verglichen, ob das heutige Datum
-					kleiner oder gleich ist dem Rückgabedatum. Abhängig davon,
-					wird der Ausleihzustand des jeweiligen Fahrzeugs und der
-					Person auf "Ja" oder "Nein" gesetzt.
+     \return  void
 
-	PARAMETER: 		int, int, LocalDate
-
-	RETURN:			void
-
-	***************************************************************************/
+    ***************************************************************************/
 
     public void setAusgeliehen(int personID, int fahrID, LocalDate rueckgabedatum) {
 
@@ -510,38 +511,34 @@ public class BuchungEditDialogController {
     	}
     }
 
-	/***************************************************************************
+    /***************************************************************************
+    METHODENNAME:	handleCancel
+    *//*!
+     handler für Cancel. Dieser handler wird ausgeführt, wenn [Cancel] geklickt
+     wurde. Dialogfenster wird geschloßen, ohne neue Buchungsdaten zu speichern.
 
-	METHODENNAME:	handleCancel
+     \param   void
 
-	BESCHREIBUNG:   handler für Cancel.
-					Dieser handler wird ausgeführt, wenn [Cancel] geklickt wurde.
-					Dialogfenster wird geschloßen, ohne neue Buchungsdaten
-					zu speichern.
+     \return  void
 
-	PARAMETER: 		void
-
-	RETURN:			void
-
-	***************************************************************************/
+    ***************************************************************************/
 
     @FXML
     private void handleCancel() {
         dialogStage.close();
     }
 
-	/***************************************************************************
+    /***************************************************************************
+    METHODENNAME:	isInputValid
+    *//*!
+     Überprüfung der eingegeben Daten. Sollten nicht konforme Daten vorhanden
+     sein, so wird eine Fehlermeldung ausgegeben.
 
-	METHODENNAME:	isInputValid
+     \param   void
 
-	BESCHREIBUNG:   Überprüfung der eingegeben Daten. Sollten nicht konforme
-					Daten vorhanden sein, so wird eine Fehlermeldung ausgegeben.
+     \return  Boolean
 
-	PARAMETER: 		void
-
-	RETURN:			Boolean
-
-	***************************************************************************/
+    ***************************************************************************/
 
     private boolean isInputValid(List<Person> persons, List<Fahrzeug> fahrzeugs) {
         String errorMessage = "";
@@ -555,13 +552,13 @@ public class BuchungEditDialogController {
         }
 
         if (tempP == 0) {
-        	errorMessage += "Bitte passende Person auswaehlen!\n";
+        	errorMessage += "Bitte passende Person auswählen!\n";
         }
 
         for(Person p : persons) {
         	if (personIDBox.getEditor().getText().equals(p.getPersonBeschreibung())) {
         		if(p.getAusgeliehen().equals("Ja")) {
-        			errorMessage += "Diese Person leit bereits schon ein Fahrzeug aus!\n";
+        			errorMessage += "Diese Person leiht bereits schon ein Fahrzeug aus!\n";
         		}
         	}
         }
@@ -573,7 +570,7 @@ public class BuchungEditDialogController {
         }
 
         if (tempF == 0) {
-        	errorMessage += "Bitte passendes Fahrzeug auswaehlen!\n";
+        	errorMessage += "Bitte passendes Fahrzeug auswählen!\n";
         }
 
         for(Fahrzeug f : fahrzeugs) {
@@ -585,22 +582,22 @@ public class BuchungEditDialogController {
         }
 
         if (Integer.parseInt(leihdauerLabel.getText()) < 1) {
-            errorMessage += "No valid Leihdauer!\n";
+            errorMessage += "Keine gültige Leihdauer!\n";
         }
 
         if (ausleihdatumField.getText() == null || ausleihdatumField.getText().length() == 0) {
-            errorMessage += "No valid Ausleihdatum!\n";
+            errorMessage += "Kein gültiges Ausleihdatum!\n";
         } else {
             if (!DateUtil.validDate(ausleihdatumField.getText())) {
-                errorMessage += "No valid Ausleihdatum. Use the format dd.mm.yyyy!\n";
+                errorMessage += "Kein gültiges Ausleihdatum. Bitte nutzen Sie das Format dd.mm.yyyy!\n";
             }
         }
 
         if (rueckgabedatumField.getText() == null || rueckgabedatumField.getText().length() == 0) {
-            errorMessage += "No valid Rueckgabedatum!\n";
+            errorMessage += "Kein gültiges Rückgabedatum!\n";
         } else {
             if (!DateUtil.validDate(rueckgabedatumField.getText())) {
-                errorMessage += "No valid Rueckgabedatum. Use the format dd.mm.yyyy!\n";
+                errorMessage += "Kein gültiges Rueckgabedatum. Bitte nutzen Sie das Format dd.mm.yyyy!\n";
             }
         }
 
@@ -614,8 +611,8 @@ public class BuchungEditDialogController {
             // Show the error message.
             Alert alert = new Alert(AlertType.ERROR);
             alert.initOwner(dialogStage);
-            alert.setTitle("Invalid Fields");
-            alert.setHeaderText("Please correct invalid fields");
+            alert.setTitle("Ungültige EIngabe");
+            alert.setHeaderText("Bitte ändern Sie die ungültigen Eingaben");
             alert.setContentText(errorMessage);
 
             alert.showAndWait();
@@ -623,18 +620,16 @@ public class BuchungEditDialogController {
             return false;
         }
     }
-
     /***************************************************************************
+    METHODENNAME:	AusleihdauerBerechnung
+    *//*!
+     Berechnung der Ausleihdauer
 
- 	METHODENNAME:	AusleihdauerBerechnung
+     \param   LocalDate, LocalDate
 
- 	BESCHREIBUNG:   Berechnung der Ausleihdauer
+     \return  int
 
- 	PARAMETER: 		LocalDate, LocalDate
-
- 	RETURN:			int
-
- 	***************************************************************************/
+    ***************************************************************************/
 
      public void AusleihdauerBerechnung() {
 
@@ -648,3 +643,5 @@ public class BuchungEditDialogController {
      	leihdauerLabel.setText(Integer.toString(days));
      }
 }
+
+/** @}*/ /*end of doxygen group*/

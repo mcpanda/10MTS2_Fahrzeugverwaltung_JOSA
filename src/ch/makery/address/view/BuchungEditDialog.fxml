@@ -33,7 +33,7 @@
             <Label text="PersonID" GridPane.rowIndex="2" />
             <Label text="FahrzeugID" GridPane.rowIndex="3" />
             <Label text="Ausleihdatum" GridPane.rowIndex="4" />
-            <Label text="Rueckgabedatum" GridPane.rowIndex="5" />
+            <Label text="Rückgabedatum" GridPane.rowIndex="5" />
             <Label text="Leihdauer" GridPane.rowIndex="6" />
             <TextField fx:id="ausleihdatumField" onMouseExited="#AusleihdauerBerechnung" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <TextField fx:id="rueckgabedatumField" onMouseExited="#AusleihdauerBerechnung" GridPane.columnIndex="1" GridPane.rowIndex="5" />
@@ -55,7 +55,7 @@
       <ButtonBar layoutX="486.0" layoutY="346.0" prefHeight="40.0" prefWidth="296.0" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="15.0">
         <buttons>
           <Button mnemonicParsing="false" onAction="#handleOk" text="OK" />
-            <Button mnemonicParsing="false" onAction="#handleCancel" text="Cancel" />
+            <Button mnemonicParsing="false" onAction="#handleCancel" text="Abbrechen" />
         </buttons>
       </ButtonBar>
    </children>

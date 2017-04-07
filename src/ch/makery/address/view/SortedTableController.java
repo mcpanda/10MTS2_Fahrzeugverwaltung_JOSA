@@ -1,3 +1,14 @@
+/**************************************************************************************************/
+/*! \file
+  FILE         : $Source: SortedTableController.java $
+  BESCHREIBUNG : Controller
+                 Controller für die Sortierung von Personen
+***************************************************************************************************/
+
+/** \addtogroup View
+ *  @{
+ */
+
 package ch.makery.address.view;
 
 /**************************************************************************/
@@ -16,11 +27,12 @@ import java.time.LocalDate;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-/**************************************************************************/
-/*                                                                        */
-/* Class SortLastNameController                                           */
-/*                                                                        */
-/**************************************************************************/
+/***************************************************************************
+CLASS:	SortedTableController
+*//*!
+ Die Klasse BuchungEditDialogController hat nur einen Standardkonstruktor.
+
+***************************************************************************/
 
 public class SortedTableController {
 
@@ -60,7 +72,7 @@ public class SortedTableController {
 	/*                                                                        */
 	/**************************************************************************/
 
-    /* Standard Konstruktur. Muss vor dem Initialisieren aufgerufen werden.   */
+    /* Standard Konstruktor. Muss vor dem Initialisieren aufgerufen werden.   */
 
 	public SortedTableController() {
 
@@ -72,19 +84,17 @@ public class SortedTableController {
 	/*                                                                        */
 	/**************************************************************************/
 
-	/***************************************************************************
+    /***************************************************************************
+    METHODENNAME:	initialize
+    *//*!
+     Initialisiert die Controller Klasse. Diese Methode wird automatisch
+     aufgerufen, nachdem die fxml Datei geladen wurde.
 
-	METHODENNAME:	initialize
+     \param   void
 
-	BESCHREIBUNG:   Initialisiert die Controller Klasse. Diese Methode wird
-					automatisch aufgerufen, nachdem die fxml Datei
-					geladen wurde
+     \return  void
 
-	PARAMETER: 		void
-
-	RETURN:			void
-
-	***************************************************************************/
+    ***************************************************************************/
 
     @FXML
     private void initialize() {
@@ -102,51 +112,47 @@ public class SortedTableController {
 
     }
 
-	/***************************************************************************
+    /***************************************************************************
+    METHODENNAME:	setMainApp
+    *//*!
+     Is called by the main application to give a reference back to itself.
 
-	METHODENNAME:	setMainApp
+     \param   mainApp
 
-	BESCHREIBUNG:   Is called by the main application to give a reference back
-					to itself.
+     \return  void
 
-	PARAMETER: 		mainApp
-
-	RETURN:			void
-
-	***************************************************************************/
+    ***************************************************************************/
 
     public void setMainApp(MainApp mainApp) {
         this.mainApp = mainApp;
     }
 
-	/***************************************************************************
+    /***************************************************************************
+    METHODENNAME:	ShowSortNachname
+    *//*!
+     Anzeige der Personen, sortiert nach Nachnamen.
 
-	METHODENNAME:	ShowSortNachname
+     \param   void
 
-	BESCHREIBUNG:	Anzeige der Personen, sortiert nach Nachnamen
+     \return  void
 
-	PARAMETER: 		void
-
-	RETURN:			void
-
-	***************************************************************************/
+    ***************************************************************************/
 
     public void ShowSortNachname() {
 
         personTable.setItems(sortNachname(mainApp.getPersonData()));
     }
 
-	/***************************************************************************
+    /***************************************************************************
+    METHODENNAME:	ShowSortVorname
+    *//*!
+     Anzeige der Personen, sortiert nach Vornamen
 
-	METHODENNAME:	ShowSortVorname
+     \param   void
 
-	BESCHREIBUNG:	Anzeige der Personen, sortiert nach Vornamen
+     \return  void
 
-	PARAMETER: 		void
-
-	RETURN:			void
-
-	***************************************************************************/
+    ***************************************************************************/
 
     public void ShowSortVorname() {
 
@@ -154,33 +160,31 @@ public class SortedTableController {
     }
 
     /***************************************************************************
+    METHODENNAME:	ShowSortStadt
+    *//*!
+     Anzeige der Personen, sortiert nach Stadt.
 
-	METHODENNAME:	ShowSortStadt
+     \param   void
 
-	BESCHREIBUNG:
+     \return  void
 
-	PARAMETER: 		void
-
-	RETURN:			void
-
-	***************************************************************************/
+    ***************************************************************************/
 
     public void ShowSortStadt() {
 
         personTable.setItems(sortStadt(mainApp.getPersonData()));
     }
 
-	/***************************************************************************
+    /***************************************************************************
+    METHODENNAME:	ShowSortAusleihende
+    *//*!
+     Anzeige der Personen, sortiert nach Rückgabedatum.
 
-	METHODENNAME:	ShowSortAusleihende
+     \param   void
 
-	BESCHREIBUNG:
+     \return  void
 
-	PARAMETER: 		void
-
-	RETURN:			void
-
-	***************************************************************************/
+    ***************************************************************************/
 
     public void ShowSortAusleihende() {
 
@@ -188,16 +192,15 @@ public class SortedTableController {
     }
 
     /***************************************************************************
+    METHODENNAME:	sortNachname
+    *//*!
+     Sortiert eine ObservableList aus Personen nach dem Nachnamen.
 
-	METHODENNAME:	sortNachname
+     \param   ObservableList<Person>
 
-	BESCHREIBUNG:   Sortiert eine ObservableList aus Personen nach dem Nachnamen.
+     \return  ObservableList<Person>
 
-	PARAMETER: 		ObservableList<Person>
-
-	RETURN:			ObservableList<Person>
-
-	***************************************************************************/
+    ***************************************************************************/
 
     public ObservableList<Person> sortNachname (ObservableList<Person> persons) {
     	ObservableList<Person> personenListe= FXCollections.observableArrayList();
@@ -221,17 +224,16 @@ public class SortedTableController {
 	}
 
     /***************************************************************************
+    METHODENNAME:	sortVorname
+    *//*!
+     Sortiert eine ObservableList aus Personen nach dem Vornamen
+     Codekommentierung: siehe sortNachname
 
-	METHODENNAME:	sortVorname
+     \param   ObservableList<Person>
 
-	BESCHREIBUNG:   Sortiert eine ObservableList aus Personen nach dem Vornamen
-					Codekommentierung: siehe sortNachname
+     \return  ObservableList<Person>
 
-	PARAMETER: 		ObservableList<Person>
-
-	RETURN:			ObservableList<Person>
-
-	***************************************************************************/
+    ***************************************************************************/
 
     public ObservableList<Person> sortVorname (ObservableList<Person> persons) {
     	ObservableList<Person> personenListe= FXCollections.observableArrayList();
@@ -256,16 +258,15 @@ public class SortedTableController {
 	}
 
     /***************************************************************************
+    METHODENNAME:	sortStadt
+    *//*!
+     Sortiert eine ObservableList aus Personen nach der Stadt
 
-	METHODENNAME:	sortStadt
+     \param   ObservableList<Person>
 
-	BESCHREIBUNG:   Sortiert eine ObservableList aus Personen nach der Stadt
+     \return  ObservableList<Person>
 
-	PARAMETER: 		ObservableList<Person>
-
-	RETURN:			ObservableList<Person>
-
-	***************************************************************************/
+    ***************************************************************************/
 
     public ObservableList<Person> sortStadt (ObservableList<Person> persons) {	//
     	ObservableList<Person> personenListe= FXCollections.observableArrayList();	// neue Liste initialisieren
@@ -289,16 +290,15 @@ public class SortedTableController {
 	}
 
     /***************************************************************************
+    METHODENNAME:	sortAusleihende
+    *//*!
+     Sortiert eine ObservableList aus Personen nach Ausleihende
 
- 	METHODENNAME:	sortAusleihende
+     \param   ObservableList<Person>
 
- 	BESCHREIBUNG:   Sortiert eine ObservableList aus Personen nach Ausleihende
+     \return  ObservableList<Person>
 
- 	PARAMETER: 		ObservableList<Buchung>
-
- 	RETURN:			ObservableList<Buchung>
-
- 	***************************************************************************/
+    ***************************************************************************/
 
      public ObservableList<Person> sortAusleihende (ObservableList<Person> persons) {	//
 
@@ -334,5 +334,6 @@ public class SortedTableController {
  		}
  		return personenListe;
  	}
-
 }
+
+/** @}*/ /*end of doxygen group*/

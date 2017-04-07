@@ -1,3 +1,14 @@
+/**************************************************************************************************/
+/*! \file
+  FILE         : $Source: FahrzeugStatisticController.java $
+  BESCHREIBUNG : Controller
+                 Controller für die Statistik von Fahrzeugen
+***************************************************************************************************/
+
+/** \addtogroup View
+ *  @{
+ */
+
 package ch.makery.address.view;
 
 /**************************************************************************/
@@ -17,12 +28,12 @@ import javafx.scene.chart.XYChart;
 import ch.makery.address.model.Fahrzeug;
 import ch.makery.address.model.Buchung;
 
-/**************************************************************************/
-/*                                                                        */
-/* Class FahrzeugStatisticController                                      */
-/*																		  */
-/*                                                                        */
-/**************************************************************************/
+/***************************************************************************
+CLASS:	FahrzeugStatisticController
+*//*!
+ Die Klasse PersonStatisticController hat nur einen Standardkonstruktor.
+
+***************************************************************************/
 
 public class FahrzeugStatisticController {
 
@@ -46,19 +57,17 @@ public class FahrzeugStatisticController {
 	/*                                                                        */
 	/**************************************************************************/
 
-	/***************************************************************************
+    /***************************************************************************
+    METHODENNAME:	initialize
+    *//*!
+     Initialisiert die Controller Klasse. Diese Methode wird automatisch
+     aufgerufen, nachdem die fxml Datei geladen wurde.
 
-	METHODENNAME:	initialize
+     \param   void
 
-	BESCHREIBUNG:   Initialisiert die Controller Klasse. Diese Methode wird
-					automatisch aufgerufen, nachdem die fxml Datei
-					geladen wurde
+     \return  void
 
-	PARAMETER: 		void
-
-	RETURN:			void
-
-	***************************************************************************/
+    ***************************************************************************/
 
     @FXML
     private void initialize() {
@@ -68,17 +77,15 @@ public class FahrzeugStatisticController {
     }
 
     /***************************************************************************
+    METHODENNAME:	setFahrezugStatistic
+    *//*!
+     lädt die Fahrzeuge für die Statistik.
 
-	METHODENNAME:	setFahrezugStatistic
+     \param   List<Fahrzeug>, List<Fahrzeug>
 
-	BESCHREIBUNG:   lädt die Fahrzeuge und Buchungseinträge für die Statistik.
+     \return  void
 
-
-	PARAMETER: 		void
-
-	RETURN:			void
-
-	***************************************************************************/
+    ***************************************************************************/
 
     public void setFahrzeugStatistic(List<Fahrzeug> fahrzeugs, List<Buchung> buchungs) {
 
@@ -111,16 +118,15 @@ public class FahrzeugStatisticController {
     }
 
     /***************************************************************************
+    METHODENNAME:	setFahrezugTageStatistic
+    *//*!
+     lädt die Fahrzeuge für die Statistik.
 
-	METHODENNAME:	setFahrezugTageStatistic
+     \param   List<Fahrzeug>, List<Fahrzeug>
 
-	BESCHREIBUNG:   lädt die FahrzeugTypen für die Statistik.
+     \return  void
 
-	PARAMETER: 		void
-
-	RETURN:			void
-
-	***************************************************************************/
+    ***************************************************************************/
 
     public void setFahrzeugTageStatistic(List<Fahrzeug> fahrzeugs, List<Buchung> buchungs) {
 
@@ -165,3 +171,5 @@ public class FahrzeugStatisticController {
         barChart.getData().add(series);
     }
 }
+
+/** @}*/ /*end of doxygen group*/
