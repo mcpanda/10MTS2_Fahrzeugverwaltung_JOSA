@@ -218,7 +218,7 @@ public class FahrzeugEditDialogController {
 
 	RETURN:			Boolean
 	
-	todo:			id automatisch setzen
+	todo:			id automatisch setzen (max ID + 1)
 
 	***************************************************************************/
 
