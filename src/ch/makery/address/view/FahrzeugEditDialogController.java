@@ -217,6 +217,8 @@ public class FahrzeugEditDialogController {
 	PARAMETER: 		void
 
 	RETURN:			Boolean
+	
+	todo:			id automatisch setzen
 
 	***************************************************************************/
 
