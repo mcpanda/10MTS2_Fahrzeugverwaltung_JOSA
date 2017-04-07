@@ -276,6 +276,7 @@ public class FahrzeugEditDialogController {
             }
         }
 
+        // falls die Länge der Fehlermeldung 0 ist, so wird keine Fehlermeldung ausgegeben
         if (errorMessage.length() == 0) {
             return true;
         } else {
