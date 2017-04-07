@@ -223,9 +223,7 @@ public class FahrzeugEditDialogController {
     private boolean isInputValid(List<Fahrzeug> fahrzeugs) {
         String errorMessage = "";
 
-        System.out.println(fahrzeug.getFahrzeugID());
-
-        if (fahrzeugIDField.getText() == null || fahrzeugIDField.getText().length() == 0) {
+        if (fahrzeugIDField.getText() == null || fahrzeugIDField.getText().length() == 0 || Integer.parseInt(fahrzeugIDField.getText()) < 1) {
             errorMessage += "No valid FahrzeugID!\n";
         } else {
             // try to parse the fahrzeugID into an int.

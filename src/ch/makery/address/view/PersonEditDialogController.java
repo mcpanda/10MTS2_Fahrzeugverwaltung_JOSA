@@ -227,7 +227,7 @@ public class PersonEditDialogController {
     private boolean isInputValid(List<Person> persons) {
         String errorMessage = "";
 
-        if (personIDField.getText() == null || personIDField.getText().length() == 0) {
+        if (personIDField.getText() == null || personIDField.getText().length() == 0 || Integer.parseInt(personIDField.getText()) < 1) {
             errorMessage += "No valid PersonID!\n";
         } else {
             // try to parse the postal code into an int.
@@ -256,7 +256,7 @@ public class PersonEditDialogController {
             errorMessage += "No valid street!\n";
         }
 
-        if (postalCodeField.getText() == null || postalCodeField.getText().length() == 0) {
+        if (postalCodeField.getText() == null || postalCodeField.getText().length() != 5) {
             errorMessage += "No valid postal code!\n";
         } else {
             // try to parse the postal code into an int.

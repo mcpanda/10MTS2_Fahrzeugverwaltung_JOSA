@@ -584,7 +584,7 @@ public class BuchungEditDialogController {
         	}
         }
 
-        if (Integer.parseInt(leihdauerLabel.getText()) < 0) {
+        if (Integer.parseInt(leihdauerLabel.getText()) < 1) {
             errorMessage += "No valid Leihdauer!\n";
         }
 
@@ -643,7 +643,7 @@ public class BuchungEditDialogController {
 
      	int years= datum2.getYear() - datum1.getYear();
      	int days= datum2.getDayOfYear() - datum1.getDayOfYear();
-     	days= days + 365 * years;
+     	days= days + 365 * years + 1;
 
      	leihdauerLabel.setText(Integer.toString(days));
      }
