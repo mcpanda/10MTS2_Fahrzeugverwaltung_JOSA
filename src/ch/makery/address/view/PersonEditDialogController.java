@@ -228,54 +228,54 @@ public class PersonEditDialogController {
         String errorMessage = "";
 
         if (personIDField.getText() == null || personIDField.getText().length() == 0 || Integer.parseInt(personIDField.getText()) < 1) {
-            errorMessage += "No valid PersonID!\n";
+            errorMessage += "Keine gültige PersonID!\n";
         } else {
             // try to parse the postal code into an int.
             try {
                 Integer.parseInt(personIDField.getText());
             } catch (NumberFormatException e) {
-                errorMessage += "No valid PersonID (must be an integer)!\n";
+                errorMessage += "Keine gültige PersonID (Integer)!\n";
             }
         }
 
         if (Integer.parseInt(personIDField.getText()) != person.getPersonID()) {
         	for(Person p : persons) {
             	if (Integer.parseInt(personIDField.getText()) == p.getPersonID()) {
-            		errorMessage += "PersonID already exists";
+            		errorMessage += "PersonID existiert bereits";
             	}
             }
         }
 
         if (firstNameField.getText() == null || firstNameField.getText().length() == 0) {
-            errorMessage += "No valid first name!\n";
+            errorMessage += "Kein gültiger Vorname!\n";
         }
         if (lastNameField.getText() == null || lastNameField.getText().length() == 0) {
-            errorMessage += "No valid last name!\n";
+            errorMessage += "Kein gültiger Nachname!\n";
         }
         if (streetField.getText() == null || streetField.getText().length() == 0) {
-            errorMessage += "No valid street!\n";
+            errorMessage += "Keine gültige Straße!\n";
         }
 
         if (postalCodeField.getText() == null || postalCodeField.getText().length() != 5) {
-            errorMessage += "No valid postal code!\n";
+            errorMessage += "Keine gültige Postleitzahl! (5 stellig)\n";
         } else {
             // try to parse the postal code into an int.
             try {
                 Integer.parseInt(postalCodeField.getText());
             } catch (NumberFormatException e) {
-                errorMessage += "No valid postal code (must be an integer)!\n";
+                errorMessage += "Keine gültige Postleitzahl (Integer)!\n";
             }
         }
 
         if (cityField.getText() == null || cityField.getText().length() == 0) {
-            errorMessage += "No valid city!\n";
+            errorMessage += "Keine gültige Stadt!\n";
         }
 
         if (birthdayField.getText() == null || birthdayField.getText().length() == 0) {
-            errorMessage += "No valid birthday!\n";
+            errorMessage += "Kein gültiger Geburtstag!\n";
         } else {
             if (!DateUtil.validDate(birthdayField.getText())) {
-                errorMessage += "No valid birthday. Use the format dd.mm.yyyy!\n";
+                errorMessage += "Kein gültiger Geburtstag. (Format dd.mm.yyyy)!\n";
             }
         }
 

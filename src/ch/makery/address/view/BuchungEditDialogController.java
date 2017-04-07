@@ -301,7 +301,7 @@ public class BuchungEditDialogController {
 
 	METHODENNAME:	setDialogStage
 
-	BESCHREIBUNG:   Gibt die Stage des Dialagfeldes an.
+	BESCHREIBUNG:   Gibt die Stage des Dialogfeldes an.
 
 	PARAMETER: 		dialogStage
 
@@ -561,7 +561,7 @@ public class BuchungEditDialogController {
         for(Person p : persons) {
         	if (personIDBox.getEditor().getText().equals(p.getPersonBeschreibung())) {
         		if(p.getAusgeliehen().equals("Ja")) {
-        			errorMessage += "Diese Person leit bereits schon ein Fahrzeug aus!\n";
+        			errorMessage += "Diese Person leiht bereits ein Fahrzeug aus!\n";
         		}
         	}
         }
@@ -573,7 +573,7 @@ public class BuchungEditDialogController {
         }
 
         if (tempF == 0) {
-        	errorMessage += "Bitte passendes Fahrzeug auswaehlen!\n";
+        	errorMessage += "Bitte passendes Fahrzeug auswählen!\n";
         }
 
         for(Fahrzeug f : fahrzeugs) {
@@ -585,22 +585,22 @@ public class BuchungEditDialogController {
         }
 
         if (Integer.parseInt(leihdauerLabel.getText()) < 1) {
-            errorMessage += "No valid Leihdauer!\n";
+            errorMessage += "Keine gültige Leihdauer!\n";
         }
 
         if (ausleihdatumField.getText() == null || ausleihdatumField.getText().length() == 0) {
-            errorMessage += "No valid Ausleihdatum!\n";
+            errorMessage += "Kein gültiges Ausleihdatum!\n";
         } else {
             if (!DateUtil.validDate(ausleihdatumField.getText())) {
-                errorMessage += "No valid Ausleihdatum. Use the format dd.mm.yyyy!\n";
+                errorMessage += "Kein gültiges Ausleihdatum (Format dd.mm.yyyy!).\n";
             }
         }
 
         if (rueckgabedatumField.getText() == null || rueckgabedatumField.getText().length() == 0) {
-            errorMessage += "No valid Rueckgabedatum!\n";
+            errorMessage += "Kein gültiges Rückgabedatum!\n";
         } else {
             if (!DateUtil.validDate(rueckgabedatumField.getText())) {
-                errorMessage += "No valid Rueckgabedatum. Use the format dd.mm.yyyy!\n";
+                errorMessage += "Kein gültiges Rückgabedatum (Format dd.mm.yyyy!).\n";
             }
         }
 

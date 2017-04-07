@@ -29,18 +29,18 @@
         </rowConstraints>
          <children>
             <Label text="PersonID" GridPane.rowIndex="1" />
-            <Label text="Last Name" GridPane.rowIndex="2" />
-            <Label text="First Name" GridPane.rowIndex="3" />
-            <Label text="Street" GridPane.rowIndex="4" />
-            <Label text="PostalCode" GridPane.rowIndex="5" />
-            <Label text="City" GridPane.rowIndex="6" />
+            <Label text="Nachname" GridPane.rowIndex="2" />
+            <Label text="Vorname" GridPane.rowIndex="3" />
+            <Label text="Straße" GridPane.rowIndex="4" />
+            <Label text="Postleizahl" GridPane.rowIndex="5" />
+            <Label text="Stadt" GridPane.rowIndex="6" />
             <Label fx:id="cityLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="6" />
             <Label fx:id="postalCodeLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="5" />
             <Label fx:id="streetLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <Label fx:id="firstNameLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <Label fx:id="lastNameLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <Label fx:id="personIDLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Label text="First Name" />
+            <Label text="Vorname" />
             <TextField fx:id="firstNameField" onAction="#ResultKnopf" GridPane.columnIndex="1" />
             <Label text="10.000 * (Linear.zeit - Baum.zeit)" GridPane.rowIndex="7" />
             <Label fx:id="ZeitunterschiedLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="7" />

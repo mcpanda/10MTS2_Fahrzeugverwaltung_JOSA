@@ -224,55 +224,55 @@ public class FahrzeugEditDialogController {
         String errorMessage = "";
 
         if (fahrzeugIDField.getText() == null || fahrzeugIDField.getText().length() == 0 || Integer.parseInt(fahrzeugIDField.getText()) < 1) {
-            errorMessage += "No valid FahrzeugID!\n";
+            errorMessage += "Keine gültige FahrzeugID!\n";
         } else {
             // try to parse the fahrzeugID into an int.
             try {
                 Integer.parseInt(fahrzeugIDField.getText());
 
             } catch (NumberFormatException e) {
-                errorMessage += "No valid fahrzeugID (must be an integer)!\n";
+                errorMessage += "Keine gültige FahrzeugID (Integer)!\n";
             }
         }
 
         if (Integer.parseInt(fahrzeugIDField.getText()) != fahrzeug.getFahrzeugID()) {
         	for(Fahrzeug f : fahrzeugs) {
             	if (Integer.parseInt(fahrzeugIDField.getText()) == f.getFahrzeugID()) {
-            		errorMessage += "FahrzeugID already exists";
+            		errorMessage += "FahrzeugID existiert bereits";
             	}
             }
         }
 
 
         if (herstellerField.getText() == null || herstellerField.getText().length() == 0) {
-            errorMessage += "No valid Hersteller!\n";
+            errorMessage += "Kein gültiger Hersteller!\n";
         }
         if (markeField.getText() == null || markeField.getText().length() == 0) {
-            errorMessage += "No valid Marke!\n";
+            errorMessage += "Keine gültige Marke!\n";
         }
         if (kraftstoffField.getText() == null || kraftstoffField.getText().length() == 0) {
             errorMessage += "No valid Kraftstoff!\n";
         }
 
         if (leistungField.getText() == null || leistungField.getText().length() == 0) {
-            errorMessage += "No valid Leistung!\n";
+            errorMessage += "Keine gültige Leistung!\n";
         } else {
             // try to parse the leistung into an int.
             try {
                 Integer.parseInt(leistungField.getText());
             } catch (NumberFormatException e) {
-                errorMessage += "No valid Leistung (must be an integer)!\n";
+                errorMessage += "Keine gültige Leistung (Integer)!\n";
             }
         }
 
         if (kilometerstandField.getText() == null || kilometerstandField.getText().length() == 0) {
-            errorMessage += "No valid Kilometerstand!\n";
+            errorMessage += "Kein gültiger Kilometerstand!\n";
         } else {
             // try to parse the kilometerstand into an int.
             try {
                 Integer.parseInt(kilometerstandField.getText());
             } catch (NumberFormatException e) {
-                errorMessage += "No valid Kilometerstand (must be an integer)!\n";
+                errorMessage += "Kein gültiger Kilometerstand (Integer)!\n";
             }
         }
 

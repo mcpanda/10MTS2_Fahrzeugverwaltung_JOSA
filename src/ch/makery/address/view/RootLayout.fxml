@@ -9,13 +9,13 @@
    <top>
       <MenuBar BorderPane.alignment="CENTER">
         <menus>
-          <Menu mnemonicParsing="false" text="File">
+          <Menu mnemonicParsing="false" text="Datei">
             <items>
-              <MenuItem mnemonicParsing="false" onAction="#handleNew" text="New" />
-                  <MenuItem mnemonicParsing="false" onAction="#handleOpen" text="Open..." />
-                  <MenuItem mnemonicParsing="false" onAction="#handleSave" text="Save" />
-                  <MenuItem mnemonicParsing="false" onAction="#handleSaveAs" text="Save As..." />
-                  <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
+              <MenuItem mnemonicParsing="false" onAction="#handleNew" text="Neu" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleOpen" text="Öffnen" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleSave" text="Speichern" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleSaveAs" text="Speichern unter..." />
+                  <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Schließen" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Verwaltung">
@@ -25,7 +25,7 @@
               <MenuItem mnemonicParsing="false" onAction="#handleShowBuchung" text="Buchung Verwaltung" />
             </items>
           </Menu>
-            <Menu mnemonicParsing="false" text="Statistics">
+            <Menu mnemonicParsing="false" text="Statistik">
               <items>
                   <MenuItem mnemonicParsing="false" onAction="#handleShowFahrzeugStatistic" text="Fahrzeugausleihhäufigkeit" />
                   <MenuItem mnemonicParsing="false" onAction="#handleShowFahrzeugTypStatistic" text="Fahrzeugtypenausleihhäufigkeit" />
@@ -48,9 +48,9 @@
                   <MenuItem mnemonicParsing="false" onAction="#handleShowSortedFahrzeugTableAusleihende" text="Fahrzeug nach Ausleihende" />
               </items>
             </Menu>
-          <Menu mnemonicParsing="false" text="Help">
+          <Menu mnemonicParsing="false" text="Hilfe">
             <items>
-              <MenuItem mnemonicParsing="false" onAction="#handleAbout" text="About" />
+              <MenuItem mnemonicParsing="false" onAction="#handleAbout" text="Info" />
             </items>
           </Menu>
         </menus>

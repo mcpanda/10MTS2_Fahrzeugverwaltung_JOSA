@@ -30,12 +30,12 @@
         </rowConstraints>
          <children>
             <Label text="PersonID" />
-            <Label text="First Name" GridPane.rowIndex="1" />
-            <Label text="Last Name" GridPane.rowIndex="2" />
-            <Label text="Street" GridPane.rowIndex="3" />
-            <Label text="City" GridPane.rowIndex="4" />
-            <Label text="Postal Code" GridPane.rowIndex="5" />
-            <Label text="Birthday" GridPane.rowIndex="8" />
+            <Label text="Vorname" GridPane.rowIndex="1" />
+            <Label text="Nachname" GridPane.rowIndex="2" />
+            <Label text="Straße" GridPane.rowIndex="3" />
+            <Label text="Stadt" GridPane.rowIndex="4" />
+            <Label text="Postleitzahl" GridPane.rowIndex="5" />
+            <Label text="Geburtstag" GridPane.rowIndex="8" />
             <TextField fx:id="personIDField" GridPane.columnIndex="1" />
             <TextField fx:id="firstNameField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <TextField fx:id="lastNameField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
@@ -52,7 +52,7 @@
       <ButtonBar layoutX="450.0" layoutY="346.0" prefHeight="40.0" prefWidth="200.0" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="15.0">
         <buttons>
           <Button mnemonicParsing="false" onAction="#handleOk" text="OK" />
-            <Button mnemonicParsing="false" onAction="#handleCancel" text="Cancel" />
+            <Button mnemonicParsing="false" onAction="#handleCancel" text="Abbrechen" />
         </buttons>
       </ButtonBar>
    </children>

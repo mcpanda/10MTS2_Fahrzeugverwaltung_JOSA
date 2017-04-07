@@ -191,9 +191,9 @@ public class FahrzeugOverviewController {
             // Nothing selected.
             Alert alert = new Alert(AlertType.WARNING);
             alert.initOwner(mainApp.getPrimaryStage());
-            alert.setTitle("No Selection");
-            alert.setHeaderText("No Fahrzeug Selected");
-            alert.setContentText("Please select a Fahrzeug in the table.");
+            alert.setTitle("Keine Auswahl");
+            alert.setHeaderText("Kein Fahrzeug ausgewählt");
+            alert.setContentText("Bitte wählen Sie ein Fahrzeug aus.");
 
             alert.showAndWait();
         }
@@ -254,9 +254,9 @@ public class FahrzeugOverviewController {
             // Nothing selected.
             Alert alert = new Alert(AlertType.WARNING);
             alert.initOwner(mainApp.getPrimaryStage());
-            alert.setTitle("No Selection");
-            alert.setHeaderText("No Fahrzeug Selected");
-            alert.setContentText("Please select a Fahrzeug in the table.");
+            alert.setTitle("Keine Auswahl");
+            alert.setHeaderText("Kein Fahrzeug ausgewählt");
+            alert.setContentText("Bitte wählen Sie ein Fahrzeug aus.");
 
             alert.showAndWait();
         }
@@ -290,9 +290,9 @@ public class FahrzeugOverviewController {
             // Nothing selected.
             Alert alert = new Alert(AlertType.WARNING);
             alert.initOwner(mainApp.getPrimaryStage());
-            alert.setTitle("No Selection");
-            alert.setHeaderText("No Fahrzeug Selected");
-            alert.setContentText("Please select a Fahrzeug in the table.");
+            alert.setTitle("Keine Auswahl");
+            alert.setHeaderText("Kein Fahrzeug ausgewählt");
+            alert.setContentText("Bitte wählen Sie ein Fahrzeug aus.");
 
             alert.showAndWait();
         }

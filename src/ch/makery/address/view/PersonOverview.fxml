@@ -21,8 +21,8 @@
                   <TableView fx:id="personTable" layoutX="-26.0" layoutY="32.0" prefHeight="200.0" prefWidth="400.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <columns>
                         <TableColumn fx:id="personIDColumn" prefWidth="100.0" text="PersonID" />
-                      <TableColumn fx:id="firstNameColumn" prefWidth="100.0" text="First Name" />
-                      <TableColumn fx:id="lastNameColumn" prefWidth="100.0" text="Last Name" />
+                      <TableColumn fx:id="firstNameColumn" prefWidth="100.0" text="Vorname" />
+                      <TableColumn fx:id="lastNameColumn" prefWidth="100.0" text="Nachname" />
                     </columns>
                      <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -54,12 +54,12 @@
                     </rowConstraints>
                      <children>
                         <Label text="PersonID" />
-                        <Label text="First Name" GridPane.rowIndex="1" />
-                        <Label text="Last Name" GridPane.rowIndex="2" />
-                        <Label text="Street" GridPane.rowIndex="3" />
-                        <Label text="City" GridPane.rowIndex="4" />
-                        <Label text="Postal Code" GridPane.rowIndex="5" />
-                        <Label text="Birthday" GridPane.rowIndex="8" />
+                        <Label text="Vorname" GridPane.rowIndex="1" />
+                        <Label text="Nachname" GridPane.rowIndex="2" />
+                        <Label text="Straße" GridPane.rowIndex="3" />
+                        <Label text="Stadt" GridPane.rowIndex="4" />
+                        <Label text="Postleitzahl" GridPane.rowIndex="5" />
+                        <Label text="Geburtstag" GridPane.rowIndex="8" />
                         <Label fx:id="personIDLabel" text="Label" GridPane.columnIndex="1" />
                         <Label fx:id="firstNameLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                         <Label fx:id="lastNameLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
@@ -75,8 +75,8 @@
                   </GridPane>
                   <ButtonBar layoutX="137.0" layoutY="244.0" prefHeight="40.0" prefWidth="200.0" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="15.0">
                     <buttons>
-                      <Button mnemonicParsing="false" onAction="#handleNewPerson" text="New..." />
-                        <Button mnemonicParsing="false" onAction="#handleEditPerson" text="Edit..." />
+                      <Button mnemonicParsing="false" onAction="#handleNewPerson" text="Neu" />
+                        <Button mnemonicParsing="false" onAction="#handleEditPerson" text="Ändern" />
                         <Button mnemonicParsing="false" onAction="#handleDeletePerson" text="Löschen" />
                         <Button mnemonicParsing="false" onAction="#handlePersonBuchung" text="Buchen" />
                         <Button mnemonicParsing="false" onAction="#SearchingResultDialog" text="Suchen" />

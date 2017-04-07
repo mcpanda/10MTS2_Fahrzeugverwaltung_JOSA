@@ -216,9 +216,9 @@ public class BuchungOverviewController {
             // Nothing selected.
             Alert alert = new Alert(AlertType.WARNING);
             alert.initOwner(mainApp.getPrimaryStage());
-            alert.setTitle("No Selection");
-            alert.setHeaderText("No Buchung Selected");
-            alert.setContentText("Please select a Buchung in the table.");
+            alert.setTitle("Keine Auswahl");
+            alert.setHeaderText("Keine Buchung ausgewählt");
+            alert.setContentText("Bitte wählen Sie eine Buchung aus.");
 
             alert.showAndWait();
         }
@@ -278,9 +278,9 @@ public class BuchungOverviewController {
             // Nothing selected.
             Alert alert = new Alert(AlertType.WARNING);
             alert.initOwner(mainApp.getPrimaryStage());
-            alert.setTitle("No Selection");
-            alert.setHeaderText("No Buchung Selected");
-            alert.setContentText("Please select a Buchung in the table.");
+            alert.setTitle("Keine Auswahl");
+            alert.setHeaderText("Keine Buchung ausgewählt");
+            alert.setContentText("Bitte wählen Sie eine Buchung aus.");
 
             alert.showAndWait();
         }
