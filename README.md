@@ -3,6 +3,23 @@ Schulprojekt
 
 # History
 
+# Version 1.7.1 16.04.2017
+Buchungdatumskontrolle 
++ Bei jedem Start wird das aktuelle Datum in Relation zun den Rückgabedaten gesetzt und entsprechen der Ausleizustand von Personen und Fahrzeugen angepasst.
++ Bei jeder neuen Buchung und jeder Buchungsänderung wird nachgeschaut, ob im ausgeähltem Zeitram die Person bereits etwas ausleiht oder das Fahrzeug bereits verliehen wird
++ Ein Button Buchung wurde dem Suchdialogfeld hinzugefügt
+
+# Version 1.7.0 16.04.2017
+Änderung EditBuchung
++ Die Reihenfolge wurde überarbeitet: wähle Person > wähle FahrzeugTyp > wähle Fahrzeug
++ die ComboBox für Personen enthät stets alle Personen im System
++ alle anderen ComboBoxen werden durch Listener stets an die getroffene Auswahl angepasst
++ Buchungsbutton bei Fahrzeug wurde entfernt
++ bei jeder neuen Buchung oder bearbeiteter Buchung werden sämtliche Buchungen überprüft, ob derer Rückgabedatum vor dem aktuellem Datum liegt
+
+tbd:
++ Buchungsoption bei Suche mit binärem Baum
+
 # Version 1.6.1 07.04.2017
 Anpassungen und BugFixes 
 + Buchung Nr.1 bei leerer Buchungsliste ist nun möglich
