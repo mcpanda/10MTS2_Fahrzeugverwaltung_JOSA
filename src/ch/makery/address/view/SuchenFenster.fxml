@@ -50,6 +50,7 @@
         <buttons>
             <Button mnemonicParsing="false" onAction="#ResultKnopf" text="Suchen" />
             <Button mnemonicParsing="false" onAction="#handleAbbrechen" text="Abbrechen" />
+            <Button mnemonicParsing="false" onAction="#handlePersonBuchung" text="Buchung" />
         </buttons>
       </ButtonBar>
    </children>

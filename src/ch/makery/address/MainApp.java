@@ -18,6 +18,7 @@ package ch.makery.address;
 /**************************************************************************/
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.io.File;
 import java.util.prefs.Preferences;
 import javax.xml.bind.JAXBContext;
@@ -40,7 +41,6 @@ import ch.makery.address.model.BuchungListWrapper;
 import ch.makery.address.model.Fahrzeug;
 import ch.makery.address.model.PersonListWrapper;
 import ch.makery.address.model.FahrzeugListWrapper;
-import ch.makery.address.model.Tree;
 import ch.makery.address.view.PersonEditDialogController;
 import ch.makery.address.view.FahrzeugEditDialogController;
 import ch.makery.address.view.PersonOverviewController;
@@ -91,11 +91,13 @@ public class MainApp extends Application {
 		initRootLayout();
 
 		showPerson();
+
+		setAusgeliehen();
 	}
 
 	/**************************************************************************/
 	/*                                                                        */
-	/* Data as observable lists                                                */
+	/* Data as observable lists                                               */
 	/*                                                                        */
 	/**************************************************************************/
 
@@ -118,12 +120,33 @@ public class MainApp extends Application {
 
 	public MainApp() {
 		/*Beispieldaten für Personen*/
-		personData.add(new Person(1, "Roman", "Bürki", "Strobelallee 50", "Klasse B", 44139, "Dortmund"));
-		personData.add(new Person(2, "Marc", "Bartra", "Strobelallee 50", "Klasse A", 44139, "Dortmund"));
-		personData.add(new Person(3, "Sven", "Bender", "Strobelallee 50", "Klasse C", 44139, "Dortmund"));
-		personData.add(new Person(4, "Marcel", "Schmelzer", "Strobelallee 50", "Klasse B", 44139, "Dortmund"));
-		personData.add(new Person(5, "Erik", "Durm", "Strobelallee 50", "Klasse A", 44139, "Dortmund"));
-		personData.add(new Person(6, "Matthias", "Ginter", "Strobelallee 50", "Klasse C", 44139, "Dortmund"));
+		personData.add(new Person(1, "Roman", "Weidenfeller", "Strobelallee 50", "Klasse A", 44139, "Dortmund"));
+		personData.add(new Person(3, "Jo Ho", "Park", "Strobelallee 50", "Klasse A + B + C", 44139, "Dortmund"));
+		personData.add(new Person(5, "Marc", "Bartra", "Strobelallee 50", "Klasse B + C", 44139, "Dortmund"));
+		personData.add(new Person(6, "Sven", "Bender", "Strobelallee 50", "Klasse A", 44139, "Dortmund"));
+		personData.add(new Person(7, "Ousmane", "Dembele", "Strobelallee 50", "Klasse A + B", 44139, "Dortmund"));
+		personData.add(new Person(8, "Nuri", "Sahin", "Strobelallee 50", "Klasse A + B + C", 44139, "Dortmund"));
+		personData.add(new Person(9, "Emre", "Mor", "Strobelallee 50", "Klasse B", 44139, "Dortmund"));
+		personData.add(new Person(10, "Mario", "Götze", "Strobelallee 50", "Klasse B + C", 44139, "Dortmund"));
+		personData.add(new Person(11, "Marco", "Reus", "Strobelallee 50", "Klasse A", 44139, "Dortmund"));
+		personData.add(new Person(13, "Raphael", "Guerreiro", "Strobelallee 50", "Klasse A + B + C", 44139, "Dortmund"));
+		personData.add(new Person(14, "Alexander", "Isak", "Strobelallee 50", "Klasse B", 44139, "Dortmund"));
+		personData.add(new Person(17, "Pierre-Emerick", "Aubameyang", "Strobelallee 50", "Klasse A + B", 44139, "Dortmund"));
+		personData.add(new Person(18, "Sebastian", "Rode", "Strobelallee 50", "Klasse A + B + C", 44139, "Dortmund"));
+		personData.add(new Person(21, "Andre", "Schürrle", "Strobelallee 50", "Klasse A", 44139, "Dortmund"));
+		personData.add(new Person(22, "Christian", "Pulisic", "Strobelallee 50", "Klasse A + B", 44139, "Dortmund"));
+		personData.add(new Person(23, "Shinji", "Kagawa", "Strobelallee 50", "Klasse A +B + C", 44139, "Dortmund"));
+		personData.add(new Person(24, "Mikel", "Merino", "Strobelallee 50", "Klasse B", 44139, "Dortmund"));
+		personData.add(new Person(25, "Sokratis", "Papastathopoulos", "Strobelallee 50", "Klasse B + C", 44139, "Dortmund"));
+		personData.add(new Person(26, "Lukas", "Piszcek", "Strobelallee 50", "Klasse A", 44139, "Dortmund"));
+		personData.add(new Person(27, "Gonzalo", "Castro", "Strobelallee 50", "Klasse A + B", 44139, "Dortmund"));
+		personData.add(new Person(28, "Matthias", "Ginter", "Strobelallee 50", "Klasse A + B + C", 44139, "Dortmund"));
+		personData.add(new Person(29, "Marcel", "Schmelzer", "Strobelallee 50", "Klasse B", 44139, "Dortmund"));
+		personData.add(new Person(30, "Felix", "Passlack", "Strobelallee 50", "Klasse B + C", 44139, "Dortmund"));
+		personData.add(new Person(33, "Julian", "Weigel", "Strobelallee 50", "Klasse A + B + C", 44139, "Dortmund"));
+		personData.add(new Person(37, "Erik", "Durm", "Strobelallee 50", "Klasse A + B", 44139, "Dortmund"));
+		personData.add(new Person(38, "Roman", "Bürki", "Strobelallee 50", "Klasse A + B + C", 44139, "Dortmund"));
+		personData.add(new Person(39, "Hendrik", "Bonmann", "Strobelallee 50", "Klasse B", 44139, "Dortmund"));
 
 		/*Beispieldaten für Fahrzeuge*/
 		fahrzeugData.add(new Fahrzeug(1, "BMW", "525d", "Diesel", "Langstrecke", 190, 85948));
@@ -141,21 +164,12 @@ public class MainApp extends Application {
 		fahrzeugData.add(new Fahrzeug(13, "Honda", "Partner", "Diesel", "Motorrad", 80, 25948));
 
 		/*Beispieldaten für Buchung*/
-		buchungData.add(new Buchung(1, 1, 1, 1));
-		buchungData.add(new Buchung(2, 2, 2, 2));
-		buchungData.add(new Buchung(3, 3, 3, 1));
-		buchungData.add(new Buchung(4, 4, 4, 2));
-		buchungData.add(new Buchung(5, 5, 5, 1));
-		buchungData.add(new Buchung(6, 6, 6, 2));
-
-		/*Beispieldaten für den binären Baum*/
-		Tree personD = new Tree();
-		personD.addNode(1, "Roman", "Bürki", "Strobelallee 50", 44139, "Dortmund");
-		personD.addNode(2, "Marc", "Bartra", "Strobelallee 50", 44139, "Dortmund");
-		personD.addNode(3, "Sven", "Bender", "Strobelallee 50", 44139, "Dortmund");
-		personD.addNode(4, "Marcel", "Schmelzer", "Strobelallee 50", 44139, "Dortmund");
-		personD.addNode(5, "Erik", "Durm", "Strobelallee 50", 44139, "Dortmund");
-		personD.addNode(6, "Matthias", "Ginter", "Strobelallee 50", 44139, "Dortmund");
+		buchungData.add(new Buchung(1, 1, 12, 1));
+		buchungData.add(new Buchung(2, 3, 2, 1));
+		buchungData.add(new Buchung(3, 5, 3, 1));
+		buchungData.add(new Buchung(4, 6, 13, 1));
+		buchungData.add(new Buchung(5, 7, 5, 1));
+		buchungData.add(new Buchung(6, 8, 6, 1));
 	}
 
 	/**************************************************************************/
@@ -1147,7 +1161,6 @@ public class MainApp extends Application {
 			controller.setDialogStage(dialogStage);
 			controller.setBuchung(buchung, personData, fahrzeugData, buchungData);
 			controller.setPersonList(personData);
-			controller.setAusgeliehen();
 
 			// Show the dialog and wait until the user closes it
 			dialogStage.showAndWait();
@@ -1339,6 +1352,46 @@ public class MainApp extends Application {
 			e.printStackTrace();
 		}
 	}
+
+    /***************************************************************************
+    METHODENNAME:	setAusgeliehen
+    *//*!
+     Es wird verglichen, ob das heutige Datum kleiner oder
+     gleich ist dem Rückgabedatum aller Buchungen ist. Abhängig davon, wird der Ausleihzustand des
+     jeweiligen Fahrzeugs und der Person auf "Ja" oder "Nein" gesetzt.
+
+     \param   void
+
+     \return  void
+
+    ***************************************************************************/
+
+    public void setAusgeliehen() {
+
+    	for (Person p : personData) {		// für alle Personen
+    		p.setAusgeliehen("Nein");		// setze erstmal den Ausleihzustand auf Nein
+    	}
+
+    	for (Fahrzeug f : fahrzeugData) {	// für alle Fahrzeuge
+    		f.setAusgeliehen("Nein");		// setze den AUsleihzustand erstmal auf Nein
+    	}
+
+    	for (Buchung b : buchungData) {										// gehe alle Buchungen durch
+    		if (LocalDate.now().compareTo(b.getRueckgabedatum()) < 1) {		// wenn das heutige Datum kleiner/gleich ist dem Rückgabedatum, dann
+    			for (Person p : personData) {
+    				if (p.getPersonID() == b.getPersonID()) {				// finde zugehörige Person zur personID
+    					p.setAusgeliehen("Ja");								// setze Ausleihzustand auf Ja
+    				}
+    			}
+    			for (Fahrzeug f : fahrzeugData) {
+    				if (f.getFahrzeugID() == b.getFahrzeugID()) {			// finde zugehöriges Fahrzeug zur fahrzeugID
+    					f.setAusgeliehen("Ja");								// setze Ausleihzustand auf Ja
+    				}
+    			}
+    		}
+    	}
+    }
+
 }
 
 /** @}*/ /*end of doxygen group*/

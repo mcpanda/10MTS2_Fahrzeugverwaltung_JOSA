@@ -444,7 +444,7 @@ public class BuchungEditDialogController {
 
     @FXML
     private void handleOk() {
-        if (isInputValid(mainApp.getPersonData(), mainApp.getFahrzeugData())) {						// prüfe ob alle Eingaben korrekt sind, dann:
+        if (isInputValid(mainApp.getPersonData(), mainApp.getFahrzeugData(), mainApp.getBuchungData())) {						// prüfe ob alle Eingaben korrekt sind, dann:
 
         	buchung.setBuchungID(Integer.parseInt(buchungIDLabel.getText()));						// übernimm alle Daten in die Buchung
 
@@ -454,8 +454,6 @@ public class BuchungEditDialogController {
 
             buchung.setAusleihdatum(DateUtil.parse(ausleihdatumField.getText()));
             buchung.setRueckgabedatum(DateUtil.parse(rueckgabedatumField.getText()));
-
-            setAusgeliehen();
 
             okClicked = true;
             dialogStage.close();	// und schließe die BuchungEditStage
@@ -491,7 +489,7 @@ public class BuchungEditDialogController {
 
     ***************************************************************************/
 
-    private boolean isInputValid(List<Person> persons, List<Fahrzeug> fahrzeugs) {
+    private boolean isInputValid(List<Person> persons, List<Fahrzeug> fahrzeugs, List<Buchung> buchungs) {
         String errorMessage = ""; 			// Text für Fehlermeldung; anfänglich leer
         int tempP= 0;						// Hilfsvariablen
         int tempF= 0;
@@ -506,16 +504,7 @@ public class BuchungEditDialogController {
         	errorMessage += "Bitte passende Person auswählen!\n";
         }
 
-        // überprüfe ob die augewählte Person bereits etwas ausgeliehen hat
-        for(Person p : persons) {
-        	if (personIDBox.getEditor().getText().equals(p.getPersonBeschreibung())) {
-        		if(p.getAusgeliehen().equals("Ja")) {
-        			errorMessage += "Diese Person leiht bereits schon ein Fahrzeug aus!\n";
-        		}
-        	}
-        }
-
-     // überprüfe ob die Fahrzeugeingabe mit einem verfügbarem Fahrzeug aus der Liste übereinstimmt
+        // überprüfe ob die Fahrzeugeingabe mit einem verfügbarem Fahrzeug aus der Liste übereinstimmt
         for (int i= 0; i < filteredFahrzeugBeschreibungBoxList.size(); i++) {
         	if (fahrzeugIDBox.getEditor().getText().equals(filteredFahrzeugBeschreibungBoxList.get(i))) {
         		tempF= 1;
@@ -525,11 +514,17 @@ public class BuchungEditDialogController {
         	errorMessage += "Bitte passendes Fahrzeug auswählen!\n";
         }
 
-        // überprüfe ob das augewählte Fahrzeug bereits verliehen ist
-        for(Fahrzeug f : fahrzeugs) {
-        	if (fahrzeugIDBox.getEditor().getText().equals(f.getFahrzeugBeschreibung())) {
-        		if(f.getAusgeliehen().equals("Ja")) {
-        			errorMessage += "Dieses Fahrzeug wird bereits verliehen!\n";
+        // überprüfe ob die ausgewählte Person im ausgewählten Zeitraum bereits etwas ausgeliehen hat
+        // überprüfe ob das ausgewählte Fahrzeug im ausgewählten Zeitraum bereits bereits verleihen wurde
+        for (Buchung b : buchungs) {
+        	if(getIDfromBeschreibung(personIDBox.getValue()) == b.getPersonID() && buchung.getBuchungID() != b.getBuchungID()) {
+        		if(DateUtil.parse(ausleihdatumField.getText()).compareTo(b.getRueckgabedatum()) < 1 && DateUtil.parse(rueckgabedatumField.getText()).compareTo(b.getAusleihdatum()) > -1) {
+        			errorMessage += "Diese Person leiht im ausgewähltem Zeitraum bereits ein Fahrzeug aus!\n";
+        		}
+        	}
+        	if(getIDfromBeschreibung(fahrzeugIDBox.getValue()) == b.getFahrzeugID() && buchung.getBuchungID() != b.getBuchungID()) {
+        		if(DateUtil.parse(ausleihdatumField.getText()).compareTo(b.getRueckgabedatum()) < 1 && DateUtil.parse(rueckgabedatumField.getText()).compareTo(b.getAusleihdatum()) > -1) {
+        			errorMessage += "Dieses Fahrzeug wird im ausgewähltem Zeitraum bereits ein verliehen!\n";
         		}
         	}
         }
@@ -620,47 +615,6 @@ public class BuchungEditDialogController {
      	}
 
      	return pos;
-     }
-
-     /***************************************************************************
-     METHODENNAME:	setAusgeliehen
-     *//*!
-      Es wird verglichen, ob das heutige Datum kleiner oder
-      gleich ist dem Rückgabedatum aller Buchungen ist. Abhängig davon, wird der Ausleihzustand des
-      jeweiligen Fahrzeugs und der Person auf "Ja" oder "Nein" gesetzt.
-
-      \param   void
-
-      \return  void
-
-     ***************************************************************************/
-
-     public void setAusgeliehen() {
-
-     	ObservableList<Person> persons = mainApp.getPersonData();
-     	ObservableList<Fahrzeug> fahrzeugs = mainApp.getFahrzeugData();
-     	ObservableList<Buchung> buchungs = mainApp.getBuchungData();
-
-     	for (Buchung b : buchungs) {
-
-     		if (LocalDate.now().compareTo(b.getRueckgabedatum()) < 1) {
-     			for (Person p : persons) {
-     				if (p.getPersonID() == b.getPersonID()) {
-     					p.setAusgeliehen("Ja");
-     				} else {
-     					p.setAusgeliehen("Nein");
-     				}
-     			}
-     			for (Fahrzeug f : fahrzeugs) {
-     				if (f.getFahrzeugID() == b.getFahrzeugID()) {
-     					f.setAusgeliehen("Ja");
-     				} else {
-     					f.setAusgeliehen("Nein");
-     				}
-     			}
-     		}
-     	}
-
      }
 }
 

@@ -87,7 +87,7 @@ public class PersonEditDialogController {
 
     @FXML
     private void initialize() {
-    	lizenzBox.getItems().addAll("Klasse A", "Klasse A + B", "Klasse A + C", "Klasse B", "Klasse B + C");
+    	lizenzBox.getItems().addAll("Klasse A", "Klasse A + B", "Klasse A + B + C", "Klasse B", "Klasse B + C");
     }
 
     /***************************************************************************
