@@ -24,7 +24,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import ch.makery.address.MainApp;
-import ch.makery.address.model.Buchung;
 import ch.makery.address.model.Fahrzeug;
 
 /***************************************************************************
@@ -220,44 +219,6 @@ public class FahrzeugOverviewController {
         boolean okClicked = mainApp.showFahrzeugEditDialog(tempFahrzeug);
         if (okClicked) {
             mainApp.getFahrzeugData().add(tempFahrzeug);
-        }
-    }
-
-
-    /***************************************************************************
-    METHODENNAME:	handleFahrzeugBuchung
-    *//*!
-     Handler für den Buchungs Button. Hiermit wird eine neue Buchung angelegt
-     und die Daten des ausgewählten Fahrzeuges geladen.
-
-     \param   void
-
-     \return  void
-
-    ***************************************************************************/
-
-    @FXML
-    private void handleFahrzeugBuchung() {
-    	Fahrzeug selectedFahrzeug = fahrzeugTable.getSelectionModel().getSelectedItem();
-    	Buchung tempBuchung= new Buchung();
-
-        if (selectedFahrzeug != null) {
-        	tempBuchung.setFahrzeugID(selectedFahrzeug.getFahrzeugID());
-
-            boolean okClicked = mainApp.showBuchungEditDialog(tempBuchung);
-            if (okClicked) {
-            	mainApp.getBuchungData().add(tempBuchung);
-            }
-
-        } else {
-            // Nothing selected.
-            Alert alert = new Alert(AlertType.WARNING);
-            alert.initOwner(mainApp.getPrimaryStage());
-            alert.setTitle("No Selection");
-            alert.setHeaderText("No Fahrzeug Selected");
-            alert.setContentText("Please select a Fahrzeug in the table.");
-
-            alert.showAndWait();
         }
     }
 

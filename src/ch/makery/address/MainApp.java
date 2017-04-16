@@ -1146,9 +1146,8 @@ public class MainApp extends Application {
 			controller.setMainApp(this);
 			controller.setDialogStage(dialogStage);
 			controller.setBuchung(buchung, personData, fahrzeugData, buchungData);
-			controller.AutoCompleteFahrzeugtyp(personData, fahrzeugData);
-
-
+			controller.setPersonList(personData);
+			controller.setAusgeliehen();
 
 			// Show the dialog and wait until the user closes it
 			dialogStage.showAndWait();

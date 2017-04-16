@@ -3,7 +3,6 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ButtonBar?>
-<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
@@ -30,14 +29,14 @@
         </rowConstraints>
          <children>
             <Label text="BuchungID" />
-            <Label text="PersonID" GridPane.rowIndex="2" />
+            <Label text="PersonID" GridPane.rowIndex="1" />
             <Label text="FahrzeugID" GridPane.rowIndex="3" />
             <Label text="Ausleihdatum" GridPane.rowIndex="4" />
             <Label text="Rückgabedatum" GridPane.rowIndex="5" />
             <Label text="Leihdauer" GridPane.rowIndex="6" />
             <TextField fx:id="ausleihdatumField" onMouseExited="#AusleihdauerBerechnung" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <TextField fx:id="rueckgabedatumField" onMouseExited="#AusleihdauerBerechnung" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-            <ComboBox fx:id="personIDBox" onKeyReleased="#handleAutoCompletePerson" prefHeight="31.0" prefWidth="150.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="2">
+            <ComboBox fx:id="personIDBox" onKeyReleased="#handleAutoCompletePerson" prefHeight="31.0" prefWidth="150.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets />
                </GridPane.margin></ComboBox>
@@ -47,9 +46,9 @@
                </GridPane.margin>
             </ComboBox>
             <Label fx:id="buchungIDLabel" text="Label" GridPane.columnIndex="1" />
-            <Label text="Fahrzeugtyp" GridPane.rowIndex="1" />
-            <ChoiceBox fx:id="fahrzeugtypBox" prefHeight="31.0" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label text="Fahrzeugtyp" GridPane.rowIndex="2" />
             <Label fx:id="leihdauerLabel" text="Tage" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <ComboBox fx:id="fahrzeugtypBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
          </children>
       </GridPane>
       <ButtonBar layoutX="486.0" layoutY="346.0" prefHeight="40.0" prefWidth="296.0" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="15.0">

@@ -75,7 +75,6 @@
                       <Button mnemonicParsing="false" onAction="#handleNewFahrzeug" text="Neu" />
                         <Button mnemonicParsing="false" onAction="#handleEditFahrzeug" text="Ändern" />
                         <Button mnemonicParsing="false" onAction="#handleDeleteFahrzeug" text="Löschen" />
-                        <Button mnemonicParsing="false" onAction="#handleFahrzeugBuchung" text="Buchung" />
                     </buttons>
                   </ButtonBar>
                </children>
