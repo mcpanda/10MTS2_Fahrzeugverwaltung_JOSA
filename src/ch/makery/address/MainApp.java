@@ -40,6 +40,7 @@ import ch.makery.address.model.Buchung;
 import ch.makery.address.model.BuchungListWrapper;
 import ch.makery.address.model.Fahrzeug;
 import ch.makery.address.model.PersonListWrapper;
+import ch.makery.address.model.Tree;
 import ch.makery.address.model.FahrzeugListWrapper;
 import ch.makery.address.view.PersonEditDialogController;
 import ch.makery.address.view.FahrzeugEditDialogController;
@@ -104,6 +105,7 @@ public class MainApp extends Application {
 	private ObservableList<Person> personData = FXCollections.observableArrayList();
 	private ObservableList<Fahrzeug> fahrzeugData = FXCollections.observableArrayList();
 	private ObservableList<Buchung> buchungData = FXCollections.observableArrayList();
+	private Tree treeData = new Tree();
 
 	/***************************************************************************
     METHODENNAME:	MainApp
@@ -147,6 +149,13 @@ public class MainApp extends Application {
 		personData.add(new Person(37, "Erik", "Durm", "Strobelallee 50", "Klasse A + B", 44139, "Dortmund"));
 		personData.add(new Person(38, "Roman", "Bürki", "Strobelallee 50", "Klasse A + B + C", 44139, "Dortmund"));
 		personData.add(new Person(39, "Hendrik", "Bonmann", "Strobelallee 50", "Klasse B", 44139, "Dortmund"));
+
+		/* fill Tree with persons */
+    	for (Person p : personData) {
+    		treeData.addNode(p);
+    	}
+
+    	//treeData.levelOrder(treeData.root);
 
 		/*Beispieldaten für Fahrzeuge*/
 		fahrzeugData.add(new Fahrzeug(1, "BMW", "525d", "Diesel", "Langstrecke", 190, 85948));
@@ -222,6 +231,22 @@ public class MainApp extends Application {
 	public ObservableList<Buchung> getBuchungData() {
 		return buchungData;
 	}
+
+    /***************************************************************************
+    METHODENNAME:	getTreeData
+    *//*!
+     Gibt die Daten der Personen als eine observable list wieder
+
+     \param   void
+
+     \return  ObservableList
+
+    ***************************************************************************/
+
+	public Tree getTreeData() {
+		return treeData;
+	}
+
 
     /***************************************************************************
     METHODENNAME:	initRootLayout
@@ -431,6 +456,12 @@ public class MainApp extends Application {
 
 			personData.clear();
 			personData.addAll(wrapper.getPersons());
+
+			treeData.clear();
+			for (Person p : personData) {
+				treeData.addNode(p);
+			}
+			treeData.levelOrder(treeData.root);
 
 			// Save the file path to the registry.
 			setPersonFilePath(file);

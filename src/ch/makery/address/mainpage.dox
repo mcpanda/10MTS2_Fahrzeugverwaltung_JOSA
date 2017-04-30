@@ -1,0 +1,301 @@
+/**
+\mainpage Fuhrparkverwaltung
+
+\section sec1 Projektauftrag
+
+Entwicklung eines Programmes, das die Verwaltung eines Fuhrparks ermöglicht.<br>
+•	Ein Unternehmen hat einen Fuhrpark der den Mitarbeiter*innen zur Verfügung steht.<br>
+•	Mitarbeiter*innen können für einen bestimmten Zeitraum und einen zu nennenden Zweck ein Fahrzeug ausleihen.<br>
+•	Für unterschiedliche Zwecke (Stadtfahrt, Langstreckenfahrt, Transport von Arbeitsmaterial) werden unterschiedliche Fahrzeugtypen (z.B. PKW, LKW, Motorrad) bereitgestellt.<br>
+•	Die Mitarbeiter-Daten sowie die Daten des Fuhrparks und Fahrzeugbuchungen werden in einer XML-Datei gespeichert.<br>
+<br>
+\section sec2 Vorbereitende Aufgaben
+<br>
+\subsection sec2_1 Projekt-Vorbereitungen
+
+Zielsetzung: Abschluss der VIII. Ausbausufe <br>
+<br>
+Arbeitsrollen: <br>
+•	Julia: Organisator <br>
+•	Olga: Guru <br>
+•	Simon: Feelgood-Manager, Protokollant <br>
+•	Alex: Spec-Checker, Continuous Integration <br>
+<br>
+Milestones ... tbd ...<br>
+<br>
+\subsection sec2_2 Technische Vorbereitungen
+
+Entwicklungsumgebung: Eclipse und Scene Builder. <br>
+Begründung: Allen Gruppenmitgliedern fehlen die Erfahrungen mit NetBeans und IntelliJ
+<br>
+Datenaustausch: GitHub. <br>
+Begründung: Auch wenn es Zeit brauchte, bis alles funktionsfähig eingerichtet wurde, so überzeugten die Vorteile, wie <br>
+versionsabhängiges pull und push, versionsabhängiges Vergleichen der Quelltexte, IssueManagement, History, Einbidung in Exclipse. <br>
+<br>
+\section sec3 Ausbaustufen
+
+\subsection sec3_1 I. Ausbaustufe: Adressbuch erstellen
+
+Erledigung der Aufgabe durch erfolgreiche Behandlung des Tutorials von code.makery <br>
+samt Einhaltung der Model-View-Control Modells. <br>
+Es wurden leichte Änderung eingeführt, wie z.B. eine PersonenID. <br>
+<br>
+Mit JavaFX erzeugen wir eine Stage (Grundgerüst unseres Anzeigefenster, mit Menüpunkten und Maximieren, Minimieren, Schließen Buttons rechts oben) <br>
+und dazugehörige Scenes (Anzeigefenster innerhalb des Grundgerüstes).<br>
+Bei jedem öffnen einer neuen Scene werden die dazugehörigen Controller und *.fxml Dateien übergeben.<br>
+<br>
+Bei den Klassen nutzen wir Properties. Dies ist notwendig, um später mit ObservableLists und Listener zu arbeiten und damit <br>
+unverzüglich getätigte Änderungen bzw. getroffene Auswahl anzeigen zu lassen. <br>
+<br>
+DateUtil ... tbd ... <br>
+<br>
+Mit Listener und Lambda Expressions können wir gewählte Objekte direkt anzeigen lassen.
+
+~~~~~~~~~~~~~~~{.java}
+personTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> showPersonDetails(newValue));
+}
+~~~~~~~~~~~~~~~
+<br>
+Dabei sind Lambda Expressions Methoden die ohne Klassen auskommen und sofort ausgeführt werden, ohne vorherige Definition/Deklaration.<br>
+<br>
+Mit Preferences speichern wir betriebssystemabhängig den Pfad der zuletzt geöffnete Datei.<br>
+<br>
+Mit JAXB (Java Architecture for XML Binding) ordnen wir unsere Objekte um sie in einer *.xml Datei abspeichern zu können. <br>
+Hierfür benötigen wir zusätzlich noch die Klasse PersonListWrapper, die unsere Objekte aus einer ObservableList zu einem @XmlRootElement macht, <br>
+da JAXB nur auf @XmlRootElement angewandt werden kann. 
+<br>
+\subsection sec3_2 II. Ausbaustufe: Verwaltung von Fahrzeugen
+
+Erledigung der Aufgabe durch übernahme der Klasse Person und Anpassung an Fahrzeuge. <br>
+Die Speicherung erfolgt in einer seperaten *.xml Datei, welche sich aus der Personen *.xml Datei herleitet.
+
+~~~~~~~~~~~~~~~{.java}
+	public File getFahrzeugFilePath() {
+		Preferences prefs = Preferences.userNodeForPackage(MainApp.class);
+		String filePath = prefs.get("filePath", null);
+		if (filePath != null) {												// Herleitung des Dateipfades für Fahrzeuge
+			int pos = filePath.lastIndexOf("."); 							// pos des Punktes im Dateipfad
+			filePath = filePath.substring(0, pos); 							// Kürzung bis zum Punkt
+			String filePathFahrzeug = filePath + "_Fahrzeug.xml";			// Erweiterung des Dateipfades für die Fahrzeuge
+			return new File(filePathFahrzeug);
+		} else {
+			return null;
+		}
+	}
+~~~~~~~~~~~~~~~
+<br>
+\subsection sec3_3 III. Ausbaustufe: Implementierung eines Buchungssystems
+
+Für die Buchung wird eine Klasse gemäß der Personenklasse erstell, welche neben der BuchungsID <br>
+auch eine FahrzeugID und PersonID hat, um damit einen Verknüpfung zu den korrespondierenden <br>
+Fahrzeugen und Personen zu haben. <br>
+Die Speicherung erfolgt ebenfalls wie bei den Fahrzeugen in einer seperaten *.xml Datei, die sich aus der <br>
+Personen *.xml Datei herleiten lässt.<br>
+Um zu prüfen ob ein Fahrzeug bereits verliehen wurde bzw. eine Person bereits ein Fahrzeug ausleiht, <br>
+wird ein Ausleih-Flag bei Person und Fahrzeug eingeführt. Nur wenn das Flag != 0, kann man etwas ausleihen.
+<br>
+\subsection sec3_4 IV. Ausbaustufe: Algorithmische Optimierung
+
+\subsubsection sec3_4_1 Suchfunktion
+
+Implementieren Sie eine Suchfunktion (lineare Suche), die es ermöglicht nach einem bestimmten Fahrzeug zu suchen.<br>
+<br>
+Die lineare Suche wurde bei der ComboBox und der Suche mit binären Bäumen implementiert.
+
+~~~~~~~~~~~~~~~{.java}
+for( Person p : persons) {
+	if (temp.equals(p.getFirstName())) {
+	    showPersonDetails(tempNode);
+	    break;
+	}
+}		
+~~~~~~~~~~~~~~~		
+<br>
+\subsubsection sec3_4_2 Sortierung
+
+Ermöglichen Sie es die Kontakte und Fahrzeuge sortiert ausgeben zu lassen. <br>
+Nehmen Sie die Sortierung mit einem selbst geschriebenen Sortieralgorithmus (Insertion-Sort, oder Selection-Sort).
+
+Wir haben uns für den Selection-Sort Sortieralgorithmus entschieden, da wir vergleichsweise große Datenmengen <br>
+bewegen müssen (ganze Objekte) und bei der Datenbewegung stets von einer Ordnung O(n) abhängig sind. <br>
+
+\image html Sortieralgorithmen_im_Vergleich.png "Sortieralgorithmen im Vergleich - Quelle: https://vowi.fsinf.at/images/5/59/TU_Wien-Algorithmen_und_Datenstrukturen_1_VL_(Raidl)_-_Sortieralgorithmen_im_Vergleich.pdf"  width= 800px
+<br>
+~~~~~~~~~~~~~~~{.java}
+     public ObservableList<Person> sortNachname (ObservableList<Person> persons) {
+    	ObservableList<Person> personenListe= FXCollections.observableArrayList();
+    	personenListe.setAll(persons);			// Erstelle Kopie von persons
+    	Person Platzhalter= new Person();		// Platzhalter von der Klasse Person. Nötig, für das Spätere tauschen innerhalb der Liste
+
+		for (int i= 0; i < personenListe.size() - 1; i++) {			// durchlaufe die gesamte personenListe
+			int minIndex= i;										// Annahme, die aktuelle Position enthält den kleinsten Eintrag
+			Platzhalter= personenListe.get(i);
+
+			for (int j= i + 1; j < personenListe.size(); j++) {		// durchlaufe den Rest der Liste
+				if (Platzhalter.getLastName().compareTo(personenListe.get(j).getLastName()) > 0) {	// vergleiche ob es sich ein kleinerer Eintrag finden lässt
+					minIndex= j;																	// falls ja, so wird die Position und Inhalt des neuen Minimum zwischengespeichert
+					Platzhalter= personenListe.get(j);
+				}																					// am Ende haben wir ein Minimum von der Liste
+			}
+			personenListe.set(minIndex, personenListe.get(i));										// Tausche aktuelle Position mit der Postion des Minimum
+			personenListe.set(i, Platzhalter);
+		}
+		return personenListe;
+	} 
+~~~~~~~~~~~~~~~
+ 
+\subsection sec3_5 V. Ausbaustufe: Optimierung der Datenmodellierung
+
+Für die Unterteilugn der Fahrzeuge in Subklassen wurde das Attribut Fahrzeugtyp hinzugefügt. <br>
+Bei der Buchung wird mit Hilfe von ComboBoxen die verfügbaren Fahrzeuge, abhängig vom ausgewählten <br>
+Fahrzeugtyp bereitgestellt.
+
+\subsection sec3_6 VI. Ausbaustufe: VI.	Ausbaustufe – Ergänzungen und eigene Anforderungen: COmboBoxen mit Filterfunktion
+
+Die vorhandenen ComboBoxen in JavaFX werden durch eine Filterung ergänzt. <br>
+Hierbei werden die Listen der Personen gemäß Tastaureingabe gefiltert und nur diejenigen in der Liste gelassen, welche <br>
+die Tastaureingabe als Substring inne haben.
+
+~~~~~~~~~~~~~~~{.java}
+    public void handleAutoCompletePerson (KeyEvent event) {
+
+    	personIDBox.show();																// oeffne die ComboBoxauswahl
+
+    	KeyCode code= event.getCode();													// Keyevent code registriert alle Tastatureingaben
+
+    	if((code == KeyCode.BACK_SPACE) && (filterPerson.length() > 0)) {				// wenn die Tastatureingabe ein Backspace war und die Länge des Strings filerPerson größer 0 ist, dann:
+    		filterPerson= filterPerson.substring(0, filterPerson.length()-1);			// lösche den letzten Char in dem String filerPerson
+    	}
+
+    	if(code.isDigitKey() || code.isLetterKey() || code == KeyCode.SHIFT) {			// wenn die Tastatureingabe eine Zahl oder ein Buchstabe oder die Tate SHIFT war, dann:
+    		filterPerson+= event.getText();												// speichere diesen Char in filterPerson
+    	}
+
+    	if (filterPerson.length() > 0) {												// wenn filterPerson größer 0 ist, dann:
+    		personBeschreibungBoxList.clear();											// lösche die personBeschreibungBoxList, um etwaige mehrfachaufnahme zu verhindern
+
+			for(int i= 0; i < personList.size(); i++){									// gehe alle Einträge der personList durch
+    			String vergleich= personList.get(i).toLowerCase();						// speichere Eintrag in der personList mit Kleinbuchstaben zwischen, da bei SHIFT+Buchstabe nur der Buchstabe bei filterPerson aufgenohmen wird
+    			if (vergleich.indexOf(filterPerson) > -1) {								// wenn die Tastatureingabe ein Substring einer Personenbeschreibung ist, dann
+        			personBeschreibungBoxList.add(personList.get(i));					// nimm die Personenbeschreibung in personBeschreibungBoxList auf
+    			}
+    	  	}
+		}
+
+    	if (code == KeyCode.ESCAPE) {		// wenn ESC gedrückt wurde, dann:
+    		filterPerson= "";				// wird filterPerson geleert
+    		personIDBox.setValue("");
+    	}
+
+    	if (code == KeyCode.ENTER) {		// wenn ENTER gedrückt wurde, dann:
+    		filterPerson= "";				// wird filterPerson geleert
+    		personIDBox.setValue("");
+    	}
+
+    	if(filterPerson.length()== 0) {		// wenn filterPerson leer ist, dann:
+    		personBeschreibungBoxList.setAll(personList);	// wird die personList in die personBeschreibungBoxList kopiert
+    	}
+    }
+~~~~~~~~~~~~~~~
+<br>
+Desweiteren werden die bei der Buchung die ComboBoxen derart genutzt, dass durch die ObservableList und einen Listener <br>
+die ComboBoxen von einander abhängig sind, d.h. wählt man eine Person aus, so werden die Fahrzeugtypen <br>
+anhand des Führerscheines reduziert, und abhängig von der getroffen Wahl des Fahrzeugtypes, werden die Fahrzeuge aussortiert.
+
+~~~~~~~~~~~~~~~{.java}
+// füge einen Listener hinzu, welcher die Fahrzeugtypen anpasst, abhängig von der Auswahl der Person
+personIDBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> setFahrzeugTypList(getIDfromBeschreibung(newValue)));
+
+~~~~~~~~~~~~~~~
+<br>
+\subsection sec3_7 VII. Ausbaustufe: Algorithmische Vertiefung
+
+Die Ausgabe der Berechnungen erfolt in einem Diagramm.
+
+~~~~~~~~~~~~~~~{.java}
+public void setFahrzeugTageStatistic(List<Fahrzeug> fahrzeugs, List<Buchung> buchungs) {
+
+    	// 4 dim. Array
+    	// 1. Zeile: FahrzeugID
+    	// 2. Zeile: dazugehörige Gesamtausleihtage
+    	// 3. Zeile: dazugehörige Ausleihhäufigkeit
+    	// 4. Zeile: Quotient, falls Ausleihhäufigkeit != 0 ist
+
+        int[][] ausleihe = new int[4][fahrzeugs.size()];
+        herstellerMarkenList.clear();
+        for( int i= 0; i < ausleihe[0].length; i++) {
+        	ausleihe[0][i]= fahrzeugs.get(i).getFahrzeugID();	// fügt in die erste Zeile alle vorhandenen FahrzeugIDs
+        	herstellerMarkenList.add(fahrzeugs.get(i).getHersteller() + " " + fahrzeugs.get(i).getMarke());	// fügt in die Liste die Fahrzeugbeschreibung hinzu
+        }
+
+        for (Buchung b : buchungs) {
+        	int gebucht= b.getFahrzeugID();
+        	for( int i= 0; i < ausleihe[0].length; i++) {
+        		if( gebucht == ausleihe[0][i]) {				// falls die FahrzeugID in einem Buchungseintrag auftaucht, so wird die dazugehörige Ausleihhäufigkeit um 1 erhöht und die Ausleihdauer um die ausgeliehenen Tage
+        			ausleihe[2][i]++;
+        			ausleihe[1][i]= ausleihe[1][i] + b.getLeihdauer();
+        		}
+        	}
+        }
+
+        for ( int i= 0; i < ausleihe[0].length; i++) {
+        	if (ausleihe[2][i] != 0) {							// falls Ausleihhäufigkeit != 0 ist, so wird der Quotient aus Ausleihdauer und Ausleihhäufigkeit gebildet
+        		ausleihe[3][i]= ausleihe[1][i]/ ausleihe[2][i];
+        	} else {
+        		ausleihe[3][i]= 0;
+        	}
+        }
+
+        XYChart.Series<String, Integer> series = new XYChart.Series<>();
+
+        // Create a XYChart.Data object for each month. Add it to the series.
+        for (int i = 0; i < herstellerMarkenList.size(); i++) {
+            series.getData().add(new XYChart.Data<>(herstellerMarkenList.get(i), ausleihe[3][i]));
+        }
+
+        barChart.getData().add(series);
+    }
+~~~~~~~~~~~~~~~
+<br>
+\subsection sec3_8 VII. Ausbaustufe: Vertiefung Datenstrukturen 
+
+Den kompletten Umbau der Klassen, um diese als binäre Bäume zu speichern, haben wir nicht umgesetzt. <br>
+Wir haben ausgehend von unseren Listen für Personen einen Baum erstellt, in welchen man nach einem Vornamen suchen kann. <br>
+Dabei wird auch linear gesucht und am Ende eine Vergleichszeit für 10.000 Suchanfragen ausgegeben.
+
+<br>
+tbd: kurze Erklärung der binären Bäume!!!
+<br>
+\section sec4 X. Ausbaustufe: Dokumentation (Basisanforderungen)
+
+\subsection sec4_1 Arbeitsrollen
+
+\subsection sec4_2 Milestones
+
+\subsection sec4_3 Änderung der Milestones
+
+\subsection sec4_4 Programmwahl
+
+\subsection sec4_5 UML-Klassendiagramme
+
+\subsection sec4_6 Probleme
+
+\subsubsection sec4_6_1 GitHub
+
+Einrichtung <br>
+
+Einbindung einer Bibliothek, jedoch nicht bei allen. <br>
+
+\subsubsection sec4_6_3 SceneBuild
+
+Anfängliche Probleme beim aktualiseiren des Programmes. Man musste mehrfach Eclipse neustarten oder die fxml datei extra öffnen und abspeichern, <br>
+bevor Änderungen übernommen wurden.
+
+
+\section sec5 XI. Ausbaustufe: Dokumentation (Vertiefung)
+
+\subsection sec5_1 Ablauf einer Buchung als UML-Klassendiagramm
+
+\subsection sec5_2 Ablauf einer Buchung als UML-Sequenzdiagramm
+
+*/

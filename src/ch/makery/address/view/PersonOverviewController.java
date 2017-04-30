@@ -191,7 +191,11 @@ public class PersonOverviewController {
     private void handleDeletePerson() {
         int selectedIndex = personTable.getSelectionModel().getSelectedIndex();
         if (selectedIndex >= 0) {
-            personTable.getItems().remove(selectedIndex);
+            Person deletePerson= personTable.getItems().remove(selectedIndex);
+
+            mainApp.getTreeData().delete(deletePerson);
+            mainApp.getTreeData().levelOrder(mainApp.getTreeData().root);
+
         } else {
             // Nothing selected.
             Alert alert = new Alert(AlertType.WARNING);

@@ -99,7 +99,7 @@ public class SuchenFensterController {
 	}
 
     /***************************************************************************
-    METHODENNAME:	getPerson
+    METHODENNAME:	getFirstName
     *//*!
      Liest die Eingabe aus dem Vornamentexfeld aus und gibt sie weiter.
 
@@ -110,17 +110,17 @@ public class SuchenFensterController {
     ***************************************************************************/
 
     @FXML
-    private String getPerson()
+    private String getFirstName()
     {
         return firstNameField.getText();
     }
 
     /***************************************************************************
-    METHODENNAME:	find
+    METHODENNAME:	findPerson
     *//*!
      Sucht den eingegebenen String im binären Baum. Wird der passende Knoten
      im Baum gefunden, so wird dieser in die Anzeige weitergegeben.
-     Ebenfalls wird hier der ZEitunterscheid zur linearen Suche ermittelt.
+     Ebenfalls wird hier der Zeitunterschied zur linearen Suche ermittelt.
 
      \param   String
 
@@ -128,20 +128,16 @@ public class SuchenFensterController {
 
     ***************************************************************************/
 
-	private void find (String temp) {
-    	Tree theTree = new Tree();
-    	Node tempNode= new Node(0, "firstName", "lastName", "street", 12345, "city");
-    	ObservableList<Person> persons= mainApp.getPersonData();
-    	for (Person p : persons) {
-    		theTree.addNode(p.getPersonID(), p.getFirstName(), p.getLastName(), p.getStreet(), p.getPostalCode(), p.getCity());
-    	}
+	private Person findPerson (String temp) {
+    	Tree theTree = mainApp.getTreeData();
+    	Node tempNode= new Node(null);
 
+    	ObservableList<Person> persons= mainApp.getPersonData();
     	long zeitLinear;
     	zeitLinear= -System.currentTimeMillis();
-    	for (int i= 0; i < 10000; i++) {
+    	for (int i= 0; i < 1; i++) {
     		for( Person p : persons) {
 	    		if (temp.equals(p.getFirstName())) {
-	    			showPersonDetails(tempNode);
 	    			break;
 	    		}
 	    	}
@@ -149,12 +145,14 @@ public class SuchenFensterController {
     	zeitLinear= zeitLinear + System.currentTimeMillis();
 
     	long zeitBaum= -System.currentTimeMillis();
-    	for (int i= 0; i < 10000; i++) {
-    		showPersonDetails(theTree.findNode(temp));
+    	for (int i= 0; i < 1; i++) {
+    		tempNode= theTree.findNode(temp);
     	}
     	zeitBaum= zeitBaum + System.currentTimeMillis();
 
     	ZeitunterschiedLabel.setText(Integer.toString((int)((zeitLinear - zeitBaum)))+ " [ms]");
+
+    	return tempNode.getPerson();
     }
 
     /***************************************************************************
@@ -168,15 +166,15 @@ public class SuchenFensterController {
 
     ***************************************************************************/
 
-    private void showPersonDetails(Node temp) {
-        if (temp != null) {
+    private void showPersonDetails(Person persons) {
+        if (persons != null) {
             // Fill the labels with info from the person object.
-        	personIDLabel.setText(Integer.toString(temp.getPersonID()));
-            firstNameLabel.setText(temp.getFirstName());
-            lastNameLabel.setText(temp.getLastName());
-            streetLabel.setText(temp.getStreet());
-            postalCodeLabel.setText(Integer.toString(temp.getPostalCode()));
-            cityLabel.setText(temp.getCity());
+        	personIDLabel.setText(Integer.toString(persons.getPersonID()));
+            firstNameLabel.setText(persons.getFirstName());
+            lastNameLabel.setText(persons.getLastName());
+            streetLabel.setText(persons.getStreet());
+            postalCodeLabel.setText(Integer.toString(persons.getPostalCode()));
+            cityLabel.setText(persons.getCity());
         } else {
             // Person is null, remove all the text.
         	personIDLabel.setText("");
@@ -202,8 +200,11 @@ public class SuchenFensterController {
 
     @FXML
     private void ResultKnopf(){
-    	find(getPerson());
-    	if (lastNameLabel.getText().length() == 0) {
+    	try {
+    		showPersonDetails(findPerson(getFirstName()));
+    	}
+
+    	catch (Exception e) {
     		// Show the error message.
             Alert alert = new Alert(AlertType.ERROR);
             alert.initOwner(dialogStage);
