@@ -11,9 +11,6 @@
 
 package ch.makery.address.model;
 
-import java.util.LinkedList;
-import java.util.Queue;
-
 /**************************************************************************/
 /*                                                                        */
 /* Import Section                                                         */
@@ -21,12 +18,13 @@ import java.util.Queue;
 /**************************************************************************/
 
 import ch.makery.address.model.Node;
+import java.util.LinkedList;
+import java.util.Queue;
 
 /***************************************************************************
 CLASS:	Tree
 *//*!
- Die Klasse Tree hat als Attribute personID, firstName, lastName,
- street, postalCode, city.
+ Die Klasse Tree hat als root
 
 ***************************************************************************/
 
@@ -39,7 +37,7 @@ public class Tree {
     *//*!
      Konstruktor der Klasse Tree
 
-     \param   Node
+     \param   void
 
      \return  void
 
@@ -193,8 +191,6 @@ public class Tree {
     ***************************************************************************/
 
 	public void clear () {
-		root.leftChild= null;
-		root.rightChild= null;
 		root= null;
 	}
 
@@ -293,14 +289,14 @@ public class Tree {
 
     ***************************************************************************/
 
-    public int treeHeight (Node root) {
-    	if (root == null) {
+    public int treeHeight (Node node) {
+    	if (node == null) {
     		return 0;
     	} else {
-    		if(treeHeight(root.leftChild) < treeHeight(root.rightChild)) {
-    			return (1 + treeHeight(root.rightChild));
+    		if(treeHeight(node.leftChild) < treeHeight(node.rightChild)) {
+    			return (1 + treeHeight(node.rightChild));
     		} else {
-    			return (1 + treeHeight(root.leftChild));
+    			return (1 + treeHeight(node.leftChild));
     		}
     	}
     }

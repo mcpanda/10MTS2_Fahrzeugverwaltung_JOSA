@@ -36,6 +36,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import ch.makery.address.model.Person;
+import ch.makery.address.model.AVLTree;
 import ch.makery.address.model.Buchung;
 import ch.makery.address.model.BuchungListWrapper;
 import ch.makery.address.model.Fahrzeug;
@@ -106,6 +107,7 @@ public class MainApp extends Application {
 	private ObservableList<Fahrzeug> fahrzeugData = FXCollections.observableArrayList();
 	private ObservableList<Buchung> buchungData = FXCollections.observableArrayList();
 	private Tree treeData = new Tree();
+	private AVLTree avlTreeData= new AVLTree();
 
 	/***************************************************************************
     METHODENNAME:	MainApp
@@ -150,12 +152,13 @@ public class MainApp extends Application {
 		personData.add(new Person(38, "Roman", "Bürki", "Strobelallee 50", "Klasse A + B + C", 44139, "Dortmund"));
 		personData.add(new Person(39, "Hendrik", "Bonmann", "Strobelallee 50", "Klasse B", 44139, "Dortmund"));
 
-		/* fill Tree with persons */
+		/* fill the Trees with persons */
     	for (Person p : personData) {
     		treeData.addNode(p);
+    		avlTreeData.root= avlTreeData.addNodeAVL(avlTreeData.root, p);
     	}
 
-    	//treeData.levelOrder(treeData.root);
+    	//avlTreeData.levelOrder(avlTreeData.root);
 
 		/*Beispieldaten für Fahrzeuge*/
 		fahrzeugData.add(new Fahrzeug(1, "BMW", "525d", "Diesel", "Langstrecke", 190, 85948));
@@ -233,13 +236,28 @@ public class MainApp extends Application {
 	}
 
     /***************************************************************************
-    METHODENNAME:	getTreeData
+    METHODENNAME:	getAVLTreeData
     *//*!
-     Gibt die Daten der Personen als eine observable list wieder
+     Gibt den AVLBaum zurück
 
      \param   void
 
-     \return  ObservableList
+     \return  AVLTree
+
+    ***************************************************************************/
+
+	public AVLTree getAVLTreeData() {
+		return avlTreeData;
+	}
+
+    /***************************************************************************
+    METHODENNAME:	getTreeData
+    *//*!
+     Gibt den binären Baum zurück
+
+     \param   void
+
+     \return  Tree
 
     ***************************************************************************/
 
@@ -457,11 +475,14 @@ public class MainApp extends Application {
 			personData.clear();
 			personData.addAll(wrapper.getPersons());
 
-			treeData.clear();
-			for (Person p : personData) {
-				treeData.addNode(p);
-			}
-			treeData.levelOrder(treeData.root);
+//			treeData.clear();
+//			avlTreeData.clear();
+//			for (Person p : personData) {
+//				treeData.addNode(p);
+//				avlTreeData.addNodeAVL(avlTreeData.root, p);
+//			}
+//			treeData.levelOrder(treeData.root);
+//			avlTreeData.levelOrder(avlTreeData.root);
 
 			// Save the file path to the registry.
 			setPersonFilePath(file);
@@ -474,6 +495,16 @@ public class MainApp extends Application {
 
 			alert.showAndWait();
 		}
+
+		treeData.clear();
+		avlTreeData.clear();
+		for (Person p : personData) {
+			treeData.addNode(p);
+			avlTreeData.root= avlTreeData.addNodeAVL(avlTreeData.root, p);
+		}
+		treeData.levelOrder(treeData.root);
+		System.out.println(" ");
+		avlTreeData.levelOrder(avlTreeData.root);
 	}
 
     /***************************************************************************
