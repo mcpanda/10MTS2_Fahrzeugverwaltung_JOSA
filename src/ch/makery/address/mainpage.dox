@@ -53,7 +53,6 @@ Mit Listener und Lambda Expressions können wir gewählte Objekte direkt anzeige
 
 ~~~~~~~~~~~~~~~{.java}
 personTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> showPersonDetails(newValue));
-}
 ~~~~~~~~~~~~~~~
 <br>
 Dabei sind Lambda Expressions Methoden die ohne Klassen auskommen und sofort ausgeführt werden, ohne vorherige Definition/Deklaration.<br>
@@ -150,7 +149,7 @@ Für die Unterteilugn der Fahrzeuge in Subklassen wurde das Attribut Fahrzeugtyp
 Bei der Buchung wird mit Hilfe von ComboBoxen die verfügbaren Fahrzeuge, abhängig vom ausgewählten <br>
 Fahrzeugtyp bereitgestellt.
 
-\subsection sec3_6 VI. Ausbaustufe: VI.	Ausbaustufe – Ergänzungen und eigene Anforderungen: COmboBoxen mit Filterfunktion
+\subsection sec3_6 VI. Ausbaustufe:  Ergänzungen und eigene Anforderungen: COmboBoxen mit Filterfunktion
 
 Die vorhandenen ComboBoxen in JavaFX werden durch eine Filterung ergänzt. <br>
 Hierbei werden die Listen der Personen gemäß Tastaureingabe gefiltert und nur diejenigen in der Liste gelassen, welche <br>
@@ -257,14 +256,53 @@ public void setFahrzeugTageStatistic(List<Fahrzeug> fahrzeugs, List<Buchung> buc
     }
 ~~~~~~~~~~~~~~~
 <br>
-\subsection sec3_8 VII. Ausbaustufe: Vertiefung Datenstrukturen 
+\subsection sec3_8 VII. Ausbaustufe: Vertiefung Datenstrukturen
 
-Den kompletten Umbau der Klassen, um diese als binäre Bäume zu speichern, haben wir nicht umgesetzt. <br>
-Wir haben ausgehend von unseren Listen für Personen einen Baum erstellt, in welchen man nach einem Vornamen suchen kann. <br>
-Dabei wird auch linear gesucht und am Ende eine Vergleichszeit für 10.000 Suchanfragen ausgegeben.
+\subsubsection sec3_8_1 Binärer Suchbaum
 
+In der Informatik besitzt ein Baum (tree) entweder Knoten (node) oder ist leer. Jeder nichtleere Baum besitzt eine Wurzel (root). <br>
+Ein binärer Suchbaum, ist ein Baum der Ordnung 2, d.h. jeder Knoten im Baum kann maximal zwei Kinder haben (left-/right-child). <br>
+Neben der Wurzel unterscheidet man die innere Knoten (haben Nachfolger) von den äußeren Knoten (auch Blätter genannt; haben keine Nachfolger). <br>
+Ein Knoten seinerseits hat als Parameter einen Schlüssel (dies kann ein Zahl, ein String oder ein Objekt sein) welcher zwingend eine totale Ordnung <br>
+haben muss und zwei weitere Knoten (leftChild, rightChild). <br>
 <br>
-tbd: kurze Erklärung der binären Bäume!!!
+\image html Binary_Tree.png "Binärer Suchbaum - Quelle: http://sibi-leo.de/wiki/images/Binary_Tree.png"  width= 800px
+<br>
+In unserem Fall haben wir als Schlüssel unsere erstellten Personen als Objekte, sowie als Ordnungsrelation den Vergleich des Vornamens (lexiographisch). <br>
+Sollte der Vorname identisch sein, so wird der Nachname verglichen. Sollte der Nachname ebenfalls identisch sein, so wird die PersonID verglichen. <br>
+<br>
+Zu den elementarsten Methoden eines binären Suchbaumes gehören das Finden eines Knotens, das Hinzufügen neuer Knoten (addNode), <br>
+sowie das Löschen eines Knoten (delete). <br>
+Die Vorzüge eines binären Suchbaumes ist die Reduzierung der Suchzeit. Die maximale Suchzeit ist von der Ordnung O(Höhe) (bestenfalls also O(Log(n+1))) <br>
+(im Vergleich lineare Suche: O(n); n= Anzahl der Elemente). <br>
+(Bsp.: n=1.048.575 => maximal 1.048.575 Vergleiche bei einer linearen Suche, jedoch nur maximal log(1.048.576)=20 Vergleiche im binären Suchbaum) <br>
+Um einen Knoten/Person in einem Baum zu finden, vergleicht man am Anfang die Suchperson mit der Wurzel und vergleicht dann in Abhängigkeit von dem Ergebnis den linken oder <br>
+rechten Nachfolger, bis man die Person gefunden hat oder null zurückgibt. <br>
+Beim Hinzufügen eines neuen Knotens wird der richtige Platz zum Einfügen gefunden, indem die zu einfügende Person anfänglich mit der Wurzel verglichen wird und dann <br>
+in Abhängigkeit des Vergleichswertes (-1: linker Teilbaum; +1 rechter Teilbaum) die Teilbäume durchgelaufen werden, bis ein Knoten ohne passenden Nachfolger <br>
+gefunden wird.<br>
+Beim Löschen eines Knotens müssen Fallunterscheidungen betrachtet werden. <br>
+<ul>
+<li> 1. Fall: der zu Löschende Knoten hat keine Nachfolger, dann wird beim Elternteil die Verbindung gekappt. </li>
+<li> 2. Fall: der zu Löschende Knoten hat nur einen Nachfolger, dann wird beim Elternteil als Kind der Nachfolger eingetragen.</li>
+<li> 3. Fall: der zu Löschende Knoten hat zwei Nachfolger. Hierfür müssen wir das kleinste Objekt in dem rechten SubBaum finden und als neuen Knoten setzen </li>
+</ul>
+
+\image html Entfernung_eines_Blattes.png "1. Fall: Entfernung eines Blattes http://www2.cs.uni-paderborn.de/cs/ag-monien/LEHRE/SS06/DuA/15.pdf"  width= 800px
+\image html Entfernung_mit_einem_Kind.png "2. Fall: Entfernung mit einem Kind http://www2.cs.uni-paderborn.de/cs/ag-monien/LEHRE/SS06/DuA/15.pdf"  width= 800px
+\image html Entfernung_mit_zwei_Kindern.png "3. Fall: Entfernung mit zwei Kindern http://www2.cs.uni-paderborn.de/cs/ag-monien/LEHRE/SS06/DuA/15.pdf"  width= 800px
+<br>
+\subsubsection sec3_8_1 AVL Baum
+Liegt dem Erstellen eines binären Suchbaumes eine geordnetet Liste zu Grunde, so entsteht ein gänzlich entarteter Suchbaum, der keinerlei Zeitvorteile gegenüber <br>
+einer Liste hat. Um dies entgegenzuwirken haben AVL Bäume (Adelson-Velski Landis) ein Balance-Kriterium. Beim Löschen und Einfügen neuer Elemente wird stets <br>
+geprüft ob das Balance-Kriterium verletzt wurde. Ist dies der Fall so werden Reparaturmaßnahmen eingeleitet (in diesem Fall Rotationen). <br>
+Das Balance-Kriterium eines AVL Baumes lautet: Die Balance (Höhenunterschied der beiden Nachfolger) eines jeden Knotens darf nicht kleiner als -1 <br>
+und nicht größer als +1 sein! <br>
+Bei den Rotationen müssen wir zwei Fälle betrachten: einfache und doppelte Rotation: <br>
+
+\image html einfach_Rotation.png "1. Fall: einfach_Rotation http://www2.cs.uni-paderborn.de/cs/ag-monien/LEHRE/SS03/DuA/avl.pdf"  width= 800px
+\image html doppel_Rotation.png "2. Fall: doppel_Rotation http://www2.cs.uni-paderborn.de/cs/ag-monien/LEHRE/SS03/DuA/avl.pdf"  width= 800px
+
 <br>
 \section sec4 X. Ausbaustufe: Dokumentation (Basisanforderungen)
 

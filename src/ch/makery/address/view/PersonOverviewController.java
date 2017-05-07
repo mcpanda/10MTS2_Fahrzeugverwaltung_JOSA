@@ -193,8 +193,11 @@ public class PersonOverviewController {
         if (selectedIndex >= 0) {
             Person deletePerson= personTable.getItems().remove(selectedIndex);
 
-            mainApp.getTreeData().delete(deletePerson);
-            mainApp.getTreeData().levelOrder(mainApp.getTreeData().root);
+//            mainApp.getTreeData().delete(deletePerson);
+//            mainApp.getTreeData().levelOrder(mainApp.getTreeData().root);
+
+            mainApp.getAVLTreeData().deleteAVL(deletePerson);
+            mainApp.getAVLTreeData().levelOrder(mainApp.getAVLTreeData().root);
 
         } else {
             // Nothing selected.
@@ -227,6 +230,11 @@ public class PersonOverviewController {
         boolean okClicked = mainApp.showPersonEditDialog(tempPerson);	// und an PersonEdit übergeben
         if (okClicked) {
             mainApp.getPersonData().add(tempPerson);					// falls PersonEdit mit OK bestätigt wird, so wird die neue Person in die Personenliste aufgenommen
+            /* tempPerson auch zu den Bäumen hinzufügen */
+            mainApp.getTreeData().addNode(tempPerson);
+            mainApp.getAVLTreeData().addNodeAVL(tempPerson);
+//            mainApp.getTreeData().levelOrder(mainApp.getTreeData().root);
+            mainApp.getAVLTreeData().levelOrder(mainApp.getAVLTreeData().root);
         }
     }
 

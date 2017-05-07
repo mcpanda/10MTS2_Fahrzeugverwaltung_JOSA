@@ -28,6 +28,8 @@ CLASS:	AVLTree
 
 public class AVLTree extends Tree{
 
+	public Node getGrandParent= null;
+
     /***************************************************************************
     METHODENNAME:	AVLTree
     *//*!
@@ -42,6 +44,7 @@ public class AVLTree extends Tree{
 	public AVLTree () {
 		root= null;
 	}
+
 
     /***************************************************************************
     METHODENNAME:	rightRotate
@@ -125,53 +128,185 @@ public class AVLTree extends Tree{
 	/***************************************************************************
     METHODENNAME:	addNodeAVL
     *//*!
-     Füge neuen Knoten rekursiv hinzu, mit beachtung der AVL Bedingung
-     (Balance aller Knoten liegt in (-1; +1).
+     Fügt einen neuen Knoten hinzu und führt ggf. eine Reparatur durch.
+     (Balance aller Knoten liegt in (-1; +1)).
 
-     \param   Node, Person
+     \param   Person
+
+     \return  void
+
+    ***************************************************************************/
+	public void addNodeAVL (Person person) {
+		addNode(person);
+
+		getGrandParent= null;
+		getGrandParent= findGrandparent(null, null, root);
+		if(getBalance(root) == 2 || getBalance(root) == -2 || getGrandParent != null) {
+			System.out.println("repair");
+			repair(getGrandParent);
+		}
+
+	}
+
+    /***************************************************************************
+    METHODENNAME:	deleteAVL
+    *//*!
+     Löschen eines Knotens/Blattes/Wurzel.
+     Falls dabei das Balance-Kriterium verletzt wird, so wird repariert.
+
+     \param   Person
+
+     \return  void
+
+    ***************************************************************************/
+	public void deleteAVL(Person person) {
+		boolean check= false;
+
+		check= delete(person);
+
+		if (check == true) {
+			getGrandParent= null;
+			getGrandParent= findGrandparent(null, null, root);
+			if(getBalance(root) == 2 || getBalance(root) == -2 || getGrandParent != null) {
+
+				System.out.println("repair");
+				System.out.println("balance root: " + getBalance(root) );
+				if (getGrandParent != null) {
+					System.out.println("balance grandparent: " + getGrandParent.getPerson().getFirstName() + " " + getBalance(getGrandParent));
+				}
+
+				repair(getGrandParent);
+			}
+		}
+	}
+
+	/***************************************************************************
+    METHODENNAME:	findGrandparent
+    *//*!
+     Gehe Baum durch und finde die Großeltern mit einer Balance von +2 oder -2
+     in der untersten Schicht; rekursiv
+
+     \param   Node
 
      \return  Node
 
     ***************************************************************************/
 
-	public Node addNodeAVL (Node node, Person person) {
-		/* Füge zuerst neue Person hinzu */
-		if (node == null) {
-			return (new Node(person));
+
+	public Node findGrandparent(Node grandParent, Node parent, Node child) {
+		grandParent= parent;
+		parent= child;
+
+		if(getBalance(child) == 2 || getBalance(child) == -2) {
+			if (grandParent != null) {
+				getGrandParent= grandParent;
+			}
 		}
 
-		if(node.ComparePersons(person) > 0) {
-			node.leftChild= addNodeAVL(node.leftChild, person);
+		if (parent.leftChild != null) {
+			child= parent.leftChild;
+			findGrandparent(grandParent, parent, child);
+		}
+
+		if(parent.rightChild != null) {
+			child= parent.rightChild;
+			findGrandparent(grandParent, parent, child);
+		}
+
+		return getGrandParent;
+	}
+
+
+	/***************************************************************************
+    METHODENNAME:	repair
+    *//*!
+     Gehe Baum nach dem einfügen einer neuen Person in Reihenfolge durch,
+     dh. ganz links anfangen, und prüfe die Balance.
+     Falls die Balance gößer 1 oder kleiner -1 ist, so muss durch
+     Rotationen repariert werden;
+
+     \param   Node
+
+     \return  void
+
+    ***************************************************************************/
+
+	public void repair(Node grandParent) {
+
+		Node parent= null;
+
+		if(grandParent != null) {
+			if(getBalance(grandParent) > 0) {
+				parent= grandParent.leftChild;
+			}
+			if(getBalance(grandParent) < 0) {
+				parent= grandParent.rightChild;
+			}
 		} else {
-			node.rightChild= addNodeAVL(node.rightChild, person);
+			parent= this.root;
 		}
 
-		/* überprüfe Balance nach dem hinzufügen eines neuen Knotens */
-		int balance= getBalance(node);
+		if(getBalance(parent) == 2) {
 
-		/* Fallunterscheidung */
-		/* 1. Fall: links links */
-		if (balance > 1 && node.ComparePersons(person) > 0) {
-			return rightRotate(node);
+			/* 1. Fall: einfache rechtsrotation */
+			if(getBalance(parent.leftChild) == 1) {
+
+				if (grandParent != null) {
+					if (getBalance(grandParent) > 0) {
+						grandParent.leftChild= rightRotate(parent);
+					} else {
+						grandParent.rightChild= rightRotate(parent);
+					}
+				} else {
+					root= rightRotate(parent);
+				}
+			}
+
+			/* 2. Fall: links-rechtsrotation */
+			if(getBalance(parent.leftChild) == -1) {
+				parent.leftChild= leftRotate(parent.leftChild);
+				if (grandParent != null) {
+					if (getBalance(grandParent) > 0) {
+						grandParent.leftChild= rightRotate(parent);
+					} else {
+						grandParent.rightChild= rightRotate(parent);
+					}
+				} else {
+					root= rightRotate(parent);
+				}
+			}
 		}
 
-		/* 2. Fall: rechts rechts */
-		if (balance < -1 && node.ComparePersons(person) < 0) {
-			return leftRotate(node);
-		}
+		if(getBalance(parent) == -2) {
 
-		/* 3. Fall: links rechts */
-		if (balance > 1 && node.ComparePersons(person) < 0) {
-			node.leftChild= leftRotate(node.leftChild);
-			return rightRotate(node);
-		}
+			/* 3. Fall: einfache linksrotation */
+			if(getBalance(parent.rightChild) == -1) {
 
-		/* 4. Fall: rechts links */
-		if (balance < -1 && node.ComparePersons(person) > 0) {
-			node.rightChild= rightRotate(node.rightChild);
-			return leftRotate(node);
-		}
+				if (grandParent != null) {
+					if (getBalance(grandParent) < 0) {
+						grandParent.rightChild= leftRotate(parent);
+					} else {
+						grandParent.leftChild= leftRotate(parent);
+					}
+				} else {
+					root= leftRotate(parent);
+				}
+			}
 
-		return node;
+			/* 4. Fall: rechts-linksrotation */
+			if(getBalance(parent.rightChild) == 1) {
+				parent.rightChild= rightRotate(parent.rightChild);
+				if (grandParent != null) {
+					if (getBalance(grandParent) < 0) {
+						grandParent.rightChild= leftRotate(parent);
+					} else {
+						grandParent.leftChild= leftRotate(parent);
+					}
+				} else {
+					root= leftRotate(parent);
+				}
+			}
+		}
 	}
 }
+/** @}*/ /*end of doxygen group*/

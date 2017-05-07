@@ -24,7 +24,7 @@ import java.util.Queue;
 /***************************************************************************
 CLASS:	Tree
 *//*!
- Die Klasse Tree hat als root
+ Die Klasse Tree hat als Attribut root
 
 ***************************************************************************/
 
@@ -60,7 +60,10 @@ public class Tree {
     ***************************************************************************/
 
 	public void addNode(Person newperson) {
+		/* erstelle einen Knoten mit der neuen Person */
 		Node newNode = new Node(newperson);
+
+		/* wenn der Baum leer ist, so wird der neue Knoten als Wurzel gesetzt */
 		if(root == null)
 		{
 			this.root = newNode;
@@ -69,6 +72,7 @@ public class Tree {
 			Node focusNode= root;
 			Node parent= null;
 
+			/* gehe alle Unterbäume durch, bis ein pasender Platz gefunden wird */
 			while(true)	{
 				parent= focusNode;
 				if(focusNode.ComparePersons(newperson) > 0){
@@ -95,9 +99,9 @@ public class Tree {
     *//*!
      Löschen eines Knotens/Blattes/Wurzel.
 
-     \param   Node
+     \param   Person
 
-     \return  void
+     \return  boolean
 
     ***************************************************************************/
 	public boolean delete(Person person) {
@@ -232,7 +236,7 @@ public class Tree {
     *//*!
      Methode zum Finden einer Person anhand des Vornamens im binären Baum
 
-     \param   Person
+     \param   firstName oder Person
 
      \return  Node
 
@@ -258,6 +262,7 @@ public class Tree {
 		return focusNode;
 	}
 
+    /* Überlagerung der findNode Methode */
     public Node findNode(Person person) {
     	Node focusNode = root;
 
@@ -325,7 +330,19 @@ public class Tree {
     		int levelNodes= que.size();
     		while (levelNodes > 0) {
     			Node node= (Node) que.remove();
-        		System.out.print("   " + node.getPerson().getFirstName());
+    			System.out.print(" - ");
+    			if (node.leftChild != null) {
+    				System.out.print(node.leftChild.getPerson().getFirstName() + "|");
+    			} else {
+    				System.out.print("null|");
+    			}
+        		System.out.print(node.getPerson().getFirstName());
+        		if (node.rightChild != null) {
+    				System.out.print("|" + node.rightChild.getPerson().getFirstName());
+    			} else {
+    				System.out.print("|null");
+    			}
+
         		if (node.leftChild != null) {
         			que.add(node.leftChild);
         		}

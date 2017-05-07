@@ -153,12 +153,13 @@ public class MainApp extends Application {
 		personData.add(new Person(39, "Hendrik", "Bonmann", "Strobelallee 50", "Klasse B", 44139, "Dortmund"));
 
 		/* fill the Trees with persons */
-    	for (Person p : personData) {
-    		treeData.addNode(p);
-    		avlTreeData.root= avlTreeData.addNodeAVL(avlTreeData.root, p);
-    	}
-
-    	//avlTreeData.levelOrder(avlTreeData.root);
+//    	for (Person p : personData) {
+//    		treeData.addNode(p);
+//    		avlTreeData.root= avlTreeData.addNodeAVL(avlTreeData.root, p);
+//    		avlTreeData.addNodeAVL(p);
+//    	}
+//
+//    	avlTreeData.levelOrder(avlTreeData.root);
 
 		/*Beispieldaten für Fahrzeuge*/
 		fahrzeugData.add(new Fahrzeug(1, "BMW", "525d", "Diesel", "Langstrecke", 190, 85948));
@@ -500,11 +501,13 @@ public class MainApp extends Application {
 		avlTreeData.clear();
 		for (Person p : personData) {
 			treeData.addNode(p);
-			avlTreeData.root= avlTreeData.addNodeAVL(avlTreeData.root, p);
+			avlTreeData.addNodeAVL(p);
+			avlTreeData.levelOrder(avlTreeData.root);
+			System.out.println("");
 		}
-		treeData.levelOrder(treeData.root);
-		System.out.println(" ");
-		avlTreeData.levelOrder(avlTreeData.root);
+//		treeData.levelOrder(treeData.root);
+//		System.out.println(" ");
+//		avlTreeData.levelOrder(avlTreeData.root);
 	}
 
     /***************************************************************************

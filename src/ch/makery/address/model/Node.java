@@ -29,7 +29,7 @@ public class Node {
     *//*!
      Konstruktor der Klasse Node
 
-     \param   personID, firstName, lastName, street, postalCode, city
+     \param   person
 
      \return  void
 
@@ -52,7 +52,7 @@ public class Node {
      Stimmen die Vornamen überein, so werden zusätzlich die Nachnamen verglichen.
      Stimmen Vor- und Nachnamen überein, so werden zusätzlich die PersonIDs
      verglichen.
-     Somit ist herrscht eine totale Ordnung.
+     Somit herrscht eine totale Ordnung.
 
      \param   Person
 
