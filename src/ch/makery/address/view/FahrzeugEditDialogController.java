@@ -22,6 +22,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import java.util.List;
@@ -50,7 +51,9 @@ public class FahrzeugEditDialogController {
 	/**************************************************************************/
 
 	@FXML
-    private TextField fahrzeugIDField;
+    private Label fahrzeugIDLabel;
+//	@FXML
+//    private TextField fahrzeugIDField;
     @FXML
     private TextField herstellerField;
     @FXML
@@ -120,7 +123,7 @@ public class FahrzeugEditDialogController {
     /***************************************************************************
     METHODENNAME:	setFahrzeug
     *//*!
-     Definiert die Fahrzeug, welche bearbeitet werden soll.
+     Definiert die Fahrzeuge, welche bearbeitet werden soll.
 
      \param   Fahrzeug
 
@@ -128,10 +131,18 @@ public class FahrzeugEditDialogController {
 
     ***************************************************************************/
 
-    public void setFahrzeug(Fahrzeug fahrzeug) {
+    public void setFahrzeug(Fahrzeug fahrzeug, List<Fahrzeug> fahrzeugs) {
         this.fahrzeug = fahrzeug;
 
-        fahrzeugIDField.setText(Integer.toString(fahrzeug.getFahrzeugID()));
+        if (fahrzeug.getFahrzeugID() == 0) {
+        	if (fahrzeugs.size() > 0) {
+        		int temp= fahrzeugs.get(fahrzeugs.size()-1).getFahrzeugID()+1;
+        		fahrzeugIDLabel.setText(Integer.toString(temp));
+        	} else {
+        		fahrzeugIDLabel.setText(Integer.toString(1));
+        	}
+        }
+//        fahrzeugIDField.setText(Integer.toString(fahrzeug.getFahrzeugID()));
         herstellerField.setText(fahrzeug.getHersteller());
         markeField.setText(fahrzeug.getMarke());
         kraftstoffField.setText(fahrzeug.getKraftstoff());
@@ -170,8 +181,7 @@ public class FahrzeugEditDialogController {
     @FXML
     private void handleOk() {
         if (isInputValid(mainApp.getFahrzeugData())) {
-
-        	fahrzeug.setFahrzeugID(Integer.parseInt(fahrzeugIDField.getText()));
+        	fahrzeug.setFahrzeugID(Integer.parseInt(fahrzeugIDLabel.getText()));
             fahrzeug.setHersteller(herstellerField.getText());
             fahrzeug.setMarke(markeField.getText());
             fahrzeug.setKraftstoff(kraftstoffField.getText());
@@ -215,26 +225,26 @@ public class FahrzeugEditDialogController {
 
     private boolean isInputValid(List<Fahrzeug> fahrzeugs) {
         String errorMessage = "";
-
-        if (fahrzeugIDField.getText() == null || fahrzeugIDField.getText().length() == 0 || Integer.parseInt(fahrzeugIDField.getText()) < 1) {
-            errorMessage += "No valid FahrzeugID!\n";
-        } else {
-            // try to parse the fahrzeugID into an int.
-            try {
-                Integer.parseInt(fahrzeugIDField.getText());
-
-            } catch (NumberFormatException e) {
-                errorMessage += "No valid fahrzeugID (must be an integer)!\n";
-            }
-        }
-
-        if (Integer.parseInt(fahrzeugIDField.getText()) != fahrzeug.getFahrzeugID()) {
-        	for(Fahrzeug f : fahrzeugs) {
-            	if (Integer.parseInt(fahrzeugIDField.getText()) == f.getFahrzeugID()) {
-            		errorMessage += "FahrzeugID already exists";
-            	}
-            }
-        }
+//
+//        if (fahrzeugIDField.getText() == null || fahrzeugIDField.getText().length() == 0 || Integer.parseInt(fahrzeugIDField.getText()) < 1) {
+//            errorMessage += "No valid FahrzeugID!\n";
+//        } else {
+//            // try to parse the fahrzeugID into an int.
+//            try {
+//                Integer.parseInt(fahrzeugIDField.getText());
+//
+//            } catch (NumberFormatException e) {
+//                errorMessage += "No valid fahrzeugID (must be an integer)!\n";
+//            }
+//        }
+//
+//        if (Integer.parseInt(fahrzeugIDField.getText()) != fahrzeug.getFahrzeugID()) {
+//        	for(Fahrzeug f : fahrzeugs) {
+//            	if (Integer.parseInt(fahrzeugIDField.getText()) == f.getFahrzeugID()) {
+//            		errorMessage += "FahrzeugID already exists";
+//            	}
+//            }
+//        }
 
 
         if (herstellerField.getText() == null || herstellerField.getText().length() == 0) {

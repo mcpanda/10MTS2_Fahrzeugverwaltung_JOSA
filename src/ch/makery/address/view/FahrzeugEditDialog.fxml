@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane prefHeight="400.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.makery.address.view.FahrzeugEditDialogController">
+<AnchorPane prefHeight="400.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.makery.address.view.FahrzeugEditDialogController">
    <children>
       <GridPane layoutX="-121.0" layoutY="-104.0" AnchorPane.bottomAnchor="75.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="25.0">
         <columnConstraints>
@@ -33,7 +33,6 @@
             <Label text="Kraftstoff" GridPane.rowIndex="3" />
             <Label text="Leistung" GridPane.rowIndex="4" />
             <Label text="Kilometerstand" GridPane.rowIndex="5" />
-            <TextField fx:id="fahrzeugIDField" GridPane.columnIndex="1" />
             <TextField fx:id="herstellerField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <TextField fx:id="markeField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <TextField fx:id="kraftstoffField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
@@ -41,6 +40,7 @@
             <TextField fx:id="kilometerstandField" GridPane.columnIndex="1" GridPane.rowIndex="5" />
             <Label text="Fahrzeugtyp" GridPane.rowIndex="6" />
             <ChoiceBox fx:id="fahrzeugtypBox" prefWidth="400.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <Label fx:id="fahrzeugIDLabel" text="Label" GridPane.columnIndex="1" />
          </children>
       </GridPane>
       <ButtonBar layoutX="400.0" layoutY="260.0" prefHeight="40.0" prefWidth="200.0" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="15.0">

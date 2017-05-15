@@ -12,6 +12,9 @@
 
 package ch.makery.address.view;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 /**************************************************************************/
 /*                                                                        */
 /* Import Section                                                         */
@@ -21,6 +24,7 @@ package ch.makery.address.view;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -43,6 +47,7 @@ public class PersonEditDialogController {
     private Stage dialogStage;
     private Person person;
     private boolean okClicked = false;
+	ObservableList<String> filteredPersonIDBoxList= FXCollections.observableArrayList();
 
 	/**************************************************************************/
 	/*                                                                        */
@@ -50,6 +55,8 @@ public class PersonEditDialogController {
 	/*                                                                        */
 	/**************************************************************************/
 
+	@FXML
+    private Label personIDLabel;
 	@FXML
     private TextField personIDField;
     @FXML
@@ -240,7 +247,6 @@ public class PersonEditDialogController {
             	}
             }
         }
-
         if (firstNameField.getText() == null || firstNameField.getText().length() == 0) {
             errorMessage += "Kein gültiger Vorname!\n";
         }
@@ -289,6 +295,7 @@ public class PersonEditDialogController {
             return false;
         }
     }
+    
 }
 
 /** @}*/ /*end of doxygen group*/

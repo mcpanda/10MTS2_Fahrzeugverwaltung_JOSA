@@ -447,7 +447,6 @@ public class BuchungEditDialogController {
         if (isInputValid(mainApp.getPersonData(), mainApp.getFahrzeugData(), mainApp.getBuchungData())) {						// prüfe ob alle Eingaben korrekt sind, dann:
 
         	buchung.setBuchungID(Integer.parseInt(buchungIDLabel.getText()));						// übernimm alle Daten in die Buchung
-
         	buchung.setPersonID(getIDfromBeschreibung(personIDBox.getEditor().getText()));
         	buchung.setFahrzeugID(getIDfromBeschreibung(fahrzeugIDBox.getEditor().getText()));
         	buchung.setLeihdauer(Integer.parseInt(leihdauerLabel.getText()));
