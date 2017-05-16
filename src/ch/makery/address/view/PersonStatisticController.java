@@ -2,7 +2,7 @@
 /*! \file
   FILE         : $Source: PersonStatisticController.java $
   BESCHREIBUNG : Controller
-                 Controller für die Statistik von Personen
+                 Controller fuer die Statistik von Personen
 ***************************************************************************************************/
 
 /** \addtogroup View
@@ -78,7 +78,7 @@ public class PersonStatisticController {
     /***************************************************************************
     METHODENNAME:	setPersonStatistic
     *//*!
-     lädt die Personen für die Statistik.
+     laedt die Personen fuer die Statistik.
 
      \param   List<Person>, List<Buchung>
 
@@ -87,27 +87,68 @@ public class PersonStatisticController {
     ***************************************************************************/
 
     public void setPersonStatistic(List<Person> persons, List<Buchung> buchungs) {
+    	personenNamenList.clear();
 
+    	/* erstelle Array mit den PersonenIDs und der Leihdauer */
         int[][] ausleihe = new int[2][persons.size()];
-        personenNamenList.clear();
+
         for( int i= 0; i < ausleihe[0].length; i++) {
         	ausleihe[0][i]= persons.get(i).getPersonID();
-        	personenNamenList.add(persons.get(i).getFirstName() + " " + persons.get(i).getLastName());
+        	ausleihe[1][i]= 0;
         }
+
         for (Buchung b : buchungs) {
-        	int gebucht= b.getFahrzeugID();
         	for( int i= 0; i < ausleihe[0].length; i++) {
-        		if( gebucht == ausleihe[0][i]) {
-        			ausleihe[1][i]++;
+        		if(ausleihe[0][i] ==  b.getPersonID()) {
+        			ausleihe[1][i] += b.getLeihdauer();
         		}
         	}
         }
 
-        XYChart.Series<String, Integer> series = new XYChart.Series<>();
+        /* sortiere das Array nach der Leihdauer; absteigend */
+        int [][] Platzhalter= new int[2][1];
 
-        // Create a XYChart.Data object for each month. Add it to the series.
+    	for (int i= 0; i < ausleihe[0].length - 1; i++) {
+    		int maxIndex= i;
+    		Platzhalter[0][0]= ausleihe[0][i];
+    		Platzhalter[1][0]= ausleihe[1][i];
+
+    		for (int j= i + 1; j < ausleihe[0].length; j++) {
+    			if (Platzhalter[1][0] < ausleihe[1][j]) {
+    				maxIndex= j;
+    				Platzhalter[0][0]= ausleihe[0][j];
+    	   			Platzhalter[1][0]= ausleihe[1][j];
+    			}
+    		}
+
+    		ausleihe[0][maxIndex]= ausleihe[0][i];
+       		ausleihe[1][maxIndex]= ausleihe[1][i];
+
+       		ausleihe[0][i]= Platzhalter[0][0];
+        	ausleihe[1][i]= Platzhalter[1][0];
+    	}
+
+    	/* nehme nur 10 Personen in die Statistik auf */
+    	int darstellungsgroesse= 10;
+    	if (darstellungsgroesse > ausleihe[0].length) {
+    		darstellungsgroesse= ausleihe[0].length;
+    	}
+    	for (int i= 0; i < darstellungsgroesse; i++) {
+    		for (Person p : persons) {
+    			if (ausleihe[0][i] == p.getPersonID()) {
+    				personenNamenList.add(persons.get(i).getFirstName() + " " + persons.get(i).getLastName());
+    			}
+    		}
+    	}
+
+        XYChart.Series<String, Integer> series = new XYChart.Series<>();
+        barChart.setTitle("Personen - durchschnittliche Ausleihdauer");
+        barChart.setLegendVisible(false);
+
+
+        // Fuege die Daten zur Statistik hinzu
         for (int i = 0; i < personenNamenList.size(); i++) {
-            series.getData().add(new XYChart.Data<>(personenNamenList.get(i), ausleihe[1][i]));
+        	series.getData().add(new XYChart.Data<>(personenNamenList.get(i), ausleihe[1][i]));
         }
 
         barChart.getData().add(series);

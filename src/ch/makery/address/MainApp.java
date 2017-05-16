@@ -53,7 +53,6 @@ import ch.makery.address.view.FahrzeugTypStatisticController;
 import ch.makery.address.view.RootLayoutController;
 import ch.makery.address.view.SortedTableController;
 import ch.makery.address.view.SortedFahrzeugTableController;
-import ch.makery.address.view.BirthdayStatisticsController;
 import ch.makery.address.view.BuchungEditDialogController;
 import ch.makery.address.view.BuchungOverviewController;
 import ch.makery.address.view.SuchenFensterController;
@@ -1238,37 +1237,6 @@ public class MainApp extends Application {
 	}
 
     /***************************************************************************
-    METHODENNAME:	showBirthdayStatistics
-    *//*!
-     Öffnet die Geburtstagstatistik im root Layout
-
-     \param   void
-
-     \return  void
-
-    ***************************************************************************/
-
-	public void showBirthdayStatistics() {
-		try {
-			// Load the fxml file and create a new stage for the popup.
-			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainApp.class.getResource("view/BirthdayStatistics.fxml"));
-			AnchorPane page = (AnchorPane) loader.load();
-
-			rootLayout.setCenter(page);
-
-			// Set the persons into the controller.
-			BirthdayStatisticsController controller = loader.getController();
-			controller.setPersonData(personData);
-
-			// dialogStage.show();
-
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-
-    /***************************************************************************
     METHODENNAME:	showPersonStatistics
     *//*!
      Öffnet die PersonStatistik im root Layout
@@ -1438,7 +1406,7 @@ public class MainApp extends Application {
     	}
 
     	for (Fahrzeug f : fahrzeugData) {	// für alle Fahrzeuge
-    		f.setAusgeliehen("Nein");		// setze den AUsleihzustand erstmal auf Nein
+    		f.setAusgeliehen("Nein");		// setze den Ausleihzustand erstmal auf Nein
     	}
 
     	for (Buchung b : buchungData) {										// gehe alle Buchungen durch
@@ -1456,7 +1424,6 @@ public class MainApp extends Application {
     		}
     	}
     }
-
 }
 
 /** @}*/ /*end of doxygen group*/

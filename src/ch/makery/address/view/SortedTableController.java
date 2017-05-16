@@ -106,10 +106,6 @@ public class SortedTableController {
         postalColumn.setCellValueFactory(cellData -> cellData.getValue().postalCodeProperty().asObject());
         cityColumn.setCellValueFactory(cellData -> cellData.getValue().cityProperty());
         lizenzColumn.setCellValueFactory(cellData -> cellData.getValue().lizenzProperty());
-//        ausgeliehenColumn.setCellValueFactory(cellData -> cellData.getValue().ausgeliehenProperty());
-//        birthdayColumn.setCellValueFactory(cellData -> cellData.getValue().birthdayProperty().asObject());
-
-
     }
 
     /***************************************************************************
@@ -215,9 +211,23 @@ public class SortedTableController {
 				if (Platzhalter.getLastName().compareTo(personenListe.get(j).getLastName()) > 0) {	// vergleiche ob es sich ein kleinerer Eintrag finden lässt
 					minIndex= j;																	// falls ja, so wird die Position und Inhalt des neuen Minimum zwischengespeichert
 					Platzhalter= personenListe.get(j);
-				}																					// am Ende haben wir ein Minimum von der Liste
+				}
+
+				if(Platzhalter.getLastName().compareTo(personenListe.get(j).getLastName()) == 0) { 			// falls der Nachnahme identisch ist,
+					if (Platzhalter.getFirstName().compareTo(personenListe.get(j).getFirstName()) > 0) {	// so wird der Vorname Verglichen
+						minIndex= j;
+						Platzhalter= personenListe.get(j);
+					}
+
+					if (Platzhalter.getFirstName().compareTo(personenListe.get(j).getFirstName()) == 0) {		// falls auch der Vorname identisch ist,
+						if (Platzhalter.getPersonID() > personenListe.get(j).getPersonID()) {					// so wird die ID verglichen
+							minIndex= j;
+							Platzhalter= personenListe.get(j);
+						}
+					}
+				}													// am Ende haben wir ein Minimum von der Liste
 			}
-			personenListe.set(minIndex, personenListe.get(i));										// Tausche aktuelle Position mit der Postion des Minimum
+			personenListe.set(minIndex, personenListe.get(i));		// Tausche aktuelle Position mit der Postion des Minimum
 			personenListe.set(i, Platzhalter);
 		}
 		return personenListe;
@@ -248,6 +258,19 @@ public class SortedTableController {
 				if (Platzhalter.getFirstName().compareTo(personenListe.get(j).getFirstName()) > 0) {
 					minIndex= j;
 					Platzhalter= personenListe.get(j);
+				}
+
+				if (Platzhalter.getFirstName().compareTo(personenListe.get(j).getFirstName()) == 0) {
+					if (Platzhalter.getLastName().compareTo(personenListe.get(j).getLastName()) > 0) {
+						minIndex= j;
+						Platzhalter= personenListe.get(j);
+					}
+					if (Platzhalter.getLastName().compareTo(personenListe.get(j).getLastName()) == 0) {
+						if (Platzhalter.getPersonID() > personenListe.get(j).getPersonID()) {
+							minIndex= j;
+							Platzhalter= personenListe.get(j);
+						}
+					}
 				}
 			}
 

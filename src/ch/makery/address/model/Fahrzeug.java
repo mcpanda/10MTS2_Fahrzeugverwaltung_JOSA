@@ -76,7 +76,6 @@ public class Fahrzeug {
         this.kilometerstand = new SimpleIntegerProperty(kilometerstand);
 
         this.ausgeliehen = new SimpleStringProperty("Nein");
-//        this.aenderungsdatum = new SimpleObjectProperty<LocalDate>(LocalDate.of(2017, 2, 21));
     }
 
 	/**************************************************************************/

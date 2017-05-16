@@ -19,10 +19,10 @@ CLASS:	Node
 ***************************************************************************/
 
 public class Node {
-	Person person;
+	private Person person;
 
-	Node leftChild;
-	Node rightChild;
+	private Node leftChild;
+	private Node rightChild;
 
     /***************************************************************************
     METHODENNAME:	Node
@@ -47,10 +47,10 @@ public class Node {
     *//*!
      Vergleicht Person dieses Knoten mit einer neuen Person
      anhand des Vor- und Nachnamens.
-     Liefert +1, falls der Vorname lexikographisch größer ist.
+     Liefert +1, falls der Vorname lexikographisch groeßer ist.
      Liefert -1, falls der Vorname lexikographisch kleiner ist.
-     Stimmen die Vornamen überein, so werden zusätzlich die Nachnamen verglichen.
-     Stimmen Vor- und Nachnamen überein, so werden zusätzlich die PersonIDs
+     Stimmen die Vornamen ueberein, so werden zusaetzlich die Nachnamen verglichen.
+     Stimmen Vor- und Nachnamen ueberein, so werden zusaetzlich die PersonIDs
      verglichen.
      Somit herrscht eine totale Ordnung.
 
@@ -106,6 +106,22 @@ public class Node {
 
 	public void setPerson(Person persons) {
 		this.person= persons;
+	}
+
+	public Node getLeftChild() {
+		return this.leftChild;
+	}
+
+	public void setLeftChild(Node node) {
+		this.leftChild= node;
+	}
+
+	public Node getRightChild() {
+		return this.rightChild;
+	}
+
+	public void setRightChild(Node node) {
+		this.rightChild= node;
 	}
 }
 

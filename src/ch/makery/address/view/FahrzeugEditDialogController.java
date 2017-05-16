@@ -2,8 +2,8 @@
 /*! \file
   FILE         : $Source: FahrzeugEditDialogController.java $
   BESCHREIBUNG : Controller
-                 Controller für das Dialogfeld zur Fahrzeugbearbeitung.
-                 Hierzu zählt New, Edit, Delete, Buchung
+                 Controller fuer das Dialogfeld zur Fahrzeugbearbeitung.
+                 Hierzu zaehlt New, Edit, Delete, Buchung
 ***************************************************************************************************/
 
 /** \addtogroup View
@@ -158,7 +158,7 @@ public class FahrzeugEditDialogController {
     /***************************************************************************
     METHODENNAME:	handleOk
     *//*!
-     Handler für OK. Dieser handler wird ausgeführt, wenn [OK] geklickt wurde.
+     Handler fuer OK. Dieser handler wird ausgefuehrt, wenn [OK] geklickt wurde.
 	 Neue Fahrzeugdaten werden gespeichert.
 
      \param   void
@@ -187,8 +187,8 @@ public class FahrzeugEditDialogController {
     /***************************************************************************
     METHODENNAME:	handleCancel
     *//*!
-     Handler für Cancel. Dieser handler wird ausgeführt, wenn [Cancel] geklickt
-     wurde. Dialogfenster wird geschloßen, ohne neue Fahrzeugdaten zu speichern.
+     Handler fuer Cancel. Dieser handler wird ausgefuehrt, wenn [Cancel] geklickt
+     wurde. Dialogfenster wird geschlossen, ohne neue Fahrzeugdaten zu speichern.
 
      \param   void
 
@@ -204,7 +204,7 @@ public class FahrzeugEditDialogController {
     /***************************************************************************
     METHODENNAME:	isInputValid
     *//*!
-     Überprüfung der eingegeben Daten. Sollten nicht konforme Daten vorhanden
+     Ueberpruefung der eingegeben Daten. Sollten nicht konforme Daten vorhanden
      sein, so wird eine Fehlermeldung ausgegeben.
 
      \param   void
@@ -217,67 +217,70 @@ public class FahrzeugEditDialogController {
         String errorMessage = "";
 
         if (fahrzeugIDField.getText() == null || fahrzeugIDField.getText().length() == 0 || Integer.parseInt(fahrzeugIDField.getText()) < 1) {
-            errorMessage += "No valid FahrzeugID!\n";
+            errorMessage += "Keine gültige FahrzeugID!\n";
         } else {
             // try to parse the fahrzeugID into an int.
             try {
                 Integer.parseInt(fahrzeugIDField.getText());
 
             } catch (NumberFormatException e) {
-                errorMessage += "No valid fahrzeugID (must be an integer)!\n";
+                errorMessage += "Keine gültige fahrzeugID (fahrzeugID muss eine Zahl sein)!\n";
             }
         }
 
+        /* pruefe ob FahrzeugID bereits vorhanden ist */
         if (Integer.parseInt(fahrzeugIDField.getText()) != fahrzeug.getFahrzeugID()) {
         	for(Fahrzeug f : fahrzeugs) {
             	if (Integer.parseInt(fahrzeugIDField.getText()) == f.getFahrzeugID()) {
-            		errorMessage += "FahrzeugID already exists";
+            		errorMessage += "FahrzeugID existiert bereits";
             	}
             }
         }
 
-
         if (herstellerField.getText() == null || herstellerField.getText().length() == 0) {
-            errorMessage += "No valid Hersteller!\n";
+            errorMessage += "Kein gültiger Hersteller!\n";
         }
         if (markeField.getText() == null || markeField.getText().length() == 0) {
-            errorMessage += "No valid Marke!\n";
+            errorMessage += "Keine gültige Marke!\n";
         }
         if (kraftstoffField.getText() == null || kraftstoffField.getText().length() == 0) {
-            errorMessage += "No valid Kraftstoff!\n";
+            errorMessage += "Kein gültiger Kraftstoff!\n";
+        }
+        if (fahrzeugtypBox.getValue() == null || fahrzeugtypBox.getValue().length() == 0) {
+            errorMessage += "Bitte Fahrzeugtyp auswählen!\n";
         }
 
         if (leistungField.getText() == null || leistungField.getText().length() == 0) {
-            errorMessage += "No valid Leistung!\n";
+            errorMessage += "Keine gültige Leistung!\n";
         } else {
             // try to parse the leistung into an int.
             try {
                 Integer.parseInt(leistungField.getText());
             } catch (NumberFormatException e) {
-                errorMessage += "No valid Leistung (must be an integer)!\n";
+                errorMessage += "Keine gültige Leistung (Leistung muss eine Zahl sein)!\n";
             }
         }
 
         if (kilometerstandField.getText() == null || kilometerstandField.getText().length() == 0) {
-            errorMessage += "No valid Kilometerstand!\n";
+            errorMessage += "Kein gültiger Kilometerstand!\n";
         } else {
             // try to parse the kilometerstand into an int.
             try {
                 Integer.parseInt(kilometerstandField.getText());
             } catch (NumberFormatException e) {
-                errorMessage += "No valid Kilometerstand (must be an integer)!\n";
+                errorMessage += "Kein gültiger Kilometerstand (Kilometerstand muss eine Zahl sein)!\n";
             }
         }
 
-        // falls die Länge der Fehlermeldung 0 ist, so wird keine Fehlermeldung ausgegeben
+        // falls die Laenge der Fehlermeldung 0 ist, so wird keine Fehlermeldung ausgegeben
         if (errorMessage.length() == 0) {
             return true;
         } else {
             // Show the error message.
             Alert alert = new Alert(AlertType.ERROR);
             alert.initOwner(dialogStage);
-            alert.setTitle("Invalid Fields");
-            alert.setHeaderText("Please correct invalid fields");
+            alert.setTitle("Ungültige Eingabe");
+            alert.setHeaderText("Bitte korrigieren Sie die ungültigen Eingaben");
             alert.setContentText(errorMessage);
 
             alert.showAndWait();

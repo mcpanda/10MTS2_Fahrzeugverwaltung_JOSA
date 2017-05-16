@@ -2,8 +2,8 @@
 /*! \file
   FILE         : $Source: BuchungEditDialogController.java $
   BESCHREIBUNG : Controller
-                 Controller für das Dialogfeld zur Buchungsbearbeitung.
-                 Hierzu zählt New, Edit, Delete.
+                 Controller fuer das Dialogfeld zur Buchungsbearbeitung.
+                 Hierzu zaehlt New, Edit, Delete.
 ***************************************************************************************************/
 
 /** \addtogroup View
@@ -49,14 +49,14 @@ public class BuchungEditDialogController {
 	// Reference to the main application.
     private MainApp mainApp;
 
-    ObservableList<String> personList= FXCollections.observableArrayList();									// ObservableList für die vorhandenen Personen im System
-	ObservableList<String> personBeschreibungBoxList= FXCollections.observableArrayList();					// ObservableList für die Filterung bei Tastatureingabe
-	ObservableList<String> filteredFahrzeugBeschreibungBoxList= FXCollections.observableArrayList();		// ObservableList für die Fileterung bei Tastatureingabe
-	ObservableList<String> filteredFahrzeugTypBeschreibungBoxList= FXCollections.observableArrayList();		// ObservableList für die Fahrzeuge, abhängig von der Auswahl des Fahrzeugtypes
-	ObservableList<String> filteredFahrzeugTypBoxList= FXCollections.observableArrayList();					// ObservableList für die Fahrzeugtypen, abhängig von der Auswahl der Person und derer Lizenz
+    private ObservableList<String> personList= FXCollections.observableArrayList();									// ObservableList fuer die vorhandenen Personen im System
+    private ObservableList<String> personBeschreibungBoxList= FXCollections.observableArrayList();					// ObservableList fuer die Filterung bei Tastatureingabe
+    private ObservableList<String> filteredFahrzeugBeschreibungBoxList= FXCollections.observableArrayList();		// ObservableList fuer die Fileterung bei Tastatureingabe
+    private ObservableList<String> filteredFahrzeugTypBeschreibungBoxList= FXCollections.observableArrayList();		// ObservableList fuer die Fahrzeuge, abhaengig von der Auswahl des Fahrzeugtypes
+    private ObservableList<String> filteredFahrzeugTypBoxList= FXCollections.observableArrayList();					// ObservableList fuer die Fahrzeugtypen, abhaengig von der Auswahl der Person und derer Lizenz
 
-    static private String filterPerson= "";		// String für die Speicherung der Tastatureingabe bei der personIDBox.
-    static private String filterFahrzeug= "";	// String für die Speicherung der Tastatureingabe bei der fahrzeugIDBox.
+    static private String filterPerson= "";		// String fuer die Speicherung der Tastatureingabe bei der personIDBox.
+    static private String filterFahrzeug= "";	// String fuer die Speicherung der Tastatureingabe bei der fahrzeugIDBox.
 
     Stage dialogStage;
     private Buchung buchung;
@@ -119,13 +119,13 @@ public class BuchungEditDialogController {
     	fahrzeugtypBox.setItems(filteredFahrzeugTypBoxList);	// trage zur Auswahlliste alle Fahrzeugtypen aus der filteredFahrzeugTypBoxList ein
     	fahrzeugtypBox.setValue("Bitte Person auswählen.");		// setze Anzeige auf "Bitte .."
 
-    	// füge einen Listener hinzu, welcher die Fahrzeugtypen anpasst, abhängig von der Auswahl der Person
+    	// fuege einen Listener hinzu, welcher die Fahrzeugtypen anpasst, abhaengig von der Auswahl der Person
     	personIDBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> setFahrzeugTypList(getIDfromBeschreibung(newValue)));
 
-    	fahrzeugIDBox.setEditable(true);					// ComboBox bekomtm damit eine Textfield zur Eingabe
+    	fahrzeugIDBox.setEditable(true);								// ComboBox bekommt damit eine Textfield zur Eingabe
     	fahrzeugIDBox.setItems(filteredFahrzeugBeschreibungBoxList);	// trage zur Auswahlliste alle Fahrzeugbeschreibungen aus der filteredFahrzeugBeschreibungBoxList ein
 
-    	// füge einen Listener hinzu, welcher die Fahrzeugbeschreibungen anpasst, abhängig von der Auswahl des Fahrzeugtypes
+    	// fuege einen Listener hinzu, welcher die Fahrzeugbeschreibungen anpasst, abhaengig von der Auswahl des Fahrzeugtypes
     	fahrzeugtypBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> AutoCompleteFahrzeug(newValue));
     }
 
@@ -162,7 +162,7 @@ public class BuchungEditDialogController {
     /***************************************************************************
     METHODENNAME:	setPersonList
     *//*!
-     Setzt die Personenliste gemäß aller Personen im System
+     Setzt die Personenliste gemaess aller Personen im System
 
      \param   List<Person>
 
@@ -172,10 +172,10 @@ public class BuchungEditDialogController {
 
     public void setPersonList(List<Person> persons) {
 
-    	personList.clear();		// zuerst werden alle Personeneinträge gelöscht, um etwaige mehrfachaufnahme zu verhindern
+    	personList.clear();		// zuerst werden alle Personeneintraege geloescht, um etwaige Mehrfachaufnahme zu verhindern
 
     	for(Person p : persons) {
-    		personList.add(p.getPersonBeschreibung());		// für alle Personen aus der ObservableList persons, werden die Personenbeschreibung aufgenommen
+    		personList.add(p.getPersonBeschreibung());		// fuer alle Personen aus der ObservableList persons, werden die Personenbeschreibung aufgenommen
 		}
 
     	personBeschreibungBoxList.setAll(personList);		// kopiere die personList
@@ -184,7 +184,7 @@ public class BuchungEditDialogController {
     /***************************************************************************
     METHODENNAME:	setFahrzeugTypList
     *//*!
-     Erzeugt die Einträge in der ComboBox fahrzuegtypBox, abhängig von einer
+     Erzeugt die Eintraege in der ComboBox fahrzuegtypBox, abhaengig von einer
      PersonenID
 
      \param   int
@@ -198,15 +198,15 @@ public class BuchungEditDialogController {
     	ObservableList<Person> persons= FXCollections.observableArrayList();	// erstelle eine ObservableList von der Klasse Person
     	persons.setAll(mainApp.getPersonData());								// Kopiere alle Personen im System
 
-    	if(personID == 0) {														// Falls die PersonenID 0 ist, so werden die Einträge in der FahrzeugListe und der FahrzeugtypListe geleert und zur Auswahl einer Person aufgefordert
+    	if(personID == 0) {														// Falls die PersonenID 0 ist, so werden die Eintraege in der FahrzeugListe und der FahrzeugtypListe geleert und zur Auswahl einer Person aufgefordert
     		fahrzeugtypBox.setValue("Bitte Person auswählen");
     		filteredFahrzeugTypBoxList.clear();
     		filteredFahrzeugTypBeschreibungBoxList.clear();
     	} else {																// andernfalls
-    		filteredFahrzeugTypBeschreibungBoxList.clear();						// lösche alle EInträge in den Listen, um eine etwaige mehrfachaufnahme zu verhindern
+    		filteredFahrzeugTypBeschreibungBoxList.clear();						// loesche alle Eintraege in den Listen, um eine etwaige mehrfachaufnahme zu verhindern
     		filteredFahrzeugTypBoxList.clear();
     		for(Person p : persons) {											// gehe alle Personen durch
-    			if(p.getPersonID() == personID) {								// wenn die personenID mit dem Übergabeparameter übereinstimmt
+    			if(p.getPersonID() == personID) {								// wenn die personenID mit dem Uebergabeparameter uebereinstimmt
     				if(p.getLizenz().indexOf("A") > 0) {						// wenn in der Lizenz der Person ein A vorkommt, dann:
     					filteredFahrzeugTypBoxList.add("Motorrad");				// nimm Motorrad in die FahrzeugTypListe auf
     					fahrzeugtypBox.setValue("Bitte Fahrzeugtyp auswählen");	// fordere zur Fahrzeugtypauswahl auf
@@ -229,7 +229,7 @@ public class BuchungEditDialogController {
     /***************************************************************************
     METHODENNAME:	AutoCompleteFahrzeug
     *//*!
-     Erzeugt die Einträge in der ComboBox fahrzuegIDBox, abhängig von einem
+     Erzeugt die Eintraege in der ComboBox fahrzuegIDBox, abhaengig von einem
      fahrzeugtyp
 
      \param   String
@@ -244,14 +244,14 @@ public class BuchungEditDialogController {
     	fahrzeugs.setAll(mainApp.getFahrzeugData());									// kopiere alle vorhanden Fahrzeuge im System
 
     	if (fahrzeugtyp != null) {									// wenn der fahrzeugtyp nicht null ist, dann
-    		if(fahrzeugtyp.indexOf("Bitte") > 0) {					// wenn der fahrzeugtyp ein Bitte enthäkt, dann:
-        		filteredFahrzeugTypBeschreibungBoxList.clear();		// lösche alle Einträge in der filteredFahrzeugTypBeschreibungBoxList
+    		if(fahrzeugtyp.indexOf("Bitte") > 0) {					// wenn der fahrzeugtyp ein Bitte enthaelt, dann:
+        		filteredFahrzeugTypBeschreibungBoxList.clear();		// loesche alle Eintraege in der filteredFahrzeugTypBeschreibungBoxList
         	} else {												// andernfalls:
-        		filteredFahrzeugTypBeschreibungBoxList.clear();		// lösche alle Einträge in der filteredFahrzeugTypBeschreibungBoxList, um etwaige mehrfachaufnahme zu verhindern
+        		filteredFahrzeugTypBeschreibungBoxList.clear();		// loesche alle Eintraege in der filteredFahrzeugTypBeschreibungBoxList, um etwaige mehrfachaufnahme zu verhindern
         		fahrzeugIDBox.setValue("");
         		for(Fahrzeug f : fahrzeugs){						// gehe alle Fahrzeuge durch
         			String vergleich= f.getFahrzeugtyp();
-            		if (vergleich.equals(fahrzeugtyp)) {			// wenn der FahrzeugTyp eines Fahrzeuges mit dem Übergabeparameter übereinstimmt, dann:
+            		if (vergleich.equals(fahrzeugtyp)) {			// wenn der FahrzeugTyp eines Fahrzeuges mit dem Uebergabeparameter uebereinstimmt, dann:
             			filteredFahrzeugTypBeschreibungBoxList.add(f.getFahrzeugBeschreibung());		// nehme die Fahrzeugbeschriebung dieses Fahrzeuges in die filteredFahrzeugTypBeschreibungBoxList auf
             		}
         	  	}
@@ -281,18 +281,18 @@ public class BuchungEditDialogController {
 
     	KeyCode code= event.getCode();													// Keyevent code registriert alle Tastatureingaben
 
-    	if((code == KeyCode.BACK_SPACE) && (filterPerson.length() > 0)) {				// wenn die Tastatureingabe ein Backspace war und die Länge des Strings filerPerson größer 0 ist, dann:
-    		filterPerson= filterPerson.substring(0, filterPerson.length()-1);			// lösche den letzten Char in dem String filerPerson
+    	if((code == KeyCode.BACK_SPACE) && (filterPerson.length() > 0)) {				// wenn die Tastatureingabe ein Backspace war und die Laenge des Strings filerPerson groesser 0 ist, dann:
+    		filterPerson= filterPerson.substring(0, filterPerson.length()-1);			// loesche den letzten Char in dem String filerPerson
     	}
 
     	if(code.isDigitKey() || code.isLetterKey() || code == KeyCode.SHIFT) {			// wenn die Tastatureingabe eine Zahl oder ein Buchstabe oder die Tate SHIFT war, dann:
     		filterPerson+= event.getText();												// speichere diesen Char in filterPerson
     	}
 
-    	if (filterPerson.length() > 0) {												// wenn filterPerson größer 0 ist, dann:
-    		personBeschreibungBoxList.clear();											// lösche die personBeschreibungBoxList, um etwaige mehrfachaufnahme zu verhindern
+    	if (filterPerson.length() > 0) {												// wenn filterPerson groesser 0 ist, dann:
+    		personBeschreibungBoxList.clear();											// loesche die personBeschreibungBoxList, um etwaige mehrfachaufnahme zu verhindern
 
-			for(int i= 0; i < personList.size(); i++){									// gehe alle Einträge der personList durch
+			for(int i= 0; i < personList.size(); i++){									// gehe alle Eintraege der personList durch
     			String vergleich= personList.get(i).toLowerCase();						// speichere Eintrag in der personList mit Kleinbuchstaben zwischen, da bei SHIFT+Buchstabe nur der Buchstabe bei filterPerson aufgenohmen wird
     			if (vergleich.indexOf(filterPerson) > -1) {								// wenn die Tastatureingabe ein Substring einer Personenbeschreibung ist, dann
         			personBeschreibungBoxList.add(personList.get(i));					// nimm die Personenbeschreibung in personBeschreibungBoxList auf
@@ -300,12 +300,12 @@ public class BuchungEditDialogController {
     	  	}
 		}
 
-    	if (code == KeyCode.ESCAPE) {		// wenn ESC gedrückt wurde, dann:
+    	if (code == KeyCode.ESCAPE) {		// wenn ESC gedrueckt wurde, dann:
     		filterPerson= "";				// wird filterPerson geleert
     		personIDBox.setValue("");
     	}
 
-    	if (code == KeyCode.ENTER) {		// wenn ENTER gedrückt wurde, dann:
+    	if (code == KeyCode.ENTER) {		// wenn ENTER gedrueckt wurde, dann:
     		filterPerson= "";				// wird filterPerson geleert
     		personIDBox.setValue("");
     	}
@@ -370,8 +370,8 @@ public class BuchungEditDialogController {
     /***************************************************************************
     METHODENNAME:	setBuchung
     *//*!
-     Definiert die Buchung, welche bearbeitet werden soll. Hierfür sind
-     sämtliche Daten im System relevant
+     Definiert die Buchung, welche bearbeitet werden soll. Hierfuer sind
+     saemtliche Daten im System relevant
 
      \param   Buchung, List<Person>, List<Fahrzeug>, List<Buchung>
 
@@ -382,26 +382,26 @@ public class BuchungEditDialogController {
     public void setBuchung(Buchung buchung, List<Person> persons,  List<Fahrzeug> fahrzeugs, List<Buchung> buchungs) {
         this.buchung = buchung;
 
-        if (buchung.getBuchungID() == 0) {										// falls die Buchung mit BuchungsID 0 übergeben wird, dann ist dies eine neue Buchung
+        if (buchung.getBuchungID() == 0) {										// falls die Buchung mit BuchungsID 0 uebergeben wird, dann ist dies eine neue Buchung
         	if (0 < buchungs.size()){											// wenn wir einen Eintrag in der BuchungsListe haben, dann:
-        		int temp= buchungs.get(buchungs.size()-1).getBuchungID() + 1;	// wird die letzte BuchungsID um 1 erhöht
+        		int temp= buchungs.get(buchungs.size()-1).getBuchungID() + 1;	// wird die letzte BuchungsID um 1 erhoeht
         		buchungIDLabel.setText(Integer.toString(temp));					// und als buchungIDLabel angezeigt
         	} else {
         		buchungIDLabel.setText(Integer.toString(1));					// andernfalls, haben wir keine Buchung bisher in der Liste und erstellen die erste Buchugn mit ID 1
         	}
 
         } else {
-        	buchungIDLabel.setText(Integer.toString(buchung.getBuchungID()));	// andernfalls, haben wir keine neue Buchung und wollen eine ausgewählte Buchung ändern. Hierfür wird die zugehörige buchungID geladen und angezeigt
+        	buchungIDLabel.setText(Integer.toString(buchung.getBuchungID()));	// andernfalls, haben wir keine neue Buchung und wollen eine ausgewaehlte Buchung aendern. Hierfuer wird die zugehoerige buchungID geladen und angezeigt
         }
 
         for (Person p : persons) {									// gehe alle Personen durch
-        	if (buchung.getPersonID() == p.getPersonID()) {			// wenn die personID aus der Buchung mit einer Person übereinstimmt
+        	if (buchung.getPersonID() == p.getPersonID()) {			// wenn die personID aus der Buchung mit einer Person uebereinstimmt
         		personIDBox.setValue(p.getPersonBeschreibung());	// setzte in der personIDBox im TextField deren Beschreibung ein
         	}
         }
 
         for (Fahrzeug f : fahrzeugs) {									// gehe alle Fahrzeuge durch
-        	if (buchung.getFahrzeugID() == f.getFahrzeugID()) {			// wenn die fahrzeugID aus der Buchung mit einem Fahrzeug übereinstimmt
+        	if (buchung.getFahrzeugID() == f.getFahrzeugID()) {			// wenn die fahrzeugID aus der Buchung mit einem Fahrzeug uebereinstimmt
         		fahrzeugtypBox.setValue(f.getFahrzeugtyp());			// setze in der fahrzeugtypBox dessen Typ
         		fahrzeugIDBox.setValue(f.getFahrzeugBeschreibung());	// sowie in der fahrzeugIDbox im TextField dessen Beschreibung ein
         	}
@@ -433,7 +433,7 @@ public class BuchungEditDialogController {
     /***************************************************************************
     METHODENNAME:	handleOk
     *//*!
-     handler für OK. Dieser handler wird ausgeführt, wenn [OK] geklickt wurde.
+     handler fuer OK. Dieser handler wird ausgefuehrt, wenn [OK] geklickt wurde.
 	 Neue Buchungsdaten werden gespeichert.
 
      \param   void
@@ -444,9 +444,9 @@ public class BuchungEditDialogController {
 
     @FXML
     private void handleOk() {
-        if (isInputValid(mainApp.getPersonData(), mainApp.getFahrzeugData(), mainApp.getBuchungData())) {						// prüfe ob alle Eingaben korrekt sind, dann:
+        if (isInputValid(mainApp.getPersonData(), mainApp.getFahrzeugData(), mainApp.getBuchungData())) {						// pruefe ob alle Eingaben korrekt sind, dann:
 
-        	buchung.setBuchungID(Integer.parseInt(buchungIDLabel.getText()));						// übernimm alle Daten in die Buchung
+        	buchung.setBuchungID(Integer.parseInt(buchungIDLabel.getText()));						// uebernimm alle Daten in die Buchung
 
         	buchung.setPersonID(getIDfromBeschreibung(personIDBox.getEditor().getText()));
         	buchung.setFahrzeugID(getIDfromBeschreibung(fahrzeugIDBox.getEditor().getText()));
@@ -456,15 +456,15 @@ public class BuchungEditDialogController {
             buchung.setRueckgabedatum(DateUtil.parse(rueckgabedatumField.getText()));
 
             okClicked = true;
-            dialogStage.close();	// und schließe die BuchungEditStage
+            dialogStage.close();	// und schliesse die BuchungEditStage
         }
     }
 
     /***************************************************************************
     METHODENNAME:	handleCancel
     *//*!
-     handler für Cancel. Dieser handler wird ausgeführt, wenn [Cancel] geklickt
-     wurde. Dialogfenster wird geschloßen, ohne neue Buchungsdaten zu speichern.
+     handler fuer Cancel. Dieser handler wird ausgefuehrt, wenn [Cancel] geklickt
+     wurde. Dialogfenster wird geschlossen, ohne neue Buchungsdaten zu speichern.
 
      \param   void
 
@@ -480,7 +480,7 @@ public class BuchungEditDialogController {
     /***************************************************************************
     METHODENNAME:	isInputValid
     *//*!
-     Überprüfung der eingegeben Daten. Sollten nicht konforme Daten vorhanden
+     Ueberpruefung der eingegeben Daten. Sollten nicht konforme Daten vorhanden
      sein, so wird eine Fehlermeldung ausgegeben.
 
      \param   void
@@ -490,11 +490,11 @@ public class BuchungEditDialogController {
     ***************************************************************************/
 
     private boolean isInputValid(List<Person> persons, List<Fahrzeug> fahrzeugs, List<Buchung> buchungs) {
-        String errorMessage = ""; 			// Text für Fehlermeldung; anfänglich leer
+        String errorMessage = ""; 			// Text fuer Fehlermeldung; anfaenglich leer
         int tempP= 0;						// Hilfsvariablen
         int tempF= 0;
 
-        // überprüfe ob die Personeneingabe mit einer verfügbaren Person aus der Liste übereinstimmt
+        // ueberpruefe ob die Personeneingabe mit einer verfuegbaren Person aus der Liste uebereinstimmt
         for (int i= 0; i < personList.size(); i++) {
         	if (personIDBox.getEditor().getText().equals(personList.get(i))) {
         		tempP= 1;
@@ -504,7 +504,7 @@ public class BuchungEditDialogController {
         	errorMessage += "Bitte passende Person auswählen!\n";
         }
 
-        // überprüfe ob die Fahrzeugeingabe mit einem verfügbarem Fahrzeug aus der Liste übereinstimmt
+        // ueberpruefe ob die Fahrzeugeingabe mit einem verfuegbarem Fahrzeug aus der Liste uebereinstimmt
         for (int i= 0; i < filteredFahrzeugBeschreibungBoxList.size(); i++) {
         	if (fahrzeugIDBox.getEditor().getText().equals(filteredFahrzeugBeschreibungBoxList.get(i))) {
         		tempF= 1;
@@ -514,27 +514,7 @@ public class BuchungEditDialogController {
         	errorMessage += "Bitte passendes Fahrzeug auswählen!\n";
         }
 
-        // überprüfe ob die ausgewählte Person im ausgewählten Zeitraum bereits etwas ausgeliehen hat
-        // überprüfe ob das ausgewählte Fahrzeug im ausgewählten Zeitraum bereits bereits verleihen wurde
-        for (Buchung b : buchungs) {
-        	if(getIDfromBeschreibung(personIDBox.getValue()) == b.getPersonID() && buchung.getBuchungID() != b.getBuchungID()) {
-        		if(DateUtil.parse(ausleihdatumField.getText()).compareTo(b.getRueckgabedatum()) < 1 && DateUtil.parse(rueckgabedatumField.getText()).compareTo(b.getAusleihdatum()) > -1) {
-        			errorMessage += "Diese Person leiht im ausgewähltem Zeitraum bereits ein Fahrzeug aus!\n";
-        		}
-        	}
-        	if(getIDfromBeschreibung(fahrzeugIDBox.getValue()) == b.getFahrzeugID() && buchung.getBuchungID() != b.getBuchungID()) {
-        		if(DateUtil.parse(ausleihdatumField.getText()).compareTo(b.getRueckgabedatum()) < 1 && DateUtil.parse(rueckgabedatumField.getText()).compareTo(b.getAusleihdatum()) > -1) {
-        			errorMessage += "Dieses Fahrzeug wird im ausgewähltem Zeitraum bereits ein verliehen!\n";
-        		}
-        	}
-        }
-
-        // überprüfe ob Rückgabedatum vor dem Ausleihdatum liegt
-        if (Integer.parseInt(leihdauerLabel.getText()) < 1) {
-            errorMessage += "Keine gültige Leihdauer!\n";
-        }
-
-        // überprüfe ob als Datum gültige Werte benutzt werden
+        // ueberpruefe ob als Datum gueltige Werte benutzt werden
         if (ausleihdatumField.getText() == null || ausleihdatumField.getText().length() == 0) {
             errorMessage += "Kein gültiges Ausleihdatum!\n";
         } else {
@@ -543,7 +523,7 @@ public class BuchungEditDialogController {
             }
         }
 
-     // überprüfe ob als Datum gültige Werte benutzt werden
+        // ueberpruefe ob als Datum gueltige Werte benutzt werden
         if (rueckgabedatumField.getText() == null || rueckgabedatumField.getText().length() == 0) {
             errorMessage += "Kein gültiges Rückgabedatum!\n";
         } else {
@@ -552,14 +532,39 @@ public class BuchungEditDialogController {
             }
         }
 
+        // ueberpruefe ob die ausgewaehlte Person im ausgewaehlten Zeitraum bereits etwas ausgeliehen hat
+        // ueberpruefe ob das ausgewaehlte Fahrzeug im ausgewaehlten Zeitraum bereits bereits verleihen wurde
+        for (Buchung b : buchungs) {
+        	try {
+        		if(getIDfromBeschreibung(personIDBox.getValue()) == b.getPersonID() && buchung.getBuchungID() != b.getBuchungID()) {
+            		if(DateUtil.parse(ausleihdatumField.getText()).compareTo(b.getRueckgabedatum()) < 1 && DateUtil.parse(rueckgabedatumField.getText()).compareTo(b.getAusleihdatum()) > -1) {
+            			errorMessage += "Diese Person leiht im ausgewähltem Zeitraum bereits ein Fahrzeug aus!\n";
+            		}
+            	}
+            	if(getIDfromBeschreibung(fahrzeugIDBox.getValue()) == b.getFahrzeugID() && buchung.getBuchungID() != b.getBuchungID()) {
+            		if(DateUtil.parse(ausleihdatumField.getText()).compareTo(b.getRueckgabedatum()) < 1 && DateUtil.parse(rueckgabedatumField.getText()).compareTo(b.getAusleihdatum()) > -1) {
+            			errorMessage += "Dieses Fahrzeug wird im ausgewähltem Zeitraum bereits verliehen!\n";
+            		}
+            	}
+        	}
+        	catch(Exception e) {
+
+        	}
+        }
+
+        // ueberpruefe ob Rueckgabedatum vor dem Ausleihdatum liegt
+        if (Integer.parseInt(leihdauerLabel.getText()) < 1) {
+            errorMessage += "Keine gültige Leihdauer!\n";
+        }
+
         if (errorMessage.length() == 0) {				// wenn die Fehlermeldung leer ist, dann:
-            return true;								// wird true zurückgegeben, dh alle Eingaben sind korrekt
+            return true;								// wird true zurueckgegeben, dh alle Eingaben sind korrekt
         } else {										// andernfalls, wird eine Fehlermeldung ausgegeben
             // Show the error message.
             Alert alert = new Alert(AlertType.ERROR);
             alert.initOwner(dialogStage);
-            alert.setTitle("Ungültige EIngabe");
-            alert.setHeaderText("Bitte ändern Sie die ungültigen Eingaben");
+            alert.setTitle("Ungültige Eingabe");
+            alert.setHeaderText("Bitte korrigieren Sie die ungültigen Eingaben");
             alert.setContentText(errorMessage);
 
             alert.showAndWait();
@@ -579,21 +584,25 @@ public class BuchungEditDialogController {
     ***************************************************************************/
 
      public void AusleihdauerBerechnung() {
+    	 try {
+    		 LocalDate datum1= DateUtil.parse(ausleihdatumField.getText());		// ermittelt das Datum aus dem Textfield
+    	     LocalDate datum2= DateUtil.parse(rueckgabedatumField.getText());	// ermittelt das Datum aus dem Textfield
 
-     	LocalDate datum1= DateUtil.parse(ausleihdatumField.getText());		// ermittelt das Datum aus dem Textfield
-     	LocalDate datum2= DateUtil.parse(rueckgabedatumField.getText());	// ermittelt das Datum aus dem Textfield
+    	     int years= datum2.getYear() - datum1.getYear();						// berechnet Jahresunterschied
+    	     int days= datum2.getDayOfYear() - datum1.getDayOfYear();			// berechnet Tagesunterschied
+    	     days= days + 365 * years + 1;										// berechnet Gesamtuntershied
 
-     	int years= datum2.getYear() - datum1.getYear();						// berechnet Jahresunterschied
-     	int days= datum2.getDayOfYear() - datum1.getDayOfYear();			// berechnet Tagesunterschied
-     	days= days + 365 * years + 1;										// berechnet Gesamtuntershied
+    	     leihdauerLabel.setText(Integer.toString(days));
+    	 }
+    	 catch(Exception e) {
 
-     	leihdauerLabel.setText(Integer.toString(days));
+    	 }
      }
 
      /***************************************************************************
      METHODENNAME:	getIDfromBeschreibung
      *//*!
-      Die Zahl im String, welche vor dem "-", wird zurückgegeben
+      Die Zahl im String, welche vor dem "-", wird zurueckgegeben
 
       \param   String
 
@@ -608,10 +617,10 @@ public class BuchungEditDialogController {
 
      	if (pos == -2) {						// wenn kein "-" vorkommt, so ist pos = -1-1 = -2
      		//pos= Integer.parseInt(temp);
-     		return 0;							// in diesem Fall gebe 0 zurück
+     		return 0;							// in diesem Fall gebe 0 zurueck
      	} else {								// andernfalls:
-     		temp=temp.substring(0, pos);		// überschreibe temp mit substring vor "-"
-         	pos= Integer.parseInt(temp);		// übersetze String zu Integer
+     		temp=temp.substring(0, pos);		// ueberschreibe temp mit substring vor "-"
+         	pos= Integer.parseInt(temp);		// uebersetze String zu Integer
      	}
 
      	return pos;

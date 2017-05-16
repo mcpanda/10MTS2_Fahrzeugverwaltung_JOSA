@@ -135,7 +135,7 @@ public class SuchenFensterController {
     	ObservableList<Person> persons= mainApp.getPersonData();
     	long zeitLinear;
     	zeitLinear= -System.currentTimeMillis();
-    	for (int i= 0; i < 1; i++) {
+    	for (int i= 0; i < 10000; i++) {
     		for( Person p : persons) {
 	    		if (temp.equals(p.getFirstName())) {
 	    			break;
@@ -145,7 +145,7 @@ public class SuchenFensterController {
     	zeitLinear= zeitLinear + System.currentTimeMillis();
 
     	long zeitBaum= -System.currentTimeMillis();
-    	for (int i= 0; i < 1; i++) {
+    	for (int i= 0; i < 10000; i++) {
     		tempNode= theTree.findNode(temp);
     	}
     	zeitBaum= zeitBaum + System.currentTimeMillis();
@@ -208,7 +208,7 @@ public class SuchenFensterController {
     		// Show the error message.
             Alert alert = new Alert(AlertType.ERROR);
             alert.initOwner(dialogStage);
-            alert.setTitle("Invalid Fields");
+            alert.setTitle("Unzulässige Eingabe");
             alert.setHeaderText("Fehler - unzulässige Eingabe");
             alert.setContentText("Gesuchte Person ist nicht vorhanden");
 
@@ -258,14 +258,13 @@ public class SuchenFensterController {
             // Nothing selected.
             Alert alert = new Alert(AlertType.WARNING);
             alert.initOwner(mainApp.getPrimaryStage());
-            alert.setTitle("No Person");
-            alert.setHeaderText("No Person was found");
-            alert.setContentText("Please find a Person first.");
+            alert.setTitle("Ungültige Person");
+            alert.setHeaderText("Keine Person wurde gefunden");
+            alert.setContentText("Bitte suchen Sie eine gültige Person.");
 
             alert.showAndWait();
         }
     }
-
  }
 
 /** @}*/ /*end of doxygen group*/

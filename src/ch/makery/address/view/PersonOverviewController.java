@@ -2,7 +2,7 @@
 /*! \file
   FILE         : $Source: PersonOverviewController.java $
   BESCHREIBUNG : Controller
-                 Controller für die Personenübersicht
+                 Controller fuer die Personenuebersicht
 ***************************************************************************************************/
 
 /** \defgroup View View
@@ -139,8 +139,8 @@ public class PersonOverviewController {
     /***************************************************************************
     METHODENNAME:	showPersonDetails
     *//*!
-     Zeigt die Details einer ausgewählten Person an. Ist keine Person
-     ausgewählt, so wird nichts angezeigt.
+     Zeigt die Details einer ausgewaehlten Person an. Ist keine Person
+     ausgewaehlt, so wird nichts angezeigt.
 
      \param   Person. Ein Objekt der Klasse Person, von welchem die
 			  Details angezeigt werden sollen.
@@ -178,8 +178,8 @@ public class PersonOverviewController {
     /***************************************************************************
     METHODENNAME:	handleDeletePerson
     *//*!
-     Handler für den Delete Button. Wird Delete angeklickt, so wird das
-     ausgewählte Objekt gelöscht.
+     Handler fuer den Delete Button. Wird Delete angeklickt, so wird das
+     ausgewaehlte Objekt geloescht.
 
      \param   void
 
@@ -193,7 +193,8 @@ public class PersonOverviewController {
         if (selectedIndex >= 0) {
             Person deletePerson= personTable.getItems().remove(selectedIndex);
 
-//            mainApp.getTreeData().delete(deletePerson);
+            /* loesche Person auch aus den Baeumen */
+            mainApp.getTreeData().delete(deletePerson);
 //            mainApp.getTreeData().levelOrder(mainApp.getTreeData().root);
 
             mainApp.getAVLTreeData().deleteAVL(deletePerson);
@@ -203,9 +204,9 @@ public class PersonOverviewController {
             // Nothing selected.
             Alert alert = new Alert(AlertType.WARNING);
             alert.initOwner(mainApp.getPrimaryStage());
-            alert.setTitle("No Selection");
-            alert.setHeaderText("No Person Selected");
-            alert.setContentText("Please select a person in the table.");
+            alert.setTitle("Ungültige Auswahl");
+            alert.setHeaderText("Keine Person wurde ausgewählt");
+            alert.setContentText("Bitte wählen Sie eine Person aus der Tabelle.");
 
             alert.showAndWait();
         }
@@ -214,9 +215,9 @@ public class PersonOverviewController {
     /***************************************************************************
     METHODENNAME:	handleNewPerson
     *//*!
-     Handler für den New Button. Wird New angeklickt, so wird ein Dialogfeld
+     Handler fuer den New Button. Wird New angeklickt, so wird ein Dialogfeld
      aufgerufen, um ein neues Objekt von der Klasse Person zu erstellen.
-	 Hierbei können alle nötigen Attribute eingegeben werden.
+	 Hierbei koennen alle noetigen Attribute eingegeben werden.
 
      \param   void
 
@@ -227,10 +228,11 @@ public class PersonOverviewController {
     @FXML
     private void handleNewPerson() {
         Person tempPerson = new Person();								// ein Objekt der Klasse wird neu erzeugt
-        boolean okClicked = mainApp.showPersonEditDialog(tempPerson);	// und an PersonEdit übergeben
+        boolean okClicked = mainApp.showPersonEditDialog(tempPerson);	// und an PersonEdit uebergeben
         if (okClicked) {
-            mainApp.getPersonData().add(tempPerson);					// falls PersonEdit mit OK bestätigt wird, so wird die neue Person in die Personenliste aufgenommen
-            /* tempPerson auch zu den Bäumen hinzufügen */
+            mainApp.getPersonData().add(tempPerson);					// falls PersonEdit mit OK bestaetigt wird, so wird die neue Person in die Personenliste aufgenommen
+
+            /* tempPerson auch zu den Baeumen hinzufuegen */
             mainApp.getTreeData().addNode(tempPerson);
             mainApp.getAVLTreeData().addNodeAVL(tempPerson);
 //            mainApp.getTreeData().levelOrder(mainApp.getTreeData().root);
@@ -241,8 +243,8 @@ public class PersonOverviewController {
     /***************************************************************************
     METHODENNAME:	handlePersonBuchung
     *//*!
-     Handler für den Buchungs Button. Hiermit wird eine neue Buchung angelegt
-     und die Daten der ausgewählten Person geladen.
+     Handler fuer den Buchungs Button. Hiermit wird eine neue Buchung angelegt
+     und die Daten der ausgewaehlten Person geladen.
 
      \param   void
 
@@ -266,9 +268,9 @@ public class PersonOverviewController {
             // Nothing selected.
             Alert alert = new Alert(AlertType.WARNING);
             alert.initOwner(mainApp.getPrimaryStage());
-            alert.setTitle("No Selection");
-            alert.setHeaderText("No Person Selected");
-            alert.setContentText("Please select a Person in the table.");
+            alert.setTitle("Ungültige Auswahl");
+            alert.setHeaderText("Keine Person wurde ausgewählt");
+            alert.setContentText("Bitte wählen Sie eine Person aus der Tabelle.");
 
             alert.showAndWait();
         }
@@ -277,8 +279,8 @@ public class PersonOverviewController {
     /***************************************************************************
     METHODENNAME:	handleEditPerson
     *//*!
-    Handler für den Edit Button. Wird Edit angeklickt, so wird ein Dialogfeld
-    aufgerufen, um die Attribute, der ausgewählten Person, verändern zu können.
+    Handler fuer den Edit Button. Wird Edit angeklickt, so wird ein Dialogfeld
+    aufgerufen, um die Attribute, der ausgewaehlten Person, veraendern zu koennen.
 
      \param   void
 
@@ -299,9 +301,9 @@ public class PersonOverviewController {
             // Nothing selected.
             Alert alert = new Alert(AlertType.WARNING);
             alert.initOwner(mainApp.getPrimaryStage());
-            alert.setTitle("No Selection");
-            alert.setHeaderText("No Person Selected");
-            alert.setContentText("Please select a person in the table.");
+            alert.setTitle("Ungültige Auswahl");
+            alert.setHeaderText("Keine Person wurde ausgewählt");
+            alert.setContentText("Bitte wählen Sie eine Person aus der Tabelle.");
 
             alert.showAndWait();
         }
@@ -310,7 +312,7 @@ public class PersonOverviewController {
     /***************************************************************************
     METHODENNAME:	SearchingResultDialog
     *//*!
-    Öffnet ein Suchdialfeld, zur Eingabe eines Vornames, welches im binärem
+    Oeffnet ein Suchdialfeld, zur Eingabe eines Vornames, welches im binaerem
     Baum gesucht und falls gefunden auch mit Details angezeigt wird.
 
      \param   void

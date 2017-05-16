@@ -4,65 +4,66 @@
 \section sec1 Projektauftrag
 
 Entwicklung eines Programmes, das die Verwaltung eines Fuhrparks ermöglicht.<br>
-•	Ein Unternehmen hat einen Fuhrpark der den Mitarbeiter*innen zur Verfügung steht.<br>
-•	Mitarbeiter*innen können für einen bestimmten Zeitraum und einen zu nennenden Zweck ein Fahrzeug ausleihen.<br>
-•	Für unterschiedliche Zwecke (Stadtfahrt, Langstreckenfahrt, Transport von Arbeitsmaterial) werden unterschiedliche Fahrzeugtypen (z.B. PKW, LKW, Motorrad) bereitgestellt.<br>
-•	Die Mitarbeiter-Daten sowie die Daten des Fuhrparks und Fahrzeugbuchungen werden in einer XML-Datei gespeichert.<br>
-<br>
+<ul>
+<li> Ein Unternehmen hat einen Fuhrpark der den Mitarbeiter*innen zur Verfügung steht.</li>
+<li> Mitarbeiter*innen können für einen bestimmten Zeitraum und einen zu nennenden Zweck ein Fahrzeug ausleihen.</li>
+<li> Für unterschiedliche Zwecke (Stadtfahrt, Langstreckenfahrt, Transport von Arbeitsmaterial) 
+	 werden unterschiedliche Fahrzeugtypen (z.B. PKW, LKW, Motorrad) bereitgestellt.</li>
+<li> Die Mitarbeiter-Daten sowie die Daten des Fuhrparks und Fahrzeugbuchungen werden in einer XML-Datei gespeichert.</li>
+</ul>
+
 \section sec2 Vorbereitende Aufgaben
-<br>
+
 \subsection sec2_1 Projekt-Vorbereitungen
 
-Zielsetzung: Abschluss der VIII. Ausbausufe <br>
-<br>
-Arbeitsrollen: <br>
-•	Julia: Organisator <br>
-•	Olga: Guru <br>
-•	Simon: Feelgood-Manager, Protokollant <br>
-•	Alex: Spec-Checker, Continuous Integration <br>
-<br>
-Milestones ... tbd ...<br>
-<br>
+<b>Zielsetzung</b>: Abschluss der VIII. Ausbausufe <br>
+
+<b>Arbeitsrollen:</b> <br>
+<ul>
+<li> Julia: Organisator, Software-Tests </li>
+<li> Olga: Guru, Software-Tests </li>
+<li> Simon: Feelgood-Manager, Protokollant, Software-Tests </li>
+<li> Alex: Spec-Checker, Continuous Integration, Software-Tests </li>
+</ul>
+
 \subsection sec2_2 Technische Vorbereitungen
 
-Entwicklungsumgebung: Eclipse und Scene Builder. <br>
-Begründung: Allen Gruppenmitgliedern fehlen die Erfahrungen mit NetBeans und IntelliJ
+<b>Entwicklungsumgebung:</b> Eclipse und Scene Builder. <br>
+Begründung: Allen Gruppenmitgliedern fehlen die Erfahrungen mit NetBeans und IntelliJ. <br>
 <br>
-Datenaustausch: GitHub. <br>
-Begründung: Auch wenn es Zeit brauchte, bis alles funktionsfähig eingerichtet wurde, so überzeugten die Vorteile, wie <br>
+<b>Datenaustausch:</b> GitHub. <br>
+Begründung: Auch wenn es Zeit brauchte, bis alles funktionsfähig eingerichtet wurde, so überzeugten die Vorteile, wie 
 versionsabhängiges pull und push, versionsabhängiges Vergleichen der Quelltexte, IssueManagement, History, Einbidung in Exclipse. <br>
-<br>
+
 \section sec3 Ausbaustufen
 
 \subsection sec3_1 I. Ausbaustufe: Adressbuch erstellen
 
-Erledigung der Aufgabe durch erfolgreiche Behandlung des Tutorials von code.makery <br>
-samt Einhaltung der Model-View-Control Modells. <br>
-Es wurden leichte Änderung eingeführt, wie z.B. eine PersonenID. <br>
+Erledigung der Aufgabe durch erfolgreiche Behandlung des Tutorials von code.makery samt Einhaltung der Model-View-Control Modells. <br>
+Es wurden leichte Änderung eingeführt, wie z.B. eine PersonenID, oder die Verhinderung von PersonenID-Duplikaten, welche in der Validierungsfunktion abgefangen werden. <br>
 <br>
-Mit JavaFX erzeugen wir eine Stage (Grundgerüst unseres Anzeigefenster, mit Menüpunkten und Maximieren, Minimieren, Schließen Buttons rechts oben) <br>
+Mit JavaFX erzeugen wir eine Stage (Grundgerüst unseres Anzeigefenster, mit Menüpunkten und Maximieren, Minimieren, Schließen Buttons rechts oben) 
 und dazugehörige Scenes (Anzeigefenster innerhalb des Grundgerüstes).<br>
-Bei jedem öffnen einer neuen Scene werden die dazugehörigen Controller und *.fxml Dateien übergeben.<br>
+Bei jedem Öffnen einer neuen Scene werden die dazugehörigen Controller und *.fxml Dateien übergeben.<br>
 <br>
-Bei den Klassen nutzen wir Properties. Dies ist notwendig, um später mit ObservableLists und Listener zu arbeiten und damit <br>
+Bei den Klassen nutzen wir Properties. Dies ist notwendig, um später mit ObservableLists und Listener zu arbeiten und damit 
 unverzüglich getätigte Änderungen bzw. getroffene Auswahl anzeigen zu lassen. <br>
-<br>
-DateUtil ... tbd ... <br>
 <br>
 Mit Listener und Lambda Expressions können wir gewählte Objekte direkt anzeigen lassen.
 
 ~~~~~~~~~~~~~~~{.java}
-personTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> showPersonDetails(newValue));
+personTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue)
+																	-> showPersonDetails(newValue));
 ~~~~~~~~~~~~~~~
-<br>
+
 Dabei sind Lambda Expressions Methoden die ohne Klassen auskommen und sofort ausgeführt werden, ohne vorherige Definition/Deklaration.<br>
 <br>
 Mit Preferences speichern wir betriebssystemabhängig den Pfad der zuletzt geöffnete Datei.<br>
 <br>
 Mit JAXB (Java Architecture for XML Binding) ordnen wir unsere Objekte um sie in einer *.xml Datei abspeichern zu können. <br>
-Hierfür benötigen wir zusätzlich noch die Klasse PersonListWrapper, die unsere Objekte aus einer ObservableList zu einem @XmlRootElement macht, <br>
-da JAXB nur auf @XmlRootElement angewandt werden kann. 
-<br>
+Hierfür benötigen wir zusätzlich noch die Klasse PersonListWrapper, die unsere Objekte aus einer ObservableList zu einem \@XmlRootElement macht, 
+da JAXB nur auf \@XmlRootElement angewandt werden kann. 
+
 \subsection sec3_2 II. Ausbaustufe: Verwaltung von Fahrzeugen
 
 Erledigung der Aufgabe durch übernahme der Klasse Person und Anpassung an Fahrzeuge. <br>
@@ -72,87 +73,94 @@ Die Speicherung erfolgt in einer seperaten *.xml Datei, welche sich aus der Pers
 	public File getFahrzeugFilePath() {
 		Preferences prefs = Preferences.userNodeForPackage(MainApp.class);
 		String filePath = prefs.get("filePath", null);
-		if (filePath != null) {												// Herleitung des Dateipfades für Fahrzeuge
-			int pos = filePath.lastIndexOf("."); 							// pos des Punktes im Dateipfad
-			filePath = filePath.substring(0, pos); 							// Kürzung bis zum Punkt
-			String filePathFahrzeug = filePath + "_Fahrzeug.xml";			// Erweiterung des Dateipfades für die Fahrzeuge
+		if (filePath != null) {										// Herleitung des Dateipfades für Fahrzeuge
+			int pos = filePath.lastIndexOf("."); 					// pos des Punktes im Dateipfad
+			filePath = filePath.substring(0, pos); 					// Kürzung bis zum Punkt
+			String filePathFahrzeug = filePath + "_Fahrzeug.xml";	// Erweiterung des Dateipfades für die Fahrzeuge
 			return new File(filePathFahrzeug);
 		} else {
 			return null;
 		}
 	}
 ~~~~~~~~~~~~~~~
-<br>
+
 \subsection sec3_3 III. Ausbaustufe: Implementierung eines Buchungssystems
 
-Für die Buchung wird eine Klasse gemäß der Personenklasse erstell, welche neben der BuchungsID <br>
-auch eine FahrzeugID und PersonID hat, um damit einen Verknüpfung zu den korrespondierenden <br>
+Für die Buchung wird eine Klasse gemäß der Personenklasse erstell, welche neben der BuchungsID 
+auch eine FahrzeugID und PersonID hat, um damit einen Verknüpfung zu den korrespondierenden 
 Fahrzeugen und Personen zu haben. <br>
-Die Speicherung erfolgt ebenfalls wie bei den Fahrzeugen in einer seperaten *.xml Datei, die sich aus der <br>
+Die Speicherung erfolgt ebenfalls wie bei den Fahrzeugen in einer seperaten *.xml Datei, die sich aus der 
 Personen *.xml Datei herleiten lässt.<br>
-Um zu prüfen ob ein Fahrzeug bereits verliehen wurde bzw. eine Person bereits ein Fahrzeug ausleiht, <br>
-wird ein Ausleih-Flag bei Person und Fahrzeug eingeführt. Nur wenn das Flag != 0, kann man etwas ausleihen.
+Um zu prüfen ob ein Fahrzeug bereits verliehen wurde bzw. eine Person bereits ein Fahrzeug ausleiht, 
+wird ein Ausleih-Flag bei Person und Fahrzeug eingeführt. Nur wenn das Flag != "Nein" ist, kann man etwas ausleihen.<br>
+Eine Validierungsüberprüfung überprüft auch eine mögliche Überschneidung der Ausleihzeiträumen.
 <br>
 \subsection sec3_4 IV. Ausbaustufe: Algorithmische Optimierung
 
 \subsubsection sec3_4_1 Suchfunktion
 
-Implementieren Sie eine Suchfunktion (lineare Suche), die es ermöglicht nach einem bestimmten Fahrzeug zu suchen.<br>
-<br>
+Implementieren Sie eine Suchfunktion (lineare Suche), die es ermöglicht nach einem bestimmten Fahrzeug zu suchen:<br>
 Die lineare Suche wurde bei der ComboBox und der Suche mit binären Bäumen implementiert.
-
-~~~~~~~~~~~~~~~{.java}
-for( Person p : persons) {
-	if (temp.equals(p.getFirstName())) {
-	    showPersonDetails(tempNode);
-	    break;
-	}
-}		
-~~~~~~~~~~~~~~~		
-<br>
+	
 \subsubsection sec3_4_2 Sortierung
 
 Ermöglichen Sie es die Kontakte und Fahrzeuge sortiert ausgeben zu lassen. <br>
-Nehmen Sie die Sortierung mit einem selbst geschriebenen Sortieralgorithmus (Insertion-Sort, oder Selection-Sort).
+Nehmen Sie die Sortierung mit einem selbst geschriebenen Sortieralgorithmus (Insertion-Sort, oder Selection-Sort): <br>
 
-Wir haben uns für den Selection-Sort Sortieralgorithmus entschieden, da wir vergleichsweise große Datenmengen <br>
+Wir haben uns für den Selection-Sort Sortieralgorithmus entschieden, da wir vergleichsweise große Datenmengen 
 bewegen müssen (ganze Objekte) und bei der Datenbewegung stets von einer Ordnung O(n) abhängig sind. <br>
 
-\image html Sortieralgorithmen_im_Vergleich.png "Sortieralgorithmen im Vergleich - Quelle: https://vowi.fsinf.at/images/5/59/TU_Wien-Algorithmen_und_Datenstrukturen_1_VL_(Raidl)_-_Sortieralgorithmen_im_Vergleich.pdf"  width= 800px
-<br>
+\image html selectionsort.png "Selection-Sort - Quelle: http://www.inf-schule.de/grenzen/komplexitaet/sortieren/sortieralgorithmen/selectionsort"  width= 600px
+\image html Selection_Sort.gif "Selection-Sort - Quelle: http://www.xybernetics.com/techtalk/SortingAlgorithmsExplained/SortingAlgorithmsExplained.html"  width= 600px
+\image html Sortieralgorithmen_im_Vergleich.png "Sortieralgorithmen im Vergleich - Quelle: https://vowi.fsinf.at/images/5/59/TU_Wien-Algorithmen_und_Datenstrukturen_1_VL_(Raidl)_-_Sortieralgorithmen_im_Vergleich.pdf"  width= 600px
+
 ~~~~~~~~~~~~~~~{.java}
-     public ObservableList<Person> sortNachname (ObservableList<Person> persons) {
-    	ObservableList<Person> personenListe= FXCollections.observableArrayList();
-    	personenListe.setAll(persons);			// Erstelle Kopie von persons
-    	Person Platzhalter= new Person();		// Platzhalter von der Klasse Person. Nötig, für das Spätere tauschen innerhalb der Liste
+public ObservableList<Person> sortNachname (ObservableList<Person> persons) {
+    ObservableList<Person> personenListe= FXCollections.observableArrayList();
+    personenListe.setAll(persons);			// Erstelle Kopie von persons
+    Person Platzhalter= new Person();		// Platzhalter von der Klasse Person. Nötig, für das Spätere tauschen innerhalb der Liste
 
-		for (int i= 0; i < personenListe.size() - 1; i++) {			// durchlaufe die gesamte personenListe
-			int minIndex= i;										// Annahme, die aktuelle Position enthält den kleinsten Eintrag
-			Platzhalter= personenListe.get(i);
+	for (int i= 0; i < personenListe.size() - 1; i++) {			// durchlaufe die gesamte personenListe
+		int minIndex= i;										// Annahme, die aktuelle Position enthält den kleinsten Eintrag
+		Platzhalter= personenListe.get(i);
 
-			for (int j= i + 1; j < personenListe.size(); j++) {		// durchlaufe den Rest der Liste
-				if (Platzhalter.getLastName().compareTo(personenListe.get(j).getLastName()) > 0) {	// vergleiche ob es sich ein kleinerer Eintrag finden lässt
-					minIndex= j;																	// falls ja, so wird die Position und Inhalt des neuen Minimum zwischengespeichert
-					Platzhalter= personenListe.get(j);
-				}																					// am Ende haben wir ein Minimum von der Liste
+		for (int j= i + 1; j < personenListe.size(); j++) {		// durchlaufe den Rest der Liste
+			if (Platzhalter.getLastName().compareTo(personenListe.get(j).getLastName()) > 0) {	// vergleiche ob es sich ein kleinerer Eintrag finden lässt
+				minIndex= j;																	// falls ja, so wird die Position und Inhalt des neuen Minimum zwischengespeichert
+				Platzhalter= personenListe.get(j);
 			}
-			personenListe.set(minIndex, personenListe.get(i));										// Tausche aktuelle Position mit der Postion des Minimum
-			personenListe.set(i, Platzhalter);
+
+			if(Platzhalter.getLastName().compareTo(personenListe.get(j).getLastName()) == 0) { 			// falls der Nachnahme identisch ist,
+				if (Platzhalter.getFirstName().compareTo(personenListe.get(j).getFirstName()) > 0) {	// so wird der Vorname Verglichen
+					minIndex= j;
+					Platzhalter= personenListe.get(j);
+				}
+
+				if (Platzhalter.getFirstName().compareTo(personenListe.get(j).getFirstName()) == 0) {		// falls auch der Vorname identisch ist,
+					if (Platzhalter.getPersonID() > personenListe.get(j).getPersonID()) {					// so wird die ID verglichen
+						minIndex= j;
+						Platzhalter= personenListe.get(j);
+					}
+				}
+			}													// am Ende haben wir ein Minimum von der Liste
 		}
-		return personenListe;
-	} 
+		personenListe.set(minIndex, personenListe.get(i));		// Tausche aktuelle Position mit der Postion des Minimum
+		personenListe.set(i, Platzhalter);
+	}
+	return personenListe;
+}
 ~~~~~~~~~~~~~~~
  
 \subsection sec3_5 V. Ausbaustufe: Optimierung der Datenmodellierung
 
 Für die Unterteilugn der Fahrzeuge in Subklassen wurde das Attribut Fahrzeugtyp hinzugefügt. <br>
-Bei der Buchung wird mit Hilfe von ComboBoxen die verfügbaren Fahrzeuge, abhängig vom ausgewählten <br>
-Fahrzeugtyp bereitgestellt.
+Bei der Buchung wird mit Hilfe von ComboBoxen die verfügbaren Fahrzeuge, abhängig vom ausgewählten 
+Fahrzeugtyp bereitgestellt.<br>
 
-\subsection sec3_6 VI. Ausbaustufe:  Ergänzungen und eigene Anforderungen: COmboBoxen mit Filterfunktion
+\subsection sec3_6 VI. Ausbaustufe:  Ergänzungen und eigene Anforderungen: ComboBoxen mit Filterfunktion
 
 Die vorhandenen ComboBoxen in JavaFX werden durch eine Filterung ergänzt. <br>
-Hierbei werden die Listen der Personen gemäß Tastaureingabe gefiltert und nur diejenigen in der Liste gelassen, welche <br>
+Hierbei werden die Listen der Personen gemäß Tastaureingabe gefiltert und nur diejenigen in der Liste gelassen, welche 
 die Tastaureingabe als Substring inne haben.
 
 ~~~~~~~~~~~~~~~{.java}
@@ -196,17 +204,18 @@ die Tastaureingabe als Substring inne haben.
     	}
     }
 ~~~~~~~~~~~~~~~
-<br>
-Desweiteren werden die bei der Buchung die ComboBoxen derart genutzt, dass durch die ObservableList und einen Listener <br>
-die ComboBoxen von einander abhängig sind, d.h. wählt man eine Person aus, so werden die Fahrzeugtypen <br>
-anhand des Führerscheines reduziert, und abhängig von der getroffen Wahl des Fahrzeugtypes, werden die Fahrzeuge aussortiert.
+
+Desweiteren werden bei der Buchung die ComboBoxen derart genutzt, dass durch die ObservableList und einen Listener 
+die ComboBoxen von einander abhängig sind, d.h. wählt man eine Person aus, so werden die Fahrzeugtypen 
+anhand des Führerscheines reduziert, und abhängig von der getroffen Wahl des Fahrzeugtypes, werden die Fahrzeuge aussortiert.<br>
 
 ~~~~~~~~~~~~~~~{.java}
 // füge einen Listener hinzu, welcher die Fahrzeugtypen anpasst, abhängig von der Auswahl der Person
-personIDBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> setFahrzeugTypList(getIDfromBeschreibung(newValue)));
+personIDBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue)
+																	-> setFahrzeugTypList(getIDfromBeschreibung(newValue)));
 
 ~~~~~~~~~~~~~~~
-<br>
+
 \subsection sec3_7 VII. Ausbaustufe: Algorithmische Vertiefung
 
 Die Ausgabe der Berechnungen erfolt in einem Diagramm.
@@ -214,48 +223,82 @@ Die Ausgabe der Berechnungen erfolt in einem Diagramm.
 ~~~~~~~~~~~~~~~{.java}
 public void setFahrzeugTageStatistic(List<Fahrzeug> fahrzeugs, List<Buchung> buchungs) {
 
-    	// 4 dim. Array
-    	// 1. Zeile: FahrzeugID
-    	// 2. Zeile: dazugehörige Gesamtausleihtage
-    	// 3. Zeile: dazugehörige Ausleihhäufigkeit
-    	// 4. Zeile: Quotient, falls Ausleihhäufigkeit != 0 ist
+    // 4 dim. Array
+    // 1. Zeile: FahrzeugID
+    // 2. Zeile: dazugehörige Gesamtausleihtage
+    // 3. Zeile: dazugehörige Ausleihhäufigkeit
+    // 4. Zeile: Quotient, falls Ausleihhäufigkeit != 0 ist
 
-        int[][] ausleihe = new int[4][fahrzeugs.size()];
-        herstellerMarkenList.clear();
-        for( int i= 0; i < ausleihe[0].length; i++) {
-        	ausleihe[0][i]= fahrzeugs.get(i).getFahrzeugID();	// fügt in die erste Zeile alle vorhandenen FahrzeugIDs
-        	herstellerMarkenList.add(fahrzeugs.get(i).getHersteller() + " " + fahrzeugs.get(i).getMarke());	// fügt in die Liste die Fahrzeugbeschreibung hinzu
-        }
-
-        for (Buchung b : buchungs) {
-        	int gebucht= b.getFahrzeugID();
-        	for( int i= 0; i < ausleihe[0].length; i++) {
-        		if( gebucht == ausleihe[0][i]) {				// falls die FahrzeugID in einem Buchungseintrag auftaucht, so wird die dazugehörige Ausleihhäufigkeit um 1 erhöht und die Ausleihdauer um die ausgeliehenen Tage
-        			ausleihe[2][i]++;
-        			ausleihe[1][i]= ausleihe[1][i] + b.getLeihdauer();
-        		}
-        	}
-        }
-
-        for ( int i= 0; i < ausleihe[0].length; i++) {
-        	if (ausleihe[2][i] != 0) {							// falls Ausleihhäufigkeit != 0 ist, so wird der Quotient aus Ausleihdauer und Ausleihhäufigkeit gebildet
-        		ausleihe[3][i]= ausleihe[1][i]/ ausleihe[2][i];
-        	} else {
-        		ausleihe[3][i]= 0;
-        	}
-        }
-
-        XYChart.Series<String, Integer> series = new XYChart.Series<>();
-
-        // Create a XYChart.Data object for each month. Add it to the series.
-        for (int i = 0; i < herstellerMarkenList.size(); i++) {
-            series.getData().add(new XYChart.Data<>(herstellerMarkenList.get(i), ausleihe[3][i]));
-        }
-
-        barChart.getData().add(series);
+    int[][] ausleihe = new int[4][fahrzeugs.size()];
+    herstellerMarkenList.clear();
+    
+	for( int i= 0; i < ausleihe[0].length; i++) {
+    ausleihe[0][i]= fahrzeugs.get(i).getFahrzeugID();	// fügt in die erste Zeile alle vorhandenen FahrzeugIDs
     }
+
+    for (Buchung b : buchungs) {
+    int gebucht= b.getFahrzeugID();
+		for( int i= 0; i < ausleihe[0].length; i++) {
+			if( gebucht == ausleihe[0][i]) {						// falls die FahrzeugID in einem Buchungseintrag auftaucht, 
+				ausleihe[2][i]++;									// so wird die dazugehörige Ausleihhäufigkeit um 1 erhöht
+				ausleihe[1][i]= ausleihe[1][i] + b.getLeihdauer();	// und die Ausleihdauer um die ausgeliehenen Tage
+			}
+       	}
+    }
+
+    for ( int i= 0; i < ausleihe[0].length; i++) {
+       	if (ausleihe[2][i] != 0) {							// falls Ausleihhäufigkeit != 0 ist, so wird der Quotient aus Ausleihdauer und Ausleihhäufigkeit gebildet
+       		ausleihe[3][i]= ausleihe[1][i]/ ausleihe[2][i];
+       	} else {
+       		ausleihe[3][i]= 0;
+       	}
+    }
+
+	/* Sortierung nach Ausleihdauer, absteigend */
+    int [][] Platzhalter= new int[2][1];
+
+    for (int i= 0; i < ausleihe[0].length - 1; i++) {
+    	int maxIndex= i;
+    	Platzhalter[0][0]= ausleihe[0][i];
+    	Platzhalter[1][0]= ausleihe[3][i];
+
+    	for (int j= i + 1; j < ausleihe[0].length; j++) {
+    		if (Platzhalter[1][0] < ausleihe[3][j]) {
+    			maxIndex= j;
+    			Platzhalter[0][0]= ausleihe[0][j];
+       			Platzhalter[1][0]= ausleihe[3][j];
+    		}
+    	}
+
+    	ausleihe[0][maxIndex]= ausleihe[0][i];
+    	ausleihe[3][maxIndex]= ausleihe[3][i];
+
+    	ausleihe[0][i]= Platzhalter[0][0];
+      	ausleihe[3][i]= Platzhalter[1][0];
+    }
+
+    for (int i= 0; i < ausleihe[0].length; i++) {
+    	for (Fahrzeug f : fahrzeugs) {
+    		if (ausleihe[0][i] == f.getFahrzeugID()) {
+    			herstellerMarkenList.add(f.getHersteller() + " " + f.getMarke()); // fügt in die Liste die Fahrzeugbeschreibung hinzu
+    		}
+    	}
+    }
+
+	/* erstelle Diagramm */
+    XYChart.Series<String, Integer> series = new XYChart.Series<>();
+    barChart.setTitle("Fahrzeug - durchschnittliche Ausleihdauer");
+    barChart.setLegendVisible(false);
+
+    // Create a XYChart.Data object for each month. Add it to the series.
+    for (int i = 0; i < herstellerMarkenList.size(); i++) {
+        series.getData().add(new XYChart.Data<>(herstellerMarkenList.get(i), ausleihe[3][i]));
+    }
+
+    barChart.getData().add(series);
+}
 ~~~~~~~~~~~~~~~
-<br>
+
 \subsection sec3_8 VII. Ausbaustufe: Vertiefung Datenstrukturen
 
 \subsubsection sec3_8_1 Binärer Suchbaum
@@ -263,23 +306,23 @@ public void setFahrzeugTageStatistic(List<Fahrzeug> fahrzeugs, List<Buchung> buc
 In der Informatik besitzt ein Baum (tree) entweder Knoten (node) oder ist leer. Jeder nichtleere Baum besitzt eine Wurzel (root). <br>
 Ein binärer Suchbaum, ist ein Baum der Ordnung 2, d.h. jeder Knoten im Baum kann maximal zwei Kinder haben (left-/right-child). <br>
 Neben der Wurzel unterscheidet man die innere Knoten (haben Nachfolger) von den äußeren Knoten (auch Blätter genannt; haben keine Nachfolger). <br>
-Ein Knoten seinerseits hat als Parameter einen Schlüssel (dies kann ein Zahl, ein String oder ein Objekt sein) welcher zwingend eine totale Ordnung <br>
+Ein Knoten seinerseits hat als Parameter einen Schlüssel (dies kann eine Zahl, ein String oder ein Objekt sein) welcher zwingend eine totale Ordnung 
 haben muss und zwei weitere Knoten (leftChild, rightChild). <br>
-<br>
-\image html Binary_Tree.png "Binärer Suchbaum - Quelle: http://sibi-leo.de/wiki/images/Binary_Tree.png"  width= 800px
-<br>
+
+\image html Binary_Tree.png "Binärer Suchbaum - Quelle: http://sibi-leo.de/wiki/images/Binary_Tree.png"  width= 600px
+
 In unserem Fall haben wir als Schlüssel unsere erstellten Personen als Objekte, sowie als Ordnungsrelation den Vergleich des Vornamens (lexiographisch). <br>
 Sollte der Vorname identisch sein, so wird der Nachname verglichen. Sollte der Nachname ebenfalls identisch sein, so wird die PersonID verglichen. <br>
 <br>
-Zu den elementarsten Methoden eines binären Suchbaumes gehören das Finden eines Knotens, das Hinzufügen neuer Knoten (addNode), <br>
+Zu den elementarsten Methoden eines binären Suchbaumes gehören das Finden eines Knotens, das Hinzufügen neuer Knoten (addNode), 
 sowie das Löschen eines Knoten (delete). <br>
-Die Vorzüge eines binären Suchbaumes ist die Reduzierung der Suchzeit. Die maximale Suchzeit ist von der Ordnung O(Höhe) (bestenfalls also O(Log(n+1))) <br>
+Die Vorzüge eines binären Suchbaumes ist die Reduzierung der Suchzeit. Die maximale Suchzeit ist von der Ordnung O(Höhe) (bestenfalls also O(Log(n+1))) 
 (im Vergleich lineare Suche: O(n); n= Anzahl der Elemente). <br>
-(Bsp.: n=1.048.575 => maximal 1.048.575 Vergleiche bei einer linearen Suche, jedoch nur maximal log(1.048.576)=20 Vergleiche im binären Suchbaum) <br>
-Um einen Knoten/Person in einem Baum zu finden, vergleicht man am Anfang die Suchperson mit der Wurzel und vergleicht dann in Abhängigkeit von dem Ergebnis den linken oder <br>
+(Bsp.: n=1.048.575 => maximal 1.048.575 Vergleiche bei einer linearen Suche, jedoch nur maximal log(1.048.576)=20 Vergleiche im binären Suchbaum)<br>
+Um einen Knoten/Person in einem Baum zu finden, vergleicht man am Anfang die Suchperson mit der Wurzel und vergleicht dann in Abhängigkeit von dem Ergebnis den linken oder 
 rechten Nachfolger, bis man die Person gefunden hat oder null zurückgibt. <br>
-Beim Hinzufügen eines neuen Knotens wird der richtige Platz zum Einfügen gefunden, indem die zu einfügende Person anfänglich mit der Wurzel verglichen wird und dann <br>
-in Abhängigkeit des Vergleichswertes (-1: linker Teilbaum; +1 rechter Teilbaum) die Teilbäume durchgelaufen werden, bis ein Knoten ohne passenden Nachfolger <br>
+Beim Hinzufügen eines neuen Knotens wird der richtige Platz zum Einfügen gefunden, indem die zu einfügende Person anfänglich mit der Wurzel verglichen wird und dann 
+in Abhängigkeit des Vergleichswertes (-1: linker Teilbaum; +1 rechter Teilbaum) die Teilbäume durchgelaufen werden, bis ein Knoten ohne passenden Nachfolger 
 gefunden wird.<br>
 Beim Löschen eines Knotens müssen Fallunterscheidungen betrachtet werden. <br>
 <ul>
@@ -288,33 +331,59 @@ Beim Löschen eines Knotens müssen Fallunterscheidungen betrachtet werden. <br>
 <li> 3. Fall: der zu Löschende Knoten hat zwei Nachfolger. Hierfür müssen wir das kleinste Objekt in dem rechten SubBaum finden und als neuen Knoten setzen </li>
 </ul>
 
-\image html Entfernung_eines_Blattes.png "1. Fall: Entfernung eines Blattes http://www2.cs.uni-paderborn.de/cs/ag-monien/LEHRE/SS06/DuA/15.pdf"  width= 800px
-\image html Entfernung_mit_einem_Kind.png "2. Fall: Entfernung mit einem Kind http://www2.cs.uni-paderborn.de/cs/ag-monien/LEHRE/SS06/DuA/15.pdf"  width= 800px
-\image html Entfernung_mit_zwei_Kindern.png "3. Fall: Entfernung mit zwei Kindern http://www2.cs.uni-paderborn.de/cs/ag-monien/LEHRE/SS06/DuA/15.pdf"  width= 800px
-<br>
-\subsubsection sec3_8_1 AVL Baum
-Liegt dem Erstellen eines binären Suchbaumes eine geordnetet Liste zu Grunde, so entsteht ein gänzlich entarteter Suchbaum, der keinerlei Zeitvorteile gegenüber <br>
-einer Liste hat. Um dies entgegenzuwirken haben AVL Bäume (Adelson-Velski Landis) ein Balance-Kriterium. Beim Löschen und Einfügen neuer Elemente wird stets <br>
+\image html Entfernung_eines_Blattes.png "1. Fall: Entfernung eines Blattes - Quelle: http://www2.cs.uni-paderborn.de/cs/ag-monien/LEHRE/SS06/DuA/15.pdf"  width= 600px
+\image html Entfernung_mit_einem_Kind.png "2. Fall: Entfernung mit einem Kind - Quelle: http://www2.cs.uni-paderborn.de/cs/ag-monien/LEHRE/SS06/DuA/15.pdf"  width= 600px
+\image html Entfernung_mit_zwei_Kindern.png "3. Fall: Entfernung mit zwei Kindern - Quelle: http://www2.cs.uni-paderborn.de/cs/ag-monien/LEHRE/SS06/DuA/15.pdf"  width= 600px
+
+\subsubsection sec3_8_2 AVL Baum
+Liegt dem Erstellen eines binären Suchbaumes eine geordnetet Liste zu Grunde, so entsteht ein gänzlich entarteter Suchbaum, der keinerlei Zeitvorteile gegenüber 
+einer Liste hat. <br>
+
+\image html Binaer_Baum_entartet.png "Binär Baum entartet"  width= 400px
+\image html Binaer_Baum_ausbalanziert.png "Binär Baum \"ausbalanziert\""  width= 400px
+\image html Binaer_Baum_AVL.png "AVL Baum"  width= 400px
+
+Um dies entgegenzuwirken haben AVL Bäume (Adelson-Velski Landis) ein Balance-Kriterium. Beim Löschen und Einfügen neuer Elemente wird stets 
 geprüft ob das Balance-Kriterium verletzt wurde. Ist dies der Fall so werden Reparaturmaßnahmen eingeleitet (in diesem Fall Rotationen). <br>
-Das Balance-Kriterium eines AVL Baumes lautet: Die Balance (Höhenunterschied der beiden Nachfolger) eines jeden Knotens darf nicht kleiner als -1 <br>
-und nicht größer als +1 sein! <br>
+Das Balance-Kriterium eines AVL Baumes lautet: <br>
+Die Balance (Höhenunterschied der beiden Nachfolger) eines jeden Knotens darf nicht kleiner als -1 und nicht größer als +1 sein! <br>
 Bei den Rotationen müssen wir zwei Fälle betrachten: einfache und doppelte Rotation: <br>
 
-\image html einfach_Rotation.png "1. Fall: einfach_Rotation http://www2.cs.uni-paderborn.de/cs/ag-monien/LEHRE/SS03/DuA/avl.pdf"  width= 800px
-\image html doppel_Rotation.png "2. Fall: doppel_Rotation http://www2.cs.uni-paderborn.de/cs/ag-monien/LEHRE/SS03/DuA/avl.pdf"  width= 800px
+\image html einfach_Rotation.png "1. Fall: einfach_Rotation - Quelle: http://www2.cs.uni-paderborn.de/cs/ag-monien/LEHRE/SS03/DuA/avl.pdf"  width= 600px
+\image html doppel_Rotation.png "2. Fall: doppel_Rotation - Quelle: http://www2.cs.uni-paderborn.de/cs/ag-monien/LEHRE/SS03/DuA/avl.pdf"  width= 600px
 
-<br>
+\subsubsection sec3_8_3 Beispiele
+\image html Unser_Binaer_Baum.png "Unser binärer Baum"  width= 600px
+\image html Unser_AVL_Baum.png "Unser AVL Baum"  width= 600px
 \section sec4 X. Ausbaustufe: Dokumentation (Basisanforderungen)
 
 \subsection sec4_1 Arbeitsrollen
+<ul>
+<li> Julia: Organisator, Software-Tests </li>
+<li> Olga: Guru, Software-Tests </li>
+<li> Simon: Feelgood-Manager, Protokollant, Software-Tests </li>
+<li> Alex: Spec-Checker, Continuous Integration, Software-Tests </li>
+</ul>
 
 \subsection sec4_2 Milestones
+\image html Milestones_1.png "" width= 999px
+\image html Milestones_2.png "" width= 1000px
 
 \subsection sec4_3 Änderung der Milestones
+Alle geplanten Ziele / Milestones wurden in einer Grundlegenden und funktionsfähigen Version innerhalb der Zeitvorgaben erreicht. <br>
+Anpassungen wegen kleinen Fehlern oder neuen Ideen wurden nachträglich hinzugefügt.
 
 \subsection sec4_4 Programmwahl
+<b>Entwicklungsumgebung:</b> Eclipse und Scene Builder. <br>
+Begründung: Allen Gruppenmitgliedern fehlen die Erfahrungen mit NetBeans und IntelliJ. <br>
+<br>
+<b>Datenaustausch:</b> GitHub. <br>
+Begründung: Auch wenn es Zeit brauchte, bis alles funktionsfähig eingerichtet wurde, so überzeugten die Vorteile, wie 
+versionsabhängiges pull und push, versionsabhängiges Vergleichen der Quelltexte, IssueManagement, History, Einbidung in Exclipse. <br>
 
 \subsection sec4_5 UML-Klassendiagramme
+
+\image html UML_Klassendiagramm.png "UML-Klassendiagramm" width= 1000px
 
 \subsection sec4_6 Probleme
 
@@ -324,16 +393,21 @@ Einrichtung <br>
 
 Einbindung einer Bibliothek, jedoch nicht bei allen. <br>
 
-\subsubsection sec4_6_3 SceneBuild
+\subsubsection sec4_6_2 SceneBuild
 
-Anfängliche Probleme beim aktualiseiren des Programmes. Man musste mehrfach Eclipse neustarten oder die fxml datei extra öffnen und abspeichern, <br>
-bevor Änderungen übernommen wurden.
+Anfängliche Probleme beim aktualiseiren des Programmes. Man musste mehrfach Eclipse neustarten oder die fxml datei extra öffnen und abspeichern, 
+bevor Änderungen übernommen wurden. <br>
 
+\subsubsection sec4_6_3 History
+
+tbd!!!!!
 
 \section sec5 XI. Ausbaustufe: Dokumentation (Vertiefung)
 
 \subsection sec5_1 Ablauf einer Buchung als UML-Klassendiagramm
 
 \subsection sec5_2 Ablauf einer Buchung als UML-Sequenzdiagramm
+
+\image html Buchungsablauf.png "Buchungsablauf" width= 1000px
 
 */

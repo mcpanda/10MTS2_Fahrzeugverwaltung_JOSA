@@ -36,11 +36,11 @@
             <Label text="Leihdauer" GridPane.rowIndex="6" />
             <TextField fx:id="ausleihdatumField" onMouseExited="#AusleihdauerBerechnung" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <TextField fx:id="rueckgabedatumField" onMouseExited="#AusleihdauerBerechnung" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-            <ComboBox fx:id="personIDBox" onKeyReleased="#handleAutoCompletePerson" prefHeight="31.0" prefWidth="150.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1">
+            <ComboBox fx:id="personIDBox" onKeyReleased="#handleAutoCompletePerson" prefHeight="31.0" prefWidth="250.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets />
                </GridPane.margin></ComboBox>
-            <ComboBox fx:id="fahrzeugIDBox" onKeyReleased="#handleAutoCompleteFahrzeug" prefHeight="31.0" prefWidth="150.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="3">
+            <ComboBox fx:id="fahrzeugIDBox" onKeyReleased="#handleAutoCompleteFahrzeug" prefHeight="31.0" prefWidth="250.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="3">
                <GridPane.margin>
                   <Insets />
                </GridPane.margin>
@@ -48,7 +48,7 @@
             <Label fx:id="buchungIDLabel" text="Label" GridPane.columnIndex="1" />
             <Label text="Fahrzeugtyp" GridPane.rowIndex="2" />
             <Label fx:id="leihdauerLabel" text="Tage" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-            <ComboBox fx:id="fahrzeugtypBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <ComboBox fx:id="fahrzeugtypBox" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
          </children>
       </GridPane>
       <ButtonBar layoutX="486.0" layoutY="346.0" prefHeight="40.0" prefWidth="296.0" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="15.0">

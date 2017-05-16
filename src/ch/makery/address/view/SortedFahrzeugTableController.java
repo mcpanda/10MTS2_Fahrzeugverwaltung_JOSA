@@ -219,6 +219,13 @@ public class SortedFahrzeugTableController {
 					minIndex = j; 						// Fahrzeug an der Stelle j
 					Platzhalter = fahrzeugListe.get(j);	// neues minimum gespeichert
 				}
+
+				if (Platzhalter.getHersteller().compareTo(fahrzeugListe.get(j).getHersteller()) == 0) {
+					if (Platzhalter.getMarke().compareTo(fahrzeugListe.get(j).getMarke()) > 0) {
+								minIndex = j; 						// Fahrzeug an der Stelle j
+								Platzhalter = fahrzeugListe.get(j);	// neues minimum gespeichert
+				    }
+				}
 			}
 			fahrzeugListe.set(minIndex, fahrzeugListe.get(i));
 			fahrzeugListe.set(i, Platzhalter);
@@ -252,6 +259,13 @@ public class SortedFahrzeugTableController {
   				if (Platzhalter.getMarke().compareTo(fahrzeugListe.get(j).getMarke()) > 0) {		// Vergleich: mit Rest der Liste (ab aktuell + 1, nacheinander)
   					minIndex= j;							//Fahrzeug an d Stelle j //Attribut an d Stelle j		(wobei bsp. B => i; A =>j)
   					Platzhalter= fahrzeugListe.get(j);		// A als neues minimum gespeichert
+  				}
+
+  				if (Platzhalter.getMarke().compareTo(fahrzeugListe.get(j).getMarke()) == 0) {
+  					if (Platzhalter.getHersteller().compareTo(fahrzeugListe.get(j).getHersteller()) > 0) {
+  	  					minIndex= j;
+  	  					Platzhalter= fahrzeugListe.get(j);
+  	  				}
   				}
   			}
   			fahrzeugListe.set(minIndex, fahrzeugListe.get(i));

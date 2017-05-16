@@ -2,8 +2,8 @@
 /*! \file
   FILE         : $Source: PersonEditController.java $
   BESCHREIBUNG : Controller
-                 Controller für das Dialogfeld zur Personenbearbeitung.
-                 Hierzu zählt New, Edit, Delete, Buchung, Suchen
+                 Controller fuer das Dialogfeld zur Personenbearbeitung.
+                 Hierzu zaehlt New, Edit, Delete, Buchung, Suchen
 ***************************************************************************************************/
 
 /** \addtogroup View
@@ -163,7 +163,7 @@ public class PersonEditDialogController {
     /***************************************************************************
     METHODENNAME:	handleOk
     *//*!
-     Handler für OK. Dieser handler wird ausgeführt, wenn [OK] geklickt wurde.
+     Handler fuer OK. Dieser handler wird ausgefuehrt, wenn [OK] geklickt wurde.
 	 Neue Personendaten werden gespeichert.
 
      \param   void
@@ -193,8 +193,8 @@ public class PersonEditDialogController {
     /***************************************************************************
     METHODENNAME:	handleCancel
     *//*!
-     Handler für Cancel. Dieser handler wird ausgeführt, wenn [Cancel] geklickt
-     wurde. Dialogfenster wird geschloßen, ohne neue Personendaten zu speichern.
+     Handler fuer Cancel. Dieser handler wird ausgefuehrt, wenn [Cancel] geklickt
+     wurde. Dialogfenster wird geschlossen, ohne neue Personendaten zu speichern.
 
      \param   void
 
@@ -210,7 +210,7 @@ public class PersonEditDialogController {
     /***************************************************************************
     METHODENNAME:	isInputValid
     *//*!
-     Überprüfung der eingegeben Daten. Sollten nicht konforme Daten vorhanden
+     Ueberpruefung der eingegeben Daten. Sollten nicht konforme Daten vorhanden
      sein, so wird eine Fehlermeldung ausgegeben.
 
      \param   void
@@ -222,10 +222,11 @@ public class PersonEditDialogController {
     private boolean isInputValid(List<Person> persons) {
         String errorMessage = "";
 
+        /* Ueberpruefe PersonenID */
         if (personIDField.getText() == null || personIDField.getText().length() == 0 || Integer.parseInt(personIDField.getText()) < 1) {
             errorMessage += "Keine gültige PersonID!\n";
         } else {
-            // try to parse the postal code into an int.
+            // try to parse the ID code into an int.
             try {
                 Integer.parseInt(personIDField.getText());
             } catch (NumberFormatException e) {
@@ -233,6 +234,7 @@ public class PersonEditDialogController {
             }
         }
 
+        /* Pruefe ob PersonenID bereits exitiert */
         if (Integer.parseInt(personIDField.getText()) != person.getPersonID()) {
         	for(Person p : persons) {
             	if (Integer.parseInt(personIDField.getText()) == p.getPersonID()) {
@@ -252,18 +254,22 @@ public class PersonEditDialogController {
         }
 
         if (postalCodeField.getText() == null || postalCodeField.getText().length() != 5) {
-            errorMessage += "Keine gültige PLZ!\n";
+            errorMessage += "Keine gültige PLZ! PLZ muss aus genau 5 Ziffern bestehen!\n";
         } else {
             // try to parse the postal code into an int.
             try {
                 Integer.parseInt(postalCodeField.getText());
             } catch (NumberFormatException e) {
-                errorMessage += "Keine gültige PLZ (PLZ muss eine Zahl sein)!\n";
+                errorMessage += "Keine gültige PLZ (PLZ muss eine fünfstellige Zahl sein)!\n";
             }
         }
 
         if (cityField.getText() == null || cityField.getText().length() == 0) {
             errorMessage += "Keine gültige Stadt!\n";
+        }
+
+        if (lizenzBox.getValue() == null || lizenzBox.getValue().length() == 0) {
+            errorMessage += "Bitte Führerschein auswählen!\n";
         }
 
         if (birthdayField.getText() == null || birthdayField.getText().length() == 0) {
@@ -280,8 +286,8 @@ public class PersonEditDialogController {
             // Show the error message.
             Alert alert = new Alert(AlertType.ERROR);
             alert.initOwner(dialogStage);
-            alert.setTitle("Invalid Fields");
-            alert.setHeaderText("Please correct invalid fields");
+            alert.setTitle("Ungültige Eingabe");
+            alert.setHeaderText("Bitte korrigieren Sie die ungültigen Eingaben");
             alert.setContentText(errorMessage);
 
             alert.showAndWait();

@@ -2,7 +2,7 @@
 /*! \file
   FILE         : $Source: AVLTree.java $
   BESCHREIBUNG : AVLTreemodel
-                 Modellierung eines Baumes/Tree
+                 Modellierung eines AVL Baumes/Tree
 ***************************************************************************************************/
 
 /** \addtogroup Model
@@ -21,14 +21,14 @@ package ch.makery.address.model;
 CLASS:	AVLTree
 *//*!
  Die Klasse AVLTree erbt von der Klasse Tree.
- Zusätzlicher Atrribut ist die Balance.
- Zusätzliche Methoden sind Rotationenund Suchen nach dem Nachnamen.
+ Zusaetzlicher Attribut ist der Groelternknoten.
+ Zusaetzliche Methoden sind Rotationen und die Reparatur.
 
 ***************************************************************************/
 
 public class AVLTree extends Tree{
 
-	public Node getGrandParent= null;
+	private Node nodeGrandParent= null;
 
     /***************************************************************************
     METHODENNAME:	AVLTree
@@ -42,7 +42,7 @@ public class AVLTree extends Tree{
     ***************************************************************************/
 
 	public AVLTree () {
-		root= null;
+		super();
 	}
 
 
@@ -65,14 +65,14 @@ public class AVLTree extends Tree{
 
 	public Node rightRotate(Node Y) {
 		/* Platzhalter */
-		Node X= Y.leftChild;
-		Node T2= X.rightChild;
+		Node X= Y.getLeftChild();
+		Node T2= X.getRightChild();
 
 		/* Rotation */
-		X.rightChild= Y;
-		Y.leftChild= T2;
+		X.setRightChild(Y);
+		Y.setLeftChild(T2);
 
-		/* gebe neue Wurzel zurück */
+		/* gebe neue Wurzel zurueck */
 		return X;
 	}
 
@@ -95,14 +95,14 @@ public class AVLTree extends Tree{
 
 	public Node leftRotate(Node X) {
 		/* Platzhalter */
-		Node Y= X.rightChild;
-		Node T2= Y.leftChild;
+		Node Y= X.getRightChild();
+		Node T2= Y.getLeftChild();
 
 		/* Rotation */
-		Y.leftChild= X;
-		X.rightChild= T2;
+		Y.setLeftChild(X);
+		X.setRightChild(T2);
 
-		/* gebe neue Wurzel zurück */
+		/* gebe neue Wurzel zurueck */
 		return Y;
 	}
 
@@ -122,14 +122,14 @@ public class AVLTree extends Tree{
 			return 0;
 		}
 
-		return (treeHeight(node.leftChild) - treeHeight(node.rightChild));
+		return (treeHeight(node.getLeftChild()) - treeHeight(node.getRightChild()));
 	}
 
 	/***************************************************************************
     METHODENNAME:	addNodeAVL
     *//*!
-     Fügt einen neuen Knoten hinzu und führt ggf. eine Reparatur durch.
-     (Balance aller Knoten liegt in (-1; +1)).
+     Fuegt einen neuen Knoten hinzu und fuehrt ggf. eine Reparatur durch, falls
+     die Balance aller Knoten außerhalb [-1; +1] liegt.
 
      \param   Person
 
@@ -137,13 +137,15 @@ public class AVLTree extends Tree{
 
     ***************************************************************************/
 	public void addNodeAVL (Person person) {
+		/* nutze Methode von Tree */
 		addNode(person);
 
-		getGrandParent= null;
-		getGrandParent= findGrandparent(null, null, root);
-		if(getBalance(root) == 2 || getBalance(root) == -2 || getGrandParent != null) {
-			System.out.println("repair");
-			repair(getGrandParent);
+		nodeGrandParent= null;
+		nodeGrandParent= findGrandparent(null, null, root);
+
+		/* falls die Balance eines Knotens ausserhalb des Intervals [-1; +1] liegt, so wird repariert */
+		if(getBalance(root) > 1 || getBalance(root) < -1 || nodeGrandParent != null) {
+			repair(nodeGrandParent);
 		}
 
 	}
@@ -151,7 +153,7 @@ public class AVLTree extends Tree{
     /***************************************************************************
     METHODENNAME:	deleteAVL
     *//*!
-     Löschen eines Knotens/Blattes/Wurzel.
+     Loeschen eines Knotens/Blattes/Wurzel.
      Falls dabei das Balance-Kriterium verletzt wird, so wird repariert.
 
      \param   Person
@@ -165,17 +167,10 @@ public class AVLTree extends Tree{
 		check= delete(person);
 
 		if (check == true) {
-			getGrandParent= null;
-			getGrandParent= findGrandparent(null, null, root);
-			if(getBalance(root) == 2 || getBalance(root) == -2 || getGrandParent != null) {
-
-				System.out.println("repair");
-				System.out.println("balance root: " + getBalance(root) );
-				if (getGrandParent != null) {
-					System.out.println("balance grandparent: " + getGrandParent.getPerson().getFirstName() + " " + getBalance(getGrandParent));
-				}
-
-				repair(getGrandParent);
+			nodeGrandParent= null;
+			nodeGrandParent= findGrandparent(null, null, root);
+			if(getBalance(root) > 1 || getBalance(root) < -1 || nodeGrandParent != null) {
+				repair(nodeGrandParent);
 			}
 		}
 	}
@@ -191,38 +186,36 @@ public class AVLTree extends Tree{
      \return  Node
 
     ***************************************************************************/
-
-
 	public Node findGrandparent(Node grandParent, Node parent, Node child) {
 		grandParent= parent;
 		parent= child;
 
-		if(getBalance(child) == 2 || getBalance(child) == -2) {
+		/* falls ein Knoten das Balance-Kriterium verletzt, so wird er sich gemerkt */
+		if(getBalance(child) > 1 || getBalance(child) < -1) {
 			if (grandParent != null) {
-				getGrandParent= grandParent;
+				nodeGrandParent= grandParent;
 			}
 		}
 
-		if (parent.leftChild != null) {
-			child= parent.leftChild;
+		/*gehe alle Knoten rekursiv durch */
+		if (parent.getLeftChild() != null) {
+			child= parent.getLeftChild();
 			findGrandparent(grandParent, parent, child);
 		}
 
-		if(parent.rightChild != null) {
-			child= parent.rightChild;
+		if(parent.getRightChild() != null) {
+			child= parent.getRightChild();
 			findGrandparent(grandParent, parent, child);
 		}
 
-		return getGrandParent;
+		return nodeGrandParent;
 	}
 
 
 	/***************************************************************************
     METHODENNAME:	repair
     *//*!
-     Gehe Baum nach dem einfügen einer neuen Person in Reihenfolge durch,
-     dh. ganz links anfangen, und prüfe die Balance.
-     Falls die Balance gößer 1 oder kleiner -1 ist, so muss durch
+     Falls die Balance goeßer 1 oder kleiner -1 ist, so muss durch
      Rotationen repariert werden;
 
      \param   Node
@@ -235,27 +228,30 @@ public class AVLTree extends Tree{
 
 		Node parent= null;
 
+		/* wenn grandParent != null ist, so sind wir ausserhalb der Wurzel */
 		if(grandParent != null) {
 			if(getBalance(grandParent) > 0) {
-				parent= grandParent.leftChild;
+				parent= grandParent.getLeftChild();
 			}
 			if(getBalance(grandParent) < 0) {
-				parent= grandParent.rightChild;
+				parent= grandParent.getRightChild();
 			}
 		} else {
 			parent= this.root;
 		}
 
+		/* Fallunterscheidungen zur Rotationsanwendung */
+
 		if(getBalance(parent) == 2) {
 
 			/* 1. Fall: einfache rechtsrotation */
-			if(getBalance(parent.leftChild) == 1) {
+			if(getBalance(parent.getLeftChild()) == 1) {
 
 				if (grandParent != null) {
 					if (getBalance(grandParent) > 0) {
-						grandParent.leftChild= rightRotate(parent);
+						grandParent.setLeftChild(rightRotate(parent));
 					} else {
-						grandParent.rightChild= rightRotate(parent);
+						grandParent.setRightChild(rightRotate(parent));
 					}
 				} else {
 					root= rightRotate(parent);
@@ -263,13 +259,13 @@ public class AVLTree extends Tree{
 			}
 
 			/* 2. Fall: links-rechtsrotation */
-			if(getBalance(parent.leftChild) == -1) {
-				parent.leftChild= leftRotate(parent.leftChild);
+			if(getBalance(parent.getLeftChild()) == -1) {
+				parent.setLeftChild(leftRotate(parent.getLeftChild()));
 				if (grandParent != null) {
 					if (getBalance(grandParent) > 0) {
-						grandParent.leftChild= rightRotate(parent);
+						grandParent.setLeftChild(rightRotate(parent));
 					} else {
-						grandParent.rightChild= rightRotate(parent);
+						grandParent.setRightChild(rightRotate(parent));
 					}
 				} else {
 					root= rightRotate(parent);
@@ -280,13 +276,13 @@ public class AVLTree extends Tree{
 		if(getBalance(parent) == -2) {
 
 			/* 3. Fall: einfache linksrotation */
-			if(getBalance(parent.rightChild) == -1) {
+			if(getBalance(parent.getRightChild()) == -1) {
 
 				if (grandParent != null) {
 					if (getBalance(grandParent) < 0) {
-						grandParent.rightChild= leftRotate(parent);
+						grandParent.setRightChild(leftRotate(parent));
 					} else {
-						grandParent.leftChild= leftRotate(parent);
+						grandParent.setLeftChild(leftRotate(parent));
 					}
 				} else {
 					root= leftRotate(parent);
@@ -294,13 +290,13 @@ public class AVLTree extends Tree{
 			}
 
 			/* 4. Fall: rechts-linksrotation */
-			if(getBalance(parent.rightChild) == 1) {
-				parent.rightChild= rightRotate(parent.rightChild);
+			if(getBalance(parent.getRightChild()) == 1) {
+				parent.setRightChild(rightRotate(parent.getRightChild()));
 				if (grandParent != null) {
 					if (getBalance(grandParent) < 0) {
-						grandParent.rightChild= leftRotate(parent);
+						grandParent.setRightChild(leftRotate(parent));
 					} else {
-						grandParent.leftChild= leftRotate(parent);
+						grandParent.setLeftChild(leftRotate(parent));
 					}
 				} else {
 					root= leftRotate(parent);

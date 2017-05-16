@@ -1,8 +1,8 @@
 /**************************************************************************************************/
 /*! \file
-  FILE         : $Source: PersonOverviewController.java $
+  FILE         : $Source: BuchungOverviewController.java $
   BESCHREIBUNG : Controller
-                 Controller für die Personenübersicht
+                 Controller fuer die Buchungsuebersicht
 ***************************************************************************************************/
 
 /** \addtogroup View
@@ -23,6 +23,8 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+
+import java.time.LocalDate;
 import java.util.List;
 import ch.makery.address.MainApp;
 import ch.makery.address.model.Buchung;
@@ -56,6 +58,8 @@ public class BuchungOverviewController {
     private TableColumn<Buchung, Integer> personIDColumn;
     @FXML
     private TableColumn<Buchung, Integer> fahrzeugIDColumn;
+    @FXML
+    private TableColumn<Buchung, LocalDate> ausleihdatumColumn;
 
     @FXML
     private Label buchungIDLabel;
@@ -111,10 +115,11 @@ public class BuchungOverviewController {
 
     @FXML
     private void initialize() {
-        // Initialize the Buchung table with the three columns.
+        // Initialize the Buchung table with the four columns.
     	buchungIDColumn.setCellValueFactory(cellData -> cellData.getValue().buchungIDProperty().asObject());
         personIDColumn.setCellValueFactory(cellData -> cellData.getValue().personIDProperty().asObject());
         fahrzeugIDColumn.setCellValueFactory(cellData -> cellData.getValue().fahrzeugIDProperty().asObject());
+        ausleihdatumColumn.setCellValueFactory(cellData -> cellData.getValue().ausleihdatumProperty());
 
         // Clear Buchung details.
         showBuchungDetails(null, null, null);
@@ -145,8 +150,8 @@ public class BuchungOverviewController {
     /***************************************************************************
     METHODENNAME:	showbuchungDetails
     *//*!
-     Zeigt die Details einer ausgewählten Buchung an. Ist keine Buchung
-     ausgewählt, so wird nichts angezeigt.
+     Zeigt die Details einer ausgewaehlten Buchung an. Ist keine Buchung
+     ausgewaehlt, so wird nichts angezeigt.
 
      \param   Buchung. Ein Objekt der Klasse Buchung, von welchem die
 			  Details angezeigt werden sollen.
@@ -158,11 +163,11 @@ public class BuchungOverviewController {
     private void showBuchungDetails(Buchung buchung, List<Person> persons, List<Fahrzeug> fahrzeugs) {
         if (buchung != null) {
         	buchungIDLabel.setText(Integer.toString(buchung.getBuchungID()));
-            // Fill the labels with info from the buchung object.
         	personIDLabel.setText(Integer.toString(buchung.getPersonID()));
         	fahrzeugIDLabel.setText(Integer.toString(buchung.getFahrzeugID()));
         	leihdauerLabel.setText(Integer.toString(buchung.getLeihdauer()));
 
+        	/* suche die Vor- und Nachnamen in den PersonData, abhaengig von der PersonID */
         	for (Person p : persons) {
         		if(buchung.getPersonID() == p.getPersonID()) {
         			vornameLabel.setText(p.getFirstName());
@@ -170,6 +175,7 @@ public class BuchungOverviewController {
         		}
         	}
 
+        	/* suche den Hersteller, die Marke und den Fahrzeugtyp in der FahrzeugData, abhaengig von der FahrzeugID */
         	for (Fahrzeug f : fahrzeugs) {
         		if(buchung.getFahrzeugID() == f.getFahrzeugID()) {
         			herstellerLabel.setText(f.getHersteller());
@@ -195,8 +201,8 @@ public class BuchungOverviewController {
     /***************************************************************************
     METHODENNAME:	handleDeleteBuchung
     *//*!
-     Handler für den Delete Button. Wird Delete angeklickt, so wird das
-     ausgewählte Objekt gelöscht.
+     Handler fuer den Delete Button. Wird Delete angeklickt, so wird das
+     ausgewaehlte Objekt geloescht.
 
      \param   void
 
@@ -215,7 +221,7 @@ public class BuchungOverviewController {
             alert.initOwner(mainApp.getPrimaryStage());
             alert.setTitle("Keine Auswahl");
             alert.setHeaderText("Es wurde keine Buchung ausgewählt");
-            alert.setContentText("Bitte wählen Sie eine Buchung aus der Tabelle aus.");
+            alert.setContentText("Bitte wählen Sie eine Buchung aus der Tabelle.");
 
             alert.showAndWait();
         }
@@ -224,9 +230,9 @@ public class BuchungOverviewController {
     /***************************************************************************
     METHODENNAME:	handleNewBuchung
     *//*!
-     Handler für den New Button. Wird New angeklickt, so wird ein Dialogfeld
+     Handler fuer den New Button. Wird New angeklickt, so wird ein Dialogfeld
      aufgerufen, um ein neues Objekt von der Klasse Buchung zu erstellen.
-	 Hierbei können alle nötigen Attribute eingegeben werden.
+	 Hierbei koennen alle noetigen Attribute eingegeben werden.
 
      \param   void
 
@@ -248,8 +254,8 @@ public class BuchungOverviewController {
     /***************************************************************************
     METHODENNAME:	handleEditBuchung
     *//*!
-    Handler für den Edit Button. Wird Edit angeklickt, so wird ein Dialogfeld
-    aufgerufen, um die Attribute, der ausgewählten Buchung, verändern zu können.
+    Handler fuer den Edit Button. Wird Edit angeklickt, so wird ein Dialogfeld
+    aufgerufen, um die Attribute, der ausgewaehlten Buchung, veraendern zu koennen.
 
      \param   void
 
@@ -270,9 +276,9 @@ public class BuchungOverviewController {
             // Nothing selected.
             Alert alert = new Alert(AlertType.WARNING);
             alert.initOwner(mainApp.getPrimaryStage());
-            alert.setTitle("No Selection");
-            alert.setHeaderText("No Buchung Selected");
-            alert.setContentText("Please select a Buchung in the table.");
+            alert.setTitle("Keine Auswahl");
+            alert.setHeaderText("Es wurde keine Buchung ausgewählt");
+            alert.setContentText("Bitte wählen Sie eine Buchung aus der Tabelle.");
 
             alert.showAndWait();
         }

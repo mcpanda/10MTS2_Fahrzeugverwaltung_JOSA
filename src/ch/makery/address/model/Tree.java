@@ -50,7 +50,7 @@ public class Tree {
     /***************************************************************************
     METHODENNAME:	addNode
     *//*!
-     Hinzufügen eines neuen Knotens, abhängig ob der Personenvergleich
+     Hinzufuegen eines neuen Knotens, abhaengig ob der Personenvergleich
      positiv oder negativ ist.
 
      \param   Person
@@ -72,21 +72,21 @@ public class Tree {
 			Node focusNode= root;
 			Node parent= null;
 
-			/* gehe alle Unterbäume durch, bis ein pasender Platz gefunden wird */
+			/* gehe alle Unterbaeume durch, bis ein pasender Platz gefunden wird */
 			while(true)	{
 				parent= focusNode;
 				if(focusNode.ComparePersons(newperson) > 0){
-					focusNode = focusNode.leftChild;
+					focusNode = focusNode.getLeftChild();
 					if(focusNode == null)
 					{
-						parent.leftChild = newNode;
+						parent.setLeftChild(newNode);
 						return;
 					}
 				} else {
-					focusNode = focusNode.rightChild;
+					focusNode = focusNode.getRightChild();
 					if(focusNode == null)
 					{
-						parent.rightChild = newNode;
+						parent.setRightChild(newNode);
 						return;
 					}
 				}
@@ -97,7 +97,7 @@ public class Tree {
     /***************************************************************************
     METHODENNAME:	delete
     *//*!
-     Löschen eines Knotens/Blattes/Wurzel.
+     Loeschen eines Knotens/Blattes/Wurzel.
 
      \param   Person
 
@@ -110,15 +110,16 @@ public class Tree {
 
 		boolean isLeftChild= false;
 
+		/* Suche den Knoten mit der passenden Person */
 		while(focusNode.ComparePersons(person) != 0) {
 			parent= focusNode;
 
 			if (focusNode.ComparePersons(person) > 0) {
 				isLeftChild= true;
-				focusNode= focusNode.leftChild;
+				focusNode= focusNode.getLeftChild();
 			} else {
 				isLeftChild= false;
-				focusNode= focusNode.rightChild;
+				focusNode= focusNode.getRightChild();
 			}
 
 			/* wenn wir nichts finden, return false */
@@ -127,66 +128,105 @@ public class Tree {
 			}
 		}
 
-		/* wenn wir etwas finden, so müssen wir eine Fallunterscheidung machen */
+		/* wenn wir etwas finden, so muessen wir eine Fallunterscheidung machen */
+		/* abhaengig, ob der gefundene Knoten Nachfolger hat und ob es sich um die Wurzel handelt */
 
 		/* 1. Fall: Knoten hat keine Nachfolger */
-		if(focusNode.leftChild == null && focusNode.rightChild == null) {
-			/* falls wir die wurzel gefunden haben und diese keine Blätter hat, so löschen wir die Wurzel */
+		if(focusNode.getLeftChild() == null && focusNode.getRightChild() == null) {
+			/* falls wir die Wurzel gefunden haben und diese keine Blaetter hat, so loeschen wir die Wurzel */
 			if (focusNode == root) {
 				this.root = null;
 			}
 
-			/* falls wir den Knoten auf der linken oder rechten seite gefunden haben, so müssen wir die Verbindung kappen */
+			/* falls wir den Knoten auf der linken oder rechten Seite gefunden haben, so muessen wir die Verbindung kappen */
 			if(isLeftChild == true) {
-				parent.leftChild= null;
+				parent.setLeftChild(null);
 			} else {
-				parent.rightChild= null;
+				parent.setRightChild(null);
 			}
 		}
 
 		/* 2. Fall: Knoten hat nur einen Nachfolger */
-		else if (focusNode.rightChild == null) {
+		else if (focusNode.getRightChild() == null) {
+			/* falls wir die Wurzel gefunden haben */
 			if (focusNode == root) {
-				root= focusNode.leftChild;
+				root= focusNode.getLeftChild();
 			} else if(isLeftChild) {
-				parent.leftChild= focusNode.leftChild;
+				parent.setLeftChild(focusNode.getLeftChild());
 			} else {
-				parent.rightChild= focusNode.leftChild;
+				parent.setRightChild(focusNode.getLeftChild());
 			}
 		}
-		else if (focusNode.leftChild == null) {
+		else if (focusNode.getLeftChild() == null) {
+			/* falls wir die Wurzel gefunden haben */
 			if (focusNode == root) {
-				root= focusNode.rightChild;
+				root= focusNode.getRightChild();
 			} else if(isLeftChild) {
-				parent.leftChild= focusNode.rightChild;
+				parent.setLeftChild(focusNode.getRightChild());
 			} else {
-				parent.rightChild= focusNode.rightChild;
+				parent.setRightChild(focusNode.getRightChild());
 			}
 		}
 
 		/* 3. Fall: Knoten hat zwei Nachfolger */
-		/* Hierfür müssen wir das kleinste Objekt in dem rechten SubBaum finden und als neuen Knoten setzen */
-		else if(focusNode.leftChild != null && focusNode.rightChild != null) {
+		/* Hierfuer muessen wir das kleinste Objekt in dem rechten SubBaum finden und als neuen Knoten setzen */
+		else if(focusNode.getLeftChild() != null && focusNode.getRightChild() != null) {
+			/* finde den kleinsten Nachfolger im rechten Sub-Tree */
 			Node Nachfolger= findNachfolger(focusNode);
 
+			/* falls wir die Wurzel gefunden haben */
 			if (focusNode == root) {
 				root= Nachfolger;
 			}
 			else if (isLeftChild) {
-				parent.leftChild= Nachfolger;
+				parent.setLeftChild(Nachfolger);
 			} else {
-				parent.rightChild= Nachfolger;
+				parent.setRightChild(Nachfolger);
 			}
-			Nachfolger.leftChild= focusNode.leftChild;
+			/* stelle Verknuepfung des Nachfolgers zur restlichen Sub-Baum her */
+			Nachfolger.setLeftChild(focusNode.getLeftChild());
 		}
 
 		return true;
 	}
 
 	/***************************************************************************
+    METHODENNAME:	findNachfolger
+    *//*!
+     Methode zum Finden des kleinsten Objektes im rechten UnterBaum, dh.
+     den Knoten, der ganz links ist.
+
+     \param   Node
+
+     \return  Node
+
+    ***************************************************************************/
+
+	public Node findNachfolger(Node node) {
+		Node Nachfolger= null;
+		Node parent= null;
+		Node focusNode= node.getRightChild();
+
+		/* finde den Knoten, der ganz links steht */
+		while (focusNode != null) {
+			parent= Nachfolger;
+			Nachfolger= focusNode;
+			focusNode= focusNode.getLeftChild();
+		}
+
+		/* definiere den rightChild vom Nachfolger */
+		if(Nachfolger != node.getRightChild()) {
+			parent.setLeftChild(Nachfolger.getRightChild());
+			Nachfolger.setRightChild(node.getRightChild());
+		}
+
+		return Nachfolger;
+	}
+
+	/***************************************************************************
     METHODENNAME:	clear
     *//*!
-     Löschen gesamten Baum
+     Loeschen gesamten Baum
 
      \param   void
 
@@ -198,45 +238,12 @@ public class Tree {
 		root= null;
 	}
 
-	/***************************************************************************
-    METHODENNAME:	findNachfolger
-    *//*!
-     Methode zum Finden des kleinsten Objektes im rechten UnterBaum, dh.
-     den linksten Knoten.
-
-     \param   Node
-
-     \return  Node
-
-    ***************************************************************************/
-
-	public Node findNachfolger(Node node) {
-		Node Nachfolger= null;
-		Node parent= null;
-		Node focusNode= node.rightChild;
-
-		/* finde den Knoten, der ganz links steht */
-		while (focusNode != null) {
-			parent= Nachfolger;
-			Nachfolger= focusNode;
-			focusNode= focusNode.leftChild;
-		}
-
-		/* definiere den rightChild vom Nachfolger */
-		if(Nachfolger != node.rightChild) {
-			parent.leftChild= Nachfolger.rightChild;
-			Nachfolger.rightChild= node.rightChild;
-		}
-
-		return Nachfolger;
-	}
-
     /***************************************************************************
     METHODENNAME:	findNode
     *//*!
-     Methode zum Finden einer Person anhand des Vornamens im binären Baum
+     Methode zum Finden einer Person anhand des Vornamens im binaeren Baum
 
-     \param   firstName oder Person
+     \param   firstName
 
      \return  Node
 
@@ -249,9 +256,9 @@ public class Tree {
 
     		if(focusNode.getPerson().getFirstName().compareTo(firstName) > 0)
     			{
-    				focusNode = focusNode.leftChild;
+    				focusNode = focusNode.getLeftChild();
     			} else {
-    				focusNode = focusNode.rightChild;
+    				focusNode = focusNode.getRightChild();
     			}
 
     		if(focusNode == null) {
@@ -261,32 +268,11 @@ public class Tree {
 
 		return focusNode;
 	}
-
-    /* Überlagerung der findNode Methode */
-    public Node findNode(Person person) {
-    	Node focusNode = root;
-
-    	while(focusNode.ComparePersons(person) != 0) {
-    		if(focusNode.ComparePersons(person) > 1)
-    			{
-    				focusNode = focusNode.leftChild;
-    			} else {
-    				focusNode = focusNode.rightChild;
-    			}
-
-    		if(focusNode == null) {
-    			return null;
-    		}
-    	}
-
-		return focusNode;
-	}
-
 
     /***************************************************************************
     METHODENNAME:	treeHeight
     *//*!
-     Methode zur Berechnung der Baumhöhe; rekursiv
+     Methode zur Berechnung der Baumhoehe; rekursiv
 
      \param   Node
 
@@ -298,10 +284,10 @@ public class Tree {
     	if (node == null) {
     		return 0;
     	} else {
-    		if(treeHeight(node.leftChild) < treeHeight(node.rightChild)) {
-    			return (1 + treeHeight(node.rightChild));
+    		if(treeHeight(node.getLeftChild()) < treeHeight(node.getRightChild())) {
+    			return (1 + treeHeight(node.getRightChild()));
     		} else {
-    			return (1 + treeHeight(node.leftChild));
+    			return (1 + treeHeight(node.getLeftChild()));
     		}
     	}
     }
@@ -318,6 +304,7 @@ public class Tree {
     ***************************************************************************/
 
     public void levelOrder(Node root) {
+    	/* Hilfsliste */
     	Queue<Node> que= new LinkedList<Node>();
 
     	if (root == null) {
@@ -326,29 +313,37 @@ public class Tree {
 
     	que.add(root);
 
+    	/* so lange die Liste nicht leer ist */
     	while (!que.isEmpty()) {
+    		/* wir merken uns die Listengroesse */
     		int levelNodes= que.size();
+    		/* so lange die Hilfsvariable groesser 0 ist */
     		while (levelNodes > 0) {
+    			/* wirf einen Knoten aus der Liste aus und merke sich diesen */
     			Node node= (Node) que.remove();
     			System.out.print(" - ");
-    			if (node.leftChild != null) {
-    				System.out.print(node.leftChild.getPerson().getFirstName() + "|");
+
+    			/* gebe in der Konsole die Vornamen der Nachfolger und des Knotens aus */
+    			if (node.getLeftChild() != null) {
+    				System.out.print(node.getLeftChild().getPerson().getFirstName() + "|");
     			} else {
     				System.out.print("null|");
     			}
         		System.out.print(node.getPerson().getFirstName());
-        		if (node.rightChild != null) {
-    				System.out.print("|" + node.rightChild.getPerson().getFirstName());
+        		if (node.getRightChild() != null) {
+    				System.out.print("|" + node.getRightChild().getPerson().getFirstName());
     			} else {
     				System.out.print("|null");
     			}
 
-        		if (node.leftChild != null) {
-        			que.add(node.leftChild);
+        		/* falls der Knoten Nachfolger hatte, so werden diese in die Liste aufgenommen */
+        		if (node.getLeftChild() != null) {
+        			que.add(node.getLeftChild());
         		}
-        		if (node.rightChild != null) {
-        			que.add(node.rightChild);
+        		if (node.getRightChild() != null) {
+        			que.add(node.getRightChild());
         		}
+        		/* reduziere die Hilfsvariable zur Listengroesse */
         		levelNodes--;
     		}
     		System.out.println("");

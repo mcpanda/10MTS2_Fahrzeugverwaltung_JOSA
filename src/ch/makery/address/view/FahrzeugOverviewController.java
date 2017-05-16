@@ -2,7 +2,7 @@
 /*! \file
   FILE         : $Source: FahrzeugOverviewController.java $
   BESCHREIBUNG : Controller
-                 Controller für die Fahrzeugübersicht
+                 Controller fuer die Fahrzeuguebersicht
 ***************************************************************************************************/
 
 /** \addtogroup View
@@ -136,8 +136,8 @@ public class FahrzeugOverviewController {
     /***************************************************************************
     METHODENNAME:	showFahrzeugDetails
     *//*!
-     Zeigt die Details eines ausgewählten Fahrzeugs an. Ist kein Fahrzeug
-     ausgewählt, so wird nichts angezeigt.
+     Zeigt die Details eines ausgewaehlten Fahrzeugs an. Ist kein Fahrzeug
+     ausgewaehlt, so wird nichts angezeigt.
 
      \param   Fahrzeug. Ein Objekt der Klasse Fahrzeug, von welchem die
 			  Details angezeigt werden sollen.
@@ -173,8 +173,8 @@ public class FahrzeugOverviewController {
     /***************************************************************************
     METHODENNAME:	handleDeleteFahrzeug
     *//*!
-     Handler für den Delete Button. Wird Delete angeklickt, so wird das
-     ausgewählte Objekt gelöscht.
+     Handler fuer den Delete Button. Wird Delete angeklickt, so wird das
+     ausgewaehlte Objekt geloescht.
 
      \param   void
 
@@ -191,9 +191,9 @@ public class FahrzeugOverviewController {
             // Nothing selected.
             Alert alert = new Alert(AlertType.WARNING);
             alert.initOwner(mainApp.getPrimaryStage());
-            alert.setTitle("No Selection");
-            alert.setHeaderText("No Fahrzeug Selected");
-            alert.setContentText("Please select a Fahrzeug in the table.");
+            alert.setTitle("Ungültige Auswahl");
+            alert.setHeaderText("Kein Fahrzeug wurde ausgewählt");
+            alert.setContentText("Bitte wählen Sie ein Fahrzeug aus der Tabelle.");
 
             alert.showAndWait();
         }
@@ -203,9 +203,9 @@ public class FahrzeugOverviewController {
     /***************************************************************************
     METHODENNAME:	handleNewFahrzeug
     *//*!
-     Handler für den New Button. Wird New angeklickt, so wird ein Dialogfeld
+     Handler fuer den New Button. Wird New angeklickt, so wird ein Dialogfeld
      aufgerufen, um ein neues Objekt von der Klasse Fahrzeug zu erstellen.
-	 Hierbei können alle nötigen Attribute eingegeben werden.
+	 Hierbei koennen alle noetigen Attribute eingegeben werden.
 
      \param   void
 
@@ -225,8 +225,8 @@ public class FahrzeugOverviewController {
     /***************************************************************************
     METHODENNAME:	handleEditFahrzeug
     *//*!
-    Handler für den Edit Button. Wird Edit angeklickt, so wird ein Dialogfeld
-    aufgerufen, um die Attribute, des ausgewählten Fahrzeugs, verändern zu können.
+    Handler fuer den Edit Button. Wird Edit angeklickt, so wird ein Dialogfeld
+    aufgerufen, um die Attribute, des ausgewaehlten Fahrzeugs, veraendern zu koennen.
 
      \param   void
 
@@ -247,9 +247,9 @@ public class FahrzeugOverviewController {
             // Nothing selected.
             Alert alert = new Alert(AlertType.WARNING);
             alert.initOwner(mainApp.getPrimaryStage());
-            alert.setTitle("No Selection");
-            alert.setHeaderText("No Fahrzeug Selected");
-            alert.setContentText("Please select a Fahrzeug in the table.");
+            alert.setTitle("Ungültige Auswahl");
+            alert.setHeaderText("Kein Fahrzeug wurde ausgewählt");
+            alert.setContentText("Bitte wählen Sie ein Fahrzeug aus der Tabelle.");
 
             alert.showAndWait();
         }

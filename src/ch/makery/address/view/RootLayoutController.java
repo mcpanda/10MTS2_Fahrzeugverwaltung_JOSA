@@ -225,24 +225,6 @@ public class RootLayoutController {
     }
 
     /***************************************************************************
-    METHODENNAME:	handleShowBirthdayStatistics
-    *//*!
-     handler für den ShowBirthdayStatistics Menüpunkt. Wird
-     ShowBirthdayStatistics angeklickt, so wird die Geburtstagstatistik in
-     der MainApp geöffnet.
-
-     \param   void
-
-     \return  void
-
-    ***************************************************************************/
-
-    @FXML
-    private void handleShowBirthdayStatistics() {
-      mainApp.showBirthdayStatistics();
-    }
-
-    /***************************************************************************
     METHODENNAME:	handleShowPersonStatistic
     *//*!
      handler für den ShowPersonStatistic Menüpunkt. Wird

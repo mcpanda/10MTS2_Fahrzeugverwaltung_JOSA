@@ -5,10 +5,9 @@
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane prefHeight="450.0" prefWidth="620.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.60" fx:controller="ch.makery.address.view.FahrzeugTypStatisticController">
+<AnchorPane prefHeight="450.0" prefWidth="620.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.makery.address.view.FahrzeugTypStatisticController">
    <children>
-      <BarChart fx:id="barChart" layoutX="14.0" layoutY="14.0" prefHeight="450.0" prefWidth="620.0" title="Ausleihhäufigkeit" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <BarChart fx:id="barChart" layoutX="14.0" layoutY="14.0" prefHeight="450.0" prefWidth="620.0" title="Fahrzeugtypen Ausleihhäufigkeit/-dauer" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <xAxis>
           <CategoryAxis side="BOTTOM" fx:id="xAxis" />
         </xAxis>
