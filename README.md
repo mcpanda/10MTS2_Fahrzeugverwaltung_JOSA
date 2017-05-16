@@ -3,6 +3,48 @@ Schulprojekt
 
 # History
 
+# Version 1.9.0 07.05.2017
+Anpassungen
++ Beim Erstellen eines neuen Fahrzeugs, geht die ID +1 hoch
++ FahrzeugID ist nicht mehr veränderbar
++ Sortierung des Nachnames ist nun ausführlicher
+
+# Version 1.8.3 07.05.2017
+BugFixes
++ Eingabefelder in dem BuchungsEditDialog vergrößert
++ neue Spalte in der Buchung: Ausleihdatum
++ fehlende Führerscheinauswahl erzeugt Fehlermeldung
++ fehlende Fahrzeugtypauswahl erzeugt Fehlermeldung
++ Sortierung sind nun geschachtelt (z.B. identischer Nachname => sortiere weiter nach Vorname, dann nach ID)
++ Public/Private Sichtbarkeit wurde angepasst
++ Statistiken sind nun sortiert (absteigend)
++ einige exceptions wurden mit try /catch aufgefangen
+
+# Version 1.8.2 07.05.2017
+AVL Bäume wurden überarbeitet
++ Vererbung und Nutzung der Tree Methoden
++ Rotationen
++ repair-Methode
++ Präsentationsabschnitte
+
+# Version 1.8.1 01.05.2017
+AVL Baum hinzugefügt
++ ausbalanzierter AVL Baum wird neben dem binären Baum erstellt
++ dazu wurde eine erbende Klasse erzeugt, welche Rotationen beherrscht
+
+tbd:
++ löschen im AVL Baum
+
+
+# Version 1.8.0 30.04.2017
+Konfiguration der binären Suchbäume
++ Die Suchbäume haben jetzt nicht nur einen rechten Zweig.
++ Funktion zur Anzeige der Verzweigung hinzugefügt.
++ Funktion zum löschen von Knoten hinzugefügt, samt Fallunterscheidung (Wurzel, Knoten mit einem Nachfolger oder zwei, Blätter)
+
+tbd:
++ AVL Bäume hinzufügen (Suche nach Nachnamen) 
+
 # Version 1.7.1 16.04.2017
 Buchungdatumskontrolle 
 + Bei jedem Start wird das aktuelle Datum in Relation zun den Rückgabedaten gesetzt und entsprechen der Ausleizustand von Personen und Fahrzeugen angepasst.
