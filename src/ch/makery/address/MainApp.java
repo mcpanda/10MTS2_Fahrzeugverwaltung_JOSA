@@ -1178,7 +1178,7 @@ public class MainApp extends Application {
 			FahrzeugEditDialogController controller = loader.getController();
 			controller.setMainApp(this);
 			controller.setDialogStage(dialogStage);
-			controller.setFahrzeug(fahrzeug);
+			controller.setFahrzeug(fahrzeug, fahrzeugData);
 
 			// Show the dialog and wait until the user closes it
 			dialogStage.showAndWait();
