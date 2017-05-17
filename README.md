@@ -7,7 +7,7 @@ Schulprojekt
 Anpassungen
 + Beim Erstellen eines neuen Fahrzeugs, geht die ID +1 hoch
 + FahrzeugID ist nicht mehr veränderbar
-+ Sortierung des Nachnames ist nun ausführlicher
++ Sortierung des Nachnamens ist nun ausführlicher
 
 # Version 1.8.3 07.05.2017
 BugFixes
@@ -29,7 +29,7 @@ AVL Bäume wurden überarbeitet
 
 # Version 1.8.1 01.05.2017
 AVL Baum hinzugefügt
-+ ausbalanzierter AVL Baum wird neben dem binären Baum erstellt
++ ausbalancierter AVL Baum wird neben dem binären Baum erstellt
 + dazu wurde eine erbende Klasse erzeugt, welche Rotationen beherrscht
 
 tbd:
@@ -40,21 +40,21 @@ tbd:
 Konfiguration der binären Suchbäume
 + Die Suchbäume haben jetzt nicht nur einen rechten Zweig.
 + Funktion zur Anzeige der Verzweigung hinzugefügt.
-+ Funktion zum löschen von Knoten hinzugefügt, samt Fallunterscheidung (Wurzel, Knoten mit einem Nachfolger oder zwei, Blätter)
++ Funktion zum Löschen von Knoten hinzugefügt, samt Fallunterscheidung (Wurzel, Knoten mit einem Nachfolger oder zwei, Blätter)
 
 tbd:
 + AVL Bäume hinzufügen (Suche nach Nachnamen) 
 
 # Version 1.7.1 16.04.2017
-Buchungdatumskontrolle 
-+ Bei jedem Start wird das aktuelle Datum in Relation zun den Rückgabedaten gesetzt und entsprechen der Ausleizustand von Personen und Fahrzeugen angepasst.
-+ Bei jeder neuen Buchung und jeder Buchungsänderung wird nachgeschaut, ob im ausgeähltem Zeitram die Person bereits etwas ausleiht oder das Fahrzeug bereits verliehen wird
+Buchungsdatumkontrolle 
++ Bei jedem Start wird das aktuelle Datum in Relation zu den Rückgabedaten gesetzt und entsprechen der Ausleizustand von Personen und Fahrzeugen angepasst.
++ Bei jeder neuen Buchung und jeder Buchungsänderung wird nachgeschaut, ob im ausgewähltem Zeitraum die Person bereits etwas ausleiht oder das Fahrzeug bereits verliehen wird
 + Ein Button Buchung wurde dem Suchdialogfeld hinzugefügt
 
 # Version 1.7.0 16.04.2017
 Änderung EditBuchung
 + Die Reihenfolge wurde überarbeitet: wähle Person > wähle FahrzeugTyp > wähle Fahrzeug
-+ die ComboBox für Personen enthät stets alle Personen im System
++ die ComboBox für Personen enthält stets alle Personen im System
 + alle anderen ComboBoxen werden durch Listener stets an die getroffene Auswahl angepasst
 + Buchungsbutton bei Fahrzeug wurde entfernt
 + bei jeder neuen Buchung oder bearbeiteter Buchung werden sämtliche Buchungen überprüft, ob derer Rückgabedatum vor dem aktuellem Datum liegt
@@ -66,7 +66,7 @@ tbd:
 Anpassungen und BugFixes 
 + Buchung Nr.1 bei leerer Buchungsliste ist nun möglich
 + Formatierung für Doxygen abgeschlossen
-+ Ausgeliehenzeile bei Person- und FahrzeugEdit entfernt (Falg wird über
++ Ausgeliehenzeile bei Person- und FahrzeugEdit entfernt (Flag wird über
 Buchungsmenü gesetzt)
 
 tbd:
@@ -88,7 +88,7 @@ Anpassungen
 + Hinzufügung von weiteren Sortierungsoptionen
 
 tbd
-+ aktualisierung der ComboBox bei FahrzeugTypAuswahl (bisher funktioniert dies nur bei Tasteneinschlag im Feld Fahrzeug/Person)
++ Aktualisierung der ComboBox bei FahrzeugTypAuswahl (bisher funktioniert dies nur bei Tasteneinschlag im Feld Fahrzeug/Person)
 
 # Version 1.5.0 05.04.2017 
 Umfangreiche Änderung
@@ -97,14 +97,14 @@ Umfangreiche Änderung
 + ComboBox filtert nun auch nach Strings
 + Führerscheinarten mit Kombinationsmöglichkeiten erweitert
 + Die Buchungen beachten nun neben Fahrzeugtyp auch Führerscheintauglichkeit und Ausleihzustand. Ist eines nicht plausibel erfolgt eien Fehlermeldung
-+ Bei der Initializierung der Buchung werden die Listen für die ComboBoxen schon geladen
++ Bei der Initialisierung der Buchung werden die Listen für die ComboBoxen schon geladen
 + Einschränkung der Buchung nur auf per ComboBox ausgewählten Fahrzeuge und Personen
 + Entfernung weiterer redundanten Codezeilen
 
 tbd
 + Laufzeitanzeige zur Ermittlung des Zeitunterschiedes der Suche mit binären Bäumen und linearer Suche
 + Suche in binären Bäumen auf Nachnamen erweitern
-+ ComboBox soll beim anklicken mit der Maus die Listen filtern/einlesen
++ ComboBox soll beim Anklicken mit der Maus die Listen filtern/einlesen
 + hinzufügen der restlichen Sortierungstabellen
 
 # Version 1.4.0 04.04.2017 
@@ -121,7 +121,7 @@ BuchungEditDialog verändert
 + binärer Baum (Tree/Node) erstellt
 
 # Version 1.3.4 29.03.2017
-Automatisches laden von Personen udn Fahrzeug IDs
+Automatisches laden von Personen und Fahrzeug IDs
 + bei den Buchungen werden nun Personen und Buchungs IDs automatisch geladen
 + BugFixes im Sortieralgorithmus
 
@@ -131,14 +131,14 @@ BugFix:
 
 # Version 1.3.2 29.03.2017
 Selection Sort funktionsfähig
-+ SelectionSort zur Sortierung nach Nachnamen abgeschloßen
++ SelectionSort zur Sortierung nach Nachnamen abgeschlossen
 
 tbd
 + Sortierung für Vornamen, ID, Stadt hinzufügen
 
 # Version 1.3.1 28.03.2017
-Angefangener Controller für den Sortieralgorythmus und die Suche mit binären Bäumen
-+ Controller Prototyp zur Nachnamensortierung mit "funktionsfähigem" Sortieralgorythmus.
+Angefangener Controller für den Sortieralgorithmus und die Suche mit binären Bäumen
++ Controller Prototyp zur Nachnamensortierung mit "funktionsfähigem" Sortieralgorithmus.
 + Suchknopf und View-Grundgerüst für die Suche über einen binären Baum
 
 tbd
@@ -190,8 +190,8 @@ tbd
 
 # Version 1.0.5.2 25.03.2017
 AutoComplete ist so weit fertig
-+ AutoComplete bei der ComboBox erzeugt zwar eine Fehlermeldung, wenn man zu viele Zahlen eingibt, die Auswahl funktioniert aber denoch.
-+ Die BuchungsIDs sind nicht mehr veränderbar, sonderen werden automatisch eingetragen, d.h. die BuchungsID bleibt unverändert, wenn man etwas ändern möchte, oder die globale BuchungsID wird um eins erhöht, wenn eine neue Buchugn angelegt wird.
++ AutoComplete bei der ComboBox erzeugt zwar eine Fehlermeldung, wenn man zu viele Zahlen eingibt, die Auswahl funktioniert aber dennoch.
++ Die BuchungsIDs sind nicht mehr veränderbar, sondern werden automatisch eingetragen, d.h. die BuchungsID bleibt unverändert, wenn man etwas ändern möchte, oder die globale BuchungsID wird um eins erhöht, wenn eine neue Buchung angelegt wird.
 
 tbd
 + Bei FahrzeugID und PersonID Duplikate ausschließen
@@ -212,7 +212,7 @@ ComboBoxen beim BuchungEditDialog hinzugefügt.
 
 tbd
 + BuchungEditDialog soll Auswahl per ComboBox setzen
-+ ComboBox mit Tastatureingabe und gleichzeitiger Auswahreduzierung verbinden
++ ComboBox mit Tastatureingabe und gleichzeitiger Auswahlreduzierung verbinden
 + Die IDs aller Personen, Fahrzeuge und Buchungen sollen jeweils fortlaufend und nicht veränderbar sein
 + Auswahlfeld für das Datum
 + Automatische Berechnung der Ausleihdauer
@@ -252,4 +252,3 @@ tbd
 Erste Version
 + Aufgabenbereich I aus vollständigem JavaFX Tutorial
 + Aufgabenbereich II angefangen
-
