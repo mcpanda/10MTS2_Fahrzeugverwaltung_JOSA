@@ -3,13 +3,19 @@ Schulprojekt
 
 # History
 
-# Version 1.9.0 07.05.2017
+# Version 1.9.1 18.05.2017
+DatePicker
+
++ DatePicker (Kalender) bei der Datumsauswahl
++ Aktualisierung von Ausgeliehen bei jeder Änderung
+
+# Version 1.9.0 16.05.2017
 Anpassungen
 + Beim Erstellen eines neuen Fahrzeugs, geht die ID +1 hoch
 + FahrzeugID ist nicht mehr veränderbar
 + Sortierung des Nachnames ist nun ausführlicher
 
-# Version 1.8.3 07.05.2017
+# Version 1.8.3 16.05.2017
 BugFixes
 + Eingabefelder in dem BuchungsEditDialog vergrößert
 + neue Spalte in der Buchung: Ausleihdatum
