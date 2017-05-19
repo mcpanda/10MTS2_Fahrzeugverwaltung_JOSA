@@ -24,6 +24,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
@@ -79,9 +80,9 @@ public class BuchungEditDialogController {
     @FXML
     private TextField fahrzeugIDField;
     @FXML
-    private TextField ausleihdatumField;
+    private DatePicker ausleihdatumField;
     @FXML
-    private TextField rueckgabedatumField;
+    private DatePicker rueckgabedatumField;
     @FXML
     private Label leihdauerLabel;
 
@@ -407,9 +408,9 @@ public class BuchungEditDialogController {
         	}
         }
 
-        ausleihdatumField.setText(DateUtil.format(buchung.getAusleihdatum()));
+        ausleihdatumField.getEditor().setText(DateUtil.format(buchung.getAusleihdatum()));
         ausleihdatumField.setPromptText("dd.mm.yyyy");
-        rueckgabedatumField.setText(DateUtil.format(buchung.getRueckgabedatum()));
+        rueckgabedatumField.getEditor().setText(DateUtil.format(buchung.getRueckgabedatum()));
         rueckgabedatumField.setPromptText("dd.mm.yyyy");
 
         AusleihdauerBerechnung();
@@ -452,11 +453,11 @@ public class BuchungEditDialogController {
         	buchung.setFahrzeugID(getIDfromBeschreibung(fahrzeugIDBox.getEditor().getText()));
         	buchung.setLeihdauer(Integer.parseInt(leihdauerLabel.getText()));
 
-            buchung.setAusleihdatum(DateUtil.parse(ausleihdatumField.getText()));
-            buchung.setRueckgabedatum(DateUtil.parse(rueckgabedatumField.getText()));
+            buchung.setAusleihdatum(DateUtil.parse(ausleihdatumField.getEditor().getText()));
+            buchung.setRueckgabedatum(DateUtil.parse(rueckgabedatumField.getEditor().getText()));
 
             okClicked = true;
-            dialogStage.close();	// und schliesse die BuchungEditStage
+            dialogStage.close();		// und schliesse die BuchungEditStage
         }
     }
 
@@ -515,19 +516,19 @@ public class BuchungEditDialogController {
         }
 
         // ueberpruefe ob als Datum gueltige Werte benutzt werden
-        if (ausleihdatumField.getText() == null || ausleihdatumField.getText().length() == 0) {
+        if (ausleihdatumField.getEditor().getText() == null || ausleihdatumField.getEditor().getText().length() == 0) {
             errorMessage += "Kein gültiges Ausleihdatum!\n";
         } else {
-            if (!DateUtil.validDate(ausleihdatumField.getText())) {
+            if (!DateUtil.validDate(ausleihdatumField.getEditor().getText())) {
                 errorMessage += "Kein gültiges Ausleihdatum. Bitte nutzen Sie das Format dd.mm.yyyy!\n";
             }
         }
 
         // ueberpruefe ob als Datum gueltige Werte benutzt werden
-        if (rueckgabedatumField.getText() == null || rueckgabedatumField.getText().length() == 0) {
+        if (rueckgabedatumField.getEditor().getText() == null || rueckgabedatumField.getEditor().getText().length() == 0) {
             errorMessage += "Kein gültiges Rückgabedatum!\n";
         } else {
-            if (!DateUtil.validDate(rueckgabedatumField.getText())) {
+            if (!DateUtil.validDate(rueckgabedatumField.getEditor().getText())) {
                 errorMessage += "Kein gültiges Rueckgabedatum. Bitte nutzen Sie das Format dd.mm.yyyy!\n";
             }
         }
@@ -537,12 +538,12 @@ public class BuchungEditDialogController {
         for (Buchung b : buchungs) {
         	try {
         		if(getIDfromBeschreibung(personIDBox.getValue()) == b.getPersonID() && buchung.getBuchungID() != b.getBuchungID()) {
-            		if(DateUtil.parse(ausleihdatumField.getText()).compareTo(b.getRueckgabedatum()) < 1 && DateUtil.parse(rueckgabedatumField.getText()).compareTo(b.getAusleihdatum()) > -1) {
+            		if(DateUtil.parse(ausleihdatumField.getEditor().getText()).compareTo(b.getRueckgabedatum()) < 1 && DateUtil.parse(rueckgabedatumField.getEditor().getText()).compareTo(b.getAusleihdatum()) > -1) {
             			errorMessage += "Diese Person leiht im ausgewähltem Zeitraum bereits ein Fahrzeug aus!\n";
             		}
             	}
             	if(getIDfromBeschreibung(fahrzeugIDBox.getValue()) == b.getFahrzeugID() && buchung.getBuchungID() != b.getBuchungID()) {
-            		if(DateUtil.parse(ausleihdatumField.getText()).compareTo(b.getRueckgabedatum()) < 1 && DateUtil.parse(rueckgabedatumField.getText()).compareTo(b.getAusleihdatum()) > -1) {
+            		if(DateUtil.parse(ausleihdatumField.getEditor().getText()).compareTo(b.getRueckgabedatum()) < 1 && DateUtil.parse(rueckgabedatumField.getEditor().getText()).compareTo(b.getAusleihdatum()) > -1) {
             			errorMessage += "Dieses Fahrzeug wird im ausgewähltem Zeitraum bereits verliehen!\n";
             		}
             	}
@@ -585,10 +586,10 @@ public class BuchungEditDialogController {
 
      public void AusleihdauerBerechnung() {
     	 try {
-    		 LocalDate datum1= DateUtil.parse(ausleihdatumField.getText());		// ermittelt das Datum aus dem Textfield
-    	     LocalDate datum2= DateUtil.parse(rueckgabedatumField.getText());	// ermittelt das Datum aus dem Textfield
+    		 LocalDate datum1= DateUtil.parse(ausleihdatumField.getEditor().getText());		// ermittelt das Datum aus dem Textfield
+    	     LocalDate datum2= DateUtil.parse(rueckgabedatumField.getEditor().getText());	// ermittelt das Datum aus dem Textfield
 
-    	     int years= datum2.getYear() - datum1.getYear();						// berechnet Jahresunterschied
+    	     int years= datum2.getYear() - datum1.getYear();					// berechnet Jahresunterschied
     	     int days= datum2.getDayOfYear() - datum1.getDayOfYear();			// berechnet Tagesunterschied
     	     days= days + 365 * years + 1;										// berechnet Gesamtuntershied
 

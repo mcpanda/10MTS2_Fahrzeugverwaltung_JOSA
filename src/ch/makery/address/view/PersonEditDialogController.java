@@ -21,6 +21,7 @@ package ch.makery.address.view;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -63,7 +64,7 @@ public class PersonEditDialogController {
     @FXML
     private TextField cityField;
     @FXML
-    private TextField birthdayField;
+    private DatePicker birthdayField;
     @FXML
     private ChoiceBox<String> lizenzBox;
 
@@ -141,7 +142,7 @@ public class PersonEditDialogController {
         lizenzBox.setValue(person.getLizenz());
         postalCodeField.setText(Integer.toString(person.getPostalCode()));
         cityField.setText(person.getCity());
-        birthdayField.setText(DateUtil.format(person.getBirthday()));
+        birthdayField.getEditor().setText(DateUtil.format(person.getBirthday()));
         birthdayField.setPromptText("dd.mm.yyyy");
     }
 
@@ -183,7 +184,7 @@ public class PersonEditDialogController {
             person.setLizenz(lizenzBox.getValue());
             person.setPostalCode(Integer.parseInt(postalCodeField.getText()));
             person.setCity(cityField.getText());
-            person.setBirthday(DateUtil.parse(birthdayField.getText()));
+            person.setBirthday(DateUtil.parse(birthdayField.getEditor().getText()));
 
             okClicked = true;
             dialogStage.close();
@@ -272,10 +273,10 @@ public class PersonEditDialogController {
             errorMessage += "Bitte Führerschein auswählen!\n";
         }
 
-        if (birthdayField.getText() == null || birthdayField.getText().length() == 0) {
+        if (birthdayField.getEditor().getText() == null || birthdayField.getEditor().getText().length() == 0) {
             errorMessage += "Kein gültiges Geburtsdatum!\n";
         } else {
-            if (!DateUtil.validDate(birthdayField.getText())) {
+            if (!DateUtil.validDate(birthdayField.getEditor().getText())) {
                 errorMessage += "Kein gültiges Geburtsdatum. Bitte nutzen Sie das Format dd.mm.yyyy!\n";
             }
         }

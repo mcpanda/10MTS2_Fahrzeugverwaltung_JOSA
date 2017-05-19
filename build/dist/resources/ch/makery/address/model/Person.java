@@ -1,54 +1,104 @@
+/**************************************************************************************************/
+/*! \file
+  FILE         : $Source: Person.java $
+  BESCHREIBUNG : Personenmodel
+                 Modellierung einer Person.
+***************************************************************************************************/
+
+/** \defgroup Model Model
+ *  @{
+ */
+
 package ch.makery.address.model;
 
-import java.time.LocalDate;
+/**************************************************************************/
+/*                                                                        */
+/* Import Section                                                         */
+/*                                                                        */
+/**************************************************************************/
 
+import java.time.LocalDate;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-
 import ch.makery.address.util.LocalDateAdapter;
 
-/**
- * Model class for a Person.
- *
- * @author Marco Jakob
- */
+/***************************************************************************
+CLASS:	Person
+*//*!
+ Die Klasse Person hat als Attribute personID, firstName, lastName, street,
+ postalCode, city, lizenz, ausgeliehen, birthday. <br>
+ Wir nutzen Properties,um mit Hilfe von ObservableLists Änderungen
+ unverzüglich anzeigen zu lassen.
+
+***************************************************************************/
+
 public class Person {
 
-    private final StringProperty firstName;
-    private final StringProperty lastName;
-    private final StringProperty street;
-    private final IntegerProperty postalCode;
-    private final StringProperty city;
-    private final ObjectProperty<LocalDate> birthday;
+	private final IntegerProperty personID;				//!< personID
+    private final StringProperty firstName;				//!< firstName
+    private final StringProperty lastName;				//!< lastName
+    private final StringProperty street;				//!< street
+    private final IntegerProperty postalCode;			//!< postalCode
+    private final StringProperty city;					//!< city
+    private final StringProperty lizenz;				//!< lizenz
+    private final StringProperty ausgeliehen;			//!< ausgeliehen
+    private final ObjectProperty<LocalDate> birthday;	//!< birthday
 
-    /**
-     * Default constructor.
-     */
+	/**************************************************************************/
+	/*                                                                        */
+	/* Constructors                                                           */
+	/*                                                                        */
+	/**************************************************************************/
+
     public Person() {
-        this(null, null);
+        this(0, null, null, null, null, 0, null);
     }
 
-    /**
-     * Constructor with some initial data.
-     *
-     * @param firstName
-     * @param lastName
-     */
-    public Person(String firstName, String lastName) {
+    /***************************************************************************
+    METHODENNAME:	Person
+    *//*!
+     Konstruktor der Klasse Person
+
+     \param   personID, fistName, lastName, street, lizenz, postal, city
+
+     \return  void
+
+    ***************************************************************************/
+
+    public Person(int personID, String firstName, String lastName, String street, String lizenz, int postal, String city) {
+    	this.personID = new SimpleIntegerProperty(personID);
         this.firstName = new SimpleStringProperty(firstName);
         this.lastName = new SimpleStringProperty(lastName);
+        this.street = new SimpleStringProperty(street);
+        this.lizenz = new SimpleStringProperty(lizenz);
+        this.postalCode = new SimpleIntegerProperty(postal);
+        this.city = new SimpleStringProperty(city);
 
-        // Some initial dummy data, just for convenient testing.
-        this.street = new SimpleStringProperty("some street");
-        this.postalCode = new SimpleIntegerProperty(1234);
-        this.city = new SimpleStringProperty("some city");
+        this.ausgeliehen = new SimpleStringProperty("Nein");
         this.birthday = new SimpleObjectProperty<LocalDate>(LocalDate.of(1999, 2, 21));
+    }
+
+	/**************************************************************************/
+	/*                                                                        */
+	/* Getters and Setters													  */
+	/*                                                                        */
+	/**************************************************************************/
+
+    public int getPersonID() {
+        return personID.get();
+    }
+
+    public void setPersonID(int personID) {
+        this.personID.set(personID);
+    }
+
+    public IntegerProperty personIDProperty() {
+        return personID;
     }
 
     public String getFirstName() {
@@ -87,6 +137,30 @@ public class Person {
         return street;
     }
 
+    public String getLizenz() {
+        return lizenz.get();
+    }
+
+    public void setLizenz(String lizenz) {
+        this.lizenz.set(lizenz);
+    }
+
+    public StringProperty lizenzProperty() {
+        return lizenz;
+    }
+
+    public String getAusgeliehen() {
+        return ausgeliehen.get();
+    }
+
+    public void setAusgeliehen(String ausgeliehen) {
+        this.ausgeliehen.set(ausgeliehen);
+    }
+
+    public StringProperty ausgeliehenProperty() {
+        return ausgeliehen;
+    }
+
     public int getPostalCode() {
         return postalCode.get();
     }
@@ -123,4 +197,10 @@ public class Person {
     public ObjectProperty<LocalDate> birthdayProperty() {
         return birthday;
     }
+
+    public String getPersonBeschreibung() {
+    	return this.getPersonID() + " - " + this.getFirstName() + " " + this.getLastName();
+    }
 }
+
+/** @}*/ /*end of doxygen group*/

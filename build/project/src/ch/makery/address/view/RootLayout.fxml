@@ -1,37 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.CheckMenuItem?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.makery.address.view.RootLayoutController">
+<BorderPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.makery.address.view.RootLayoutController">
    <top>
       <MenuBar BorderPane.alignment="CENTER">
         <menus>
           <Menu mnemonicParsing="false" text="File">
             <items>
-              <MenuItem mnemonicParsing="false" onAction="#handleNew" text="New" />
-                  <MenuItem mnemonicParsing="false" onAction="#handleOpen" text="Open..." />
-                  <CheckMenuItem mnemonicParsing="false" onAction="#handleSave" text="Save" />
-                  <MenuItem mnemonicParsing="false" onAction="#handleSaveAs" text="Save As..." />
+              <MenuItem mnemonicParsing="false" onAction="#handleNew" text="Neu" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleOpen" text="Öffnen" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleSave" text="Speichern" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleSaveAs" text="Speichern als" />
                   <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
             </items>
           </Menu>
-            <Menu mnemonicParsing="false" text="Statistics">
-              <items>
-                <MenuItem mnemonicParsing="false" onAction="#handleShowBirthdayStatistics" text="Show Statistics" />
-              </items>
-            </Menu>
-          <Menu mnemonicParsing="false" text="Edit">
+          <Menu mnemonicParsing="false" text="Verwaltung">
             <items>
-              <MenuItem mnemonicParsing="false" text="Delete" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleShowPerson" text="Personen Verwaltung" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleShowFahrzeug" text="Fahrzeug Verwaltung" />
+              <MenuItem mnemonicParsing="false" onAction="#handleShowBuchung" text="Buchung Verwaltung" />
             </items>
           </Menu>
-          <Menu mnemonicParsing="false" text="Help">
+            <Menu mnemonicParsing="false" text="Statistiken">
+              <items>
+                  <MenuItem mnemonicParsing="false" onAction="#handleShowFahrzeugStatistic" text="Fahrzeugausleihhäufigkeit" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleShowFahrzeugTypStatistic" text="Fahrzeugtypenausleihhäufigkeit" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleShowFahrzeugTageStatistic" text="Fahrzeugausleihdauer" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleShowFahrzeugTypTageStatistic" text="Fahrzeugtypausleihdauer" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleShowPersonStatistic" text="Personenausleihdauer" />
+              </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Sortierung">
+              <items>
+                  <MenuItem mnemonicParsing="false" onAction="#handleShowSortedTableNachname" text="Personen nach Nachname" />
+                <MenuItem mnemonicParsing="false" onAction="#handleShowSortedTableVorname" text="Personen nach Vorname" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleShowSortedTableStadt" text="Personen nach Stadt" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleShowSortedTableAusleihende" text="Personen nach Ausleihende" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleShowSortedFahrzeugTableHersteller" text="Fahrzeug nach Hersteller" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleShowSortedFahrzeugTableMarke" text="Fahrzeug nach Marke" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleShowSortedFahrzeugTableLeistung" text="Fahrzeug nach Leistung" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleShowSortedFahrzeugTableKilometerstand" text="Fahrzeug nach Kilometerstand" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleShowSortedFahrzeugTableAusleihende" text="Fahrzeug nach Ausleihende" />
+              </items>
+            </Menu>
+          <Menu mnemonicParsing="false" text="Hilfe">
             <items>
-              <MenuItem mnemonicParsing="false" text="About" />
+              <MenuItem mnemonicParsing="false" onAction="#handleAbout" text="Autoren" />
             </items>
           </Menu>
         </menus>

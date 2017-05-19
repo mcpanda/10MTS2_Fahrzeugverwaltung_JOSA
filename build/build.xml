@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-	<project name="test_java_fx" default="do-deploy" basedir="."  xmlns:fx="javafx:com.sun.javafx.tools.ant">
+	<project name="10MTS2_Fuhrpark_JOSA" default="do-deploy" basedir="."  xmlns:fx="javafx:com.sun.javafx.tools.ant">
 	<target name="init-fx-tasks">
 		<path id="fxant">
-		  <filelist>
-		    <file name="${java.home}\..\lib\ant-javafx.jar"/>
-		    <file name="${java.home}\lib\jfxrt.jar"/>
-		    <file name="${basedir}"/>
-		  </filelist>
+			<filelist>
+				<file name="${java.home}\..\lib\ant-javafx.jar"/>
+				<file name="${java.home}\lib\jfxrt.jar"/>
+				<file name="${basedir}"/>
+			</filelist>
 		</path>
 
 		<taskdef resource="com/sun/javafx/tools/ant/antlib.xml"
@@ -23,7 +23,7 @@
 
 		<mkdir dir="project" />
 		<copy todir="project">
-			<fileset dir="C:\Users\uid40254\workspace_2\test_java_fx">
+			<fileset dir="C:\Users\uid40254\workspace_2\10MTS2_Fuhrpark_JOSA">
 				<include name="src/**" />
 			</fileset>
 		</copy>
@@ -83,30 +83,30 @@
 
 
 		<fx:resources id="appRes">
-		    <fx:fileset dir="dist" includes="AddressApp.jar"/>
-		    <fx:fileset dir="dist" includes="libs/*"/>
-		    <fx:fileset dir="dist" includes="resources/**"/>
+			<fx:fileset dir="dist" includes="10MTS2_Fuhrpark_JOSA.jar"/>
+			<fx:fileset dir="dist" includes="libs/*"/>
+			<fx:fileset dir="dist" includes="resources/**"/>
 		</fx:resources>
 
 		<fx:application id="fxApplication"
-		    name="AddressApp"
-		    mainClass="ch.makery.address.MainApp"
-		    version="1.0"
+			name="Fuhrparkverwaltung_JOSA"
+			mainClass="ch.makery.address.MainApp"
+			version="1.0"
 		/>
 
 		<mkdir dir="build/classes/META-INF" />
 
 
 
-		<fx:jar destfile="dist/test_java_fx.jar">
+		<fx:jar destfile="dist/10MTS2_Fuhrpark_JOSA.jar">
 			<fx:application refid="fxApplication"/>
 			<fileset dir="build/classes">
 			</fileset>
 			<fx:resources refid="appRes"/>
 
 			<manifest>
-				<attribute name="Implementation-Vendor" value="makery.ch"/>
-				<attribute name="Implementation-Title" value="AdressApp"/>
+				<attribute name="Implementation-Vendor" value="JOSA"/>
+				<attribute name="Implementation-Title" value="Fuhrparkverwaltung_JOSA"/>
 				<attribute name="Implementation-Version" value="1.0"/>
 				<attribute name="JavaFX-Feature-Proxy" value="None"/>
 			</manifest>
@@ -121,11 +121,11 @@
 			includeDT="false"
 			offlineAllowed="true"
 			outdir="${basedir}/deploy"
-			outfile="test_java_fx" nativeBundles="exe"
+			outfile="10MTS2_Fuhrpark_JOSA" nativeBundles="exe"
 			updatemode="background" >
 
 			<fx:platform basedir="${java.home}"/>
-			<fx:info title="test_java_fx" vendor="makery.ch"/>
+			<fx:info title="10MTS2_Fuhrpark_JOSA" vendor="JOSA"/>
 
 			<fx:application refId="fxApplication"/>
 			<fx:resources refid="appRes"/>

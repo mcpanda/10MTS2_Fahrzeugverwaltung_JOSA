@@ -1,20 +1,57 @@
+/**************************************************************************************************/
+/*! \file
+  FILE         : $Source: PersonEditController.java $
+  BESCHREIBUNG : Controller
+                 Controller fuer das Dialogfeld zur Personenbearbeitung.
+                 Hierzu zaehlt New, Edit, Delete, Buchung, Suchen
+***************************************************************************************************/
+
+/** \addtogroup View
+ *  @{
+ */
+
 package ch.makery.address.view;
+
+/**************************************************************************/
+/*                                                                        */
+/* Import Section                                                         */
+/*                                                                        */
+/**************************************************************************/
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import java.util.List;
+import ch.makery.address.MainApp;
 import ch.makery.address.model.Person;
 import ch.makery.address.util.DateUtil;
 
-/**
- * Dialog to edit details of a person.
- *
- * @author Marco Jakob
- */
+/***************************************************************************
+CLASS:	PersonEditDialogController
+*//*!
+ Die Klasse PersonEditDialogController hat nur einen Standardkonstruktor
+
+***************************************************************************/
+
 public class PersonEditDialogController {
 
+	private MainApp mainApp;
+
+    private Stage dialogStage;
+    private Person person;
+    private boolean okClicked = false;
+
+	/**************************************************************************/
+	/*                                                                        */
+	/* FXML Field Section                                                     */
+	/*                                                                        */
+	/**************************************************************************/
+
+	@FXML
+    private TextField personIDField;
     @FXML
     private TextField firstNameField;
     @FXML
@@ -27,64 +64,123 @@ public class PersonEditDialogController {
     private TextField cityField;
     @FXML
     private TextField birthdayField;
+    @FXML
+    private ChoiceBox<String> lizenzBox;
 
+	/**************************************************************************/
+	/*                                                                        */
+	/* Local Operation Section                                                */
+	/*                                                                        */
+	/**************************************************************************/
 
-    private Stage dialogStage;
-    private Person person;
-    private boolean okClicked = false;
+    /***************************************************************************
+    METHODENNAME:	initialize
+    *//*!
+     Initialisiert die Controller Klasse. Diese Methode wird automatisch
+     aufgerufen, nachdem die fxml Datei geladen wurde.
 
-    /**
-     * Initializes the controller class. This method is automatically called
-     * after the fxml file has been loaded.
-     */
+     \param   void
+
+     \return  void
+
+    ***************************************************************************/
+
     @FXML
     private void initialize() {
+    	lizenzBox.getItems().addAll("Klasse A", "Klasse A + B", "Klasse A + B + C", "Klasse B", "Klasse B + C");
     }
 
-    /**
-     * Sets the stage of this dialog.
-     *
-     * @param dialogStage
-     */
+    /***************************************************************************
+    METHODENNAME:	setDialogStage
+    *//*!
+     Gibt die Stage des Dialagfeldes an.
+
+     \param   dialogStage
+
+     \return  void
+
+    ***************************************************************************/
+
     public void setDialogStage(Stage dialogStage) {
         this.dialogStage = dialogStage;
     }
 
-    /**
-     * Sets the person to be edited in the dialog.
-     *
-     * @param person
-     */
+    /***************************************************************************
+    METHODENNAME:	setMainApp
+    *//*!
+     Is called by the main application to give a reference back to itself.
+
+     \param   mainApp
+
+     \return  void
+
+    ***************************************************************************/
+
+    public void setMainApp(MainApp mainApp) {
+        this.mainApp = mainApp;
+    }
+
+    /***************************************************************************
+    METHODENNAME:	setPerson
+    *//*!
+     Definiert die Person, welche bearbeitet werden soll.
+
+     \param   Person
+
+     \return  void
+
+    ***************************************************************************/
+
     public void setPerson(Person person) {
         this.person = person;
 
+        personIDField.setText(Integer.toString(person.getPersonID()));
         firstNameField.setText(person.getFirstName());
         lastNameField.setText(person.getLastName());
         streetField.setText(person.getStreet());
+        lizenzBox.setValue(person.getLizenz());
         postalCodeField.setText(Integer.toString(person.getPostalCode()));
         cityField.setText(person.getCity());
         birthdayField.setText(DateUtil.format(person.getBirthday()));
         birthdayField.setPromptText("dd.mm.yyyy");
     }
 
-    /**
-     * Returns true if the user clicked OK, false otherwise.
-     *
-     * @return
-     */
+    /***************************************************************************
+    METHODENNAME:	isOkClicked
+    *//*!
+     Gibt ein TRUE aus, wenn [OK] geklickt wurde.
+
+     \param   void
+
+     \return  Boolean
+
+    ***************************************************************************/
+
     public boolean isOkClicked() {
         return okClicked;
     }
 
-    /**
-     * Called when the user clicks ok.
-     */
+    /***************************************************************************
+    METHODENNAME:	handleOk
+    *//*!
+     Handler fuer OK. Dieser handler wird ausgefuehrt, wenn [OK] geklickt wurde.
+	 Neue Personendaten werden gespeichert.
+
+     \param   void
+
+     \return  void
+
+    ***************************************************************************/
+
     @FXML
     private void handleOk() {
-        if (isInputValid()) {
+        if (isInputValid(mainApp.getPersonData())) {
+
+        	person.setPersonID(Integer.parseInt(personIDField.getText()));
             person.setFirstName(firstNameField.getText());
             person.setLastName(lastNameField.getText());
             person.setStreet(streetField.getText());
+            person.setLizenz(lizenzBox.getValue());
             person.setPostalCode(Integer.parseInt(postalCodeField.getText()));
             person.setCity(cityField.getText());
             person.setBirthday(DateUtil.parse(birthdayField.getText()));
@@ -94,52 +190,93 @@ public class PersonEditDialogController {
         }
     }
 
-    /**
-     * Called when the user clicks cancel.
-     */
+    /***************************************************************************
+    METHODENNAME:	handleCancel
+    *//*!
+     Handler fuer Cancel. Dieser handler wird ausgefuehrt, wenn [Cancel] geklickt
+     wurde. Dialogfenster wird geschlossen, ohne neue Personendaten zu speichern.
+
+     \param   void
+
+     \return  void
+
+    ***************************************************************************/
+
     @FXML
     private void handleCancel() {
         dialogStage.close();
     }
 
-    /**
-     * Validates the user input in the text fields.
-     *
-     * @return true if the input is valid
-     */
-    private boolean isInputValid() {
+    /***************************************************************************
+    METHODENNAME:	isInputValid
+    *//*!
+     Ueberpruefung der eingegeben Daten. Sollten nicht konforme Daten vorhanden
+     sein, so wird eine Fehlermeldung ausgegeben.
+
+     \param   void
+
+     \return  Boolean
+
+    ***************************************************************************/
+
+    private boolean isInputValid(List<Person> persons) {
         String errorMessage = "";
 
-        if (firstNameField.getText() == null || firstNameField.getText().length() == 0) {
-            errorMessage += "No valid first name!\n";
-        }
-        if (lastNameField.getText() == null || lastNameField.getText().length() == 0) {
-            errorMessage += "No valid last name!\n";
-        }
-        if (streetField.getText() == null || streetField.getText().length() == 0) {
-            errorMessage += "No valid street!\n";
+        /* Ueberpruefe PersonenID */
+        if (personIDField.getText() == null || personIDField.getText().length() == 0 || Integer.parseInt(personIDField.getText()) < 1) {
+            errorMessage += "Keine gültige PersonID!\n";
+        } else {
+            // try to parse the ID code into an int.
+            try {
+                Integer.parseInt(personIDField.getText());
+            } catch (NumberFormatException e) {
+                errorMessage += "Keine gültige PersonID (PersonID muss eine Zahl sein)!\n";
+            }
         }
 
-        if (postalCodeField.getText() == null || postalCodeField.getText().length() == 0) {
-            errorMessage += "No valid postal code!\n";
+        /* Pruefe ob PersonenID bereits exitiert */
+        if (Integer.parseInt(personIDField.getText()) != person.getPersonID()) {
+        	for(Person p : persons) {
+            	if (Integer.parseInt(personIDField.getText()) == p.getPersonID()) {
+            		errorMessage += "PersonID existiert bereits schon";
+            	}
+            }
+        }
+
+        if (firstNameField.getText() == null || firstNameField.getText().length() == 0) {
+            errorMessage += "Kein gültiger Vorname!\n";
+        }
+        if (lastNameField.getText() == null || lastNameField.getText().length() == 0) {
+            errorMessage += "Kein gültiger Nachnahme!\n";
+        }
+        if (streetField.getText() == null || streetField.getText().length() == 0) {
+            errorMessage += "Keine gültige Strasse!\n";
+        }
+
+        if (postalCodeField.getText() == null || postalCodeField.getText().length() != 5) {
+            errorMessage += "Keine gültige PLZ! PLZ muss aus genau 5 Ziffern bestehen!\n";
         } else {
             // try to parse the postal code into an int.
             try {
                 Integer.parseInt(postalCodeField.getText());
             } catch (NumberFormatException e) {
-                errorMessage += "No valid postal code (must be an integer)!\n";
+                errorMessage += "Keine gültige PLZ (PLZ muss eine fünfstellige Zahl sein)!\n";
             }
         }
 
         if (cityField.getText() == null || cityField.getText().length() == 0) {
-            errorMessage += "No valid city!\n";
+            errorMessage += "Keine gültige Stadt!\n";
+        }
+
+        if (lizenzBox.getValue() == null || lizenzBox.getValue().length() == 0) {
+            errorMessage += "Bitte Führerschein auswählen!\n";
         }
 
         if (birthdayField.getText() == null || birthdayField.getText().length() == 0) {
-            errorMessage += "No valid birthday!\n";
+            errorMessage += "Kein gültiges Geburtsdatum!\n";
         } else {
             if (!DateUtil.validDate(birthdayField.getText())) {
-                errorMessage += "No valid birthday. Use the format dd.mm.yyyy!\n";
+                errorMessage += "Kein gültiges Geburtsdatum. Bitte nutzen Sie das Format dd.mm.yyyy!\n";
             }
         }
 
@@ -149,8 +286,8 @@ public class PersonEditDialogController {
             // Show the error message.
             Alert alert = new Alert(AlertType.ERROR);
             alert.initOwner(dialogStage);
-            alert.setTitle("Invalid Fields");
-            alert.setHeaderText("Please correct invalid fields");
+            alert.setTitle("Ungültige Eingabe");
+            alert.setHeaderText("Bitte korrigieren Sie die ungültigen Eingaben");
             alert.setContentText(errorMessage);
 
             alert.showAndWait();
@@ -159,3 +296,5 @@ public class PersonEditDialogController {
         }
     }
 }
+
+/** @}*/ /*end of doxygen group*/
